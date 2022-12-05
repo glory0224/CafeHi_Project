@@ -47,8 +47,11 @@ public class UserServiceImpl implements UserService{
 			}
 				return null;	
 			}
+		
 
-	
+		
+		
+		
 	// 정보 수정 
 	@Override
 	public void updateUserId(UserDTO user) {
@@ -76,5 +79,7 @@ public class UserServiceImpl implements UserService{
 		userDAO.updateUserDetailAddress(user);
 		
 	}
+
+	
 
 }

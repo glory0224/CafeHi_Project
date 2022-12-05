@@ -21,6 +21,7 @@ public class UserDAO {
 		
 	}
 	
+	
 	public UserDTO getUser(UserDTO user) {
 		return sqlSessionTemplate.selectOne("UserDAO.getUser", user);
 	}

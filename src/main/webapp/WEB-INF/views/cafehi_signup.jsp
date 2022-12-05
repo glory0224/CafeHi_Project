@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +23,7 @@
 <form class="container" action="insertUser.do" method="post" id="userForm">
 	<h1 class="text-center m-5">회원 가입</h1>
   <div class="m-5">
-    <h4><label for="userId" class="form-label">아이디</label></h4>
+    <h4><label for="userId" class="form-label">아이디</label><button class="btn btn-sm btn-success float-end" type="button" onclick="location.href='IdCheck.do'">중복확인</button></h4>
     <input type="text" id="userId" class="form-control" placeholder="영문, 숫자 포함 6 - 20자" name="user_id">
   </div>
     <div class="m-5">
@@ -73,7 +74,7 @@
      </div>
 <div class="d-flex justify-content-end">
 	<div style="margin-top: 40px;">
-      <input class="btn btn-md btn-success " type="button" value="회원가입" onclick="check();">
+      <input id="signup" class="btn btn-md btn-success " type="button" value="회원가입" onclick="check();">
       <!-- <input class="btn btn-md btn-success " type="submit" value="회원가입" > -->
       </div>
 </div>
@@ -137,6 +138,25 @@
         }).open();
     }
 </script>
-
+<!-- <script type="text/javascript">
+	$("#overlappedID").click(function(){
+		$("#signup").attr("type", "button");
+		const id = $("#userId").val();
+		$.ajax({
+			type: "get",
+			async: false,
+			url: "http://localhost:8080/cafeHi/idCheck",
+			data: {id: id},
+			success: function (data){
+				if(data == 1){
+					$("#olmessage").text("이미 사용중인 ID 입니다.");
+				}else{
+					$("#olmessage").text("사용 가능한 ID 입니다.");
+					$("#signup").attr("type", "submit");
+				}
+			}
+		})
+	});
+</script> -->
 
 </html>
