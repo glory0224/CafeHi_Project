@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="QnADAO">
+ 	<resultMap type="QnA" id="QnAResult">
+ 		<id property="qna_num" column="QNA_NUM"/>
+ 		<result property="qna_title" column="QNA_TITLE"/>
+ 		<result property="qna_content" column="QNA_CONTENT"/>
+ 		<result property="qna_writetime" column="QNA_WRITETIME"/>
+ 		<result property="qna_hit" column="QNA_HIT" />
+ 		<result property="qna_select" column="QNA_SELECT" />
+ 		<result property="qna_search" column="QNA_SEARCH" />
+ 		<result property="upload_path" column="UPLOAD_PATH" />
+ 		<association property="user_seq" javaType="User" column="USER_SEQ" resultMap="UserResult">
+	 		<id property="user_seq" column="USER_SEQ"/>
+	 		<result property="user_id" column="USER_id"/>
+	 		<result property="user_pw" column="USER_PW"/>
+	 		<result property="user_name" column="USER_NAME"/>
+	 		<result property="user_contact" column="USER_CONTACT"/>
+	 		<result property="user_address" column="USER_ADDRESS"/>
+ 		</association>
+ 		<association property="admin_id" javaType="Admin" column="ADMIN_ID" resultMap="AdminResult"/>
+ 	</resultMap>
+ 	
+ <!-- 	<resultMap type="User" id="UserResult">
+ 		<id property="user_id" column="USER_ID"/>
+ 		<result property="user_seq" column="USER_SEQ"/>
+ 		<result property="user_pw" column="USER_PW"/>
+ 		<result property="user_name" column="USER_NAME"/>
+ 		<result property="user_contact" column="USER_CONTACT"/>
+ 		<result property="user_address" column="USER_ADDRESS"/>
+ 	</resultMap> -->
+ 	
+ 	<resultMap type="Admin" id="AdminResult">
+ 		<id property="admin_id" column="ADMIN_ID"/>
+ 		<result property="admin_seq" column="ADMIN_SEQ"/>
+ 		<result property="admin_pw" column="ADMIN_PW"/>
+ 		<result property="admin_name" column="ADMIN_NAME"/>
+ 		<result property="admin_contact" column="ADMIN_CONTACT"/>
+ 	</resultMap>
+ 	
+ 	<!-- 검색 조건문 --> 	
+<!-- 	<sql id="criteria">
+		<trim prefix="AND (" suffix=")" prefixOverrides="OR">
+			<foreach collection="typeArr" item="type">
+				<trim prefix="OR">
+					<choose>
+						<when test="type== 'T'.toString()">
+							qna_title like '%'||#{keyword}||'%'
+						</when>
+						<when test="type== 'C'.toString()">
+							qna_content like '%'||#{keyword}||'%' 
+						</when>
+						<when test="type== 'W'.toString()">
+							user_id like '%'||#{keyword)||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql> -->
+ 	
+ 	
+ 	<!-- 전체 게시글 개수 조회 -->
+ 	
+ 	<select id="getQnANum" resultType="int">
+ 			SELECT COUNT(*) FROM cafehi_qna
+ 			
+ 			<if test="keyword != null">
+ 				WHERE qna_title LIKE '%'||#{keyword}||'%'
+ 			</if>
+ 			
+ 			<!-- <if test="keyword != null">
+ 				where qna_num > 0 <include refid="criteria"></include>
+ 			</if> -->
+ 	
+ 	</select>
+ 	
+ 	
+ 	<!-- 페이징 게시글 리스트 조회 -->
+  <select id="getQnAList" resultType="QnA">
+ 		
+
+ 	
+ 	SELECT qna_num, qna_title, qna_content, qna_writetime, qna_hit, user_id FROM(
+	
+	SELECT rownum rn, q.qna_num, q.qna_title, q.qna_content, q.qna_writetime,q.qna_hit, u.user_id FROM
+	
+	(SELECT * FROM cafehi_qna ORDER BY qna_num DESC) q, cafehi_user u
+	
+	WHERE u.user_seq = q.user_seq
+	<if test="keyword != null">
+          AND q.qna_title like '%'||#{keyword}||'%' 
+    </if>
+	)
+	 <![CDATA[
+	 	WHERE rn > (#{pageNum} -1) * #{amount} AND rn <= #{pageNum} * #{amount}
+	 ]]>
+
+ 	
+ 	</select>
+
+	<!-- 게시글 조회 -->
+	<select id="getQnA" resultType="QnA">
+		SELECT  * FROM(
+		SELECT q.qna_num, q.qna_title, q.qna_content, q.qna_writetime, q.qna_hit, u.user_id, q.upload_path, q.filename FROM cafehi_qna q, cafehi_user u WHERE u.user_seq = q.user_seq
+		)
+		  WHERE qna_num=#{qna_num}
+	</select>
+
+	<!-- 게시글 작성  -->
+	<insert id="insertQnA" parameterType="QnA">
+		INSERT INTO cafehi_qna (qna_num, qna_title, qna_writetime, qna_hit, user_seq, qna_content, upload_path, filename)
+		VALUES((select nvl(max(qna_num), 0)+1 from cafehi_qna), #{qna_title}, #{qna_writetime}, #{qna_hit}, #{user_seq}, #{qna_content}, #{upload_path}, #{fileName})
+	</insert>
+	
+	<!-- 게시글 수정 -->
+	<update id="updateQnA" parameterType="QnA">
+		UPDATE cafehi_qna 
+		SET qna_title=#{qna_title}, qna_content=#{qna_content} WHERE qna_num=#{qna_num}
+	</update>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="deleteQnA" parameterType="QnA">
+		DELETE FROM cafehi_qna WHERE qna_num=#{qna_num}
+	</delete>	
+ 	
+ </mapper>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserDAO">
+ 	<resultMap type="User" id="UserResult">
+ 		<id property="user_seq" column="USER_SEQ"/>
+ 		<result property="user_id" column="USER_ID"/>
+ 		<result property="user_pw" column="USER_PW"/>
+ 		<result property="user_name" column="USER_NAME"/>
+ 		<result property="user_contact" column="USER_CONTACT"/>
+ 		<result property="user_address" column="USER_ADDRESS"/>
+ 	</resultMap>
+ 	<insert id="insertUser" parameterType="User">
+ 		INSERT INTO cafehi_user VALUES((select nvl(max(user_seq), 0)+1 from cafehi_user), #{user_id}, #{user_pw},#{user_name},#{user_contact},#{user_road_address},#{user_jibun_address},#{user_detail_address})
+ 	</insert>
+ 	
+ 	<update id="updateUser" parameterType="User">
+ 		UPDATE cafehi_user
+ 		SET  user_id = #{user_id}, user_pw = #{user_pw}, user_name = #{user_name}, user_contact = #{user_contact}, user_address = #{user_address} 
+ 		WHERE user_seq = #{user_seq} 
+ 	</update>
+ 	
+ 	
+ 	<update id="updateUserId" parameterType="User">
+ 		UPDATE cafehi_user
+ 		SET user_id = #{user_id}
+ 		WHERE user_seq = #{user_seq}
+ 	</update>
+ 	
+ 	<update id="updateUserName" parameterType="User">
+ 		UPDATE cafehi_user
+ 		SET user_name = #{user_name}
+ 		WHERE user_seq = #{user_seq}
+ 	</update>
+ 	
+ 	<update id="updateUserContact" parameterType="User">
+ 		UPDATE cafehi_user
+ 		SET user_contact = #{user_contact}
+ 		WHERE user_seq = #{user_seq}
+ 	</update>
+ 	
+ 	<update id="updateUserAddress" parameterType="User">
+ 		UPDATE cafehi_user
+ 		SET user_road_address = #{user_road_address}, user_jibun_address = #{user_jibun_address}
+ 		WHERE user_seq = #{user_seq}
+ 	</update>
+ 	
+ 	<update id="updateUserDetailAddress" parameterType="User">
+ 		UPDATE cafehi_user
+ 		SET user_detail_address = #{user_detail_address}
+ 		WHERE user_seq = #{user_seq}
+ 	</update>
+ 	
+ 	
+ 	
+ 	<delete id="deleteUser" parameterType="User">
+ 		DELETE FROM cafehi_user WHERE user_seq = #{user_seq}
+ 	</delete>
+ 	
+ 	<select id="getUserId" parameterType="String" resultMap="UserResult">
+ 		SELECT * FROM cafehi_user 
+ 		WHERE user_id = #{find_id}
+ 	</select>
+ 	
+ 	<select id="getUser" parameterType="User" resultType="User">
+ 		SELECT * FROM cafehi_user
+ 		WHERE user_seq = #{user_seq}
+ 	</select>
+ 	
+ 	
+ 	
+</mapper>

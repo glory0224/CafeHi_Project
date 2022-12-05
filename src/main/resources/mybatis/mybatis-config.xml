@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-config.dtd">
+ <configuration>
+ 
+ 	<!-- oracle null 처리, mybatis-config 파일은 태그의 순서를 지키면서 처리해야 오류가 안난다.   -->
+ 	<!-- https://chemeez.tistory.com/106 글 참조 -->
+	<settings>
+ 		<setting name="cacheEnabled" value="true"/>
+ 		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+ 	<typeAliases>
+ 		<typeAlias type="com.cafeHi.www.user.dto.UserDTO" alias="User"/>
+ 		<typeAlias type="com.cafeHi.www.board.qna.dto.QnADTO" alias="QnA"/>
+ 		<typeAlias type="com.cafeHi.www.common.dto.SearchDTO" alias="Search"/>
+ 		<typeAlias type="com.cafeHi.www.admin.dto.adminDTO" alias="Admin"/>
+ 	</typeAliases>
+
+	 
+	
+	
+ 	<mappers>
+ 		<mapper resource="mappings/user-mappings.xml"/>
+ 		<mapper resource="mappings/qna-mappings.xml"/>
+ 		<mapper resource="mappings/admin-mappings.xml"/>
+ 	</mappers>
+ 	
+ </configuration>
+ 
+ 
+ 
