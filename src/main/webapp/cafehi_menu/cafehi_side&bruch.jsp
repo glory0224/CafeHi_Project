@@ -29,7 +29,7 @@
 		</div>
 		<div class="col">
 			<div class="card shadow-sm">
-				<img alt="" src="/cafeHi/img/cafehi_logo.jpeg"
+				<img alt="" src="/cafeHi/img/menu/side/WhippedCreamCrople.jpg"
 					width="100%" height="400">
 				<div class="card-body">
 					<p class="card-text text-center">생크림 크로플</p>
