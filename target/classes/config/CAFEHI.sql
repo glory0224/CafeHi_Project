@@ -21,6 +21,11 @@ insert into cafehi_user values(2, 'user2', '5678', '유저투', '11111111', '부산')
 insert into cafehi_admin values(1, 'admin1', '1234', '관리자1', '12341234');
 commit;
 
+-- 관리자 예시 계정 
+
+-- QnA 게시글 샘플 
+
+
 -- 더미 데이터 생성(오류가 발생함 - 왜일까?) 
 --BEGIN
 --FOR i IN 1..50 LOOP
@@ -31,6 +36,10 @@ commit;
 
 -- 조인 사용해보기 
 
+--SELECT qna_num, qna_title, qna_content, qna_writetime, qna_hit, user_id FROM(
+--SELECT qna_num, qna_title, qna_content, qna_writetime, qna_hit, user_id FROM(
+
+-- SELECT rn, qna_num, qna_title, qna_content, qna_writetime, qna_hit, user_id FROM(
 
 SELECT rownum rn, q.qna_num, q.qna_title, q.qna_content, q.qna_writetime,q.qna_hit, u.user_id
 FROM cafehi_user u, cafehi_qna q
@@ -51,6 +60,8 @@ create table cafehi_user(
     user_pw varchar2(30),
     user_name varchar2(15),
     user_contact varchar2(15),
+    user_email_id varchar2(50), -- 사용자 계정 인증용
+    user_email_address varchar2(20), -- 사용자 계정 인증용
     user_road_address varchar2(100),
     user_jibun_address varchar2(100),
     user_detail_address varchar2(100)
@@ -209,14 +220,3 @@ drop table cafehi_sub_category;
 drop table cafehi_category;
 drop table cafehi_menu;
 drop table cafehi_option;
-
-
-
-
-
-
-
-
-
-    
-    
