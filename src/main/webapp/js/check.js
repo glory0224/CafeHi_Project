@@ -1,11 +1,13 @@
 // JS 유효성 검사
 function check() {
 	
-	var userId = document.getElementById('userId');
+	var userId = document.getElementById('user_id');
 	var userName = document.getElementById('userName');
 	var userPassword = document.getElementById('userPassword');
 	var checkPassword = document.getElementById('checkPassword');
 	var contact = document.getElementById('userContact');
+	var userEmailId = document.getElementById('userEmailId');
+	var userEmailAddress = document.getElementById('userEmailAddress');
 	var detailAddress = document.getElementById('userDetailAddress');
 	var privacyCheck = document.getElementById('privacyCheck').checked;
 	
@@ -33,7 +35,15 @@ function check() {
 		alert('연락처를 입력해주세요');
 		contact.focus();
 		return;
-	}  else if (detailAddress.value == "") {
+	} else if (userEmailId.value == "") {
+		alert('이메일 아이디를 입력해주세요');
+		userEmailId.focus();
+		return;
+	} else if (userEmailAddress.value == "") {
+		alert('이메일 주소를 선택해주세요');
+		userEmailAddress.focus();
+		return;
+	} else if (detailAddress.value == "") {
 		alert('상세주소를 입력해주세요');
 		detailAddress.focus();
 		return;
@@ -83,11 +93,11 @@ function pwCheck() {
 	userPassword = document.getElementById('userPassword');
 	checkPassword = document.getElementById('checkPassword');
 	if (userPassword.value == checkPassword.value) {
-		document.getElementById('pwcheck').innerHTML = "<span style='color: green;'>비밀번호가 서로 일치합니다.</span>'";
+		document.getElementById('pwcheck').innerHTML = "<span style='color: green;'>비밀번호가 서로 일치합니다.</span>";
 		
 		
 	} else {
-		document.getElementById('pwcheck').innerHTML = "<span style='color: green;'>비밀번호가 서로 일치하지 않습니다.</span>'";
+		document.getElementById('pwcheck').innerHTML = "<span style='color: red;'>비밀번호가 서로 일치하지 않습니다.</span>";
 		
 		userPassword.value = "";
 		checkPassword.value = "";

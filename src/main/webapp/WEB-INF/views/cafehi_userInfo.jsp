@@ -32,6 +32,10 @@
   	<h3><b>${UserContact }</b></h3>
   </div>
   <div class="m-5">
+    <label for="contact" class="form-label">이메일</label>
+  	<h3><b>${UserEmailId}${UserEmailAddress }</b></h3>
+  </div>
+  <div class="m-5">
     <label for="address" class="form-label">도로명 주소</label>
     <c:if test="${UserRoadAddress eq null }">
   	<h3><b>없음</b></h3>

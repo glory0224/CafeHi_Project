@@ -12,7 +12,7 @@
  		<result property="user_address" column="USER_ADDRESS"/>
  	</resultMap>
  	<insert id="insertUser" parameterType="User">
- 		INSERT INTO cafehi_user VALUES((select nvl(max(user_seq), 0)+1 from cafehi_user), #{user_id}, #{user_pw},#{user_name},#{user_contact},#{user_road_address},#{user_jibun_address},#{user_detail_address})
+ 		INSERT INTO cafehi_user VALUES((select nvl(max(user_seq), 0)+1 from cafehi_user), #{user_id}, #{user_pw},#{user_name},#{user_contact},#{user_email_id}, #{user_email_address}, #{user_road_address},#{user_jibun_address},#{user_detail_address})
  	</insert>
  	
  	<update id="updateUser" parameterType="User">
@@ -37,6 +37,12 @@
  	<update id="updateUserContact" parameterType="User">
  		UPDATE cafehi_user
  		SET user_contact = #{user_contact}
+ 		WHERE user_seq = #{user_seq}
+ 	</update>
+ 	
+ 	<update id="updateUserEmail" parameterType="User">
+ 		UPDATE cafehi_user
+ 		SET user_email_id = #{user_email_id}, user_email_address = #{user_email_address}
  		WHERE user_seq = #{user_seq}
  	</update>
  	

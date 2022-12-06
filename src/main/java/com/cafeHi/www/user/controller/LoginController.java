@@ -41,22 +41,11 @@ public class LoginController {
 	public String login(UserDTO user, HttpServletRequest request, HttpSession session) throws Exception {
 
 		if (user != null) {
-			// service 부분에서 검증해야할 키 : id 중복체크를 하고 id를 넘겨서 user 정보를 받을지, seq를 넘겨서 id 중복 체크 없이
-			// 그냥 받을지?
-			// seq를 넘기고 해당하는 계정 정보를 받아오는 service 로직 구현
-			// 아이디와 비밀번호를 입력받기 때문에 seq로 체크하는 건 좋지 않아보인다. id로 체크해본다.
-			System.out.println("확인");
-
-			/*
-			 * if (bindingResult.hasErrors()){ System.out.println("필드값의 에러"); return
-			 * "cafehi_login"; }
-			 */
 
 			String find_id = user.getUser_id();
 			UserDTO getUser = userService.getUserId(find_id);
 
 			System.out.println("가져온 아이디 :" + find_id);
-			// System.out.println("가져온 비밀번호 :" + getUser.getUser_pw());
 
 			if (getUser == null) {
 				request.setAttribute("msg", "계정이 존재하지 않습니다.");
@@ -75,6 +64,8 @@ public class LoginController {
 				session.setAttribute("UserId", getUser.getUser_id());
 				session.setAttribute("UserName", getUser.getUser_name());
 				session.setAttribute("UserContact", getUser.getUser_contact());
+				session.setAttribute("UserEmailId", getUser.getUser_email_id());
+				session.setAttribute("UserEmailAddress", getUser.getUser_email_address());
 				session.setAttribute("UserRoadAddress", getUser.getUser_road_address());
 				session.setAttribute("UserJibunAddress", getUser.getUser_jibun_address());
 				session.setAttribute("UserDetailAddress", getUser.getUser_detail_address());

@@ -7,6 +7,8 @@ public class UserDTO {
 	private String user_pw;
 	private String user_name;
 	private String user_contact;
+	private String user_email_id; // 계정 찾기 목적
+	private String user_email_address; // 계정 찾기 목적
 	private String user_road_address;
 	private String user_jibun_address;
 	private String user_detail_address;
@@ -18,7 +20,6 @@ public class UserDTO {
 	
 	}
 
-	
 
 
 
@@ -85,13 +86,42 @@ public class UserDTO {
 		this.user_jibun_address = user_jibun_address;
 	}
 
+	public String getUser_email_id() {
+		return user_email_id;
+	}
+
+
+	public String getUser_email_address() {
+		return user_email_address;
+	}
+
+
+	public void setUser_email_id(String user_email_id) {
+		this.user_email_id = user_email_id;
+	}
+
+
+	public void setUser_email_address(String user_email_address) {
+		this.user_email_address = user_email_address;
+	}
+
+
+
 
 	@Override
 	public String toString() {
 		return "UserDTO [user_seq=" + user_seq + ", user_id=" + user_id + ", user_pw=" + user_pw + ", user_name="
-				+ user_name + ", user_contact=" + user_contact + ", user_road_address=" + user_road_address
+				+ user_name + ", user_contact=" + user_contact + ", user_email_id=" + user_email_id
+				+ ", user_email_address=" + user_email_address + ", user_road_address=" + user_road_address
 				+ ", user_jibun_address=" + user_jibun_address + ", user_detail_address=" + user_detail_address + "]";
 	}
+
+
+
+
+
+
+	
 
 
 

@@ -86,6 +86,11 @@ public class UserServiceImpl implements UserService{
 		
 	}
 
+	@Override
+	public void updateUserEmail(UserDTO user) {
+		userDAO.updateUserEmail(user);
+	}
+
 	
 	
 

@@ -9,7 +9,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 <link href="/cafeHi/css/main.css" rel="stylesheet" >
 <!-- 유효성 검사 js  -->
-<script src="/cafehi/js/check.js"></script>
+<script src="/cafeHi/js/check.js"></script>
 
 </head>
 <body>
@@ -44,6 +44,15 @@
   	<input type="text" id="user_contact" class="form-control" name="user_contact" value="${UserContact }" readonly="readonly">
   	<div class="ms-3">
 	<input class="btn btn-md btn-success " data-bs-toggle="modal" data-bs-target="#user_contact_modal" type="button" value="변경">
+	</div>
+	</div>
+  </div>
+  <div class="m-5">
+    <label for="user_email_id" class="form-label">메일</label>
+ 	<div class="d-flex justify-content-between">
+  	<input type="text" id="user_email_id" class="form-control" name="user_email_id" value="${UserEmailId}${UserEmailAddress}" readonly="readonly">
+  	<div class="ms-3">
+	<input class="btn btn-md btn-success " data-bs-toggle="modal" data-bs-target="#user_email_modal" type="button" value="변경">
 	</div>
 	</div>
   </div>
@@ -136,6 +145,41 @@
       	<label for="user_contact" class="form-label">변경할 전화번호를 입력하세요.</label>
       	<input name="user_seq" value="${UserSeq }" type="hidden" /> 
         <input type="text" id="user_contact" class="form-control" name="user_contact" placeholder="${UserContact }">
+      </div>
+      <div class="modal-footer">
+     
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal">취소</button>
+        <input class="btn btn-md btn-success " type="submit" value="변경">
+      </div>
+    </div>
+     </form>
+  </div>
+</div>
+
+<div class="modal fade" id="user_email_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <form action="updateUserEmail.do">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>${UserName }</b>님의 회원정보 중 이메일을 수정하기 <br> 위한 페이지입니다.</h1>
+        <div class="ms-3">
+        <button type="button" class="btn-close btn-success " data-bs-dismiss="modal" aria-label="Close"></button>
+      	</div>
+      </div>
+      <div class="modal-body">
+      	<label for="user_contact" class="form-label">변경할 이메일을 입력하세요.</label>
+      	<input name="user_seq" value="${UserSeq }" type="hidden" /> 
+      	<div class="d-flex justify-content-between">
+        <input type="text" id="userEmailId" class="form-control" name="user_email_id" placeholder="${UserEmailId }"> &nbsp;
+        <select class="form-select" aria-label="Default select example" name="user_email_address" id="userEmailAddress">
+	    	<option value="">선택</option>
+	    	<option>@naver.com</option>
+	    	<option>@daum.net</option>
+			<option>@gmail.com</option>
+			<option>@hanmail.com</option>
+		 	<option>@yahoo.co.kr</option>
+    	</select>
+    	</div>      
       </div>
       <div class="modal-footer">
      

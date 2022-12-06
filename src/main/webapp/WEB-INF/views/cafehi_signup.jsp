@@ -48,6 +48,20 @@
     <input type="text" id="userContact" class="form-control" placeholder="연락처를 입력하세요." name="user_contact" maxlength="13">
   </div>
   <div class="m-5">
+    <h4><label for="userEmailId " class="form-label">이메일</label></h4>
+    <div class="d-flex justify-content-between">
+    <input type="text" id="userEmailId" class="form-control" placeholder="이메일을 입력하세요." name="user_email_id"> &nbsp;
+    <select class="form-select" aria-label="Default select example" id="userEmailAddress" name="user_email_address" >
+    	<option value="">선택</option>
+    	<option>@naver.com</option>
+    	<option>@daum.net</option>
+		<option>@gmail.com</option>
+		<option>@hanmail.com</option>
+	 	<option>@yahoo.co.kr</option>
+    </select>
+  </div>
+  </div> 
+  <div class="m-5">
   <h4><label for="user_address" class="form-label">주소</label> <input class="btn btn-sm btn-success float-end" type="button" onclick="find_address()" value="주소 찾기"></h4>
     
    <div class="mt-3">

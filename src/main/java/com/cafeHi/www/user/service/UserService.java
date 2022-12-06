@@ -18,5 +18,6 @@ public interface UserService {
 	public void updateUserContact(UserDTO user);
 	public void updateUserAddress(UserDTO user);
 	public void updateUserDetailAddress(UserDTO user);
+	public void updateUserEmail(UserDTO user);
 	
 }

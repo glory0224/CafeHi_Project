@@ -47,22 +47,22 @@ public class UserController {
 	// 하지만 결국 database에 null로 들어온 값을 그대로 넣는것이 아니라 변경된 정보는 변경된 정보대로, 변경하지 않는 정보는 기존의 데이터로 넣는 방법을 모르겠다. 
 	// 따라서 그냥 view 부분에서 각각 수정해주도록 하는 방식으로 변경하고자 한다. (22/11/29)
 	// -> mybatis-config.xml 파일에 settings 태그로 null 처리 하는 방법을 찾아냈다. 
-	@RequestMapping("/updateUser.do")
-	public String updateUser(UserDTO user, HttpSession session) {
-		System.out.println("로직 실행 전 : " + user.getUser_name());
-		userService.updateUser(user);
-		
-		System.out.println("로직 실행 후 " + user.getUser_name());
-		
-		session.setAttribute("UserId", user.getUser_id());
-		session.setAttribute("UserName", user.getUser_name());
-		session.setAttribute("UserContact", user.getUser_contact());
-		session.setAttribute("UserRoadAddress", user.getUser_road_address());
-		session.setAttribute("UserJibunAddress", user.getUser_jibun_address());
-		session.setAttribute("UserDetailAddress", user.getUser_detail_address());
-		
-		return "cafehi_userInfo";
-	}
+//	@RequestMapping("/updateUser.do")
+//	public String updateUser(UserDTO user, HttpSession session) {
+//		System.out.println("로직 실행 전 : " + user.getUser_name());
+//		userService.updateUser(user);
+//		
+//		System.out.println("로직 실행 후 " + user.getUser_name());
+//		
+//		session.setAttribute("UserId", user.getUser_id());
+//		session.setAttribute("UserName", user.getUser_name());
+//		session.setAttribute("UserContact", user.getUser_contact());
+//		session.setAttribute("UserRoadAddress", user.getUser_road_address());
+//		session.setAttribute("UserJibunAddress", user.getUser_jibun_address());
+//		session.setAttribute("UserDetailAddress", user.getUser_detail_address());
+//		
+//		return "cafehi_userInfo";
+//	}
 	
 	
 	@RequestMapping("/updateUserId.do")
@@ -87,6 +87,8 @@ public class UserController {
 		session.setAttribute("UserId", user.getUser_id());
 		session.setAttribute("UserName", user.getUser_name());
 		session.setAttribute("UserContact", user.getUser_contact());
+		session.setAttribute("UserEmailId", user.getUser_email_id());
+		session.setAttribute("UserEmailAddress", user.getUser_email_address());
 		session.setAttribute("UserRoadAddress", user.getUser_road_address());
 		session.setAttribute("UserJibunAddress", user.getUser_jibun_address());
 		session.setAttribute("UserDetailAddress", user.getUser_detail_address());
@@ -101,6 +103,23 @@ public class UserController {
 		session.setAttribute("UserId", user.getUser_id());
 		session.setAttribute("UserName", user.getUser_name());
 		session.setAttribute("UserContact", user.getUser_contact());
+		session.setAttribute("UserEmailId", user.getUser_email_id());
+		session.setAttribute("UserEmailAddress", user.getUser_email_address());
+		session.setAttribute("UserRoadAddress", user.getUser_road_address());
+		session.setAttribute("UserJibunAddress", user.getUser_jibun_address());
+		session.setAttribute("UserDetailAddress", user.getUser_detail_address());
+		return "cafehi_userInfo";
+	}
+	
+	@RequestMapping("/updateUserEmail.do")
+	public String updateUserEmail(UserDTO user, HttpSession session) {
+		userService.updateUserEmail(user);
+		user = userService.getUser(user);
+		session.setAttribute("UserId", user.getUser_id());
+		session.setAttribute("UserName", user.getUser_name());
+		session.setAttribute("UserContact", user.getUser_contact());
+		session.setAttribute("UserEmailId", user.getUser_email_id());
+		session.setAttribute("UserEmailAddress", user.getUser_email_address());
 		session.setAttribute("UserRoadAddress", user.getUser_road_address());
 		session.setAttribute("UserJibunAddress", user.getUser_jibun_address());
 		session.setAttribute("UserDetailAddress", user.getUser_detail_address());
@@ -114,6 +133,8 @@ public class UserController {
 		session.setAttribute("UserId", user.getUser_id());
 		session.setAttribute("UserName", user.getUser_name());
 		session.setAttribute("UserContact", user.getUser_contact());
+		session.setAttribute("UserEmailId", user.getUser_email_id());
+		session.setAttribute("UserEmailAddress", user.getUser_email_address());
 		session.setAttribute("UserRoadAddress", user.getUser_road_address());
 		session.setAttribute("UserJibunAddress", user.getUser_jibun_address());
 		session.setAttribute("UserDetailAddress", user.getUser_detail_address());
@@ -127,6 +148,8 @@ public class UserController {
 		session.setAttribute("UserId", user.getUser_id());
 		session.setAttribute("UserName", user.getUser_name());
 		session.setAttribute("UserContact", user.getUser_contact());
+		session.setAttribute("UserEmailId", user.getUser_email_id());
+		session.setAttribute("UserEmailAddress", user.getUser_email_address());
 		session.setAttribute("UserRoadAddress", user.getUser_road_address());
 		session.setAttribute("UserJibunAddress", user.getUser_jibun_address());
 		session.setAttribute("UserDetailAddress", user.getUser_detail_address());
