@@ -21,6 +21,12 @@ public class UserDAO {
 		
 	}
 	
+	public int idCheck(String user_id) {
+		int result = sqlSessionTemplate.selectOne("UserDAO.checkId", user_id);
+		return result;
+	}
+	
+	
 	
 	public UserDTO getUser(UserDTO user) {
 		return sqlSessionTemplate.selectOne("UserDAO.getUser", user);
@@ -60,6 +66,8 @@ public class UserDAO {
 	public void updateUserDetailAddress(UserDTO user) {
 		sqlSessionTemplate.update("UserDAO.updateUserDetailAddress", user);
 	}
+
+
 	
 	
 	

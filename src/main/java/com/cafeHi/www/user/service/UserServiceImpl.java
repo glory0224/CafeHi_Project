@@ -48,6 +48,12 @@ public class UserServiceImpl implements UserService{
 				return null;	
 			}
 		
+		@Override
+		public int idCheck(String user_id) {
+			int result = userDAO.idCheck(user_id);
+			
+			return result;
+		}
 
 		
 		
@@ -80,6 +86,7 @@ public class UserServiceImpl implements UserService{
 		
 	}
 
+	
 	
 
 }

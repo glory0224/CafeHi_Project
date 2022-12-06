@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="cpath" value="<%=request.getContextPath() %>" scope="application"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,8 +24,10 @@
 <form class="container" action="insertUser.do" method="post" id="userForm">
 	<h1 class="text-center m-5">회원 가입</h1>
   <div class="m-5">
-    <h4><label for="userId" class="form-label">아이디</label><button class="btn btn-sm btn-success float-end" type="button" onclick="location.href='IdCheck.do'">중복확인</button></h4>
-    <input type="text" id="userId" class="form-control" placeholder="영문, 숫자 포함 6 - 20자" name="user_id">
+    <h4><label for="user_id" class="form-label">아이디</label><input id="idCheck" class="btn btn-sm btn-success float-end" type="button" value="중복 확인"></h4>
+    <input type="text" id="user_id" class="form-control" placeholder="영문, 숫자 포함 6 - 20자" name="user_id">
+    <br>
+    <div><font id="id_feedback" size="2"></font></div>
   </div>
     <div class="m-5">
     <h4><label for="userName" class="form-label">이름</label></h4>
@@ -35,8 +38,10 @@
     <input type="password" id="userPassword" class="form-control" placeholder="영문, 숫자 포함 6 - 20자" name="user_pw">
   </div>
   <div class="m-5">
-    <h4><label for="checkPassword" class="form-label">비밀번호 확인</label></h4><label id="pwcheck" style="margin-left: 10px; margin-bottom: 10px;"></label>
+    <h4><label for="checkPassword" class="form-label">비밀번호 확인</label></h4>
     <input type="password" id="checkPassword" class="form-control" placeholder="비밀번호를 다시 한번 입력하세요." onchange="pwCheck()">
+    <br>
+    <div id="pwcheck"></div>
   </div>
   <div class="m-5">
     <h4><label for="userContact" class="form-label">연락처</label></h4>
@@ -138,25 +143,35 @@
         }).open();
     }
 </script>
-<!-- <script type="text/javascript">
-	$("#overlappedID").click(function(){
-		$("#signup").attr("type", "button");
-		const id = $("#userId").val();
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>	
+<script type ="text/javascript">
+	/* Ajax방식을 Spring에 적용하기 전에 Pom.xml에 json 관련 dependency가 들어 있는지 확인한다. */
+	$('#idCheck').click(function(){
+		let user_id = $('#user_id').val();
+			
 		$.ajax({
-			type: "get",
-			async: false,
-			url: "http://localhost:8080/cafeHi/idCheck",
-			data: {id: id},
-			success: function (data){
-				if(data == 1){
-					$("#olmessage").text("이미 사용중인 ID 입니다.");
-				}else{
-					$("#olmessage").text("사용 가능한 ID 입니다.");
-					$("#signup").attr("type", "submit");
-				}
+			url : "http://localhost:8080/cafeHi/IdCheck.do",
+			type : "post",
+			data : {user_id: user_id},
+			dataType : 'json',
+			success : function(result){
+				if(result == 1){
+					userId = document.getElementById('user_id');
+					userId.value = "";
+					$("#id_feedback").html('이미 사용중인 아이디입니다.');
+					$("#id_feedback").attr('color','#dc3545');
+				} else{
+					$("#id_feedback").html('사용할 수 있는 아이디입니다.');
+					$("#id_feedback").attr('color','#2fb380');
+				} 
+			},
+			error : function(){
+				alert("서버요청실패");
 			}
 		})
-	});
-</script> -->
+			 
+	})
+</script>
 
 </html>

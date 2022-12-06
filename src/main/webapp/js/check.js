@@ -83,9 +83,12 @@ function pwCheck() {
 	userPassword = document.getElementById('userPassword');
 	checkPassword = document.getElementById('checkPassword');
 	if (userPassword.value == checkPassword.value) {
-		document.getElementById('pwcheck').innerHTML = '비밀번호가 서로 일치합니다.';
+		document.getElementById('pwcheck').innerHTML = "<span style='color: green;'>비밀번호가 서로 일치합니다.</span>'";
+		
+		
 	} else {
-		document.getElementById('pwcheck').innerHTML = '비밀번호가 서로 일치하지 않습니다.';
+		document.getElementById('pwcheck').innerHTML = "<span style='color: green;'>비밀번호가 서로 일치하지 않습니다.</span>'";
+		
 		userPassword.value = "";
 		checkPassword.value = "";
 		userPassword.focus();

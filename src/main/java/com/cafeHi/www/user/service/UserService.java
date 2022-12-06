@@ -5,7 +5,7 @@ import com.cafeHi.www.user.dto.UserDTO;
 public interface UserService {
 	public UserDTO getUserId(String find_id);
 	public UserDTO getUser(UserDTO user);
-	
+	public int idCheck(String user_id);
 	
 	
 	public void insertUser(UserDTO user);
@@ -18,4 +18,5 @@ public interface UserService {
 	public void updateUserContact(UserDTO user);
 	public void updateUserAddress(UserDTO user);
 	public void updateUserDetailAddress(UserDTO user);
+	
 }
