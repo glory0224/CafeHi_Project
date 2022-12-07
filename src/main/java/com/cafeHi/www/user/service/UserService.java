@@ -20,4 +20,7 @@ public interface UserService {
 	public void updateUserDetailAddress(UserDTO user);
 	public void updateUserEmail(UserDTO user);
 	
+	
+	
+	
 }

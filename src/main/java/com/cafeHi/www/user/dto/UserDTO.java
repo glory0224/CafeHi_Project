@@ -116,14 +116,7 @@ public class UserDTO {
 				+ ", user_jibun_address=" + user_jibun_address + ", user_detail_address=" + user_detail_address + "]";
 	}
 
-
-
-
-
-
 	
-
-
 
 	
 	

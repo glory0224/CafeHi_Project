@@ -21,19 +21,33 @@
 
 <form class="container" action="/idSearch.do" method="post" id="idSearchForm">
   <div class="m-5">
-    <p><label for="user_name" class="form-label">이름</label></p>
-    <input type="text" id="user_name" class="form-control" placeholder="이름을 입력하세요." name="user_name">
+    <p><label for="user_email_id" class="form-label">가입한 계정의 이메일을 입력하세요.</label></p>
+    <div class="d-flex justify-content-between">
+    <input type="text" id="userEmailId" class="form-control" placeholder="이메일 아이디를 입력하세요." name="user_email_id">&nbsp;
+    <select class="form-select" aria-label="Default select example" id="userEmailAddress" name="user_email_address" >
+    	<option value="">선택</option>
+    	<option>@naver.com</option>
+    	<option>@daum.net</option>
+		<option>@gmail.com</option>
+		<option>@hanmail.com</option>
+	 	<option>@yahoo.co.kr</option>
+    </select>
+    </div>
+    <br>
+    <div class="d-flex justify-content-end">
+    	<button type="button" class="btn btn-sm btn-success" id="mail-Check-Btn">본인인증</button>
+    </div>
+    <br>
+    <div class="mail-check-box">
+    <input class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6">
+  	</div>
+  	<span id="mail-check-warn"></span>
   </div>
-
-  <div class="m-5">
-    <p><label for="user_contact" class="form-label">연락처</label></p>
-    <input type="text" id="user_contact" class="form-control" placeholder="연락처를 입력하세요." name="user_contact"  maxlength= 13">
-  </div>
-
+	
 <div class="d-flex justify-content-end">
 	<div style="margin-top: 40px;">
       <input class="btn btn-md btn-success " type="button" value="아이디 찾기" onclick="idSearch();">
-      </div>
+     </div>
 </div>
 
 
@@ -41,6 +55,6 @@
 
 </body>
 <script src="/cafehi/js/idSearch.js"></script> 
- 
+
 </html>
 

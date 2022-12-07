@@ -70,8 +70,7 @@ public class UserDAO {
 	public void updateUserEmail(UserDTO user) {
 		sqlSessionTemplate.update("UserDAO.updateUserEmail", user);
 	}
-
-
+	
 	
 	
 	

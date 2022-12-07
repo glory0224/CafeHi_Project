@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cafeHi.www.user.dto.UserDTO;
 import com.cafeHi.www.user.service.UserService;
 
 
@@ -30,6 +31,7 @@ public class SignUpController {
 	}
 	
 	
+
 	
 	
 

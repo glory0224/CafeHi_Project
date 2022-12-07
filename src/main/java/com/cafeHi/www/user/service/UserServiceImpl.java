@@ -1,5 +1,6 @@
 package com.cafeHi.www.user.service;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +16,10 @@ public class UserServiceImpl implements UserService{
 
 
 	@Override
-	public void insertUser(UserDTO user) {
+	public void insertUser(UserDTO user){
+		
 		userDAO.insertUser(user);
-	}
+	}		
 
 	@Override
 	public void updateUser(UserDTO user) {
@@ -90,6 +92,7 @@ public class UserServiceImpl implements UserService{
 	public void updateUserEmail(UserDTO user) {
 		userDAO.updateUserEmail(user);
 	}
+
 
 	
 	
