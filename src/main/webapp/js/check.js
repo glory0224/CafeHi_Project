@@ -13,6 +13,8 @@ function signupcheck() {
 	var userJibunAddress = document.getElementById('userJibunAddress');
 	var detailAddress = document.getElementById('userDetailAddress');
 	var privacyCheck = document.getElementById('privacyCheck').checked;
+	var mailCheck = document.getElementById('mail_check_boolean').checked;
+	
 	
 
 	// 회원가입란 공백 체크 
@@ -54,6 +56,12 @@ function signupcheck() {
 		privacyCheck.focus();
 		return;
 	}
+	
+	if(!mailCheck){
+		alert('인증번호가 일치 하지 않습니다. 메일 인증 절차를 다시 진행해주세요.');
+		return;
+	}
+	
 	
 	// RFC 5322 이메일 정규 표현식
 	emailReg = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])");

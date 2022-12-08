@@ -11,8 +11,11 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 
+
+<link rel="stylesheet" href="/cafeHi/css/signup.css">
 <!-- 유효성 검사 js  -->
 <script src="/cafeHi/js/check.js"></script>
+
 
 </head>
 <body>
@@ -48,9 +51,21 @@
   </div>
   <div class="m-5">
     <h4><label for="userEmailId " class="form-label">이메일</label></h4>
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between mail_check_wrap">
     <input type="text" id="userEmail" class="form-control" placeholder="이메일을 입력하세요." name="user_email"> &nbsp;
-  </div>
+   
+    	<input id="mail_check_button" class="btn btn-sm btn-success" type="button" value="인증번호 전송">
+    	
+    </div>
+    <br>
+    <div class="d-flex justify-content-between mail_check_input_box" id="mail_check_input_box_false">
+    		<input class="mail_check_input form-control" disabled="disabled" placeholder="인증번호를 입력하세요.">
+    		 &nbsp;
+    		<input id="mail_num_check" class="btn btn-sm btn-success" type="button" value="인증번호 확인">
+    </div>
+    
+    <span id="mail_check_input_box_warn"></span>
+    <input id="mail_check_boolean" type="checkbox" style="display: none" >
   </div> 
   <div class="m-5">
   <h4><label for="user_address" class="form-label">주소</label> <input class="btn btn-sm btn-success float-end" type="button" onclick="find_address()" value="주소 찾기"></h4>
@@ -144,7 +159,9 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>	
 <script type ="text/javascript">
+
 	/* Ajax방식을 Spring에 적용하기 전에 Pom.xml에 json 관련 dependency가 들어 있는지 확인한다. */
+	
 	$('#idCheck').click(function(){
 		let user_id = $('#user_id').val();
 			
@@ -167,9 +184,73 @@
 			error : function(){
 				alert("서버요청실패");
 			}
-		})
+		}); // ajax 종료 
 			 
-	})
+	}); // function 종료
+	
+	var code = "";			// 이메일전송 인증번호 저장을 위한 코드 
+	var blank = "";			// 공백 비교, ""로 if문에서 직접 비교 하려 했더니 동작하지 않아서 따로 변수 등록 후 비교 
+	
+	/* 인증번호 이메일 전송 */
+	$("#mail_check_button").click(function(){
+		var email = $("#userEmail").val(); 		// 입력한 이메일
+		var checkBox = $(".mail_check_input");  // 인증번호 입력란
+		var boxWrap = $(".mail_check_input_box");  // 인증번호 입력란 박스 
+		// RFC 5322 이메일 정규 표현식
+		emailReg = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])");
+		
+		if(email == blank){
+			alert("이메일을 입력해주세요.");
+			return false;
+		}else if(!emailReg.test(email)){
+			alert('올바른 이메일 형식을 입력하세요. \n ex) ID@naver.com or ID@yale.edu.com');
+			return false;
+		}
+		
+		$.ajax({
+			
+			type:"GET",
+			url:"http://localhost:8080/cafeHi/mailCheck.do?email=" + email,
+			success:function(data){
+				//console.log("data : " + data);
+				alert(email + " 메일로 인증번호 전송이 완료 되었습니다.");
+				checkBox.prop("disabled", false);
+				boxWrap.attr("id", "mail_check_input_box_true");
+				code = data;
+			},
+			error : function(){
+				alert("메일 전송을 하지 못했습니다.");
+			}
+		});
+	});
+	
+	/* 인증번호 비교 */
+	$("#mail_num_check").click(function(){
+		
+		var inputCode = $(".mail_check_input").val();		// 입력코드
+		var checkResult = $("#mail_check_input_box_warn");	// 비교 결과
+		var checkBoolean = $("#mail_check_boolean");
+		
+		if(inputCode == blank){
+			alert("인증번호를 먼저 전송해주세요.");
+			return false;
+		}
+		
+		if(inputCode == code){
+			checkResult.html("인증번호가 일치합니다.");		// 일치하는 경우 
+			checkResult.attr("class", "correct");
+			checkBoolean.attr("checked", true);
+			/* console.log($("input:checkbox[id='mail_check_boolean']).val()); */
+			
+		} else {
+			checkResult.html("인증번호를 다시 확인해주세요.");		// 일치하지 않는 경우 
+			checkResult.attr("class", "incorrect");
+			checkBoolean.attr("checked", false);
+			/* console.log($("input:checkbox[id='mail_check_boolean']).val()); */
+		}
+	});
 </script>
+
+
 
 </html>
