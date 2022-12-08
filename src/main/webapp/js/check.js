@@ -1,13 +1,16 @@
 // JS 유효성 검사
-function check() {
+
+// 회원가입 유효성 검사
+function signupcheck() {
 	
 	var userId = document.getElementById('user_id');
 	var userName = document.getElementById('userName');
 	var userPassword = document.getElementById('userPassword');
 	var checkPassword = document.getElementById('checkPassword');
 	var contact = document.getElementById('userContact');
-	var userEmailId = document.getElementById('userEmailId');
-	var userEmailAddress = document.getElementById('userEmailAddress');
+	var userEmail = document.getElementById('userEmail');
+	var userRoadAddress = document.getElementById('userRoadAddress');
+	var userJibunAddress = document.getElementById('userJibunAddress');
 	var detailAddress = document.getElementById('userDetailAddress');
 	var privacyCheck = document.getElementById('privacyCheck').checked;
 	
@@ -35,13 +38,12 @@ function check() {
 		alert('연락처를 입력해주세요');
 		contact.focus();
 		return;
-	} else if (userEmailId.value == "") {
-		alert('이메일 아이디를 입력해주세요');
-		userEmailId.focus();
+	} else if (userEmail.value == "") {
+		alert('이메일을 입력해주세요');
+		userEmail.focus();
 		return;
-	} else if (userEmailAddress.value == "") {
-		alert('이메일 주소를 선택해주세요');
-		userEmailAddress.focus();
+	} else if (userRoadAddress.value == "" && userJibunAddress.value == "") {
+		alert('주소 찾기 버튼을 눌러 주소를 선택해주세요');
 		return;
 	} else if (detailAddress.value == "") {
 		alert('상세주소를 입력해주세요');
@@ -52,7 +54,16 @@ function check() {
 		privacyCheck.focus();
 		return;
 	}
-
+	
+	// RFC 5322 이메일 정규 표현식
+	emailReg = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])");
+	
+	if(!emailReg.test(userEmail.value)){
+		alert('올바른 이메일 형식을 입력하세요. \n ex) ID@naver.com or ID@yale.edu.com');
+		return;
+	}
+	
+	
 	// 전화번호 정규표현식 - 계속 먹히지 않아서 애먹었는데 알고보니 edge에서 실행하지 않고 chrome으로 실행 했더니 작동함 - 이것때문에 애먹었다.
 	phonReg = /^01(0|1|6|7|8|9]{1})-?([0-9]{3,4})-?[0-9]{4}$/;
 	
@@ -70,7 +81,6 @@ function check() {
 
 	if (!Reg.test(userId.value)) {
 		alert('아이디는 영문, 숫자 포함 6 - 20자로 입력해주세요.');
-		console.log(userId.value)
 		userId.focus();
 		return;
 	}
@@ -107,7 +117,7 @@ function pwCheck() {
 
 
 
-
+// 로그인 공백 확인
 function loginCheck(){
 	userId = document.getElementById('floatingInput');
 	userPassword = document.getElementById('floatingPassword');
@@ -124,6 +134,101 @@ function loginCheck(){
 	document.getElementById('loginForm').submit();
 }
 
+
+// 유저 정보 업데이트 유효성 검사 
+
+function updateIdCheck(){
+	var userId = document.getElementById('userId');
+	Reg = /^[a-z]+[a-z0-9]{5,19}$/g;
+	
+	if (userId.value == "") {
+		alert('아이디를 입력해주세요');
+		userId.focus();
+		return;
+	} else if(!Reg.test(userId.value)){
+		alert('아이디는 영문, 숫자 포함 6 - 20자로 입력해주세요.');
+		userId.focus();
+		return;
+	}
+	
+	document.getElementById('userUpdateIdForm').submit();
+}
+
+function updateNameCheck(){
+	var userName = document.getElementById('userName');
+	if (userName.value == "") {
+		alert('이름을 입력해주세요');
+		userName.focus();
+		return;
+	}
+	
+	document.getElementById('userUpdateNameForm').submit();
+}
+
+function updateContactCheck(){
+	var contact = document.getElementById('userContact');
+	
+	phonReg = /^01(0|1|6|7|8|9]{1})-?([0-9]{3,4})-?[0-9]{4}$/;
+	
+	
+	if (contact.value == "") {
+		alert('이름을 입력해주세요');
+		contact.focus();
+		return;
+	} else if(!phonReg.test(contact.value)) {
+		alert('올바른 연락처 형식을 입력하세요.\n ex) 010-1234-1234 (특수문자 외 숫자만 입력도 가능)');
+		return;
+	}
+	
+	document.getElementById('userUpdateContactForm').submit();
+}
+
+
+
+function updateEmailCheck(){
+	
+	var userEmail = document.getElementById('userEmail');
+	emailReg = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])");
+	
+	if (userEmail.value == "") {
+		alert('이메일을 입력해주세요');
+		userEmail.focus();
+		return;
+	} else if(!emailReg.test(userEmail.value)){
+		alert('올바른 이메일 형식을 입력하세요. \n ex) ID@naver.com or ID@yale.edu.com');
+		userEmail.focus();
+		return;
+	}
+	
+	document.getElementById('userUpdateEmailForm').submit();
+}
+
+function updateAddressCheck(){
+	
+	var userRoadAddress = document.getElementById('userRoadAddress');
+	var userJibunAddress = document.getElementById('userJibunAddress');
+	
+	if (userRoadAddress.value == "" && userJibunAddress.value == "") {
+		alert('주소 찾기 버튼을 눌러 주소를 선택해주세요');
+		return;
+	}
+	
+	document.getElementById('userUpdateAddressForm').submit();
+		
+}
+
+function updateDetailAddressCheck(){
+	
+	var userDetailAddress = document.getElementById('userDetailAddress');
+	
+	if (userDetailAddress.value == ""){
+		alert('상세주소를 입력해주세요.');
+		userDetailAddress.focus();
+		return;
+	}
+	
+	document.getElementById('userUpdateDetailAddressForm').submit();
+}
 
 
 

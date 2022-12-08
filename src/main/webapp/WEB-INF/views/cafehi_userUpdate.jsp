@@ -17,13 +17,13 @@
 <jsp:include page="/cafeHi_module/header.jsp"/>
 
 <div class="w-50 m-auto" style="padding-top: 5%">
-<form class="container" action="updateUser.do" method="post" id="userForm">
+<form class="container">
 	<h1 class="text-center m-5">회원 정보</h1>
 	<input name="user_seq" value="${UserSeq }" type="hidden" />
   <div class="m-5">
     <label for="user_id" class="form-label">아이디</label>
     <div class="d-flex justify-content-between">
-  	<input type="text" id="user_id" class="form-control" name="user_id" value="${UserId }" readonly="readonly">
+  	<input type="text"  class="form-control" value="${UserId }" readonly="readonly">
   	<div class="ms-3">
 	<input class="btn btn-md btn-success " data-bs-toggle="modal" data-bs-target="#user_id_modal" type="button" value="변경">
 	</div>
@@ -32,7 +32,7 @@
     <div class="m-5">
     <label for="user_name" class="form-label">이름</label>
   	<div class="d-flex justify-content-between">
-  	<input type="text" id="user_name" class="form-control" name="user_name" value="${UserName }" readonly="readonly">
+  	<input type="text" class="form-control" value="${UserName }" readonly="readonly">
   	<div class="ms-3">
 	<input class="btn btn-md btn-success " data-bs-toggle="modal" data-bs-target="#user_name_modal" type="button" value="변경">
 	</div>
@@ -41,16 +41,16 @@
   <div class="m-5">
     <label for="user_contact" class="form-label">연락처</label>
  	<div class="d-flex justify-content-between">
-  	<input type="text" id="user_contact" class="form-control" name="user_contact" value="${UserContact }" readonly="readonly">
+  	<input type="text" class="form-control" value="${UserContact }" readonly="readonly">
   	<div class="ms-3">
 	<input class="btn btn-md btn-success " data-bs-toggle="modal" data-bs-target="#user_contact_modal" type="button" value="변경">
 	</div>
 	</div>
   </div>
   <div class="m-5">
-    <label for="user_email_id" class="form-label">메일</label>
+    <label for="userEmail" class="form-label">메일</label>
  	<div class="d-flex justify-content-between">
-  	<input type="text" id="user_email_id" class="form-control" name="user_email_id" value="${UserEmailId}${UserEmailAddress}" readonly="readonly">
+  	<input type="text" class="form-control" value="${UserEmail}" readonly="readonly">
   	<div class="ms-3">
 	<input class="btn btn-md btn-success " data-bs-toggle="modal" data-bs-target="#user_email_modal" type="button" value="변경">
 	</div>
@@ -58,8 +58,8 @@
   </div>
   <div class="m-5">
     <label for="user_address" class="form-label">주소</label>
-  	<input type="text" id="user_address" class="form-control" name="user_address" value="${UserRoadAddress }" readonly="readonly"><br>
-  	<input type="text" id="user_address" class="form-control" name="user_address" value="${UserJibunAddress }" readonly="readonly">
+  	<input type="text"  class="form-control"  value="${UserRoadAddress }" readonly="readonly"><br>
+  	<input type="text"  class="form-control"  value="${UserJibunAddress }" readonly="readonly">
   	<div class="d-flex justify-content-end mt-3">
 	<input class="btn btn-md btn-success " data-bs-toggle="modal" data-bs-target="#user_address_modal" type="button" value="변경" >
 	</div>
@@ -68,7 +68,7 @@
   <div class="m-5">
     <label for="user_address" class="form-label">상세 주소</label>
   	<div class="d-flex justify-content-between">
-  	<input type="text" id="user_address" class="form-control" name="user_address" value="${UserDetailAddress }" readonly="readonly">
+  	<input type="text" class="form-control" value="${UserDetailAddress }" readonly="readonly">
   	<div class="ms-3">
 	<input class="btn btn-md btn-success " data-bs-toggle="modal" data-bs-target="#user_address_detail_modal" type="button" value="변경">
 	</div>
@@ -82,7 +82,7 @@
 <!-- Modal -->
 <div class="modal fade" id="user_id_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <form action="updateUserId.do">
+    <form action="updateUserId.do" method="post" id="userUpdateIdForm">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>${UserName }</b>님의 회원정보 중 아이디를 수정하기 <br> 위한 페이지입니다.</h1>
@@ -93,12 +93,12 @@
       <div class="modal-body">
       	<label for="user_id" class="form-label">변경할 아이디를 입력하세요.</label> 
       	<input name="user_seq" value="${UserSeq }" type="hidden" />
-        <input type="text" id="user_id" class="form-control" name="user_id" placeholder="${UserId }">
+        <input type="text" id="userId" class="form-control" name="user_id" placeholder="${UserId }">
       </div>
       <div class="modal-footer">
      
         <button type="button" class="btn btn-success" data-bs-dismiss="modal">취소</button>
-        <input class="btn btn-md btn-success " type="submit" value="변경">
+        <input class="btn btn-md btn-success " type="button" value="변경" onclick="updateIdCheck()">
       </div>
     </div>
      </form>
@@ -108,7 +108,7 @@
 
 <div class="modal fade" id="user_name_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <form action="updateUserName.do">
+    <form action="updateUserName.do" method="post" id="userUpdateNameForm">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>${UserName }</b>님의 회원정보 중 이름을 수정하기 <br> 위한 페이지입니다.</h1>
@@ -119,12 +119,12 @@
       <div class="modal-body">
       	<label for="user_name" class="form-label">변경할 이름을 입력하세요.</label>
       	<input name="user_seq" value="${UserSeq }" type="hidden" /> 
-        <input type="text" id="user_name" class="form-control" name="user_name" placeholder="${UserName }">
+        <input type="text" id="userName" class="form-control" name="user_name" placeholder="${UserName }">
       </div>
       <div class="modal-footer">
      
         <button type="button" class="btn btn-success" data-bs-dismiss="modal">취소</button>
-        <input class="btn btn-md btn-success " type="submit" value="변경">
+        <input class="btn btn-md btn-success " type="button" value="변경" onclick="updateNameCheck()">
       </div>
     </div>
      </form>
@@ -133,7 +133,7 @@
 
 <div class="modal fade" id="user_contact_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <form action="updateUserContact.do">
+    <form action="updateUserContact.do" method="post" id="userUpdateContactForm">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>${UserName }</b>님의 회원정보 중 연락처를 수정하기 <br> 위한 페이지입니다.</h1>
@@ -144,12 +144,12 @@
       <div class="modal-body">
       	<label for="user_contact" class="form-label">변경할 전화번호를 입력하세요.</label>
       	<input name="user_seq" value="${UserSeq }" type="hidden" /> 
-        <input type="text" id="user_contact" class="form-control" name="user_contact" placeholder="${UserContact }">
+        <input type="text" id="userContact" class="form-control" name="user_contact" placeholder="${UserContact }">
       </div>
       <div class="modal-footer">
      
         <button type="button" class="btn btn-success" data-bs-dismiss="modal">취소</button>
-        <input class="btn btn-md btn-success " type="submit" value="변경">
+        <input class="btn btn-md btn-success " type="button" value="변경" onclick="updateContactCheck()">
       </div>
     </div>
      </form>
@@ -158,7 +158,7 @@
 
 <div class="modal fade" id="user_email_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <form action="updateUserEmail.do">
+    <form action="updateUserEmail.do" method="post" id="userUpdateEmailForm">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>${UserName }</b>님의 회원정보 중 이메일을 수정하기 <br> 위한 페이지입니다.</h1>
@@ -170,21 +170,13 @@
       	<label for="user_contact" class="form-label">변경할 이메일을 입력하세요.</label>
       	<input name="user_seq" value="${UserSeq }" type="hidden" /> 
       	<div class="d-flex justify-content-between">
-        <input type="text" id="userEmailId" class="form-control" name="user_email_id" placeholder="${UserEmailId }"> &nbsp;
-        <select class="form-select" aria-label="Default select example" name="user_email_address" id="userEmailAddress">
-	    	<option value="">선택</option>
-	    	<option>@naver.com</option>
-	    	<option>@daum.net</option>
-			<option>@gmail.com</option>
-			<option>@hanmail.com</option>
-		 	<option>@yahoo.co.kr</option>
-    	</select>
+        <input type="text" id="userEmail" class="form-control" name="user_email" placeholder="${UserEmail}">
     	</div>      
       </div>
       <div class="modal-footer">
      
         <button type="button" class="btn btn-success" data-bs-dismiss="modal">취소</button>
-        <input class="btn btn-md btn-success " type="submit" value="변경">
+        <input class="btn btn-md btn-success " type="button" value="변경" onclick="updateEmailCheck()">
       </div>
     </div>
      </form>
@@ -193,7 +185,7 @@
 
 <div class="modal fade" id="user_address_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <form action="updateUserAddress.do">
+    <form action="updateUserAddress.do" method="post" id="userUpdateAddressForm">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>${UserName }</b>님의 회원정보 중 주소를 수정하기 <br> 위한 페이지입니다.</h1>
@@ -204,14 +196,14 @@
       <div class="modal-body">
       	<label for="user_address" class="form-label">변경할 주소를 입력하세요.</label>
       	<input name="user_seq" value="${UserSeq }" type="hidden" /> 
-        <input type="text" id="userRoadAddress" class="form-control" name="user_road_address" placeholder="도로명 주소" readonly="readonly"><br>
-  		<input type="text" id="userJibunAddress" class="form-control" name="user_jibun_address" placeholder="지번 주소" readonly="readonly"><br>
+        <input type="text" id="userRoadAddress" class="form-control" name="user_road_address" placeholder="${UserRoadAddress } " readonly="readonly"><br>
+  		<input type="text" id="userJibunAddress" class="form-control" name="user_jibun_address" placeholder="${UserJibunAddress }" readonly="readonly"><br>
   		<input class="btn btn-sm btn-success float-end" type="button" onclick="find_address()" value="주소 찾기">
       </div>
       <div class="modal-footer">
      
         <button type="button" class="btn btn-success" data-bs-dismiss="modal">취소</button>
-        <input class="btn btn-md btn-success " type="submit" value="변경">
+        <input class="btn btn-md btn-success " type="button" value="변경" onclick="updateAddressCheck()">
       </div>
     </div>
      </form>
@@ -220,7 +212,7 @@
 
 <div class="modal fade" id="user_address_detail_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <form action="updateUserDetailAddress.do">
+    <form action="updateUserDetailAddress.do" method="post" id="userUpdateDetailAddressForm">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>${UserName }</b>님의 회원정보 중 상제 주소를 수정하기 <br> 위한 페이지입니다.</h1>
@@ -236,7 +228,7 @@
       <div class="modal-footer">
      
         <button type="button" class="btn btn-success" data-bs-dismiss="modal">취소</button>
-        <input class="btn btn-md btn-success " type="submit" value="변경">
+        <input class="btn btn-md btn-success " type="button" value="변경" onclick="updateDetailAddressCheck()">
       </div>
     </div>
      </form>

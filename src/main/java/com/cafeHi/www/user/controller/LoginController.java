@@ -64,8 +64,7 @@ public class LoginController {
 				session.setAttribute("UserId", getUser.getUser_id());
 				session.setAttribute("UserName", getUser.getUser_name());
 				session.setAttribute("UserContact", getUser.getUser_contact());
-				session.setAttribute("UserEmailId", getUser.getUser_email_id());
-				session.setAttribute("UserEmailAddress", getUser.getUser_email_address());
+				session.setAttribute("UserEmail", getUser.getUser_email());
 				session.setAttribute("UserRoadAddress", getUser.getUser_road_address());
 				session.setAttribute("UserJibunAddress", getUser.getUser_jibun_address());
 				session.setAttribute("UserDetailAddress", getUser.getUser_detail_address());

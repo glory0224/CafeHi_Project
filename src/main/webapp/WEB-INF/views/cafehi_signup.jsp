@@ -10,9 +10,8 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-<!-- <link href="./css/cafehi_signin.css" rel="stylesheet" > -->
 
-<!-- 회원가입 유효성 검사 js  -->
+<!-- 유효성 검사 js  -->
 <script src="/cafeHi/js/check.js"></script>
 
 </head>
@@ -50,15 +49,7 @@
   <div class="m-5">
     <h4><label for="userEmailId " class="form-label">이메일</label></h4>
     <div class="d-flex justify-content-between">
-    <input type="text" id="userEmailId" class="form-control" placeholder="이메일을 입력하세요." name="user_email_id"> &nbsp;
-    <select class="form-select" aria-label="Default select example" id="userEmailAddress" name="user_email_address" >
-    	<option value="">선택</option>
-    	<option>@naver.com</option>
-    	<option>@daum.net</option>
-		<option>@gmail.com</option>
-		<option>@hanmail.com</option>
-	 	<option>@yahoo.co.kr</option>
-    </select>
+    <input type="text" id="userEmail" class="form-control" placeholder="이메일을 입력하세요." name="user_email"> &nbsp;
   </div>
   </div> 
   <div class="m-5">
@@ -76,12 +67,6 @@
     </div>
    
   </div>
-  
-
-
-
-
-
 
     <div class="d-flex justify-content-end">
       <div class="form-check">
@@ -93,8 +78,7 @@
      </div>
 <div class="d-flex justify-content-end">
 	<div style="margin-top: 40px;">
-      <input id="signup" class="btn btn-md btn-success " type="button" value="회원가입" onclick="check();">
-      <!-- <input class="btn btn-md btn-success " type="submit" value="회원가입" > -->
+      <input id="signup" class="btn btn-md btn-success " type="button" value="회원가입" onclick="signupcheck()">
       </div>
 </div>
 

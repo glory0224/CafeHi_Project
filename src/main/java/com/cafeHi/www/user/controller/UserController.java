@@ -73,6 +73,7 @@ public class UserController {
 		session.setAttribute("UserId", user.getUser_id());
 		session.setAttribute("UserName", user.getUser_name());
 		session.setAttribute("UserContact", user.getUser_contact());
+		session.setAttribute("UserEmail", user.getUser_email());
 		session.setAttribute("UserRoadAddress", user.getUser_road_address());
 		session.setAttribute("UserJibunAddress", user.getUser_jibun_address());
 		session.setAttribute("UserDetailAddress", user.getUser_detail_address());
@@ -87,8 +88,7 @@ public class UserController {
 		session.setAttribute("UserId", user.getUser_id());
 		session.setAttribute("UserName", user.getUser_name());
 		session.setAttribute("UserContact", user.getUser_contact());
-		session.setAttribute("UserEmailId", user.getUser_email_id());
-		session.setAttribute("UserEmailAddress", user.getUser_email_address());
+		session.setAttribute("UserEmail", user.getUser_email());
 		session.setAttribute("UserRoadAddress", user.getUser_road_address());
 		session.setAttribute("UserJibunAddress", user.getUser_jibun_address());
 		session.setAttribute("UserDetailAddress", user.getUser_detail_address());
@@ -103,8 +103,7 @@ public class UserController {
 		session.setAttribute("UserId", user.getUser_id());
 		session.setAttribute("UserName", user.getUser_name());
 		session.setAttribute("UserContact", user.getUser_contact());
-		session.setAttribute("UserEmailId", user.getUser_email_id());
-		session.setAttribute("UserEmailAddress", user.getUser_email_address());
+		session.setAttribute("UserEmail", user.getUser_email());
 		session.setAttribute("UserRoadAddress", user.getUser_road_address());
 		session.setAttribute("UserJibunAddress", user.getUser_jibun_address());
 		session.setAttribute("UserDetailAddress", user.getUser_detail_address());
@@ -118,8 +117,7 @@ public class UserController {
 		session.setAttribute("UserId", user.getUser_id());
 		session.setAttribute("UserName", user.getUser_name());
 		session.setAttribute("UserContact", user.getUser_contact());
-		session.setAttribute("UserEmailId", user.getUser_email_id());
-		session.setAttribute("UserEmailAddress", user.getUser_email_address());
+		session.setAttribute("UserEmail", user.getUser_email());
 		session.setAttribute("UserRoadAddress", user.getUser_road_address());
 		session.setAttribute("UserJibunAddress", user.getUser_jibun_address());
 		session.setAttribute("UserDetailAddress", user.getUser_detail_address());
@@ -133,8 +131,7 @@ public class UserController {
 		session.setAttribute("UserId", user.getUser_id());
 		session.setAttribute("UserName", user.getUser_name());
 		session.setAttribute("UserContact", user.getUser_contact());
-		session.setAttribute("UserEmailId", user.getUser_email_id());
-		session.setAttribute("UserEmailAddress", user.getUser_email_address());
+		session.setAttribute("UserEmail", user.getUser_email());
 		session.setAttribute("UserRoadAddress", user.getUser_road_address());
 		session.setAttribute("UserJibunAddress", user.getUser_jibun_address());
 		session.setAttribute("UserDetailAddress", user.getUser_detail_address());
@@ -148,8 +145,7 @@ public class UserController {
 		session.setAttribute("UserId", user.getUser_id());
 		session.setAttribute("UserName", user.getUser_name());
 		session.setAttribute("UserContact", user.getUser_contact());
-		session.setAttribute("UserEmailId", user.getUser_email_id());
-		session.setAttribute("UserEmailAddress", user.getUser_email_address());
+		session.setAttribute("UserEmail", user.getUser_email());
 		session.setAttribute("UserRoadAddress", user.getUser_road_address());
 		session.setAttribute("UserJibunAddress", user.getUser_jibun_address());
 		session.setAttribute("UserDetailAddress", user.getUser_detail_address());
