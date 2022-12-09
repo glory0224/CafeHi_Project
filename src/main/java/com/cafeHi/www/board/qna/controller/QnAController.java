@@ -13,7 +13,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -57,9 +59,45 @@ public class QnAController {
 	
 	// 게시글
 	@RequestMapping("/getQnA.do")
-	public String getQnA(QnADTO qna, Model model) {
-		System.out.println("fileName : "+ qna.getFileName()); 
+	public String getQnA(HttpServletRequest request, HttpServletResponse response, QnADTO qna, Model model) {
+		System.out.println("fileName : "+ qna.getFileName());
+		
+		
+		// 쿠키 생성으로 방문 했던 게시글은 새로고침을 했을 때 계속해서 조회수가 증가하는 현상 방지 
+		Cookie oldCookie = null;
+		Cookie[] cookies = request.getCookies();
+		
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("postView")) {
+					oldCookie = cookie;
+				}
+			}
+		}
+		
+		if(oldCookie != null) {
+			if(!oldCookie.getValue().contains("[" + qna.getQna_num() + "]")) {
+				qnaService.updateHit(qna);
+				oldCookie.setValue(oldCookie.getValue() + "[" + qna.getQna_num() + "]");
+				oldCookie.setPath("/");
+				oldCookie.setMaxAge(60 * 60 * 24); // 쿠키 설정 시간 하루 
+				response.addCookie(oldCookie);
+			}
+			
+		} else {
+			qnaService.updateHit(qna);
+			Cookie newCookie = new Cookie("postView","[" +  qna.getQna_num() + "]");
+			newCookie.setPath("/");
+			newCookie.setMaxAge(60 * 60 * 24);
+			response.addCookie(newCookie);
+		}
+		
+		
 		model.addAttribute("QnA", qnaService.getQnA(qna));
+		
+		
+		
+		
 		return "cafehi_QnA_content";
 	}
 	

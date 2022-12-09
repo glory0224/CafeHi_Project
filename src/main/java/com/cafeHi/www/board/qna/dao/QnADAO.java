@@ -57,5 +57,8 @@ public class QnADAO {
 		sqlSessionTemplate.delete("QnADAO.deleteQnA", qna);
 	}
 	
+	public void updateHit(QnADTO qna) {
+		sqlSessionTemplate.update("QnADAO.updateHit", qna);
+	}
 	
 }

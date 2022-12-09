@@ -15,9 +15,14 @@ public interface QnAService {
 	public int getQnANum(CriteriaDTO cri);
 	public QnADTO getQnA(QnADTO qna);
 	
+	// 게시판 조회수
+	public void updateHit(QnADTO qna);
+	
 	// 게시판 CRUD
 	public void insertQnA(QnADTO qna);
 	public void updateQnA(QnADTO qna);
 	public void deleteQnA(QnADTO qna);
+	
+	
 	
 }

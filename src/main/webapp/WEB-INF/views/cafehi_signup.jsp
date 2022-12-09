@@ -231,22 +231,32 @@
 		var checkResult = $("#mail_check_input_box_warn");	// 비교 결과
 		var checkBoolean = $("#mail_check_boolean");
 		
-		if(inputCode == blank){
+		/* if(inputCode == blank){
 			alert("인증번호를 먼저 전송해주세요.");
 			return false;
-		}
+		} */
 		
 		if(inputCode == code){
 			checkResult.html("인증번호가 일치합니다.");		// 일치하는 경우 
 			checkResult.attr("class", "correct");
-			checkBoolean.attr("checked", true);
-			/* console.log($("input:checkbox[id='mail_check_boolean']).val()); */
+			checkBoolean.prop("checked", true);
+			if (checkBoolean.checked == true) {
+	            console.log('true');
+
+	            } else {
+	                console.log('false');
+	            }
 			
 		} else {
 			checkResult.html("인증번호를 다시 확인해주세요.");		// 일치하지 않는 경우 
 			checkResult.attr("class", "incorrect");
 			checkBoolean.attr("checked", false);
-			/* console.log($("input:checkbox[id='mail_check_boolean']).val()); */
+			if (document.getElementsById('mail_check_boolean').checked == true) {
+	            console.log('true');
+
+	            } else {
+	                console.log('false');
+	            }
 		}
 	});
 </script>
