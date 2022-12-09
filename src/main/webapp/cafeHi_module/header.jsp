@@ -59,7 +59,7 @@
         <ul class="navbar-nav">
         <li class="nav-item"><b>${UserName }</b>님 환영합니다.</li>        
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="info.do">내 정보</a>
+            <a class="nav-link" aria-current="page" href="user/info.do">내 정보</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="logout.do">로그아웃</a>

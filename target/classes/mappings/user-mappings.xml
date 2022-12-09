@@ -12,7 +12,7 @@
  		<result property="user_address" column="USER_ADDRESS"/>
  	</resultMap>
  	<insert id="insertUser" parameterType="User">
- 		INSERT INTO cafehi_user VALUES((select nvl(max(user_seq), 0)+1 from cafehi_user), #{user_id}, #{user_pw},#{user_name},#{user_contact}, #{user_email}, #{user_road_address},#{user_jibun_address},#{user_detail_address})
+ 		INSERT INTO cafehi_user VALUES((select nvl(max(user_seq), 0)+1 from cafehi_user), #{user_id}, #{user_pw},#{user_name},#{user_contact}, #{user_email}, #{user_road_address},#{user_jibun_address},#{user_detail_address},'ROLE_USER', 'TRUE')
  	</insert>
  	
  	<update id="updateUser" parameterType="User">
@@ -68,6 +68,18 @@
  		SELECT * FROM cafehi_user 
  		WHERE user_id = #{find_id}
  	</select>
+ 	
+ 	<select id="selectUserById" resultType="User">
+        <![CDATA[
+            SELECT
+                *
+            FROM
+                cafehi_user
+            WHERE
+                user_id = #{ user_id }
+        ]]>
+    </select>
+ 	
  	
  	<select id="getUser" parameterType="User" resultType="User">
  		SELECT * FROM cafehi_user

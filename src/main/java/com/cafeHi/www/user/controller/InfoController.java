@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class InfoController {
 	
 	// 계정 정보 페이지
-	@RequestMapping("/info.do")
+	@RequestMapping("user/info.do")
 	public String UserInfo(HttpServletRequest request, HttpSession session) {
 		// 로그인 여부 체크 
 		String sessionId = (String)session.getAttribute("UserId");
@@ -25,7 +25,7 @@ public class InfoController {
 	}
 	
 	// 계정 정보 수정 페이지
-	@RequestMapping("/infoUpdate.do")
+	@RequestMapping("user/infoUpdate.do")
 	public String UserInfoUpdate(HttpServletRequest request, HttpSession session) {
 		// 로그인 여부 체크 
 				String sessionId = (String)session.getAttribute("UserId");

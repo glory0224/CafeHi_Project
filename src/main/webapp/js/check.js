@@ -57,10 +57,10 @@ function signupcheck() {
 		return;
 	}
 	
-	if(!mailCheck){
+	/*if(!mailCheck){
 		alert('인증번호가 일치 하지 않습니다. 메일 인증 절차를 다시 진행해주세요.');
 		return;
-	}
+	}*/
 	
 	
 	// RFC 5322 이메일 정규 표현식

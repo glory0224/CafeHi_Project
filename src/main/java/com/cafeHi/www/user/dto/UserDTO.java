@@ -1,7 +1,18 @@
 package com.cafeHi.www.user.dto;
 
+import java.util.ArrayList;
+import java.util.Collection;
 
-public class UserDTO {
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+public class UserDTO implements UserDetails {
+	
+	
+	private static final long serialVersionUID = 1L;
+	
+	
 	private String user_seq;
 	private String user_id;
 	private String user_pw;
@@ -11,6 +22,9 @@ public class UserDTO {
 	private String user_road_address;
 	private String user_jibun_address;
 	private String user_detail_address;
+	
+	private String authority;
+	private Boolean enabled;
 	
 	
 
@@ -102,12 +116,76 @@ public class UserDTO {
 
 
 
+	
+
+
+
+
 	@Override
 	public String toString() {
 		return "UserDTO [user_seq=" + user_seq + ", user_id=" + user_id + ", user_pw=" + user_pw + ", user_name="
 				+ user_name + ", user_contact=" + user_contact + ", user_email=" + user_email + ", user_road_address="
 				+ user_road_address + ", user_jibun_address=" + user_jibun_address + ", user_detail_address="
-				+ user_detail_address + "]";
+				+ user_detail_address + ", authority=" + authority + ", enabled=" + enabled + "]";
+	}
+
+
+
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		ArrayList<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
+        auth.add(new SimpleGrantedAuthority(authority));
+		return auth;
+	}
+
+
+
+
+	@Override
+	public String getPassword() {
+		return user_pw;
+	}
+
+
+
+
+	@Override
+	public String getUsername() {
+		
+		return user_id;
+	}
+
+
+
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+
+
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+
+
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+
+
+
+	@Override
+	public boolean isEnabled() {
+		return enabled;
 	}
 
 
