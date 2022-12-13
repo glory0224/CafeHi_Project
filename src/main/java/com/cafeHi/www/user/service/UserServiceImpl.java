@@ -1,28 +1,21 @@
 package com.cafeHi.www.user.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.cafeHi.www.user.dao.UserDAO;
 import com.cafeHi.www.user.dto.UserDTO;
 
 @Service("userService")
-public class UserServiceImpl implements UserService, UserDetailsService {
+public class UserServiceImpl implements UserService{
 
 	@Autowired
 	private UserDAO userDAO;
 	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
 	
 
 	@Override
 	public void insertUser(UserDTO user) {
-		user.setUser_pw(passwordEncoder.encode(user.getUser_pw()));
 		
 		userDAO.insertUser(user);
 	}
@@ -91,19 +84,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		userDAO.updateUserEmail(user);
 	}
 
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserDTO user = userDAO.getUserById(username);
-		System.out.println(user);
-		if (user == null) {
-			throw new UsernameNotFoundException(username);
-		}
-		return user;
-	}
-
-	@Override
-	public UserDTO getUserById(String user_id) {
-		return userDAO.getUserById(user_id);
-	}
+	
 
 }

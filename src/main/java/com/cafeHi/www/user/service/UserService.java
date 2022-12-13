@@ -4,7 +4,6 @@ import com.cafeHi.www.user.dto.UserDTO;
 
 public interface UserService {
 	public UserDTO getUserId(String find_id);
-	public UserDTO getUserById(String user_id);
 	public UserDTO getUser(UserDTO user);
 	public int idCheck(String user_id);
 	

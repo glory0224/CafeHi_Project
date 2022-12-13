@@ -21,10 +21,7 @@ public class UserDAO {
 		
 	}
 	
-	public UserDTO getUserById(String username) {
-		return sqlSessionTemplate.selectOne("UserDAO.selectUserById", username);
-		
-	}
+	
 	
 	public int idCheck(String user_id) {
 		int result = sqlSessionTemplate.selectOne("UserDAO.checkId", user_id);

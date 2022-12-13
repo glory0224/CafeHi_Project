@@ -44,8 +44,7 @@ public class LoginController {
 		if (user != null) {
 
 			String find_id = user.getUser_id();
-			UserDTO getUser = userService.getUserById(find_id);
-			System.out.println(getUser.getPassword());
+			UserDTO getUser = userService.getUserId(find_id);
 			System.out.println(user.getUser_pw());
 			System.out.println("가져온 아이디 :" + find_id);
 			
@@ -56,15 +55,14 @@ public class LoginController {
 			 */ 
 			
 			
-			/*if (!user.getUser_id().equals(getUser.getUser_id()) || !getUser.getUser_pw().equals(getUser.getUser_pw())) {
+			if (!user.getUser_id().equals(getUser.getUser_id()) || !getUser.getUser_pw().equals(getUser.getUser_pw())) {
 				
 				request.setAttribute("msg", "아이디 또는 비밀번호를 확인하세요");
 				request.setAttribute("url", "login.do");
 				return "alert";
 
-			} else {*/
+			} else {
 				System.out.println("가져온 유저 이름 : " + getUser.getUser_name());
-				System.out.println("가져온 security 계정 비밀번호 : " + getUser.getPassword());
 				System.out.println("가져온 계정 비밀번호 : " + getUser.getUser_pw());
 				session.setAttribute("UserSeq", getUser.getUser_seq());
 				session.setAttribute("UserId", getUser.getUser_id());
@@ -76,7 +74,7 @@ public class LoginController {
 				session.setAttribute("UserDetailAddress", getUser.getUser_detail_address());
 				return "redirect:/"; // viewResolver를 이용하면 WEB-INF로 경로 설정되기 때문에 바로 이동시킨다.
 
-				/* } */
+				 } 
 			
 		} else {
 			return "cafehi_login";

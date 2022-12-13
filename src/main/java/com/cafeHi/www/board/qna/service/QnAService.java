@@ -2,6 +2,7 @@ package com.cafeHi.www.board.qna.service;
 
 import java.util.List;
 
+
 import com.cafeHi.www.board.qna.dto.QnADTO;
 import com.cafeHi.www.common.dto.CriteriaDTO;
 
