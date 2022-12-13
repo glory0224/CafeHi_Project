@@ -17,7 +17,7 @@
 </head>
 <body>
 
-	<%@ include file="/cafeHi_module/header.jsp"%>
+	<jsp:include page="/cafeHi_module/header.jsp"/>
 	<div class="p-5 m-5 text-center">
 		<h1 class="display-4 fw-normal">Introduce</h1>
 
@@ -34,7 +34,7 @@
 
 		<div class="d-flex justify-content-between">
 			<div>
-				<img src="img/cafehi_logo.jpeg" class="img-thumbnail"
+				<img src="/cafeHi/img/cafehi_logo.jpeg" class="img-thumbnail"
 					style="width: 400px; height: 400px;">
 			</div>
 			<div>
@@ -66,14 +66,14 @@
 				</h4>
 			</div>
 			<div>
-<img src="img/cafehi_inner.jpeg" class="img-thumbnail"
+<img src="/cafeHi/img/cafehi_inner.jpeg" class="img-thumbnail"
 				style="width: 400px; height: 400px;">
 			</div>
 		</div>
 		<br><br><br><br>
 		<div class="d-flex justify-content-between">
 			<div>
-				<img src="img/cafehi_welcome.png" class="img-thumbnail"
+				<img src="/cafeHi/img/cafehi_welcome.png" class="img-thumbnail"
 					style="width: 400px; height: 400px;">
 			</div>
 			<div>
@@ -103,7 +103,7 @@
 				</h4>
 			</div>			
 			<div>
-<img src="img/cafehi_intro.jpeg" class="img-thumbnail"
+<img src="/cafeHi/img/cafehi_intro.jpeg" class="img-thumbnail"
 				style="width: 400px; height: 400px;">
 			</div>
 	</div>

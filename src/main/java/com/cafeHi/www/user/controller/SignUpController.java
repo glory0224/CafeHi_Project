@@ -17,6 +17,7 @@ import com.cafeHi.www.user.service.UserService;
 
 
 @Controller
+@RequestMapping("/all/*")
 public class SignUpController {
 		
 	@Autowired
@@ -28,7 +29,7 @@ public class SignUpController {
 	@RequestMapping(value = "/signup.do", method = RequestMethod.GET)
 	public String signUpView() {
 		
-		return "cafehi_signup";
+		return "all/cafehi_signup";
 	}
 	
 	// 아이디 중복체크

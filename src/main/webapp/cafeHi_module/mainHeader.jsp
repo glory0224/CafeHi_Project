@@ -18,29 +18,29 @@
 	<header>
   <nav class="navbar navbar-expand-md navbar fixed-top bg-white">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/cafeHi/"><img alt="" src="/cafeHi/img/cafehi_logo2.png" style="width: 50px; height: 50px; margin-right: 20px;" >CAFE Hi</a>
+      <a class="navbar-brand" href="./"><img alt="" src="/cafeHi/img/cafehi_logo2.png" style="width: 50px; height: 50px; margin-right: 20px;" >CAFE Hi</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class=" collapse navbar-collapse " id="navbarCollapse">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link p-30" aria-current="page" href="Introduce.do">CAFE Hi</a>
+            <a class="nav-link p-30" aria-current="page" href="all/Introduce.do">CAFE Hi</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="Menu.do">MENU</a>
+            <a class="nav-link" href="all/Menu.do">MENU</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="Membership.do">MEMBERSHIP</a>
+            <a class="nav-link" href="all/Membership.do">MEMBERSHIP</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="Event.do">EVENT</a>
+            <a class="nav-link" href="all/Event.do">EVENT</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="Place.do">STORE</a>
+            <a class="nav-link" href="all/Place.do">STORE</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="QnAList.do?">QnA</a>
+            <a class="nav-link" href="all/QnAList.do?">QnA</a>
           </li>
         </ul>
       </div>
@@ -50,7 +50,7 @@
 <c:choose>
 <c:when test="${UserName eq null}">
  		<div class="d-flex justify-content-end">
-          <a href="login.do"><button type="button" class="btn btn-outline-success me-2">Login</button></a>
+          <a href="all/login.do"><button type="button" class="btn btn-outline-success me-2">Login</button></a>
         </div>
 </c:when>
 <c:when test="${UserName ne null }">

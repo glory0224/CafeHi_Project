@@ -12,6 +12,7 @@ import com.cafeHi.www.user.dto.UserDTO;
 import com.cafeHi.www.user.service.UserService;
 
 @Controller
+@RequestMapping("/all/*")
 public class LoginController {
 
 	@Autowired
@@ -32,7 +33,7 @@ public class LoginController {
 		}else {
 			
 			// 로그인 안한 경우
-			return "cafehi_login";
+			return "all/cafehi_login";
 		}
 		
 	}

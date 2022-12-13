@@ -41,6 +41,7 @@ import com.cafeHi.www.user.service.UserService;
 
 // qna 관련 이동 
 @Controller
+@RequestMapping("/all/*")
 public class QnAController {
 	
 	@Autowired

@@ -28,7 +28,7 @@
 	} */
  %>
 
-<jsp:include page="/cafeHi_module/header.jsp"/>
+<jsp:include page="/cafeHi_module/mainHeader.jsp"/>
 
 <main>
 
@@ -41,7 +41,7 @@
     <div class="carousel-inner">
       <div class="carousel-item active">
       <!-- CAFE Hi 소개 페이지 이미지 링크   -->
-      <a href="Introduce.do"><img alt="#" src="/cafeHi/img/cafehi_view.jpeg" width="100%" height="100%"></a>
+      <a href="all/Introduce.do"><img alt="#" src="/cafeHi/img/cafehi_view.jpeg" width="100%" height="100%"></a>
         <div class="container">
           <div class="carousel-caption text-start">
             <h1>CAFE Hi</h1>
@@ -51,7 +51,7 @@
       </div>
       <div class="carousel-item">
          <!-- CAFE Hi MENU 페이지 이미지 링크   -->
-        <a href="Menu.do"><img alt="" src="/cafeHi/img/cafehi_menu.jpeg" preserveAspectRatio="xMidYMid slice" focusable="false" width="100%" height="100%"></a>
+        <a href="all/Menu.do"><img alt="" src="/cafeHi/img/cafehi_menu.jpeg" preserveAspectRatio="xMidYMid slice" focusable="false" width="100%" height="100%"></a>
         <div class="container">
           <div class="carousel-caption text-start">
             <h1>Menu</h1>
@@ -61,7 +61,7 @@
       </div>
       <div class="carousel-item">
         <!-- CAFE Hi EVENT 페이지 이미지 링크   -->
-        <a href="Event.do"><img alt="" src="/cafeHi/img/cafehi_back.jpeg" preserveAspectRatio="xMidYMid slice" focusable="false" width="100%" height="100%"></a>       
+        <a href="all/Event.do"><img alt="" src="/cafeHi/img/cafehi_back.jpeg" preserveAspectRatio="xMidYMid slice" focusable="false" width="100%" height="100%"></a>       
         <div class="container">
           <div class="carousel-caption text-end">
             <h1>EVENT</h1>
@@ -121,7 +121,7 @@
         <p class="lead row-md-2"></p>
         <p class="lead row-md-2">멤버쉽에 가입하여</p>
         <p class="lead row-md-2">이벤트 참여와 가격 할인을 받으세요.</p>
-        <a href="Membership.do"><button type="button" class="btn btn-outline-dark">자세히 보기</button></a>
+        <a href="all/Membership.do"><button type="button" class="btn btn-outline-dark">자세히 보기</button></a>
         
       </div>
       <div class="col-md-5">
@@ -137,7 +137,7 @@
         <h2 class="featurette-heading fw-normal lh-1"> <span class="text-muted">EVENT</span></h2>
         <p class="lead row-md-4"></p>
         <p class="lead">진행중인 다양한 이벤트를 확인하세요.</p>
-        <a href="Event.do"><button type="button" class="btn btn-outline-dark">자세히 보기</button></a>
+        <a href="all/Event.do"><button type="button" class="btn btn-outline-dark">자세히 보기</button></a>
       </div>
       <div class="col-md-5 order-md-1">
 		<img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" alt="" src="img/cafehi_event.jpeg" width="500" height="500" >
@@ -154,7 +154,7 @@
         <p class="lead row-md-4"></p>
         <p class="lead row-md-4">찾아오시는데 불편하지 않게</p>
         <p class="lead row-md-4">위치를 알려드릴게요!</p>
-      	<a href="Place.do"><button type="button" class="btn btn-outline-dark">자세히 보기</button></a>
+      	<a href="all/Place.do"><button type="button" class="btn btn-outline-dark">자세히 보기</button></a>
       </div>
       <div class="col-md-5">
 		<img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" alt="" src="img/cafehi1.jpeg" width="500" height="500" >
