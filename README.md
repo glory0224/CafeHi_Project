@@ -28,8 +28,7 @@
 
 1. UserDTO 삭제, MemberDTO 생성
 
-2. UserDTO로 구현하던 프로젝트를 MemberDTO로 변경 
-(스프링 시큐리티의 User 객체를 사용하기 위해 모호함 제거)
+2. UserDTO로 구현하던 프로젝트를 MemberDTO로 변경 <br> (스프링 시큐리티의 User 객체를 사용하기 위해 모호함 제거)
 
 ### 구현 하고 있는 기능 
 
