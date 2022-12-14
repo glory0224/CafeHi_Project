@@ -27,17 +27,18 @@
     <h1 class="h3 mb-3 fw-normal">로그인</h1><br>
 	
     <div class="form-floating">
-      <input type="text" class="form-control" id="floatingInput" placeholder="Id" name="user_id">
+      <input type="text" class="form-control" id="floatingInput" placeholder="Id" name="username">
       <label for="floatingInput">아이디</label>
     </div><br>
     <div class="form-floating">
-      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="user_pw">
+      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
       <label for="floatingPassword">비밀번호</label><br>
     </div>
 
     <div class="checkbox mb-3">
     <h3><c:out value="${error }"/></h3>
     <h3><c:out value="${logout }"/></h3>
+    <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
      <!--  <label>
         <input type="checkbox" value="remember-me"> 로그인 상태 유지
       </label> -->

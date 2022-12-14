@@ -13,9 +13,9 @@ public class MemberDAO {
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 	public MemberDTO getMemberId(String find_id) {
-		if(sqlSessionTemplate.selectOne("MemberDAO.getUserId", find_id) != null) {
+		if(sqlSessionTemplate.selectOne("MemberDAO.getMemberId", find_id) != null) {
 			
-			return sqlSessionTemplate.selectOne("MemberDAO.getUserId", find_id);
+			return sqlSessionTemplate.selectOne("MemberDAO.getMemberId", find_id);
 		}
 			return null;
 		
@@ -31,8 +31,14 @@ public class MemberDAO {
 	
 	
 	public MemberDTO getMember(MemberDTO member) {
-		return sqlSessionTemplate.selectOne("MemberDAO.getUser", member);
+		return sqlSessionTemplate.selectOne("MemberDAO.getMember", member);
 	}
+	
+	public MemberDTO readMember(String member_id) {
+		return sqlSessionTemplate.selectOne("MemberDAO.readMember", member_id);
+		
+	}
+	
 	
 	public void insertMember(MemberDTO member) {
 		System.out.println("DAO ╦егн");

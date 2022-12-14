@@ -6,22 +6,29 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 <bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+<bean id="customLoginSuccess" class="com.cafeHi.www.common.security.CustomLoginSuccessHandler"/>
+<bean id="CustomAccessDenied" class="com.cafeHi.www.common.security.CustomAccessDeniedHandler"/>
+<bean id="CustomUserDetailsService" class="com.cafeHi.www.member.service.CustomUserDetailsService"/>
 
 	<security:http>
 		<security:intercept-url pattern="/all/*" access="permitAll"/>
-		<security:intercept-url pattern="/user/*" access=""/>
+		<security:intercept-url pattern="/member/*" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/manager/*" access="hasRole('ROLE_MEMBER')"/>
+		<security:intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')"/>
 			
-		<security:form-login/>		
-			<!-- <security:form-login login-page="/all/login.do"/> -->
+		<!-- <security:form-login/> -->		
+			<security:form-login login-page="/all/login.do" login-processing-url="/all/login.do" authentication-success-handler-ref="customLoginSuccess"/>
 			
+			<security:access-denied-handler ref="CustomAccessDenied"/>
 	</security:http>
 	
 	<security:authentication-manager>
 		
-		<!-- <security:authentication-provider>
-			<security:jdbc-user-service data-source-ref="dataSource"/>
+		<security:authentication-provider user-service-ref="CustomUserDetailsService">
+			<!-- <security:jdbc-user-service data-source-ref="dataSource" users-by-username-query="select member_id, member_pw, enabled from cafehi_member where member_id =?"
+			 authorities-by-username-query="select member_id, auth from cafehi_member_auth where member_id = ? "/> -->
 			<security:password-encoder ref="bcryptPasswordEncoder"/>
-		</security:authentication-provider> -->
+		</security:authentication-provider>
 	
 	</security:authentication-manager>
 

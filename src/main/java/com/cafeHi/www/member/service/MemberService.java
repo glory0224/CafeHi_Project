@@ -5,6 +5,7 @@ import com.cafeHi.www.member.dto.MemberDTO;
 public interface MemberService {
 	public MemberDTO getMemberId(String find_id);
 	public MemberDTO getMember(MemberDTO member);
+	public MemberDTO readMember(String member_id);
 	public int idCheck(String member_id);
 	
 	

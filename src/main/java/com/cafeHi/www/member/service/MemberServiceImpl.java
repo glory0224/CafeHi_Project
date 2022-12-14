@@ -1,6 +1,9 @@
 package com.cafeHi.www.member.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.cafeHi.www.member.dao.MemberDAO;
@@ -24,6 +27,12 @@ public class MemberServiceImpl implements MemberService{
 	public MemberDTO getMember(MemberDTO member) {
 		return memberDAO.getMember(member);
 	}
+	
+	@Override
+	public MemberDTO readMember(String member_id) {
+		return memberDAO.readMember(member_id);
+	}
+	
 
 	@Override
 	public int idCheck(String member_id) {
@@ -77,8 +86,6 @@ public class MemberServiceImpl implements MemberService{
 	public void updateMemberEmail(MemberDTO member) {
 		memberDAO.updateMemberEmail(member);
 	}
-	
-	
 
 	
 
