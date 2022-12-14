@@ -23,21 +23,21 @@
 <jsp:include page="/cafeHi_module/header.jsp"/>
 
 <div class="w-50 m-auto p-5">
-<form class="container" action="insertUser.do" method="post" id="userForm">
+<form class="container" action="insertMember.do" method="post" id="memberForm">
 	<h1 class="text-center m-5">회원 가입</h1>
   <div class="m-5">
-    <h4><label for="user_id" class="form-label">아이디</label><input id="idCheck" class="btn btn-sm btn-success float-end" type="button" value="중복 확인"></h4>
-    <input type="text" id="user_id" class="form-control" placeholder="영문, 숫자 포함 6 - 20자" name="user_id">
+    <h4><label for="member_id" class="form-label">아이디</label><input id="idCheck" class="btn btn-sm btn-success float-end" type="button" value="중복 확인"></h4>
+    <input type="text" id="member_id" class="form-control" placeholder="영문, 숫자 포함 6 - 20자" name="member_id">
     <br>
     <div><font id="id_feedback" size="2"></font></div>
   </div>
     <div class="m-5">
-    <h4><label for="userName" class="form-label">이름</label></h4>
-    <input type="text" id="userName" class="form-control" placeholder="이름을 입력하세요." name="user_name">
+    <h4><label for="memberName" class="form-label">이름</label></h4>
+    <input type="text" id="memberName" class="form-control" placeholder="이름을 입력하세요." name="member_name">
   </div>
   <div class="m-5">
-    <h4><label for="userPassword" class="form-label">비밀번호</label></h4>
-    <input type="password" id="userPassword" class="form-control" placeholder="영문, 숫자 포함 6 - 20자" name="user_pw">
+    <h4><label for="memberPassword" class="form-label">비밀번호</label></h4>
+    <input type="password" id="memberPassword" class="form-control" placeholder="영문, 숫자 포함 6 - 20자" name="member_pw">
   </div>
   <div class="m-5">
     <h4><label for="checkPassword" class="form-label">비밀번호 확인</label></h4>
@@ -46,13 +46,13 @@
     <div id="pwcheck"></div>
   </div>
   <div class="m-5">
-    <h4><label for="userContact" class="form-label">연락처</label></h4>
-    <input type="text" id="userContact" class="form-control" placeholder="연락처를 입력하세요." name="user_contact" maxlength="13">
+    <h4><label for="memberContact" class="form-label">연락처</label></h4>
+    <input type="text" id="memberContact" class="form-control" placeholder="연락처를 입력하세요." name="member_contact" maxlength="13">
   </div>
   <div class="m-5">
-    <h4><label for="userEmailId " class="form-label">이메일</label></h4>
+    <h4><label for="memberEmail " class="form-label">이메일</label></h4>
     <div class="d-flex justify-content-between mail_check_wrap">
-    <input type="text" id="userEmail" class="form-control" placeholder="이메일을 입력하세요." name="user_email"> &nbsp;
+    <input type="text" id="memberEmail" class="form-control" placeholder="이메일을 입력하세요." name="member_email"> &nbsp;
    
     	<input id="mail_check_button" class="btn btn-sm btn-success" type="button" value="인증번호 전송">
     	
@@ -71,14 +71,14 @@
   <h4><label for="user_address" class="form-label">주소</label> <input class="btn btn-sm btn-success float-end" type="button" onclick="find_address()" value="주소 찾기"></h4>
     
    <div class="mt-3">
-    <input type="text" id="userRoadAddress" class="form-control" placeholder="도로명 주소" name="user_road_address" readonly="readonly">
+    <input type="text" id="memberRoadAddress" class="form-control" placeholder="도로명 주소" name="member_road_address" readonly="readonly">
    </div>
      
    <div class="mt-3">
-    <input type="text" id="userJibunAddress" class="form-control" placeholder="지번 주소" name="user_jibun_address" readonly="readonly">
+    <input type="text" id="memberJibunAddress" class="form-control" placeholder="지번 주소" name="member_jibun_address" readonly="readonly">
    </div>  
     <div class="mt-3">
-    <input type="text" id="userDetailAddress" class="form-control" placeholder="상세주소" name="user_detail_address">
+    <input type="text" id="memberDetailAddress" class="form-control" placeholder="상세주소" name="member_detail_address">
     </div>
    
   </div>
@@ -141,12 +141,12 @@
                
                 // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
                 if(roadAddr !== ''){
-                    document.getElementById("userRoadAddress").value = roadAddr + ' ' + extraRoadAddr;
-                    document.getElementById("userJibunAddress").value = data.jibunAddress;
+                    document.getElementById("memberRoadAddress").value = roadAddr + ' ' + extraRoadAddr;
+                    document.getElementById("memberJibunAddress").value = data.jibunAddress;
                     
                 } else {
-                    document.getElementById("userAddress").value = roadAddr;
-                    document.getElementById("userJibunAddress").value = data.jibunAddress;
+                    /* document.getElementById("memberAddress").value = roadAddr; */
+                    document.getElementById("memberJibunAddress").value = data.jibunAddress;
                 }
 				
                 return;
@@ -163,17 +163,17 @@
 	/* Ajax방식을 Spring에 적용하기 전에 Pom.xml에 json 관련 dependency가 들어 있는지 확인한다. */
 	
 	$('#idCheck').click(function(){
-		let user_id = $('#user_id').val();
+		let member_id = $('#member_id').val();
 			
 		$.ajax({
-			url : "http://localhost:8080/cafeHi/IdCheck.do",
+			url : "http://localhost:8080/cafeHi/all/IdCheck.do",
 			type : "post",
-			data : {user_id: user_id},
+			data : {member_id: member_id},
 			dataType : 'json',
 			success : function(result){
 				if(result == 1){
-					userId = document.getElementById('user_id');
-					userId.value = "";
+					memberId = document.getElementById('member_id');
+					memberId.value = "";
 					$("#id_feedback").html('이미 사용중인 아이디입니다.');
 					$("#id_feedback").attr('color','#dc3545');
 				} else{
@@ -193,7 +193,7 @@
 	
 	/* 인증번호 이메일 전송 */
 	$("#mail_check_button").click(function(){
-		var email = $("#userEmail").val(); 		// 입력한 이메일
+		var email = $("#memberEmail").val(); 		// 입력한 이메일
 		var checkBox = $(".mail_check_input");  // 인증번호 입력란
 		var boxWrap = $(".mail_check_input_box");  // 인증번호 입력란 박스 
 		// RFC 5322 이메일 정규 표현식

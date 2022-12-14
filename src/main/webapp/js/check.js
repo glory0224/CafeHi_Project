@@ -1,36 +1,39 @@
 // JS 유효성 검사
 
+// 유효성 검사가 적용이 안되는 경우 : 대부분 id나 name의 오타일 가능성이 높고, 그게 아닐 경우에는 인터넷 어플리케이션을 바꿔가며 적용해볼것(ex chrome, microsoftEdge ...)
+
 // 회원가입 유효성 검사
 function signupcheck() {
 	
-	var userId = document.getElementById('user_id');
-	var userName = document.getElementById('userName');
-	var userPassword = document.getElementById('userPassword');
+	var memberId = document.getElementById('member_id');
+	var memberName = document.getElementById('memberName');
+	var memberPassword = document.getElementById('memberPassword');
 	var checkPassword = document.getElementById('checkPassword');
-	var contact = document.getElementById('userContact');
-	var userEmail = document.getElementById('userEmail');
-	var userRoadAddress = document.getElementById('userRoadAddress');
-	var userJibunAddress = document.getElementById('userJibunAddress');
-	var detailAddress = document.getElementById('userDetailAddress');
+	var contact = document.getElementById('memberContact');
+	var memberEmail = document.getElementById('memberEmail');
+	var memberRoadAddress = document.getElementById('memberRoadAddress');
+	var memberJibunAddress = document.getElementById('memberJibunAddress');
+	var detailAddress = document.getElementById('memberDetailAddress');
 	var privacyCheck = document.getElementById('privacyCheck').checked;
-	var mailCheck = document.getElementById('mail_check_boolean').checked;
+	//var mailCheck = document.getElementById('mail_check_boolean').checked;
 	
 	
 
 	// 회원가입란 공백 체크 
 	// input 태그의 도로명 주소와 지번 주소의 공백 체크를 시도했는데 버튼이 넘어가지 않았다. 어떻게 체크힐 것인지 고민해야겠다. 
 		
-	if (userId.value == "") {
+	
+	if (memberId.value == "") {
 		alert('아이디를 입력해주세요');
-		userId.focus();
+		memberId.focus();
 		return;
-	} else if (userName.value == "") {
+	} else if (memberName.value == "") {
 		alert('이름을 입력해주세요');
-		userName.focus();
+		memberName.focus();
 		return;
-	} else if (userPassword.value == "") {
+	} else if (memberPassword.value == "") {
 		alert('비밀번호를 입력해주세요');
-		userPassword.focus();
+		memberPassword.focus();
 		return;
 	} else if (checkPassword.value == "") {
 		alert('비밀번호를 한번 더 입력해주세요');
@@ -40,11 +43,11 @@ function signupcheck() {
 		alert('연락처를 입력해주세요');
 		contact.focus();
 		return;
-	} else if (userEmail.value == "") {
+	} else if (memberEmail.value == "") {
 		alert('이메일을 입력해주세요');
-		userEmail.focus();
+		memberEmail.focus();
 		return;
-	} else if (userRoadAddress.value == "" && userJibunAddress.value == "") {
+	} else if (memberRoadAddress.value == "" && memberJibunAddress.value == "") {
 		alert('주소 찾기 버튼을 눌러 주소를 선택해주세요');
 		return;
 	} else if (detailAddress.value == "") {
@@ -66,7 +69,7 @@ function signupcheck() {
 	// RFC 5322 이메일 정규 표현식
 	emailReg = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])");
 	
-	if(!emailReg.test(userEmail.value)){
+	if(!emailReg.test(memberEmail.value)){
 		alert('올바른 이메일 형식을 입력하세요. \n ex) ID@naver.com or ID@yale.edu.com');
 		return;
 	}
@@ -87,20 +90,20 @@ function signupcheck() {
 	// 정규 표현식
 	Reg = /^[a-z]+[a-z0-9]{5,19}$/g;
 
-	if (!Reg.test(userId.value)) {
+	if (!Reg.test(memberId.value)) {
 		alert('아이디는 영문, 숫자 포함 6 - 20자로 입력해주세요.');
-		userId.focus();
+		memberId.focus();
 		return;
 	}
 
-	if (! /^[a-z]+[a-z0-9]{5,19}$/g.test(userPassword.value)) {
+	if (! /^[a-z]+[a-z0-9]{5,19}$/g.test(memberPassword.value)) {
 		alert('비밀번호는 영문, 숫자 포함 6 - 20자로 입력해주세요.');
-		userPassword.focus();
+		memberPassword.focus();
 		return;
 	}
 	
 	
-	document.getElementById('userForm').submit();
+	document.getElementById('memberForm').submit();
 
 
 }
@@ -108,18 +111,18 @@ function signupcheck() {
 
 // 패스워드가 서로 일치한 것인지 확인
 function pwCheck() {
-	userPassword = document.getElementById('userPassword');
+	memberPassword = document.getElementById('memberPassword');
 	checkPassword = document.getElementById('checkPassword');
-	if (userPassword.value == checkPassword.value) {
+	if (memberPassword.value == checkPassword.value) {
 		document.getElementById('pwcheck').innerHTML = "<span style='color: green;'>비밀번호가 서로 일치합니다.</span>";
 		
 		
 	} else {
 		document.getElementById('pwcheck').innerHTML = "<span style='color: red;'>비밀번호가 서로 일치하지 않습니다.</span>";
 		
-		userPassword.value = "";
+		memberPassword.value = "";
 		checkPassword.value = "";
-		userPassword.focus();
+		memberPassword.focus();
 	}
 }
 
@@ -127,13 +130,13 @@ function pwCheck() {
 
 // 로그인 공백 확인
 function loginCheck(){
-	userId = document.getElementById('floatingInput');
-	userPassword = document.getElementById('floatingPassword');
-	if (userId.value == "") {
+	memberId = document.getElementById('floatingInput');
+	memberPassword = document.getElementById('floatingPassword');
+	if (memberId.value == "") {
 		alert('아이디를 입력해주세요');
 		floatingInput.focus();
 		return;
-	} else if (userPassword.value == "") {
+	} else if (memberPassword.value == "") {
 		alert('비밀번호를 입력해주세요');
 		floatingPassword.focus();
 		return;
@@ -146,35 +149,35 @@ function loginCheck(){
 // 유저 정보 업데이트 유효성 검사 
 
 function updateIdCheck(){
-	var userId = document.getElementById('userId');
+	var memberId = document.getElementById('memberId');
 	Reg = /^[a-z]+[a-z0-9]{5,19}$/g;
 	
-	if (userId.value == "") {
+	if (memberId.value == "") {
 		alert('아이디를 입력해주세요');
-		userId.focus();
+		memberId.focus();
 		return;
-	} else if(!Reg.test(userId.value)){
+	} else if(!Reg.test(memberId.value)){
 		alert('아이디는 영문, 숫자 포함 6 - 20자로 입력해주세요.');
-		userId.focus();
+		memberId.focus();
 		return;
 	}
 	
-	document.getElementById('userUpdateIdForm').submit();
+	document.getElementById('memberUpdateIdForm').submit();
 }
 
 function updateNameCheck(){
-	var userName = document.getElementById('userName');
-	if (userName.value == "") {
+	var memberName = document.getElementById('memberName');
+	if (memberName.value == "") {
 		alert('이름을 입력해주세요');
-		userName.focus();
+		memberName.focus();
 		return;
 	}
 	
-	document.getElementById('userUpdateNameForm').submit();
+	document.getElementById('memberUpdateNameForm').submit();
 }
 
 function updateContactCheck(){
-	var contact = document.getElementById('userContact');
+	var contact = document.getElementById('memberContact');
 	
 	phonReg = /^01(0|1|6|7|8|9]{1})-?([0-9]{3,4})-?[0-9]{4}$/;
 	
@@ -188,54 +191,54 @@ function updateContactCheck(){
 		return;
 	}
 	
-	document.getElementById('userUpdateContactForm').submit();
+	document.getElementById('memberUpdateContactForm').submit();
 }
 
 
 
 function updateEmailCheck(){
 	
-	var userEmail = document.getElementById('userEmail');
+	var memberEmail = document.getElementById('memberEmail');
 	emailReg = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])");
 	
-	if (userEmail.value == "") {
+	if (memberEmail.value == "") {
 		alert('이메일을 입력해주세요');
-		userEmail.focus();
+		memberEmail.focus();
 		return;
-	} else if(!emailReg.test(userEmail.value)){
+	} else if(!emailReg.test(memberEmail.value)){
 		alert('올바른 이메일 형식을 입력하세요. \n ex) ID@naver.com or ID@yale.edu.com');
-		userEmail.focus();
+		memberEmail.focus();
 		return;
 	}
 	
-	document.getElementById('userUpdateEmailForm').submit();
+	document.getElementById('memberUpdateEmailForm').submit();
 }
 
 function updateAddressCheck(){
 	
-	var userRoadAddress = document.getElementById('userRoadAddress');
-	var userJibunAddress = document.getElementById('userJibunAddress');
+	var memberRoadAddress = document.getElementById('memberRoadAddress');
+	var memberJibunAddress = document.getElementById('memberJibunAddress');
 	
-	if (userRoadAddress.value == "" && userJibunAddress.value == "") {
+	if (memberRoadAddress.value == "" && memberJibunAddress.value == "") {
 		alert('주소 찾기 버튼을 눌러 주소를 선택해주세요');
 		return;
 	}
 	
-	document.getElementById('userUpdateAddressForm').submit();
+	document.getElementById('memberUpdateAddressForm').submit();
 		
 }
 
 function updateDetailAddressCheck(){
 	
-	var userDetailAddress = document.getElementById('userDetailAddress');
+	var memberDetailAddress = document.getElementById('memberDetailAddress');
 	
-	if (userDetailAddress.value == ""){
+	if (memberDetailAddress.value == ""){
 		alert('상세주소를 입력해주세요.');
-		userDetailAddress.focus();
+		memberDetailAddress.focus();
 		return;
 	}
 	
-	document.getElementById('userUpdateDetailAddressForm').submit();
+	document.getElementById('memberUpdateDetailAddressForm').submit();
 }
 
 

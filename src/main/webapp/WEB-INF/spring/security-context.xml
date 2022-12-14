@@ -5,15 +5,24 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.7.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+
 	<security:http>
 		<security:intercept-url pattern="/all/*" access="permitAll"/>
-		
-			<security:form-login login-page="/all/login.do"/>
+		<security:intercept-url pattern="/user/*" access=""/>
+			
+		<security:form-login/>		
+			<!-- <security:form-login login-page="/all/login.do"/> -->
 			
 	</security:http>
 	
 	<security:authentication-manager>
 		
+		<!-- <security:authentication-provider>
+			<security:jdbc-user-service data-source-ref="dataSource"/>
+			<security:password-encoder ref="bcryptPasswordEncoder"/>
+		</security:authentication-provider> -->
+	
 	</security:authentication-manager>
 
 </beans>

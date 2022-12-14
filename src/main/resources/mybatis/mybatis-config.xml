@@ -11,16 +11,17 @@
  		<setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
  	<typeAliases>
- 		<typeAlias type="com.cafeHi.www.user.dto.UserDTO" alias="User"/>
+ 		<typeAlias type="com.cafeHi.www.member.dto.MemberDTO" alias="Member"/>
  		<typeAlias type="com.cafeHi.www.board.qna.dto.QnADTO" alias="QnA"/>
  		<typeAlias type="com.cafeHi.www.admin.dto.adminDTO" alias="Admin"/>
+ 		<typeAlias type="com.cafeHi.www.member.dto.AuthDTO" alias="Auth"/>
  	</typeAliases>
 
 	 
 	
 	
  	<mappers>
- 		<mapper resource="mappings/user-mappings.xml"/>
+ 		<mapper resource="mappings/member-mappings.xml"/>
  		<mapper resource="mappings/qna-mappings.xml"/>
  		<mapper resource="mappings/admin-mappings.xml"/>
  	</mappers>

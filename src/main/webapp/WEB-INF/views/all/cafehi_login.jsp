@@ -1,6 +1,7 @@
 <%@page import="java.io.PrintWriter"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,6 +36,8 @@
     </div>
 
     <div class="checkbox mb-3">
+    <h3><c:out value="${error }"/></h3>
+    <h3><c:out value="${logout }"/></h3>
      <!--  <label>
         <input type="checkbox" value="remember-me"> 로그인 상태 유지
       </label> -->

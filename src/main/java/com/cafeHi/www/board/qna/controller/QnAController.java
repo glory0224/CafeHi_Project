@@ -37,7 +37,7 @@ import com.cafeHi.www.board.qna.dto.QnADTO;
 import com.cafeHi.www.board.qna.service.QnAService;
 import com.cafeHi.www.common.dto.CriteriaDTO;
 import com.cafeHi.www.common.dto.PageDTO;
-import com.cafeHi.www.user.service.UserService;
+import com.cafeHi.www.member.service.MemberService;
 
 // qna 관련 이동 
 @Controller

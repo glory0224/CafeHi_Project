@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MemberDAO">
+ 	<resultMap type="Member" id="MemberResult">
+ 		<id property="member_id" column="MEMBER_ID"/>
+ 		<result property="member_seq" column="MEMBER_SEQ"/>
+ 		<result property="member_id" column="MEMBER_ID"/>
+ 		<result property="member_pw" column="MEMBER_PW"/>
+ 		<result property="member_name" column="MEMBER_NAME"/>
+ 		<result property="member_contact" column="MEMBER_CONTACT"/>
+ 		<result property="member_email" column="MEMBER_EMAIL"/>
+ 		<result property="member_address" column="MEMBER_ADDRESS"/>
+ 		<collection property="authList" resultMap="AuthResult">
+ 		
+ 		</collection>
+ 	</resultMap>
+ 	
+ 	<resultMap type="Auth" id="AuthResult">
+ 		<result property="member_id" column="MEMBER_ID"/>
+ 		<result property="auth" column="AUTH"/>
+ 	</resultMap>
+ 	
+ 	<insert id="insertMember" parameterType="Member">
+ 		INSERT INTO cafehi_member(member_seq, member_id, member_pw, member_name, member_contact, user_email, member_road_address, member_jibun_address, member_detail_address) 
+ 		VALUES((select nvl(max(member_seq), 0)+1 from cafehi_member), #{member_id}, #{member_pw},#{member_name},#{member_contact}, #{member_email}, #{member_road_address},#{member_jibun_address},#{member_detail_address})
+ 	</insert>
+ 	
+ 	<update id="updateMember" parameterType="Member">
+ 		UPDATE cafehi_member
+ 		SET  member_id = #{member_id}, member_pw = #{member_pw}, member_name = #{member_name}, member_contact = #{member_contact}, member_address = #{member_address} 
+ 		WHERE member_seq = #{member_seq} 
+ 	</update>
+ 	
+ 	
+ 	<update id="updateMemberId" parameterType="Member">
+ 		UPDATE cafehi_member
+ 		SET member_id = #{member_id}
+ 		WHERE member_seq = #{member_seq}
+ 	</update>
+ 	
+ 	<update id="updateMemberName" parameterType="Member">
+ 		UPDATE cafehi_member
+ 		SET member_name = #{member_name}
+ 		WHERE member_seq = #{member_seq}
+ 	</update>
+ 	
+ 	<update id="updateMemberContact" parameterType="Member">
+ 		UPDATE cafehi_member
+ 		SET member_contact = #{member_contact}
+ 		WHERE member_seq = #{member_seq}
+ 	</update>
+ 	
+ 	<update id="updateMemberEmail" parameterType="Member">
+ 		UPDATE cafehi_member
+ 		SET member_email = #{member_email}
+ 		WHERE member_seq = #{member_seq}
+ 	</update>
+ 	
+ 	<update id="updateMemberAddress" parameterType="Member">
+ 		UPDATE cafehi_member
+ 		SET member_road_address = #{member_road_address}, member_jibun_address = #{member_jibun_address}
+ 		WHERE member_seq = #{member_seq}
+ 	</update>
+ 	
+ 	<update id="updateMemberDetailAddress" parameterType="Member">
+ 		UPDATE cafehi_member
+ 		SET member_detail_address = #{member_detail_address}
+ 		WHERE member_seq = #{member_seq}
+ 	</update>
+ 	
+ 	
+ 	
+ 	<delete id="deleteMember" parameterType="Member">
+ 		DELETE FROM cafehi_member WHERE member_seq = #{member_seq}
+ 	</delete>
+ 	
+ 	<select id="getMemberId" parameterType="String" resultMap="MemberResult">
+ 		SELECT * FROM cafehi_member 
+ 		WHERE member_id = #{find_id}
+ 	</select>
+ 		
+ 	
+ 	<select id="getMember" parameterType="Member" resultType="Member">
+ 		SELECT * FROM cafehi_member
+ 		WHERE member_seq = #{member_seq}
+ 	</select>
+ 	
+ 	<select id="readMember" resultMap="MemberResult">
+ 		SELECT 
+ 			cfmember.member_id, member_pw, member_name, member_contact, member_email, member_road_address, member_jibun_address, member_detail_address, auth
+ 		FROM
+ 			cafehi_member cfmember LEFT OUTER JOIN cafehi_member_auth auth on cfmember.member_id = 
+ 			auth.member_id
+ 		WHERE
+ 			cfmember.member_id = #{member_id}
+ 	</select>
+ 	
+ 	<select id="checkId" parameterType="String" resultType="int">
+		SELECT count(*) FROM cafehi_member WHERE member_id = #{member_id}	
+ 	</select>
+ 	
+ 	
+ 	
+ 	
+</mapper>

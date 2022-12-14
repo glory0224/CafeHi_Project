@@ -13,13 +13,18 @@
  		<result property="qna_select" column="QNA_SELECT" />
  		<result property="qna_search" column="QNA_SEARCH" />
  		<result property="upload_path" column="UPLOAD_PATH" />
- 		<association property="user_seq" javaType="User" column="USER_SEQ" resultMap="UserResult">
-	 		<id property="user_seq" column="USER_SEQ"/>
-	 		<result property="user_id" column="USER_id"/>
-	 		<result property="user_pw" column="USER_PW"/>
-	 		<result property="user_name" column="USER_NAME"/>
-	 		<result property="user_contact" column="USER_CONTACT"/>
-	 		<result property="user_address" column="USER_ADDRESS"/>
+ 		<association property="user_id" javaType="Member" column="MEMBER_ID" resultMap="MemberResult">
+	 		<id property="member_id" column="MEMBER_ID"/>
+	 		<result property="member_seq" column="MEMBER_SEQ"/>
+	 		<result property="member_id" column="MEMBER_ID"/>
+	 		<result property="member_pw" column="MEMBER_PW"/>
+	 		<result property="member_name" column="MEMBER_NAME"/>
+	 		<result property="member_contact" column="MEMBER_CONTACT"/>
+	 		<result property="member_email" column="MEMBER_EMAIL"/>
+	 		<result property="member_address" column="MEMBER_ADDRESS"/>
+	 		<collection property="authList" resultMap="AuthResult">
+	 		
+	 		</collection>
  		</association>
  		<association property="admin_id" javaType="Admin" column="ADMIN_ID" resultMap="AdminResult"/>
  	</resultMap>
@@ -84,13 +89,13 @@
  		
 
  	
- 	SELECT qna_num, qna_title, qna_content, qna_writetime, qna_hit, user_id FROM(
+ 	SELECT qna_num, qna_title, qna_content, qna_writetime, qna_hit, member_id FROM(
 	
-	SELECT rownum rn, q.qna_num, q.qna_title, q.qna_content, q.qna_writetime,q.qna_hit, u.user_id FROM
+	SELECT rownum rn, q.qna_num, q.qna_title, q.qna_content, q.qna_writetime,q.qna_hit, m.member_id FROM
 	
-	(SELECT * FROM cafehi_qna ORDER BY qna_num DESC) q, cafehi_user u
+	(SELECT * FROM cafehi_qna ORDER BY qna_num DESC) q, cafehi_member m
 	
-	WHERE u.user_seq = q.user_seq
+	WHERE m.member_id = q.member_id
 	<if test="keyword != null">
           AND q.qna_title like '%'||#{keyword}||'%' 
     </if>
@@ -112,7 +117,7 @@
 	<!-- 게시글 조회 -->
 	<select id="getQnA" resultType="QnA">
 		SELECT  * FROM(
-		SELECT q.qna_num, q.qna_title, q.qna_content, q.qna_writetime, q.qna_hit, u.user_id, q.upload_path, q.filename FROM cafehi_qna q, cafehi_user u WHERE u.user_seq = q.user_seq
+		SELECT q.qna_num, q.qna_title, q.qna_content, q.qna_writetime, q.qna_hit, m.member_id, q.upload_path, q.filename FROM cafehi_qna q, cafehi_member m WHERE m.member_id = q.member_id
 		)
 		  WHERE qna_num=#{qna_num}
 	</select>
