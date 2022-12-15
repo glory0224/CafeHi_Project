@@ -15,7 +15,6 @@ import com.cafeHi.www.member.service.MemberService;
 import lombok.extern.log4j.Log4j;
 
 @Controller
-@RequestMapping("/all/*")
 @Log4j
 public class LoginController {
 
@@ -54,7 +53,7 @@ public class LoginController {
 			model.addAttribute("logout", "Logout!!");
 		}
 		
-		return "all/cafehi_login";
+		return "cafehi_login";
 	}
 
 	// Post 요청
@@ -63,11 +62,16 @@ public class LoginController {
 
 		if (member != null) {
 
-			String find_id = member.getMember_id();
-			MemberDTO getMember = memberService.getMemberId(find_id);
-			System.out.println(member.getMember_pw());
-			System.out.println("가져온 아이디 :" + find_id);
+			/*
+			 * String find_id = member.getMember_id(); MemberDTO getMember =
+			 * memberService.getMemberId(find_id);
+			 * System.out.println(member.getMember_pw()); System.out.println("가져온 아이디 :" +
+			 * find_id);
+			 */
+			String member_id = member.getMember_id();
+			MemberDTO getMember = memberService.readMember(member_id);
 			
+			log.info("getMember : " + getMember);
 			/*
 			 * if (getUser == null) { request.setAttribute("msg", "계정이 존재하지 않습니다.");
 			 * request.setAttribute("url", "login.do"); return "alert"; // id를 체크하는 로직이 동작되게
@@ -75,15 +79,16 @@ public class LoginController {
 			 */ 
 			
 			
-			if (!member.getMember_id().equals(getMember.getMember_id()) || !member.getMember_pw().equals(getMember.getMember_pw())) {
+/*			if (!member.getMember_id().equals(getMember.getMember_id()) || !member.getMember_pw().equals(getMember.getMember_pw())) {
 				
 				request.setAttribute("msg", "아이디 또는 비밀번호를 확인하세요");
 				request.setAttribute("url", "login.do");
 				return "alert";
 
 			} else {
-				System.out.println("가져온 유저 이름 : " + getMember.getMember_name());
-				System.out.println("가져온 계정 비밀번호 : " + getMember.getMember_pw());
+				*/
+			log.info("가져온 유저 이름 : " + getMember.getMember_name());
+			log.info("가져온 계정 비밀번호 : " + getMember.getMember_pw());
 				session.setAttribute("MemberSeq", getMember.getMember_seq());
 				session.setAttribute("MemberId", getMember.getMember_id());
 				session.setAttribute("MemberName", getMember.getMember_name());
@@ -94,10 +99,10 @@ public class LoginController {
 				session.setAttribute("MemberDetailAddress", getMember.getMember_detail_address());
 				return "redirect:/"; // viewResolver를 이용하면 WEB-INF로 경로 설정되기 때문에 바로 이동시킨다.
 
-				 } 
+			//}  
 			
 		} else {
-			return "cafehi_login";
+			return "all/cafehi_login";
 		}
 	}
 

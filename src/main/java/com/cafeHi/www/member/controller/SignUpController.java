@@ -8,17 +8,18 @@ import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cafeHi.www.member.dto.AuthDTO;
 import com.cafeHi.www.member.dto.MemberDTO;
 import com.cafeHi.www.member.service.MemberService;
 
 
 @Controller
-@RequestMapping("/all/*")
 public class SignUpController {
 		
 	@Autowired
@@ -27,19 +28,23 @@ public class SignUpController {
 	@Autowired
 	private JavaMailSender mailsender;
 	
+	@Autowired
+	BCryptPasswordEncoder pwdEncoder;
+	
 	@RequestMapping(value = "/signup.do", method = RequestMethod.GET)
 	public String signUpView() {
 		
-		return "all/cafehi_signup";
+		return "cafehi_signup";
 	}
 	
 	// 회원 등록
 		@RequestMapping(value = "/insertMember.do", method = RequestMethod.POST)
-		public String insertUser(MemberDTO member) {
+		public String insertUser(MemberDTO member, AuthDTO memberauth) {
 			System.out.println(member.getMember_id());
 			System.out.println(member.getMember_name());
 			System.out.println(member.getMember_road_address());
-			
+			String encodepw = pwdEncoder.encode(member.getMember_pw());
+			member.setMember_pw(encodepw);
 			// '-'을 입력한 정보일 경우 
 			if(member.getMember_contact().contains("-")) {
 				String[] nums = member.getMember_contact().split("-");
@@ -50,15 +55,18 @@ public class SignUpController {
 			}
 			
 			memberService.insertMember(member);
+			memberauth.setMember_id(member.getMember_id());
+			memberauth.setAuth("ROLE_USER");
+			memberService.insertMemberAuth(memberauth);
 			
-			return "all/cafehi_login";
+			return "cafehi_login";
 		}
 	
 	
 	// 아이디 중복체크
 	@RequestMapping("/IdCheck.do")
-	public @ResponseBody int IdCheck(String user_id) {
-		int result = memberService.idCheck(user_id);
+	public @ResponseBody int IdCheck(String member_id) {
+		int result = memberService.idCheck(member_id);
 		return result;
 	}
 	

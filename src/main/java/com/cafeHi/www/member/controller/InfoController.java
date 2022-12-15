@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/member/*")
+//@RequestMapping("/member/*")
 public class InfoController {
 	
 	// 계정 정보 페이지
@@ -13,7 +13,7 @@ public class InfoController {
 	@RequestMapping("/info.do") 
 	public String UserInfoView() { 
 		
-		return "member/cafehi_userInfo";
+		return "member/cafehi_memberInfo";
 		
 	}
 	 
@@ -23,6 +23,6 @@ public class InfoController {
 	@RequestMapping("/infoUpdate.do")
 	public String UserInfoUpdateView() {
 		
-		return "member/cafehi_userUpdate";
+		return "member/cafehi_memberUpdate";
 	}
 }

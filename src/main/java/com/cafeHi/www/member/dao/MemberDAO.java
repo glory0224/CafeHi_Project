@@ -4,6 +4,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.cafeHi.www.member.dto.AuthDTO;
 import com.cafeHi.www.member.dto.MemberDTO;
 
 @Repository
@@ -44,6 +45,12 @@ public class MemberDAO {
 		System.out.println("DAO 매핑");
 		sqlSessionTemplate.insert("MemberDAO.insertMember", member);
 	}
+	
+
+	public void insertMemberAuth(AuthDTO memberauth) {
+		sqlSessionTemplate.insert("MemberDAO.insertMemberAuth", memberauth);
+	}
+	
 
 	public void updateMember(MemberDTO member) {
 		System.out.println("업데이트 매핑");
@@ -77,7 +84,9 @@ public class MemberDAO {
 	public void updateMemberEmail(MemberDTO member) {
 		sqlSessionTemplate.update("MemberDAO.updateMemberEmail", member);
 	}
-	
+
+
+
 	
 	
 	

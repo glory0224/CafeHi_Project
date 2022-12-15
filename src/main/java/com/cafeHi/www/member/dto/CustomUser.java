@@ -8,11 +8,16 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Getter
+@Setter
+@ToString
 public class CustomUser extends User {
 
 	private static final long serialVersionUID = 1L;
+	
 	
 	private MemberDTO member;
 
@@ -25,5 +30,6 @@ public class CustomUser extends User {
 		super(mem.getMember_id(), mem.getMember_pw(), mem.getAuthList().stream().map(auth -> new SimpleGrantedAuthority(auth.getAuth())).collect(Collectors.toList()));
 		
 		this.member = mem;
+		
 	}
 }

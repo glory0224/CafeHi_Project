@@ -23,8 +23,12 @@
  	</resultMap>
  	
  	<insert id="insertMember" parameterType="Member">
- 		INSERT INTO cafehi_member(member_seq, member_id, member_pw, member_name, member_contact, user_email, member_road_address, member_jibun_address, member_detail_address) 
+ 		INSERT INTO cafehi_member(member_seq, member_id, member_pw, member_name, member_contact, member_email, member_road_address, member_jibun_address, member_detail_address) 
  		VALUES((select nvl(max(member_seq), 0)+1 from cafehi_member), #{member_id}, #{member_pw},#{member_name},#{member_contact}, #{member_email}, #{member_road_address},#{member_jibun_address},#{member_detail_address})
+ 	</insert>
+ 	
+ 	<insert id="insertMemberAuth" parameterType="Auth">
+ 		INSERT INTO cafehi_member_auth(member_id, auth) VALUES(#{member_id}, #{auth})
  	</insert>
  	
  	<update id="updateMember" parameterType="Member">

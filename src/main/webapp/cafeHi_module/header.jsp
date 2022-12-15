@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <head>
 
   <meta charset="utf-8">
@@ -46,8 +47,33 @@
       </div>
     </div>
 
+<sec:authorize access="isAnonymous()">
+	<div class="d-flex justify-content-end">
+          <a href="login.do"><button type="button" class="btn btn-outline-success me-2">Login</button></a>
+        </div>
+</sec:authorize>
+
+<sec:authorize access="isAuthenticated()">
+<div class="d-flex justify-content-end">
+ <div class=" collapse navbar-collapse " id="navbarCollapse">
+        <ul class="navbar-nav">
+        <li class="nav-item"><b><sec:authentication property="principal.username"/></b>님 환영합니다.</li>        
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="info.do">내 정보</a>
+          </li>
+          <li class="nav-item">
+          	<form action="logout.do" method="post">
+          	<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
+            <input class="nav-link" type="submit" value="로그아웃" style="border:none; background-color: white">
+          	</form>
+          </li>          
+		</ul>
+	</div>
+	</div>
+</sec:authorize>
+
 <!-- 계정 로그인 여부 체크  -->
-<c:choose>
+<%-- <c:choose>
 <c:when test="${MemberName eq null}">
  		<div class="d-flex justify-content-end">
           <a href="login.do"><button type="button" class="btn btn-outline-success me-2">Login</button></a>
@@ -68,7 +94,9 @@
 	</div>
 	</div>
 </c:when>
-</c:choose>
+</c:choose> --%>
+
+
   </nav>
 </header>		
 

@@ -7,18 +7,19 @@
 
 <bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 <bean id="customLoginSuccess" class="com.cafeHi.www.common.security.CustomLoginSuccessHandler"/>
+<bean id="customLogoutSuccess" class="com.cafeHi.www.common.security.CustomLogoutSuccessHandler"></bean>
 <bean id="CustomAccessDenied" class="com.cafeHi.www.common.security.CustomAccessDeniedHandler"/>
 <bean id="CustomUserDetailsService" class="com.cafeHi.www.member.service.CustomUserDetailsService"/>
 
 	<security:http>
-		<security:intercept-url pattern="/all/*" access="permitAll"/>
-		<security:intercept-url pattern="/member/*" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/info.do" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/infoUpdate.do" access="hasRole('ROLE_USER')"/>
 		<security:intercept-url pattern="/manager/*" access="hasRole('ROLE_MEMBER')"/>
 		<security:intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')"/>
 			
 		<!-- <security:form-login/> -->		
-			<security:form-login login-page="/all/login.do" login-processing-url="/all/login.do" authentication-success-handler-ref="customLoginSuccess"/>
-			
+			<security:form-login login-page="/login.do" login-processing-url="/login.do" authentication-success-handler-ref="customLoginSuccess"/>
+			<security:logout logout-url="/logout.do" success-handler-ref="customLogoutSuccess" invalidate-session="false" />
 			<security:access-denied-handler ref="CustomAccessDenied"/>
 	</security:http>
 	

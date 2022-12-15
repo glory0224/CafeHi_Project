@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.cafeHi.www.member.dao.MemberDAO;
+import com.cafeHi.www.member.dto.AuthDTO;
 import com.cafeHi.www.member.dto.MemberDTO;
 
 @Service("memberService")
@@ -43,6 +44,12 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public void insertMember(MemberDTO member) {
 		memberDAO.insertMember(member);
+	}
+	
+
+	@Override
+	public void insertMemberAuth(AuthDTO memberauth) {
+		memberDAO.insertMemberAuth(memberauth);
 	}
 
 	@Override
@@ -86,6 +93,7 @@ public class MemberServiceImpl implements MemberService{
 	public void updateMemberEmail(MemberDTO member) {
 		memberDAO.updateMemberEmail(member);
 	}
+
 
 	
 

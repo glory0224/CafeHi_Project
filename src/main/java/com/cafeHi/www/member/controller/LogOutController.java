@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class LogOutController {
 	
-	@RequestMapping(value="/logout.do", method=RequestMethod.GET)
+	@RequestMapping("/logout.do")
 	public String logOut(HttpServletRequest request, HttpServletResponse response) throws Exception {
 			// HttpSession이 존재하면 현재 HttpSession을 반환하고 존재하지 않으면 새로이 생성하지 않고 그냥 null 반환
 			HttpSession session = request.getSession(false);

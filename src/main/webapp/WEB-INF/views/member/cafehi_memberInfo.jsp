@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,37 +22,39 @@
 	<input name="userSeq" value="${UserSeq }" type="hidden" />
   <div class="m-5">
     <label for="userId" class="form-label">아이디</label>
-  	<h3><b>${UserId }</b></h3>
+  	<h3><b><sec:authentication property="principal.member.member_id"/></b></h3>
   </div>
     <div class="m-5">
     <label for="userName" class="form-label">이름</label>
-  	<h3><b>${UserName }</b></h3>
+  	<h3><b><sec:authentication property="principal.member.member_name"/></b></h3>
   </div>
   <div class="m-5">
     <label for="contact" class="form-label">연락처</label>
-  	<h3><b>${UserContact }</b></h3>
+  	<h3><b><sec:authentication property="principal.member.member_contact"/></b></h3>
   </div>
   <div class="m-5">
     <label for="contact" class="form-label">이메일</label>
-  	<h3><b>${UserEmail}</b></h3>
+  	<h3><b><sec:authentication property="principal.member.member_email"/></b></h3>
   </div>
   <div class="m-5">
     <label for="address" class="form-label">도로명 주소</label>
-    <c:if test="${UserRoadAddress eq null }">
+    <%-- <c:if test="${UserRoadAddress eq null }">
   	<h3><b>없음</b></h3>
   	</c:if>
-  	<h3><b>${UserRoadAddress }</b></h3>
+  	<h3><b>${UserRoadAddress }</b></h3> --%>
+  	<h3><b><sec:authentication property="principal.member"/></b></h3>
   </div>
   <div class="m-5">
     <label for="address" class="form-label">지번 주소</label>
-    <c:if test="${UserJibunAddress eq null }">
+    <%-- <c:if test="${UserJibunAddress eq null }">
   	<h3><b>없음</b></h3>
   	</c:if>
-  	<h3><b>${UserJibunAddress }</b></h3>
+  	<h3><b>${UserJibunAddress }</b></h3> --%>
+  	<h3><b><sec:authentication property="principal.member.member_jibun_address"/></b></h3>
   </div>
   <div class="m-5">
     <label for="address" class="form-label">상세 주소</label>
-  	<h3><b>${UserDetailAddress }</b></h3>
+  	<h3><b><sec:authentication property="principal.member.member_detail_address"/></b></h3>
   </div>
 <div class="d-flex justify-content-end">
 <div style="padding-right: 30px">

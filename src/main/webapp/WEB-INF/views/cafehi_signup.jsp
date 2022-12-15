@@ -24,6 +24,7 @@
 
 <div class="w-50 m-auto p-5">
 <form class="container" action="insertMember.do" method="post" id="memberForm">
+<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
 	<h1 class="text-center m-5">회원 가입</h1>
   <div class="m-5">
     <h4><label for="member_id" class="form-label">아이디</label><input id="idCheck" class="btn btn-sm btn-success float-end" type="button" value="중복 확인"></h4>
@@ -166,7 +167,7 @@
 		let member_id = $('#member_id').val();
 			
 		$.ajax({
-			url : "http://localhost:8080/cafeHi/all/IdCheck.do",
+			url : "http://localhost:8080/cafeHi/IdCheck.do",
 			type : "post",
 			data : {member_id: member_id},
 			dataType : 'json',
