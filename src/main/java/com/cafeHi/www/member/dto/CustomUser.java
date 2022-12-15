@@ -20,6 +20,8 @@ public class CustomUser extends User {
 	
 	
 	private MemberDTO member;
+	
+	
 
 	public CustomUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
 		super(username, password, authorities);
@@ -30,6 +32,8 @@ public class CustomUser extends User {
 		super(mem.getMember_id(), mem.getMember_pw(), mem.getAuthList().stream().map(auth -> new SimpleGrantedAuthority(auth.getAuth())).collect(Collectors.toList()));
 		
 		this.member = mem;
+		
+		
 		
 	}
 }

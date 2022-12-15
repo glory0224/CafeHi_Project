@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cafeHi.www.member.dto.AuthDTO;
+import com.cafeHi.www.member.dto.CustomUser;
 import com.cafeHi.www.member.dto.MemberDTO;
 
 @Repository
@@ -36,6 +37,7 @@ public class MemberDAO {
 	}
 	
 	public MemberDTO readMember(String member_id) {
+		MemberDTO result = sqlSessionTemplate.selectOne("MemberDAO.readMember", member_id);
 		return sqlSessionTemplate.selectOne("MemberDAO.readMember", member_id);
 		
 	}

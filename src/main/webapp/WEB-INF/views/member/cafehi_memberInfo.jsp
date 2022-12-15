@@ -42,7 +42,7 @@
   	<h3><b>없음</b></h3>
   	</c:if>
   	<h3><b>${UserRoadAddress }</b></h3> --%>
-  	<h3><b><sec:authentication property="principal.member"/></b></h3>
+  	<h3><b><sec:authentication property="principal.member.member_road_address"/></b></h3>
   </div>
   <div class="m-5">
     <label for="address" class="form-label">지번 주소</label>
