@@ -36,8 +36,8 @@
     </div>
 
     <div class="checkbox mb-3">
-    <h3><c:out value="${error }"/></h3>
-    <h3><c:out value="${logout }"/></h3>
+    <p><c:out value="${error }"/></p>
+    <p><c:out value="${logout }"/></p>
     <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
      <!--  <label>
         <input type="checkbox" value="remember-me"> 로그인 상태 유지

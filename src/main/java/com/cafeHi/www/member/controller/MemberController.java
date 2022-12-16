@@ -1,15 +1,18 @@
 package com.cafeHi.www.member.controller;
 
+
+
+
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.cafeHi.www.member.dto.CustomUser;
 import com.cafeHi.www.member.dto.MemberDTO;
 import com.cafeHi.www.member.service.MemberService;
 
@@ -21,116 +24,101 @@ public class MemberController {
 	private MemberService memberService;
 	
 	
-	
 	// 회원 수정
-	// 지금과 같은 로직으로 한꺼번에 업데이트 처리를 할 경우, 한꺼번에 다 입력받아야 에러가 발생하지 않는다. 
-	// 그래서 혹시 null을 허용하면 되지 않을까 라고 생각하여 mybatis에서 jdbcType을 명시하여 null도 허용 하게끔 하는 방법도 생각했다.
-	// 하지만 결국 database에 null로 들어온 값을 그대로 넣는것이 아니라 변경된 정보는 변경된 정보대로, 변경하지 않는 정보는 기존의 데이터로 넣는 방법을 모르겠다. 
-	// 따라서 그냥 view 부분에서 각각 수정해주도록 하는 방식으로 변경하고자 한다. (22/11/29)
-	// -> mybatis-config.xml 파일에 settings 태그로 null 처리 하는 방법을 찾아냈다. 
-//	@RequestMapping("/updateUser.do")
-//	public String updateUser(UserDTO user, HttpSession session) {
-//		System.out.println("로직 실행 전 : " + user.getUser_name());
-//		userService.updateUser(user);
-//		
-//		System.out.println("로직 실행 후 " + user.getUser_name());
-//		
-//		session.setAttribute("UserId", user.getUser_id());
-//		session.setAttribute("UserName", user.getUser_name());
-//		session.setAttribute("UserContact", user.getUser_contact());
-//		session.setAttribute("UserRoadAddress", user.getUser_road_address());
-//		session.setAttribute("UserJibunAddress", user.getUser_jibun_address());
-//		session.setAttribute("UserDetailAddress", user.getUser_detail_address());
-//		
-//		return "cafehi_userInfo";
-//	}
-	
-	
+
 	@RequestMapping("/updateMemberId.do")
-	public String updateUserId(MemberDTO member, HttpSession session) {
+	public String updateUserId(MemberDTO member) {
 		
 		memberService.updateMemberId(member);
-		member = memberService.getMember(member);
-		session.setAttribute("MemberId", member.getMember_id());
-		session.setAttribute("MemberName", member.getMember_name());
-		session.setAttribute("MemberContact", member.getMember_contact());
-		session.setAttribute("MemberEmail", member.getMember_email());
-		session.setAttribute("MemberRoadAddress", member.getMember_road_address());
-		session.setAttribute("MemberJibunAddress", member.getMember_jibun_address());
-		session.setAttribute("MemberDetailAddress", member.getMember_detail_address());
-		return "cafehi_userInfo";
+		
+		// session 정보 변경 
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		CustomUser userInfo = (CustomUser) principal;
+		userInfo.getMember().setMember_id(member.getMember_id());
+		System.out.println("update id : " + userInfo.getMember().getMember_id());
+		
+		return "member/cafehi_memberInfo";
 		
 	}
 	
 	@RequestMapping("/updateMemberName.do")
-	public String updateUserName(MemberDTO member, HttpSession session) {
+	public String updateUserName(MemberDTO member) {
+		// db 정보 변경
 		memberService.updateMemberName(member);
-		member = memberService.getMember(member);
-		session.setAttribute("MemberId", member.getMember_id());
-		session.setAttribute("MemberName", member.getMember_name());
-		session.setAttribute("MemberContact", member.getMember_contact());
-		session.setAttribute("MemberEmail", member.getMember_email());
-		session.setAttribute("MemberRoadAddress", member.getMember_road_address());
-		session.setAttribute("MemberJibunAddress", member.getMember_jibun_address());
-		session.setAttribute("MemberDetailAddress", member.getMember_detail_address());
-		return "cafehi_userInfo";
+		
+		// session 정보 변경 
+		 Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		    CustomUser userInfo = (CustomUser)principal;
+		    userInfo.getMember().setMember_name(member.getMember_name());
+		    System.out.println("update name : " + userInfo.getMember().getMember_name());
+		
+		return "member/cafehi_memberInfo";
 		
 	}
 	
 	@RequestMapping("/updateMemberContact.do")
-	public String updateUserContact(MemberDTO member, HttpSession session) {
+	public String updateUserContact(MemberDTO member) {
+		// db 정보 변경 
 		memberService.updateMemberContact(member);
-		member = memberService.getMember(member);
-		session.setAttribute("MemberId", member.getMember_id());
-		session.setAttribute("MemberName", member.getMember_name());
-		session.setAttribute("MemberContact", member.getMember_contact());
-		session.setAttribute("MemberEmail", member.getMember_email());
-		session.setAttribute("MemberRoadAddress", member.getMember_road_address());
-		session.setAttribute("MemberJibunAddress", member.getMember_jibun_address());
-		session.setAttribute("MemberDetailAddress", member.getMember_detail_address());
-		return "cafehi_userInfo";
+		
+		// session 정보 변경 
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		CustomUser userInfo = (CustomUser) principal;
+		userInfo.getMember().setMember_contact(member.getMember_contact());
+		
+		System.out.println("update contact : " + userInfo.getMember().getMember_contact());
+		
+		return "member/cafehi_memberInfo";
 	}
 	
+	
 	@RequestMapping("/updateMemberEmail.do")
-	public String updateUserEmail(MemberDTO member, HttpSession session) {
+	public String updateUserEmail(MemberDTO member) {
+		
+		// db 정보 변경 
 		memberService.updateMemberEmail(member);
-		member = memberService.getMember(member);
-		session.setAttribute("MemberId", member.getMember_id());
-		session.setAttribute("MemberName", member.getMember_name());
-		session.setAttribute("MemberContact", member.getMember_contact());
-		session.setAttribute("MemberEmail", member.getMember_email());
-		session.setAttribute("MemberRoadAddress", member.getMember_road_address());
-		session.setAttribute("MemberJibunAddress", member.getMember_jibun_address());
-		session.setAttribute("MemberDetailAddress", member.getMember_detail_address());
-		return "cafehi_userInfo";
+		
+		// session 정보 변경 
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		CustomUser userInfo = (CustomUser) principal;
+		userInfo.getMember().setMember_email(member.getMember_email());
+
+		System.out.println("update email : " + userInfo.getMember().getMember_contact());
+		
+		return "member/cafehi_memberInfo";
 	}
 	
 	@RequestMapping("/updateMemberAddress.do")
-	public String updateUserAddress(MemberDTO member, HttpSession session) {
+	public String updateUserAddress(MemberDTO member) {
+		
+		// db 정보 변경 
 		memberService.updateMemberAddress(member);
-		member = memberService.getMember(member);
-		session.setAttribute("MemberId", member.getMember_id());
-		session.setAttribute("MemberName", member.getMember_name());
-		session.setAttribute("MemberContact", member.getMember_contact());
-		session.setAttribute("MemberEmail", member.getMember_email());
-		session.setAttribute("MemberRoadAddress", member.getMember_road_address());
-		session.setAttribute("MemberJibunAddress", member.getMember_jibun_address());
-		session.setAttribute("MemberDetailAddress", member.getMember_detail_address());
-		return "cafehi_userInfo";
+		
+		// session 정보 변경 
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		CustomUser userInfo = (CustomUser) principal;
+		userInfo.getMember().setMember_road_address(member.getMember_road_address());
+		userInfo.getMember().setMember_jibun_address(member.getMember_jibun_address());
+
+		System.out.println("update road address : " + userInfo.getMember().getMember_road_address());
+		System.out.println("update jibun address : " + userInfo.getMember().getMember_road_address());
+		
+		
+		return "member/cafehi_memberInfo";
 	}
 	
 	@RequestMapping("/updateMemberDetailAddress.do")
-	public String updateUserDetailAddress(MemberDTO member, HttpSession session) {
+	public String updateUserDetailAddress(MemberDTO member) {
 		memberService.updateMemberDetailAddress(member);
-		member = memberService.getMember(member);
-		session.setAttribute("MemberId", member.getMember_id());
-		session.setAttribute("MemberName", member.getMember_name());
-		session.setAttribute("MemberContact", member.getMember_contact());
-		session.setAttribute("MemberEmail", member.getMember_email());
-		session.setAttribute("MemberRoadAddress", member.getMember_road_address());
-		session.setAttribute("MemberJibunAddress", member.getMember_jibun_address());
-		session.setAttribute("MemberDetailAddress", member.getMember_detail_address());
-		return "cafehi_userInfo";
+		
+		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		CustomUser userInfo = (CustomUser) principal;
+		userInfo.getMember().setMember_detail_address(member.getMember_detail_address());
+		
+		System.out.println("update detail address : " + userInfo.getMember().getMember_detail_address());
+		
+		return "member/cafehi_memberInfo";
 	}
 	
 	// 회원 삭제 

@@ -1,16 +1,17 @@
 package com.cafeHi.www.member.service;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Controller;
 
 import com.cafeHi.www.member.dto.CustomUser;
 import com.cafeHi.www.member.dto.MemberDTO;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
-
 
 
 @Log4j
@@ -32,5 +33,9 @@ public class CustomUserDetailsService implements UserDetailsService{
 		
 		return mem ==  null ? null : new CustomUser(mem);
 	}
+	
+	
+	
+	
 
 }

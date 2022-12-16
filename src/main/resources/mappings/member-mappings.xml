@@ -44,37 +44,37 @@
  	<update id="updateMemberId" parameterType="Member">
  		UPDATE cafehi_member
  		SET member_id = #{member_id}
- 		WHERE member_seq = #{member_seq}
+ 		WHERE member_id = #{member_id}
  	</update>
  	
  	<update id="updateMemberName" parameterType="Member">
  		UPDATE cafehi_member
  		SET member_name = #{member_name}
- 		WHERE member_seq = #{member_seq}
+ 		WHERE member_id = #{member_id}
  	</update>
  	
  	<update id="updateMemberContact" parameterType="Member">
  		UPDATE cafehi_member
  		SET member_contact = #{member_contact}
- 		WHERE member_seq = #{member_seq}
+ 		WHERE member_id = #{member_id}
  	</update>
  	
  	<update id="updateMemberEmail" parameterType="Member">
  		UPDATE cafehi_member
  		SET member_email = #{member_email}
- 		WHERE member_seq = #{member_seq}
+ 		WHERE member_id = #{member_id}
  	</update>
  	
  	<update id="updateMemberAddress" parameterType="Member">
  		UPDATE cafehi_member
  		SET member_road_address = #{member_road_address}, member_jibun_address = #{member_jibun_address}
- 		WHERE member_seq = #{member_seq}
+ 		WHERE member_id = #{member_id}
  	</update>
  	
  	<update id="updateMemberDetailAddress" parameterType="Member">
  		UPDATE cafehi_member
  		SET member_detail_address = #{member_detail_address}
- 		WHERE member_seq = #{member_seq}
+ 		WHERE member_id = #{member_id}
  	</update>
  	
  	
@@ -91,12 +91,12 @@
  	
  	<select id="getMember" parameterType="Member" resultType="Member">
  		SELECT * FROM cafehi_member
- 		WHERE member_seq = #{member_seq}
+ 		WHERE member_id = #{member_id}
  	</select>
  	
  	<select id="readMember" parameterType="String" resultMap="MemberResult">
  		SELECT 
- 			mem.member_id, member_pw, member_name, member_contact, member_email, member_road_address, member_jibun_address, member_detail_address, enabled, auth
+ 			member_seq, mem.member_id, member_pw, member_name, member_contact, member_email, member_road_address, member_jibun_address, member_detail_address, enabled, auth
  		FROM
  			cafehi_member mem LEFT OUTER JOIN cafehi_member_auth auth on mem.member_id = 
  			auth.member_id

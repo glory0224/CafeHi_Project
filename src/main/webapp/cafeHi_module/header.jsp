@@ -57,7 +57,7 @@
 <div class="d-flex justify-content-end">
  <div class=" collapse navbar-collapse " id="navbarCollapse">
         <ul class="navbar-nav">
-        <li class="nav-item"><b><sec:authentication property="principal.username"/></b>님 환영합니다.</li>        
+        <li class="nav-item"><b><sec:authentication property="principal.member.member_id"/></b>님 환영합니다.</li>        
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="info.do">내 정보</a>
           </li>

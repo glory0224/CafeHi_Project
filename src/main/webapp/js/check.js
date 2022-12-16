@@ -183,7 +183,7 @@ function updateContactCheck(){
 	
 	
 	if (contact.value == "") {
-		alert('이름을 입력해주세요');
+		alert('연락처를 입력해주세요');
 		contact.focus();
 		return;
 	} else if(!phonReg.test(contact.value)) {

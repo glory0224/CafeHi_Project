@@ -19,7 +19,7 @@
 
 <div class="w-50 m-auto" style="padding-top: 5%">
 	<h1 class="text-center m-5">회원 정보</h1>
-	<input name="userSeq" value="${UserSeq }" type="hidden" />
+	<input name="userSeq" value="<sec:authentication property="principal.member.member_seq"/>" type="hidden" />
   <div class="m-5">
     <label for="userId" class="form-label">아이디</label>
   	<h3><b><sec:authentication property="principal.member.member_id"/></b></h3>
