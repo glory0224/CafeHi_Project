@@ -104,7 +104,7 @@
 										<td><a href="getQnA.do?qna_num=${qna.qna_num }"
 											style="text-decoration: none; color: black; font-weight: bold;">
 												${qna.qna_title }</a></td>
-										<td>${qna.user_id }</td>
+										<td>${qna.member_id }</td>
 										<td><fmt:formatDate value="${qna.qna_writetime }"
 												pattern="yyyy-MM-dd" /></td>
 										<td>${qna.qna_hit }</td>

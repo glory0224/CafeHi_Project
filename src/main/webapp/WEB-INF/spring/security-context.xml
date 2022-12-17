@@ -12,8 +12,10 @@
 <bean id="CustomUserDetailsService" class="com.cafeHi.www.member.service.CustomUserDetailsService"/>
 
 	<security:http>
+		<security:intercept-url pattern="/getQnA.do" access="permitAll" />
 		<security:intercept-url pattern="/info.do" access="hasRole('ROLE_USER')"/>
 		<security:intercept-url pattern="/infoUpdate.do" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/QnAWritePage.do" access="hasRole('ROLE_USER')"/>
 		<security:intercept-url pattern="/manager/*" access="hasRole('ROLE_MEMBER')"/>
 		<security:intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')"/>
 			

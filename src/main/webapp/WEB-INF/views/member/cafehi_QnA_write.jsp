@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,10 +20,10 @@
 <body>
 
 	<!-- 로그인 여부 세션 체크 -->
-	<c:if test="${sessionScope.UserId eq null }">
+	<%-- <c:if test="${sessionScope.UserId eq null }">
 		out.print("<script>alert('로그인 후 이용하세요.'); location.href='login.do';</script>");
 		return;
-	</c:if>
+	</c:if> --%>
 
 	<jsp:include page="/cafeHi_module/header.jsp"/>
 	
@@ -42,13 +43,13 @@
 				<form action="InsertQnA.do" method="post" 
 					 enctype="multipart/form-data" >
 					 <input type="hidden" name="qna_hit" value="0">
-					 <input type="hidden" value="${UserSeq }" name="user_seq">
+					 <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
 					<div class="card-body">
 						<table class="table table-striped">
 							
 							<tr>
 								<th>작성자</th>
-								<td><input type="text" value="${UserId }" name="user_id"
+								<td><input type="text" value="<sec:authentication property="principal.member.member_id"/>" name="member_id"
 									readonly="readonly"></td>
 								
 							</tr>

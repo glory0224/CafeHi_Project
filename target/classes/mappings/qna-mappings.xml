@@ -124,8 +124,8 @@
 
 	<!-- 게시글 작성  -->
 	<insert id="insertQnA" parameterType="QnA">
-		INSERT INTO cafehi_qna (qna_num, qna_title, qna_writetime, qna_hit, user_seq, qna_content, upload_path, filename)
-		VALUES((select nvl(max(qna_num), 0)+1 from cafehi_qna), #{qna_title}, #{qna_writetime}, #{qna_hit}, #{user_seq}, #{qna_content}, #{upload_path}, #{fileName})
+		INSERT INTO cafehi_qna (qna_num, qna_title, qna_writetime, qna_hit, member_id , qna_content, upload_path, filename)
+		VALUES((select nvl(max(qna_num), 0)+1 from cafehi_qna), #{qna_title}, #{qna_writetime}, #{qna_hit}, #{member_id}, #{qna_content}, #{upload_path}, #{fileName})
 	</insert>
 	
 	<!-- 게시글 수정 -->

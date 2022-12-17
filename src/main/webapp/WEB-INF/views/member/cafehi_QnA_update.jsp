@@ -20,34 +20,6 @@
 <body>
 	<jsp:include page="/cafeHi_module/header.jsp"/>
 
-<%-- 	<%
-	
-	String n = request.getParameter("num");
-	if (n == null || n == "") {
-		response.sendRedirect("cafehi_QnA_board.jsp");
-		return;
-	}
-
-	int num = 0;
-
-	// 숫자 형태 타입 이외의 데이터 타입이 들어올 경우에 예외 처리
-	try {
-		num = Integer.parseInt(n);
-	} catch (Exception e) {
-		response.sendRedirect("cafehi_QnA_board.jsp");
-		return;
-	}
-	
-	//db에서 해당 유저의 게시글 정보 받아온다.
-	QnADAO qnaDao = new QnADAO();
-	QnADTO qna = qnaDao.selectNum(num);
-	
-	//정보가 없다면 QnA 게시글 목록으로 이동
-	if(qna == null){
-		response.sendRedirect("cafehi_QnA_board.jsp");
-		return;
-	}
-	%> --%>
 	<div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 mt-4 "></div>
 		<div class="pricing-header p-3 pb-md-4 mx-auto text-center">
 		<h1 class="display-4 fw-normal">QnA 게시판</h1>
@@ -57,6 +29,7 @@
 	</div>
 	
 	<form action="QnAUpdate.do" method="post">
+		<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
 		<main class="mt-5 pt-5 w-50 m-auto">
 		<div class="container-fluid px-4">
 			<h1 class="mb-4">게시글 수정</h1>
@@ -67,7 +40,7 @@
 					<input type="hidden" name="qna_num" value="${QnA.qna_num }">
 					<table class="table table-striped">
 							<tr>
-								<th>작성자</th><td>${QnA.user_id }</td>
+								<th>작성자</th><td>${QnA.member_id }</td>
 								<th>조회수</th><td>${QnA.qna_hit }</td>
 							</tr>
 							
@@ -79,7 +52,7 @@
 									</c:when>
 									<c:otherwise>
 										<th>첨부파일</th>
-										<td onclick="location.href='cafehi_fileDown.jsp?fileName=${QnA.upload_path} &writeId=${QnA.user_id }'">${QnA.upload_path }</td>
+										<td onclick="location.href='cafehi_fileDown.jsp?fileName=${QnA.upload_path} &writeId=${QnA.member_id }'">${QnA.upload_path }</td>
 									</c:otherwise>
 								</c:choose>
 							</tr>
@@ -114,7 +87,7 @@
  						<div class="d-flex flex-row-reverse bd-highlight">
 							<div class="justify-content-between">
 							<input class="btn btn-success" type="submit" value="수정">
-							<button type="button" class="btn btn-success" onclick = "location.href='javascript:history.back();'">이전</button>
+							<button type="button" class="btn btn-success" onclick = "location.href='QnAList.do'">목록</button>
 							
 							</div>
 

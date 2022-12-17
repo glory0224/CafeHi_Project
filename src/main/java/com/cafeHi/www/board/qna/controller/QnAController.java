@@ -24,6 +24,8 @@ import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -37,6 +39,7 @@ import com.cafeHi.www.board.qna.dto.QnADTO;
 import com.cafeHi.www.board.qna.service.QnAService;
 import com.cafeHi.www.common.dto.CriteriaDTO;
 import com.cafeHi.www.common.dto.PageDTO;
+import com.cafeHi.www.member.dto.CustomUser;
 import com.cafeHi.www.member.service.MemberService;
 
 // qna 관련 이동 
@@ -92,7 +95,9 @@ public class QnAController {
 			response.addCookie(newCookie);
 		}
 		
-		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		//CustomUser userInfo = (CustomUser) principal;
+		model.addAttribute("securityId", authentication.getName());
 		model.addAttribute("QnA", qnaService.getQnA(qna));
 		
 		
@@ -127,6 +132,7 @@ public class QnAController {
 		model.addAttribute("qnaList", qnaService.getQnAList(cri));
 		
 		
+		
 		// 딱 떨어지지 않는 수 형변환 
 //		Double dnum = Double.valueOf(cri.getAmount());
 //		double num = qnaService.getQnANum() / dnum;
@@ -145,24 +151,11 @@ public class QnAController {
 		return "cafehi_QnA_board";
 	}
 	
-
-	
-	
-	// 페이지 이동 
-	
-	
 	
 	@RequestMapping("/QnAWritePage.do")
 	public String QnAWritePage() {
-		return "cafehi_QnA_write";
+		return "member/cafehi_QnA_write";
 		
-	}
-	
-	@RequestMapping("/QnAUpdate.do")
-	public String QnAUpdatePage(QnADTO qna, Model model) {
-		 
-		model.addAttribute("QnA", qnaService.getQnA(qna));
-		return "cafehi_QnA_update";
 	}
 	
 	
@@ -213,7 +206,15 @@ public class QnAController {
 		return new ResponseEntity<>(resource, headers, HttpStatus.OK);
 		
 	}
-		
+	
+	
+	@RequestMapping(value = "/QnAUpdate.do", method = RequestMethod.GET)
+	public String QnAUpdatePage(QnADTO qna, Model model) {
+		 
+		model.addAttribute("QnA", qnaService.getQnA(qna));
+		return "member/cafehi_QnA_update";
+	}
+	
 	
 	@RequestMapping(value= "/QnAUpdate.do", method = RequestMethod.POST)
 	public String UpdateQnA(QnADTO qna, HttpServletRequest request) {

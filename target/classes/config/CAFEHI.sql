@@ -1,29 +1,38 @@
 select * from tab;
-select * from cafehi_user;
+select * from cafehi_member;
+select * from cafehi_member_auth;
 select * from cafehi_admin;
 select * from cafehi_qna;
 
-desc cafehi_user;
+desc cafehi_member;
+desc cafehi_member_auth;
 desc cafehi_admin;
 desc cafehi_qna;
 
+-- 컬럼 제거
 
-delete cafehi_user;
+delete cafehi_member;
 delete cafehi_admin;
 delete cafehi_qna;
+
+-- 테이블 삭제 
+
+drop table cafehi_qna;
+drop table cafehi_member;
+drop table cafehi_member_auth;
+drop table cafehi_mem_coupon;
+drop table cafehi_orderlist;
+drop table cafehi_admin;
+drop table cafehi_coupon;
+drop table cafehi_membership;
+drop table cafehi_sub_category;
+drop table cafehi_category;
+drop table cafehi_menu;
+drop table cafehi_option;
 
 commit;
 rollback;
 
--- 사용자 예시 계정
-insert into cafehi_user values(1, 'user1', '1234', '유저원', '12341234', '서울');
-insert into cafehi_user values(2, 'user2', '5678', '유저투', '11111111', '부산');
-insert into cafehi_admin values(1, 'admin1', '1234', '관리자1', '12341234');
-commit;
-
--- 관리자 예시 계정 
-
--- QnA 게시글 샘플 
 
 
 -- 더미 데이터 생성(오류가 발생함 - 왜일까?) 
@@ -34,12 +43,7 @@ commit;
 --END LOOP;
 --END;
 
--- 조인 사용해보기 
 
---SELECT qna_num, qna_title, qna_content, qna_writetime, qna_hit, user_id FROM(
---SELECT qna_num, qna_title, qna_content, qna_writetime, qna_hit, user_id FROM(
-
--- SELECT rn, qna_num, qna_title, qna_content, qna_writetime, qna_hit, user_id FROM(
 
 SELECT rownum rn, q.qna_num, q.qna_title, q.qna_content, q.qna_writetime,q.qna_hit, u.user_id
 FROM cafehi_user u, cafehi_qna q
@@ -54,26 +58,37 @@ WHERE rn > 0 and rn <=10
 
 
 -- 사용자 정보 테이블
-create table cafehi_user(
-    user_seq number primary key,
-    user_id varchar2(30),  
-    user_pw varchar2(30),
-    user_name varchar2(15),
-    user_contact varchar2(15),
-    user_email_id varchar2(50), -- 사용자 계정 인증용
-    user_email_address varchar2(20), -- 사용자 계정 인증용
-    user_road_address varchar2(100),
-    user_jibun_address varchar2(100),
-    user_detail_address varchar2(100)
+create table cafehi_member(
+    member_seq number,
+    member_id varchar2(50) primary key,  
+    member_pw varchar2(100),
+    member_name varchar2(50),
+    member_contact varchar2(15),
+    member_email varchar2(50), -- 사용자 계정 인증용
+    member_road_address varchar2(100),
+    member_jibun_address varchar2(100),
+    member_detail_address varchar2(100),
+    enabled char(1) default '1'
 );
+
+-- 사용자 정보 권한 테이블
+create table cafehi_member_auth(
+    member_id varchar2(50),
+    auth varchar2(50),
+    constraint fk_cfmember_auth foreign key(member_id) references cafehi_member(member_id) on delete cascade
+);
+
+
 -- 관리자 정보 테이블
 create table cafehi_admin(
     admin_seq number primary key ,
     admin_id varchar2(30),
     admin_pw varchar2(30),
-    admin_name varchar2(15),
+    admin_name varchar2(),
     admin_contact varchar2(15)
 );
+
+
 --  QnA 게시판 
 create table cafehi_qna(
     qna_num number primary key,
@@ -86,11 +101,8 @@ create table cafehi_qna(
     upload_path varchar2(300),
     fileName varchar2(50),
     
-    user_seq number,
-    constraint fk_user_seq foreign key(user_seq) references cafehi_user (user_seq) on delete cascade,
-    admin_seq number,
-    constraint fk_admin_seq foreign key(admin_seq) references cafehi_admin (admin_seq)on delete cascade
-    
+    member_id varchar2(50),
+    constraint fk_member_id foreign key(member_id) references cafehi_member (member_id) on delete cascade 
 );
 
 -- QnA 게시판 페이징 쿼리
@@ -207,16 +219,15 @@ create table cafehi_orderlist(
 );
 
 
--- 테이블 삭제 
 
-drop table cafehi_qna;
-drop table cafehi_mem_coupon;
-drop table cafehi_orderlist;
-drop table cafehi_user;
-drop table cafehi_admin;
-drop table cafehi_coupon;
-drop table cafehi_membership;
-drop table cafehi_sub_category;
-drop table cafehi_category;
-drop table cafehi_menu;
-drop table cafehi_option;
+
+
+
+
+
+
+
+
+
+    
+    
