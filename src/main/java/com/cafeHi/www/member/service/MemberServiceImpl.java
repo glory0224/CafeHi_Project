@@ -52,11 +52,7 @@ public class MemberServiceImpl implements MemberService{
 		memberDAO.insertMemberAuth(memberauth);
 	}
 
-	@Override
-	public void updateMember(MemberDTO member) {
-		memberDAO.updateMember(member);
-	}
-
+	
 	@Override
 	public void deleteMember(MemberDTO member) {
 		memberDAO.deleteMember(member);
@@ -64,10 +60,10 @@ public class MemberServiceImpl implements MemberService{
 
 	// 정보 수정
 	
-	@Override
-	public void updateMemberId(MemberDTO member) {
-		memberDAO.updateMemberId(member);
-	}
+//	@Override
+//	public void updateMemberId(MemberDTO member) {
+//		memberDAO.updateMemberId(member);
+//	}
 
 	@Override
 	public void updateMemberName(MemberDTO member) {

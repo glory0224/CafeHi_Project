@@ -37,14 +37,13 @@ public class MemberDAO {
 	}
 	
 	public MemberDTO readMember(String member_id) {
-		MemberDTO result = sqlSessionTemplate.selectOne("MemberDAO.readMember", member_id);
 		return sqlSessionTemplate.selectOne("MemberDAO.readMember", member_id);
 		
 	}
 	
 	
 	public void insertMember(MemberDTO member) {
-		System.out.println("DAO 매핑");
+		
 		sqlSessionTemplate.insert("MemberDAO.insertMember", member);
 	}
 	
@@ -53,11 +52,6 @@ public class MemberDAO {
 		sqlSessionTemplate.insert("MemberDAO.insertMemberAuth", memberauth);
 	}
 	
-
-	public void updateMember(MemberDTO member) {
-		System.out.println("업데이트 매핑");
-		sqlSessionTemplate.update("MemberDAO.updateMember", member);;
-	}
 
 	public void deleteMember(MemberDTO member) {
 		sqlSessionTemplate.delete("MemberDAO.deleteMember", member);

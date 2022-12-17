@@ -12,11 +12,10 @@ public interface MemberService {
 	
 	
 	public void insertMember(MemberDTO member);
-	public void updateMember(MemberDTO member);
 	public void deleteMember(MemberDTO member);
 	
 	// 정보수정
-	public void updateMemberId(MemberDTO member);
+	//public void updateMemberId(MemberDTO member);
 	public void updateMemberName(MemberDTO member);
 	public void updateMemberContact(MemberDTO member);
 	public void updateMemberAddress(MemberDTO member);

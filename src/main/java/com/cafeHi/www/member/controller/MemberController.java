@@ -26,20 +26,20 @@ public class MemberController {
 	
 	// 회원 수정
 
-	@RequestMapping("/updateMemberId.do")
-	public String updateUserId(MemberDTO member) {
-		
-		memberService.updateMemberId(member);
-		
-		// session 정보 변경 
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		CustomUser userInfo = (CustomUser) principal;
-		userInfo.getMember().setMember_id(member.getMember_id());
-		System.out.println("update id : " + userInfo.getMember().getMember_id());
-		
-		return "member/cafehi_memberInfo";
-		
-	}
+//	@RequestMapping("/updateMemberId.do")
+//	public String updateUserId(MemberDTO member) {
+//		
+//		memberService.updateMemberId(member);
+//		
+//		// session 정보 변경 
+//		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//		CustomUser userInfo = (CustomUser) principal;
+//		userInfo.getMember().setMember_id(member.getMember_id());
+//		System.out.println("update id : " + userInfo.getMember().getMember_id());
+//		
+//		return "member/cafehi_memberInfo";
+//		
+//	}
 	
 	@RequestMapping("/updateMemberName.do")
 	public String updateUserName(MemberDTO member) {
@@ -124,12 +124,16 @@ public class MemberController {
 	// 회원 삭제 
 	@RequestMapping("/deleteMember.do")
 	public String deleteUser(MemberDTO member, HttpSession session, HttpServletRequest request) {
+		
 		memberService.deleteMember(member);
 		session.invalidate();
-		request.setAttribute("msg", "계정이 삭제되었습니다.");
+		SecurityContextHolder.getContext().setAuthentication(null);
+		
+		request.setAttribute("msg", "삭제가 완료되었습니다!");
 		request.setAttribute("url", "/cafeHi/");
-		return "alert"; // jsp를 이용해서 alert 기능 이용
-		//return "redirect:/";
+		
+		return "alert";
+		
 	}
 	
 	

@@ -60,9 +60,19 @@
 <div style="padding-right: 30px">
 <button class="btn btn-md btn-success " type="button" onclick="location.href='infoUpdate.do'">정보 수정</button>
 </div>
-<button class="btn btn-md btn-success " type="button" onclick="location.href='deleteUser.do?user_seq=${UserSeq}'">회원 삭제</button>
+<button class="btn btn-md btn-success " type="button" onclick="button_event()">회원 삭제</button>
 </div>
 </div>
+
+<script type="text/javascript">
+function button_event(){
+	  if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+		  location.href='deleteMember.do?member_id=<sec:authentication property="principal.member.member_id"/>'
+	  }else{   //취소
+	      return;
+	  }
+	}
+</script>
 
   <!--카페 하이 FOOTER -->
   <jsp:include page="/cafeHi_module/footer.jsp"/>

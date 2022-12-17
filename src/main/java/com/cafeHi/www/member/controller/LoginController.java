@@ -1,7 +1,5 @@
 package com.cafeHi.www.member.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.cafeHi.www.member.dto.MemberDTO;
 import com.cafeHi.www.member.service.MemberService;
 
 import lombok.extern.log4j.Log4j;
@@ -18,23 +15,9 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class LoginController {
 
-	@Autowired
-	private MemberService memberService;
+//	@Autowired
+//	private MemberService memberService;
 
-	/*
-	 * // Get 요청
-	 * 
-	 * @RequestMapping(value = "/login.do", method = RequestMethod.GET) public
-	 * String loginView(HttpServletRequest request, HttpSession session) {
-	 * 
-	 * //이미 로그인한 계정 처리 String sessionId = (String)session.getAttribute("UserId");
-	 * if(sessionId != null) { request.setAttribute("msg", "이미 로그인 되어 있습니다.");
-	 * request.setAttribute("url", "/cafeHi/"); return "alert"; }else {
-	 * 
-	 * // 로그인 안한 경우 return "all/cafehi_login"; }
-	 * 
-	 * }
-	 */
 
 	// Get 요청
 	@RequestMapping(value = "/login.do", method = RequestMethod.GET)

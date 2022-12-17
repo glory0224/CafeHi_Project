@@ -26,7 +26,7 @@
     <div class="d-flex justify-content-between">
   	<input type="text"  class="form-control" value="<sec:authentication property="principal.member.member_id"/>" readonly="readonly">
   	<div class="ms-3">
-	<input class="btn btn-md btn-success " data-bs-toggle="modal" data-bs-target="#member_id_modal" type="button" value="변경">
+	<!-- <input class="btn btn-md btn-success " data-bs-toggle="modal" data-bs-target="#member_id_modal" type="button" value="변경"> -->
 	</div>
 	</div>
   </div>
@@ -81,7 +81,8 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="member_id_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+<%-- <div class="modal fade" id="member_id_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <form action="updateMemberId.do" method="post" id="memberUpdateIdForm">
     <div class="modal-content">
@@ -93,7 +94,7 @@
       </div>
       <div class="modal-body">
       	<label for="member_id" class="form-label">변경할 아이디를 입력하세요.</label> 
-      	<%-- <input name="member_seq" value="<sec:authentication property="principal.member.member_seq"/>" type="hidden" /> --%>
+      	<input name="member_seq" value="<sec:authentication property="principal.member.member_seq"/>" type="hidden" />
       	<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
         <input type="text" id="memberId" class="form-control" name="member_id" value="<sec:authentication property="principal.member.member_id"/>">
       </div>
@@ -105,7 +106,7 @@
     </div>
      </form>
   </div>
-</div>
+</div> --%>
 
 
 <div class="modal fade" id="member_name_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

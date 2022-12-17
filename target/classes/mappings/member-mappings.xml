@@ -34,18 +34,12 @@
  		INSERT INTO cafehi_member_auth(member_id, auth) VALUES(#{member_id}, #{auth})
  	</insert>
  	
- 	<update id="updateMember" parameterType="Member">
- 		UPDATE cafehi_member
- 		SET  member_id = #{member_id}, member_pw = #{member_pw}, member_name = #{member_name}, member_contact = #{member_contact}, member_address = #{member_address} 
- 		WHERE member_seq = #{member_seq} 
- 	</update>
  	
- 	
- 	<update id="updateMemberId" parameterType="Member">
+ 	<!-- <update id="updateMemberId" parameterType="Member">
  		UPDATE cafehi_member
  		SET member_id = #{member_id}
  		WHERE member_id = #{member_id}
- 	</update>
+ 	</update> -->
  	
  	<update id="updateMemberName" parameterType="Member">
  		UPDATE cafehi_member
@@ -80,13 +74,13 @@
  	
  	
  	<delete id="deleteMember" parameterType="Member">
- 		DELETE FROM cafehi_member WHERE member_seq = #{member_seq}
+ 		DELETE FROM cafehi_member WHERE member_id = #{member_id}
  	</delete>
  	
- 	<select id="getMemberId" parameterType="String" resultMap="MemberResult">
+ 	<!-- <select id="getMemberId" parameterType="String" resultMap="MemberResult">
  		SELECT * FROM cafehi_member 
  		WHERE member_id = #{find_id}
- 	</select>
+ 	</select> -->
  		
  	
  	<select id="getMember" parameterType="Member" resultType="Member">
