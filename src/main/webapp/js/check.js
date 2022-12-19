@@ -260,6 +260,28 @@ function updateDetailAddressCheck(){
 	document.getElementById('memberUpdateDetailAddressForm').submit();
 }
 
+/*회원 삭제 버튼*/
+
+function button_event(){
+		var inputId = document.getElementById('deleteId');
+		var inputPw = document.getElementById('deletePw');
+		
+		if(inputId.value == ""){
+			alert('아이디를 입력해주세요.');
+			return;
+		}else if(inputPw.value == ""){
+			alert('비밀번호를 입력해주세요.');
+			return;
+		}
+		
+		  if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+			  //location.href='deleteMember.do?member_id=<sec:authentication property="principal.member.member_id"/>'
+			  document.getElementById('memberDeleteForm').submit();
+		  }else{   //취소
+		      return;
+		  }
+	}
+
 
 
 

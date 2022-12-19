@@ -19,12 +19,6 @@
 </head>
 <body>
 
-	<!-- 로그인 여부 세션 체크 -->
-	<%-- <c:if test="${sessionScope.UserId eq null }">
-		out.print("<script>alert('로그인 후 이용하세요.'); location.href='login.do';</script>");
-		return;
-	</c:if> --%>
-
 	<jsp:include page="/cafeHi_module/header.jsp"/>
 	
 	<div

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -23,6 +24,8 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+	@Autowired
+	private BCryptPasswordEncoder pwdEncoder;
 	
 	// 회원 수정
 
@@ -124,6 +127,23 @@ public class MemberController {
 	// 회원 삭제 
 	@RequestMapping("/deleteMember.do")
 	public String deleteUser(MemberDTO member, HttpSession session, HttpServletRequest request) {
+		String MemberId = member.getMember_id();
+		//String encodepw = pwdEncoder.encode(member.getMember_pw());
+		String MemberPw = member.getMember_pw();
+		
+		  Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		  CustomUser userInfo = (CustomUser) principal;
+	    String securityId = userInfo.getUsername();
+		String securityPw = userInfo.getMember().getMember_pw();
+		System.out.println("security Id : " + securityId);
+		System.out.println("member Id : " + MemberId);		
+		System.out.println("member Pw : " + MemberPw);
+		System.out.println("security password : " +  securityPw);
+		
+		System.out.println(MemberId.equals(securityId));
+		System.out.println(pwdEncoder.matches(MemberPw, securityPw));
+		
+		if(MemberId.equals(securityId) && pwdEncoder.matches(MemberPw, securityPw)) {
 		
 		memberService.deleteMember(member);
 		session.invalidate();
@@ -133,6 +153,13 @@ public class MemberController {
 		request.setAttribute("url", "/cafeHi/");
 		
 		return "alert";
+		
+		}else {
+			request.setAttribute("msg", "아이디 또는 비밀번호를 확인해주세요!");
+			request.setAttribute("url", "/cafeHi/infoDelete.do");
+			
+			return "alert";
+		}
 		
 	}
 	

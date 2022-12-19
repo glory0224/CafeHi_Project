@@ -5,13 +5,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-//@RequestMapping("/member/*")
 public class InfoController {
+	
+	// 마이페이지 
+		@RequestMapping("/myPage.do")
+		public String MyPageView() {
+			return "member/cafehi_myPage";
+			
+		}
 	
 	// 계정 정보 페이지
 	
 	@RequestMapping("/info.do") 
-	public String UserInfoView() { 
+	public String MemberInfoView() { 
 		
 		return "member/cafehi_memberInfo";
 		
@@ -21,8 +27,17 @@ public class InfoController {
 	
 	// 계정 정보 수정 페이지
 	@RequestMapping("/infoUpdate.do")
-	public String UserInfoUpdateView() {
+	public String MemberInfoUpdateView() {
 		
 		return "member/cafehi_memberUpdate";
 	}
+	
+	// 계정 탈퇴 페이지
+	@RequestMapping("/infoDelete.do")
+	public String MemberInfoDeleteView() {
+		return "member/cafehi_memberDelete";
+		
+	}
+	
+	
 }

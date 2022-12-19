@@ -59,7 +59,7 @@
         <ul class="navbar-nav">
         <li class="nav-item"><b><sec:authentication property="principal.member.member_id"/></b>님 환영합니다.</li>        
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="info.do">내 정보</a>
+            <a class="nav-link" aria-current="page" href="myPage.do">마이페이지</a>
           </li>
           <li class="nav-item">
           	<form action="logout.do" method="post">
@@ -71,30 +71,6 @@
 	</div>
 	</div>
 </sec:authorize>
-
-<!-- 계정 로그인 여부 체크  -->
-<%-- <c:choose>
-<c:when test="${MemberName eq null}">
- 		<div class="d-flex justify-content-end">
-          <a href="login.do"><button type="button" class="btn btn-outline-success me-2">Login</button></a>
-        </div>
-</c:when>
-<c:when test="${MemberName ne null }">
-<div class="d-flex justify-content-end">
- <div class=" collapse navbar-collapse " id="navbarCollapse">
-        <ul class="navbar-nav">
-        <li class="nav-item"><b>${MemberName }</b>님 환영합니다.</li>        
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="user/info.do">내 정보</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="logout.do">로그아웃</a>
-          </li>          
-		</ul>
-	</div>
-	</div>
-</c:when>
-</c:choose> --%>
 
 
   </nav>
