@@ -31,6 +31,8 @@
     <input type="text" id="member_id" class="form-control" placeholder="영문, 숫자 포함 6 - 20자" name="member_id">
     <br>
     <div><font id="id_feedback" size="2"></font></div>
+    <input id="id_check_boolean" type="checkbox" style="display: none" >
+    <input id="id_boolean" type="checkbox" style="display: none" >
   </div>
     <div class="m-5">
     <h4><label for="memberName" class="form-label">이름</label></h4>
@@ -67,6 +69,7 @@
     
     <span id="mail_check_input_box_warn"></span>
     <input id="mail_check_boolean" type="checkbox" style="display: none" >
+    <input id="mail_boolean" type="checkbox" style="display: none" >
   </div> 
   <div class="m-5">
   <h4><label for="user_address" class="form-label">주소</label> <input class="btn btn-sm btn-success float-end" type="button" onclick="find_address()" value="주소 찾기"></h4>
@@ -162,27 +165,37 @@
 <script type ="text/javascript">
 
 	/* Ajax방식을 Spring에 적용하기 전에 Pom.xml에 json 관련 dependency가 들어 있는지 확인한다. */
+	/* Spring security의 Ajax를 사용하기 위해서는 Header에 csrf 토큰을 추가해서 보내야한다.  */
 	
+	/* 회원가입 아이디 중복 체크  */
 	$('#idCheck').click(function(){
+		$("#id_boolean").attr("checked", true);
 		let member_id = $('#member_id').val();
-			
+		
 		$.ajax({
 			url : "http://localhost:8080/cafeHi/IdCheck.do",
 			type : "post",
 			data : {member_id: member_id},
 			dataType : 'json',
+			beforeSend : function(xhr){
+				xhr.setRequestHeader( "${_csrf.headerName}", "${_csrf.token}" );
+			},
 			success : function(result){
 				if(result == 1){
 					memberId = document.getElementById('member_id');
 					memberId.value = "";
 					$("#id_feedback").html('이미 사용중인 아이디입니다.');
+					
+					$('#id_check_boolean').attr("checked", false);
 					$("#id_feedback").attr('color','#dc3545');
 				} else{
 					$("#id_feedback").html('사용할 수 있는 아이디입니다.');
+					$('#id_check_boolean').attr("checked", true);
 					$("#id_feedback").attr('color','#2fb380');
 				} 
 			},
-			error : function(){
+			error : function(data){
+				console.log(data)
 				alert("서버요청실패");
 			}
 		}); // ajax 종료 
@@ -192,7 +205,7 @@
 	var code = "";			// 이메일전송 인증번호 저장을 위한 코드 
 	var blank = "";			// 공백 비교, ""로 if문에서 직접 비교 하려 했더니 동작하지 않아서 따로 변수 등록 후 비교 
 	
-	/* 인증번호 이메일 전송 */
+	/* 회원가입 인증번호 이메일 전송 */
 	$("#mail_check_button").click(function(){
 		var email = $("#memberEmail").val(); 		// 입력한 이메일
 		var checkBox = $(".mail_check_input");  // 인증번호 입력란
@@ -227,15 +240,15 @@
 	
 	/* 인증번호 비교 */
 	$("#mail_num_check").click(function(){
-		
+		$("#mail_boolean").attr("checked", true);
 		var inputCode = $(".mail_check_input").val();		// 입력코드
 		var checkResult = $("#mail_check_input_box_warn");	// 비교 결과
 		var checkBoolean = $("#mail_check_boolean");
 		
-		/* if(inputCode == blank){
+		if(inputCode == blank){
 			alert("인증번호를 먼저 전송해주세요.");
 			return false;
-		} */
+		} 
 		
 		if(inputCode == code){
 			checkResult.html("인증번호가 일치합니다.");		// 일치하는 경우 

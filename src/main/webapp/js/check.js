@@ -15,13 +15,14 @@ function signupcheck() {
 	var memberJibunAddress = document.getElementById('memberJibunAddress');
 	var detailAddress = document.getElementById('memberDetailAddress');
 	var privacyCheck = document.getElementById('privacyCheck').checked;
-	//var mailCheck = document.getElementById('mail_check_boolean').checked;
+	var mailAuthCheck = document.getElementById('mail_check_boolean').checked;
+	var mailCheck = document.getElementById('mail_boolean').checked;
+	var idDuplicateCheck = document.getElementById('id_check_boolean').checked;
+	var idCheck = document.getElementById('id_boolean').checked;
 	
 	
 
-	// 회원가입란 공백 체크 
-	// input 태그의 도로명 주소와 지번 주소의 공백 체크를 시도했는데 버튼이 넘어가지 않았다. 어떻게 체크힐 것인지 고민해야겠다. 
-		
+	// 회원가입란 공백 체크 		
 	
 	if (memberId.value == "") {
 		alert('아이디를 입력해주세요');
@@ -60,10 +61,28 @@ function signupcheck() {
 		return;
 	}
 	
-	/*if(!mailCheck){
+	if(!mailCheck){
+		alert('인증번호를 입력하셔야합니다.');
+		return;
+	}
+	
+	if(!mailAuthCheck){
 		alert('인증번호가 일치 하지 않습니다. 메일 인증 절차를 다시 진행해주세요.');
 		return;
-	}*/
+	}
+	
+	if(!idCheck){
+		alert('아이디 중복확인를 진행해주세요.');
+		return;
+	}
+	
+	if(!idDuplicateCheck){
+		alert('중복된 아이디가 존재합니다. 아이디를 확인해주세요.');
+		return;
+	}
+	
+	
+	
 	
 	
 	// RFC 5322 이메일 정규 표현식
