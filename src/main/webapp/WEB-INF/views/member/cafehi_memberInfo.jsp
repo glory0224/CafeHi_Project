@@ -51,18 +51,10 @@
   </div>
   <div class="m-5">
     <label for="address" class="form-label">도로명 주소</label>
-    <%-- <c:if test="${UserRoadAddress eq null }">
-  	<h3><b>없음</b></h3>
-  	</c:if>
-  	<h3><b>${UserRoadAddress }</b></h3> --%>
   	<h3><b><sec:authentication property="principal.member.member_road_address"/></b></h3>
   </div>
   <div class="m-5">
     <label for="address" class="form-label">지번 주소</label>
-    <%-- <c:if test="${UserJibunAddress eq null }">
-  	<h3><b>없음</b></h3>
-  	</c:if>
-  	<h3><b>${UserJibunAddress }</b></h3> --%>
   	<h3><b><sec:authentication property="principal.member.member_jibun_address"/></b></h3>
   </div>
   <div class="m-5">
@@ -71,21 +63,10 @@
   </div>
 <div class="d-flex justify-content-end">
 <div style="padding-right: 30px">
-<!-- <button class="btn btn-md btn-success " type="button" onclick="location.href='infoUpdate.do'">정보 수정</button> -->
-</div>
-<button class="btn btn-md btn-success " type="button" onclick="button_event()">회원 삭제</button>
 </div>
 </div>
 </div>
-<script type="text/javascript">
-function button_event(){
-	  if (confirm("정말 삭제하시겠습니까??") == true){    //확인
-		  location.href='deleteMember.do?member_id=<sec:authentication property="principal.member.member_id"/>'
-	  }else{   //취소
-	      return;
-	  }
-	}
-</script>
+</div>
 
   <!--카페 하이 FOOTER -->
   <jsp:include page="/cafeHi_module/footer.jsp"/>

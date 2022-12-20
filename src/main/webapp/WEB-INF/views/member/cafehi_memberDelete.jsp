@@ -45,14 +45,5 @@
 	</div>
 </div>
  <jsp:include page="/cafeHi_module/footer.jsp"/>
- <!-- <script type="text/javascript">
-function button_event(){
-	  if (confirm("정말 삭제하시겠습니까??") == true){    //확인
-		  location.href='deleteMember.do?member_id=<sec:authentication property="principal.member.member_id"/>'
-	  }else{   //취소
-	      return;
-	  }
-	}
-</script> -->
 </body>
 </html>

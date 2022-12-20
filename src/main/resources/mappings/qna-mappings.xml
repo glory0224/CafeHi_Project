@@ -13,7 +13,7 @@
  		<result property="qna_select" column="QNA_SELECT" />
  		<result property="qna_search" column="QNA_SEARCH" />
  		<result property="upload_path" column="UPLOAD_PATH" />
- 		<association property="user_id" javaType="Member" column="MEMBER_ID" resultMap="MemberResult">
+ 		<association property="member_id" javaType="Member" column="MEMBER_ID" resultMap="MemberResult">
 	 		<id property="member_id" column="MEMBER_ID"/>
 	 		<result property="member_seq" column="MEMBER_SEQ"/>
 	 		<result property="member_id" column="MEMBER_ID"/>

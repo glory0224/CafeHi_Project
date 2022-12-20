@@ -17,7 +17,8 @@
 		<security:intercept-url pattern="/infoUpdate.do" access="hasRole('ROLE_USER')"/>
 		<security:intercept-url pattern="/infoDelete.do" access="hasRole('ROLE_USER')"/>		
 		<security:intercept-url pattern="/QnAWritePage.do" access="hasRole('ROLE_USER')"/>
-		<security:intercept-url pattern="/myPage.do" access="hasRole('ROLE_USER')"/>		
+		<security:intercept-url pattern="/myPage.do" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/myMembership.do" access="hasRole('ROLE_USER')"/>				
 		<security:intercept-url pattern="/manager/*" access="hasRole('ROLE_MEMBER')"/>
 		<security:intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')"/>
 			

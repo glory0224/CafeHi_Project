@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.cafeHi.www.member.dto.AuthDTO;
 import com.cafeHi.www.member.dto.MemberDTO;
 import com.cafeHi.www.member.service.MemberService;
+import com.cafeHi.www.membership.service.MembershipService;
 
 
 @Controller
@@ -24,6 +25,9 @@ public class SignUpController {
 		
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private MembershipService membershipService;
 	
 	@Autowired
 	private JavaMailSender mailsender;
@@ -58,6 +62,7 @@ public class SignUpController {
 			memberauth.setMember_id(member.getMember_id());
 			memberauth.setAuth("ROLE_USER");
 			memberService.insertMemberAuth(memberauth);
+			membershipService.insertMembership(member);
 			
 			return "cafehi_login";
 		}

@@ -40,8 +40,9 @@
 
 
   <main>
-    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
-      <div class="col">
+  	
+    <div class="row row-cols-1 row-cols-md-5 mb-5 text-center">
+      <div class="col m-3 p-1">
         <div class="card mb-4 rounded-3 shadow-sm border-success">
           <div class="card-header py-3 bg-success border-success text-bg-success">
             <h4 class="my-0 fw-normal">VIP</h4>
@@ -49,13 +50,13 @@
           <div class="card-body">
             <h1 class="card-title pricing-card-title">15%</h1>
             <ul class="list-unstyled mt-3 mb-4">
-              <li>적립 포인트가 20000점 이상 <br> 고객 대상</li>
+              <li>적립 포인트가 15000점 이상 <br> 고객 대상</li>
               <li>결제 금액의 15% 포인트 적립</li>
             </ul>
           </div>
         </div>
       </div>
-      <div class="col">
+      <div class="col m-3 p-1">
         <div class="card mb-4 rounded-3 shadow-sm border-warning ">
           <div class="card-header py-3 bg-warning border-warning text-bg-warning">
             <h4 class="my-0 fw-normal text-white">Gold</h4>
@@ -63,13 +64,13 @@
           <div class="card-body">
             <h1 class="card-title pricing-card-title">10%</h1>
             <ul class="list-unstyled mt-3 mb-4">
-               <li>적립 포인트가 15000점 이상 <br> 고객 대상</li>
+               <li>적립 포인트가 10000점 이상 <br> 고객 대상</li>
               <li>결제 금액의 10% 포인트 적립</li>
             </ul>
           </div>
         </div>
       </div>
-      <div class="col">
+      <div class="col m-3 p-1">
         <div class="card mb-4 rounded-3 shadow-sm border-secondary">
           <div class="card-header py-3 text-bg-secondary border-secondary bg-secondary">
             <h4 class="my-0 fw-normal">Silver</h4>
@@ -77,8 +78,22 @@
           <div class="card-body">
             <h1 class="card-title pricing-card-title">5%</h1>
             <ul class="list-unstyled mt-3 mb-4">
-              <li>적립 포인트가 10000점 이상 <br> 고객 대상</li>
+              <li>적립 포인트가 5000점 이상 <br> 고객 대상</li>
               <li>결제 금액의 5% 포인트 적립</li>
+            </ul>
+          </div>
+        </div>
+      </div>      	 
+      <div class="col m-3 p-1">
+        <div class="card mb-4 rounded-3 shadow-sm border-primary">
+          <div class="card-header py-3 text-bg-secondary border-secondary bg-primary">
+            <h4 class="my-0 fw-normal">Standard</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">Welcome</h1>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>첫 가입 <br> 고객 대상</li>
+              <li>웰컴 드링크 쿠폰 제공</li>
             </ul>
           </div>
         </div>
