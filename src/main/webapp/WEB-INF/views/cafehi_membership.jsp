@@ -99,7 +99,7 @@
         </div>
       </div>      	 
     </div>
-    <div class="d-flex justify-content-end"><a class="text-decoration-none text-black" href="info.do"><button type="button" class="btn btn-outline-dark">내 등급 확인하러 가기</button></a></div>
+    <div class="d-flex justify-content-end"><a class="text-decoration-none text-black" href="myMembership.do"><button type="button" class="btn btn-outline-dark">내 등급 확인하러 가기</button></a></div>
 
     <h2 class="display-6 text-center mb-4">등급별 혜택</h2>
 

@@ -3,6 +3,16 @@ select * from cafehi_member;
 select * from cafehi_member_auth;
 select * from cafehi_admin;
 select * from cafehi_qna;
+select * from cafehi_membership;
+select * from my_membership;
+select mymem.member_id, camem.membership_grade, mymem.membership_point from my_membership mymem, cafehi_membership camem 
+where mymem.membership_code = camem.membership_code and mymem.member_id = 'user12';
+
+select myMembership.member_id, membership.membership_grade, myMembership.membership_point from my_membership myMembership, cafehi_membership membership 
+where myMembership.membership_code = membership.membership_code and myMembership.member_id ='hi12345'; 
+ 	
+select member.member_id, membership.membership_grade, myMembership.membership_point from my_membership myMembership, cafehi_member member, cafehi_membership membership 
+			where myMembership.membership_code = membership.membership_code and member.member_id = 'user1234';
 
 desc cafehi_member;
 desc cafehi_member_auth;
@@ -12,19 +22,21 @@ desc cafehi_qna;
 -- 컬럼 제거
 
 delete cafehi_member;
+delete my_membership;
 delete cafehi_admin;
 delete cafehi_qna;
 
 -- 테이블 삭제 
 
 drop table cafehi_qna;
+drop table cafehi_admin;
 drop table cafehi_member;
 drop table cafehi_member_auth;
+drop table cafehi_membership;
+drop table my_membership;
 drop table cafehi_mem_coupon;
 drop table cafehi_orderlist;
-drop table cafehi_admin;
 drop table cafehi_coupon;
-drop table cafehi_membership;
 drop table cafehi_sub_category;
 drop table cafehi_category;
 drop table cafehi_menu;
@@ -84,7 +96,7 @@ create table cafehi_admin(
     admin_seq number primary key ,
     admin_id varchar2(30),
     admin_pw varchar2(30),
-    admin_name varchar2(),
+    admin_name varchar2(15),
     admin_contact varchar2(15)
 );
 
@@ -148,13 +160,33 @@ create table cafehi_coupon(
     coupon_end Date
 );
 
--- 멤버쉽 
-create table cafehi_membership(
-    mem_code number not null primary key,
-    mem_grade varchar2(30) ,
-    mem_point number
+-- 나의 멤버쉽 
+create table my_membership(
+    membership_code number,
+    constraint fk_membership_code foreign key(membership_code) references cafehi_membership (membership_code),
+    member_id  varchar2(50), 
+    constraint fk_membership_id foreign key(member_id) references cafehi_member (member_id) on delete cascade,
+    membership_point number
 );
 
+insert into my_membership values(1, 'user12', 0);
+insert into my_membership values(2,'hi12345', 5500 );
+insert into my_membership values(3, 'user1234', 11000);
+insert into my_membership values(4, 'kara12345', 16000);
+
+
+-- 멤버쉽 분류
+create table cafehi_membership(
+    membership_code number primary key,
+    membership_grade varchar2(15)
+);
+
+insert into cafehi_membership values(01, 'standard');
+insert into cafehi_membership values(02, 'silver'); 
+insert into cafehi_membership values(03, 'gold'); 
+insert into cafehi_membership values(04, 'vip'); 
+
+commit;
 
 -- 카테고리 
 
@@ -163,6 +195,15 @@ create table cafehi_category(
     category_type varchar2(15),
     category_name varchar2(30)
 );
+
+insert into cafehi_category values(01, 'menu', 'coffee');
+insert into cafehi_category values(02, 'menu', 'coldbrew');
+insert into cafehi_category values(03, 'menu', 'latte');
+insert into cafehi_category values(04, 'menu', 'smoothie');
+insert into cafehi_category values(05, 'menu', 'side');
+insert into cafehi_category values(06, 'menu', 'beverage');
+insert into cafehi_category values(07, 'menu', 'fruitJuice');
+insert into cafehi_category values(08, 'menu', 'tea');
 
 -- 서브 카테고리 
 
@@ -174,6 +215,85 @@ create table cafehi_sub_category(
     category_code number not null,
     constraint fk_sub_category_code foreign key(category_code) references cafehi_category (category_code)
 );
+
+-- 커피 메뉴
+
+insert into cafehi_sub_category values(01, 'coffee', 'americano', 01);
+insert into cafehi_sub_category values(02, 'coffee', 'espresso', 01);
+insert into cafehi_sub_category values(03, 'coffee', 'citronAmericano', 01);
+insert into cafehi_sub_category values(04, 'coffee', 'addShot', 01);
+insert into cafehi_sub_category values(05, 'coffee', 'refill', 01);
+
+-- 콜드브루
+
+insert into cafehi_sub_category values(01, 'coldbrew', 'coldbrew', 02);
+insert into cafehi_sub_category values(02, 'coldbrew', 'specialTea', 02);
+insert into cafehi_sub_category values(03, 'coldbrew', 'coldbrewLatte', 02);
+insert into cafehi_sub_category values(04, 'coldbrew', 'einstephener', 02);
+insert into cafehi_sub_category values(05, 'coldbrew', 'coldbrewBottle', 02);
+
+-- 라떼
+
+insert into cafehi_sub_category values(01, 'latte', 'vanillaLatte', 03);
+insert into cafehi_sub_category values(02, 'latte', 'icecreamLatte', 03);
+insert into cafehi_sub_category values(03, 'latte', 'caffeMocha', 03);
+insert into cafehi_sub_category values(04, 'latte', 'hazelnutLatte', 03);
+insert into cafehi_sub_category values(05, 'latte', 'dolceLatte', 03);
+insert into cafehi_sub_category values(06, 'latte', 'yuzabianco', 03);
+insert into cafehi_sub_category values(07, 'latte', 'caramelMacchiato', 03);
+
+-- 스무디
+
+insert into cafehi_sub_category values(01, 'smoothie', 'mochaFrappuccino', 04);
+insert into cafehi_sub_category values(02, 'smoothie', 'caramelFrappuccino', 04);
+insert into cafehi_sub_category values(03, 'smoothie', 'greenTeaFrappuccino', 04);
+insert into cafehi_sub_category values(04, 'smoothie', 'yogurtSmoothie', 04);
+insert into cafehi_sub_category values(05, 'smoothie', 'cloudYogurtSmoothie', 04);
+insert into cafehi_sub_category values(06, 'smoothie', 'strawberryYogurtSmoothie', 04);
+
+-- 사이드 
+
+insert into cafehi_sub_category values(01, 'side', 'croissant', 05);
+insert into cafehi_sub_category values(02, 'side', 'whippedCreamCrople', 05);
+insert into cafehi_sub_category values(03, 'side', 'brownCheeseCrople', 05);
+insert into cafehi_sub_category values(04, 'side', 'icecreamCrople', 05);
+
+-- 음료
+
+insert into cafehi_sub_category values(01, 'beverage', 'greenTeaLatte', 06);
+insert into cafehi_sub_category values(02, 'beverage', 'chocoLatte', 06);
+insert into cafehi_sub_category values(03, 'beverage', 'strawberryLatte', 06);
+insert into cafehi_sub_category values(04, 'beverage', 'berryberryLatte', 06);
+insert into cafehi_sub_category values(05, 'beverage', 'passionFruitAde', 06);
+insert into cafehi_sub_category values(06, 'beverage', 'lemonade', 06);
+insert into cafehi_sub_category values(07, 'beverage', 'greenTangerineAde', 06);
+insert into cafehi_sub_category values(08, 'beverage', 'grapefruitAde', 06);
+insert into cafehi_sub_category values(09, 'beverage', 'blueLemonade', 06);
+
+-- 생과일 주스 
+insert into cafehi_sub_category values(01, 'fruitJuice', 'watermelonJuice', 07);
+insert into cafehi_sub_category values(02, 'fruitJuice', 'tomatoJuice', 07);
+insert into cafehi_sub_category values(03, 'fruitJuice', 'bananaJuice', 07);
+
+-- 차
+insert into cafehi_sub_category values(01, 'tea', 'chamomileTea', 08);
+insert into cafehi_sub_category values(02, 'tea', 'rooibosTea', 08);
+insert into cafehi_sub_category values(03, 'tea', 'peppermintTea', 08);
+insert into cafehi_sub_category values(04, 'tea', 'rosemaryTea', 08);
+insert into cafehi_sub_category values(05, 'tea', 'roseFlowerTea', 08);
+insert into cafehi_sub_category values(06, 'tea', 'oolongTea', 08);
+insert into cafehi_sub_category values(07, 'tea', 'honeyGrapefruitBlackTea', 08);
+insert into cafehi_sub_category values(08, 'tea', 'dewTea', 08);
+insert into cafehi_sub_category values(09, 'tea', 'icedTea', 08);
+insert into cafehi_sub_category values(10, 'tea', 'yuzaTea', 08);
+insert into cafehi_sub_category values(11, 'tea', 'orangeGrapefruitTea', 08);
+insert into cafehi_sub_category values(12, 'tea', 'gingerTea', 08);
+insert into cafehi_sub_category values(13, 'tea', 'lemonTea', 08);
+insert into cafehi_sub_category values(14, 'tea', 'berryTea', 08);
+insert into cafehi_sub_category values(15, 'tea', 'greenTangerineTea', 08);
+insert into cafehi_sub_category values(16, 'tea', 'GrapefruitTea', 08);
+
+insert into
 
 -- 메뉴
 create table cafehi_menu(
