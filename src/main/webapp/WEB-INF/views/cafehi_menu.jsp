@@ -33,14 +33,14 @@
 	<!-- 카페하이 메뉴 탭  -->
 	<ul class="nav nav-tabs" id="myTab" role="tablist">
 		<li class="nav-item" role="presentation">
-			<button class="nav-link active" id="coffee-tab" data-bs-toggle="tab"
+			<button class="nav-link" id="coffee-tab" data-bs-toggle="tab"
 				data-bs-target="#coffeeMenu" type="button" role="tab" aria-controls="coffeeMenu"
 				aria-selected="true">커피</button>
 		</li>
 		<li class="nav-item" role="presentation">
 			<button class="nav-link" id="coldbrew-tab" data-bs-toggle="tab"
 				data-bs-target="#coldbrewMenu" type="button" role="tab"
-				aria-controls="coldbrewMenu" aria-selected="false">콜드브루</button>
+				aria-controls="coldbrewMenu" aria-selected="false" onclick="location.href='coldbrewList.do'">콜드브루</button>
 		</li>
 		<li class="nav-item" role="presentation">
 			<button class="nav-link" id="latte-tab" data-bs-toggle="tab"
@@ -78,7 +78,7 @@
 	<!-- 카페하이 메뉴 내용 -->
 	<div class="tab-content  w-50 m-auto mt-4" id="myTabContent">
 
-		<div class="tab-pane fade show active" id="coffeeMenu" role="tabpanel"
+		<div class="tab-pane fade active show" id="coffeeMenu" role="tabpanel"
 			aria-labelledby="coffee-tab"><jsp:include page="/cafehi_menu/cafehi_coffee.jsp" /></div>
 			
 		<div class="tab-pane fade" id="coldbrewMenu" role="tabpanel"

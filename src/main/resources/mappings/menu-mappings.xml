@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="MenuDAO">
+ 	<resultMap type="Menu" id="MenuResult">
+ 		<result property="menu_code" column="MENU_CODE"/>
+ 		<result property="menu_price" column="MENU_PRICE"/>
+ 		<result property="menu_type" column="MENU_TYPE"/>
+ 		<result property="menu_name" column="MENU_NAME"/>
+ 		<result property="menu_explain" column="MENU_EXPLAIN"/>
+ 		<result property="menu_img_path" column="MENU_IMG_PATH" />
+ 	</resultMap>
+ 	
+ 	<select id="getCoffeeList" resultMap="MenuResult">
+ 		SELECT * FROM cafehi_menu WHERE menu_type = 'coffee'
+ 	</select>
+ 	<select id="getColdBrewList" resultMap="MenuResult">
+ 		SELECT * FROM cafehi_menu WHERE menu_type = 'coldbrew'
+ 	</select>
+ </mapper>

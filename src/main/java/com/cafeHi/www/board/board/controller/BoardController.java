@@ -31,8 +31,5 @@ public class BoardController {
 		
 	}
 	
-	@RequestMapping("/Menu.do")
-	public String Menu() {
-		return "cafehi_menu";
-	}
+	
 }

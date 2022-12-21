@@ -5,19 +5,19 @@ select * from cafehi_admin;
 select * from cafehi_qna;
 select * from cafehi_membership;
 select * from my_membership;
-select mymem.member_id, camem.membership_grade, mymem.membership_point from my_membership mymem, cafehi_membership camem 
-where mymem.membership_code = camem.membership_code and mymem.member_id = 'user12';
+select * from cafehi_category;
+select * from cafehi_sub_category;
+select * from cafehi_menu;
 
-select myMembership.member_id, membership.membership_grade, myMembership.membership_point from my_membership myMembership, cafehi_membership membership 
-where myMembership.membership_code = membership.membership_code and myMembership.member_id ='hi12345'; 
- 	
-select member.member_id, membership.membership_grade, myMembership.membership_point from my_membership myMembership, cafehi_member member, cafehi_membership membership 
-			where myMembership.membership_code = membership.membership_code and member.member_id = 'user1234';
+
 
 desc cafehi_member;
 desc cafehi_member_auth;
 desc cafehi_admin;
 desc cafehi_qna;
+desc cafehi_category;
+desc cafehi_sub_category;
+desc cafehi_menu;
 
 -- 컬럼 제거
 
@@ -25,6 +25,9 @@ delete cafehi_member;
 delete my_membership;
 delete cafehi_admin;
 delete cafehi_qna;
+delete cafehi_category;
+delete cafehi_sub_category;
+delete cafehi_menu;
 
 -- 테이블 삭제 
 
@@ -151,14 +154,7 @@ SELECT * FROM (
         AND qna_title LIKE '%' || '제목' || '%' 
  		ORDER BY qna_num DESC;
 
--- 쿠폰
-create table cafehi_coupon(
-    coupon_code number not null primary key,
-    coupon_name varchar2(50) ,
-    coupon_price number,
-    coupon_start Date,
-    coupon_end Date
-);
+
 
 -- 나의 멤버쉽 
 create table my_membership(
@@ -226,87 +222,164 @@ insert into cafehi_sub_category values(05, 'coffee', 'refill', 01);
 
 -- 콜드브루
 
-insert into cafehi_sub_category values(01, 'coldbrew', 'coldbrew', 02);
-insert into cafehi_sub_category values(02, 'coldbrew', 'specialTea', 02);
-insert into cafehi_sub_category values(03, 'coldbrew', 'coldbrewLatte', 02);
-insert into cafehi_sub_category values(04, 'coldbrew', 'einstephener', 02);
-insert into cafehi_sub_category values(05, 'coldbrew', 'coldbrewBottle', 02);
+insert into cafehi_sub_category values(06, 'coldbrew', 'coldbrew', 02);
+insert into cafehi_sub_category values(07, 'coldbrew', 'specialTea', 02);
+insert into cafehi_sub_category values(08, 'coldbrew', 'coldbrewLatte', 02);
+insert into cafehi_sub_category values(09, 'coldbrew', 'einstephener', 02);
+insert into cafehi_sub_category values(10, 'coldbrew', 'coldbrewBottle', 02);
 
 -- 라떼
 
-insert into cafehi_sub_category values(01, 'latte', 'vanillaLatte', 03);
-insert into cafehi_sub_category values(02, 'latte', 'icecreamLatte', 03);
-insert into cafehi_sub_category values(03, 'latte', 'caffeMocha', 03);
-insert into cafehi_sub_category values(04, 'latte', 'hazelnutLatte', 03);
-insert into cafehi_sub_category values(05, 'latte', 'dolceLatte', 03);
-insert into cafehi_sub_category values(06, 'latte', 'yuzabianco', 03);
-insert into cafehi_sub_category values(07, 'latte', 'caramelMacchiato', 03);
+insert into cafehi_sub_category values(11, 'latte', 'vanillaLatte', 03);
+insert into cafehi_sub_category values(12, 'latte', 'icecreamLatte', 03);
+insert into cafehi_sub_category values(13, 'latte', 'caffeMocha', 03);
+insert into cafehi_sub_category values(14, 'latte', 'hazelnutLatte', 03);
+insert into cafehi_sub_category values(15, 'latte', 'dolceLatte', 03);
+insert into cafehi_sub_category values(16, 'latte', 'yuzabianco', 03);
+insert into cafehi_sub_category values(17, 'latte', 'caramelMacchiato', 03);
 
 -- 스무디
 
-insert into cafehi_sub_category values(01, 'smoothie', 'mochaFrappuccino', 04);
-insert into cafehi_sub_category values(02, 'smoothie', 'caramelFrappuccino', 04);
-insert into cafehi_sub_category values(03, 'smoothie', 'greenTeaFrappuccino', 04);
-insert into cafehi_sub_category values(04, 'smoothie', 'yogurtSmoothie', 04);
-insert into cafehi_sub_category values(05, 'smoothie', 'cloudYogurtSmoothie', 04);
-insert into cafehi_sub_category values(06, 'smoothie', 'strawberryYogurtSmoothie', 04);
+insert into cafehi_sub_category values(18, 'smoothie', 'mochaFrappuccino', 04);
+insert into cafehi_sub_category values(19, 'smoothie', 'caramelFrappuccino', 04);
+insert into cafehi_sub_category values(20, 'smoothie', 'greenTeaFrappuccino', 04);
+insert into cafehi_sub_category values(21, 'smoothie', 'yogurtSmoothie', 04);
+insert into cafehi_sub_category values(22, 'smoothie', 'cloudYogurtSmoothie', 04);
+insert into cafehi_sub_category values(23, 'smoothie', 'strawberryYogurtSmoothie', 04);
 
 -- 사이드 
 
-insert into cafehi_sub_category values(01, 'side', 'croissant', 05);
-insert into cafehi_sub_category values(02, 'side', 'whippedCreamCrople', 05);
-insert into cafehi_sub_category values(03, 'side', 'brownCheeseCrople', 05);
-insert into cafehi_sub_category values(04, 'side', 'icecreamCrople', 05);
+insert into cafehi_sub_category values(24, 'side', 'croissant', 05);
+insert into cafehi_sub_category values(25, 'side', 'whippedCreamCrople', 05);
+insert into cafehi_sub_category values(26, 'side', 'brownCheeseCrople', 05);
+insert into cafehi_sub_category values(27, 'side', 'icecreamCrople', 05);
 
 -- 음료
 
-insert into cafehi_sub_category values(01, 'beverage', 'greenTeaLatte', 06);
-insert into cafehi_sub_category values(02, 'beverage', 'chocoLatte', 06);
-insert into cafehi_sub_category values(03, 'beverage', 'strawberryLatte', 06);
-insert into cafehi_sub_category values(04, 'beverage', 'berryberryLatte', 06);
-insert into cafehi_sub_category values(05, 'beverage', 'passionFruitAde', 06);
-insert into cafehi_sub_category values(06, 'beverage', 'lemonade', 06);
-insert into cafehi_sub_category values(07, 'beverage', 'greenTangerineAde', 06);
-insert into cafehi_sub_category values(08, 'beverage', 'grapefruitAde', 06);
-insert into cafehi_sub_category values(09, 'beverage', 'blueLemonade', 06);
+insert into cafehi_sub_category values(28, 'beverage', 'greenTeaLatte', 06);
+insert into cafehi_sub_category values(29, 'beverage', 'chocoLatte', 06);
+insert into cafehi_sub_category values(30, 'beverage', 'strawberryLatte', 06);
+insert into cafehi_sub_category values(31, 'beverage', 'berryberryLatte', 06);
+insert into cafehi_sub_category values(32, 'beverage', 'passionFruitAde', 06);
+insert into cafehi_sub_category values(33, 'beverage', 'lemonade', 06);
+insert into cafehi_sub_category values(34, 'beverage', 'greenTangerineAde', 06);
+insert into cafehi_sub_category values(35, 'beverage', 'grapefruitAde', 06);
+insert into cafehi_sub_category values(36, 'beverage', 'blueLemonade', 06);
 
 -- 생과일 주스 
-insert into cafehi_sub_category values(01, 'fruitJuice', 'watermelonJuice', 07);
-insert into cafehi_sub_category values(02, 'fruitJuice', 'tomatoJuice', 07);
-insert into cafehi_sub_category values(03, 'fruitJuice', 'bananaJuice', 07);
+insert into cafehi_sub_category values(37, 'fruitJuice', 'watermelonJuice', 07);
+insert into cafehi_sub_category values(38, 'fruitJuice', 'tomatoJuice', 07);
+insert into cafehi_sub_category values(39, 'fruitJuice', 'bananaJuice', 07);
 
 -- 차
-insert into cafehi_sub_category values(01, 'tea', 'chamomileTea', 08);
-insert into cafehi_sub_category values(02, 'tea', 'rooibosTea', 08);
-insert into cafehi_sub_category values(03, 'tea', 'peppermintTea', 08);
-insert into cafehi_sub_category values(04, 'tea', 'rosemaryTea', 08);
-insert into cafehi_sub_category values(05, 'tea', 'roseFlowerTea', 08);
-insert into cafehi_sub_category values(06, 'tea', 'oolongTea', 08);
-insert into cafehi_sub_category values(07, 'tea', 'honeyGrapefruitBlackTea', 08);
-insert into cafehi_sub_category values(08, 'tea', 'dewTea', 08);
-insert into cafehi_sub_category values(09, 'tea', 'icedTea', 08);
-insert into cafehi_sub_category values(10, 'tea', 'yuzaTea', 08);
-insert into cafehi_sub_category values(11, 'tea', 'orangeGrapefruitTea', 08);
-insert into cafehi_sub_category values(12, 'tea', 'gingerTea', 08);
-insert into cafehi_sub_category values(13, 'tea', 'lemonTea', 08);
-insert into cafehi_sub_category values(14, 'tea', 'berryTea', 08);
-insert into cafehi_sub_category values(15, 'tea', 'greenTangerineTea', 08);
-insert into cafehi_sub_category values(16, 'tea', 'GrapefruitTea', 08);
+insert into cafehi_sub_category values(40, 'tea', 'chamomileTea', 08);
+insert into cafehi_sub_category values(41, 'tea', 'rooibosTea', 08);
+insert into cafehi_sub_category values(42, 'tea', 'peppermintTea', 08);
+insert into cafehi_sub_category values(43, 'tea', 'rosemaryTea', 08);
+insert into cafehi_sub_category values(44, 'tea', 'roseFlowerTea', 08);
+insert into cafehi_sub_category values(45, 'tea', 'oolongTea', 08);
+insert into cafehi_sub_category values(46, 'tea', 'honeyGrapefruitBlackTea', 08);
+insert into cafehi_sub_category values(47, 'tea', 'dewTea', 08);
+insert into cafehi_sub_category values(48, 'tea', 'icedTea', 08);
+insert into cafehi_sub_category values(49, 'tea', 'yuzaTea', 08);
+insert into cafehi_sub_category values(50, 'tea', 'orangeGrapefruitTea', 08);
+insert into cafehi_sub_category values(51, 'tea', 'gingerTea', 08);
+insert into cafehi_sub_category values(52, 'tea', 'lemonTea', 08);
+insert into cafehi_sub_category values(53, 'tea', 'berryTea', 08);
+insert into cafehi_sub_category values(54, 'tea', 'greenTangerineTea', 08);
+insert into cafehi_sub_category values(55, 'tea', 'GrapefruitTea', 08);
 
-insert into
 
--- 메뉴
+
+-- 메뉴(카테고리를 외래키로 사용해서 써보려 했으나 오히려 복잡성이 높아지는거 같아서 그냥 독립적으로 생성)
 create table cafehi_menu(
     menu_code number not null primary key,
-    menu_name varchar2(50),
     menu_price number,
+    menu_type varchar2(50),
+    menu_name varchar2(50),
     menu_explain varchar2(100), 
-    menu_img_path varchar2(200),
-    
-    category_sub_code number not null,
-    constraint fk_menu_sub_category_code foreign key(category_sub_code) references cafehi_sub_category (category_sub_code)
+    menu_img_path varchar2(200)
 );
 
+-- 메뉴 데이터(이미지 경로는 메뉴 사진이 없는 경우 로고 사진으로 대체, 추후 사진 추가 예정)
+
+insert into cafehi_menu values(01, 3000,'coffee','아메리카노', '카페하이 아메리카노', '/cafeHi/img/menu/coffee/IceAmericano.jpg');
+insert into cafehi_menu values(02, 3000,'coffee','에스프레소', '카페하이 에스프레소', '/cafeHi/img/cafehi_logo.jpeg');
+insert into cafehi_menu values(03, 4500,'coffee','유자메리카노', '카페하이 유자메리카노', '/cafeHi/img/cafehi_logo.jpeg');
+insert into cafehi_menu values(04, 500,'coffee','샷추가', '카페하이 샷추가', '/cafeHi/img/cafehi_logo.jpeg');
+insert into cafehi_menu values(05, 1000,'coffee','리필', '카페하이 리필', '/cafeHi/img/cafehi_logo.jpeg');
+insert into cafehi_menu values(06, 4500,'coldbrew','콜드브루', '카페하이 콜드브루', '/cafeHi/img/menu/coffee/ColdBrew.JPG');
+insert into cafehi_menu values(07, 5000,'coldbrew','스페셜티(싱글원두)', '카페하이 스페셜티(싱글원두)', '/cafeHi/img/cafehi_logo.jpeg');
+insert into cafehi_menu values(08, 5000,'coldbrew','콜드브루 라떼', '카페하이 콜드브루 라떼', '/cafeHi/img/cafehi_logo.jpeg');
+insert into cafehi_menu values(09, 5500,'coldbrew','아인슈페너', '카페하이 아인슈페너', '/cafeHi/img/cafehi_logo.jpeg');
+insert into cafehi_menu values(10, 15000,'coldbrew','콜드브루(병)', '카페하이 콜드 브루(병)', '/cafeHi/img/cafehi_logo.jpeg');
+insert into cafehi_menu values(11, 5000,'latte','바닐라 라떼', '카페하이 바닐라 라떼', '/cafeHi/img/menu/latte/IceVinilaLatte.JPG');
+insert into cafehi_menu values(12, 6000,'latte','아이스크림 라떼', '카페하이 아이스크림 라떼', '/cafeHi/img/menu/latte/IceCreamLatte.JPG');
+insert into cafehi_menu values(13, 4700,'latte','카페모카' ,'카페하이 카페모카', '/cafeHi/img/menu/latte/IceCaffeMoca.JPG');
+insert into cafehi_menu values(14, 4500,'latte','헤이즐넛 라떼', '카페하이 헤이즐넛 라떼', '/cafeHi/img/menu/latte/HazelnutLatte.JPG');
+insert into cafehi_menu values(15, 4700,'latte','돌체 라떼', '카페하이 돌체 라떼', '/cafeHi/img/menu/latte/DolceLatte.JPG');
+insert into cafehi_menu values(16, 5000,'latte','유자비앙코', '카페하이 유자비앙코', '/cafeHi/img/menu/latte/CitronBianco.JPG');
+insert into cafehi_menu values(17, 4700,'latte','카라멜 마끼아또', '카페하이 카라멜 마끼아또', '/cafeHi/img/menu/latte/CaramelMacchiato.JPG');
+insert into cafehi_menu values(18, 4800,'smoothie','모카 프라푸치노', '카페하이 모카 프라푸치노', '/cafeHi/img/menu/smoothie/MocaFrappuccino.JPG');
+insert into cafehi_menu values(19, 4800,'smoothie','카라멜 프라푸치노', '카페하이 카라멜 프라푸치노', '/cafeHi/img/menu/smoothie/CaramelFrappuccino.JPG');
+insert into cafehi_menu values(20, 4500,'smoothie','그린티 프라푸치노', '카페하이 그린티 프라푸치노', '/cafeHi/img/menu/smoothie/greenteaFrappuccino.JPG');
+insert into cafehi_menu values(21, 4500,'smoothie','요거트 스무디', '카페하이 요거트 스무디', '/cafeHi/img/menu/smoothie/yogurtSmoothie.JPG');
+insert into cafehi_menu values(22, 5000,'smoothie','구름 요거트 스무디', '카페하이 구름 요거트 스무디', '/cafeHi/img/menu/smoothie/cloudSmoothie.JPG');
+insert into cafehi_menu values(23, 5500,'smoothie','딸기 요거트 스무디', '카페하이 딸기 요거트 스무디', '/cafeHi/img/menu/smoothie/MocaFrappuccino.JPG');
+insert into cafehi_menu values(24, 3000,'side','크로와상', '카페하이 크로와상', '/cafeHi/img/cafehi_logo.jpeg');
+insert into cafehi_menu values(25, 5000,'side','생크림 크로플', '카페하이 생크림 크로플', '/cafeHi/img/menu/side/WhippedCreamCrople.jpg');
+insert into cafehi_menu values(26, 6000,'side','브라운 치즈 크로플', '카페하이 브라운 치즈 크로플', '/cafeHi/img/menu/side/BrownCheeseCrople.JPG');
+insert into cafehi_menu values(27, 7000,'side','아이스크림 크로플', '카페하이 아이스크림 크로플', '/cafeHi/img/cafehi_logo.jpeg');
+insert into cafehi_menu values(28, 4500,'beverage','그린티 라떼', '카페하이 그린티 라떼', '/cafeHi/img/menu/beverage/GreenTeaLatte.JPG');
+insert into cafehi_menu values(29, 4500,'beverage','초코 라떼', '카페하이 초코 라떼', '/cafeHi/img/menu/beverage/ChocolateLatte.JPG');
+insert into cafehi_menu values(30, 5000,'beverage','딸기 라떼', '카페하이 딸기 라떼', '/cafeHi/img/menu/beverage/StrawberryLatte.JPG');
+insert into cafehi_menu values(31, 5000,'beverage','베리베리 라떼', '카페하이 베리베리 라떼', '/cafeHi/img/menu/beverage/BerryBerryLatte.JPG');
+insert into cafehi_menu values(32, 4700,'beverage','패션 후르츠 에이드', '카페하이 패션 후르츠 에이드', '/cafeHi/img/menu/beverage/PassionFruitAde.JPG');
+insert into cafehi_menu values(33, 5000,'beverage','레몬에이드', '카페하이 레몬에이드', '/cafeHi/img/menu/beverage/Lemonade.JPG');
+insert into cafehi_menu values(34, 5000,'beverage','청귤에이드', '카페하이 청귤에이드', '/cafeHi/img/menu/beverage/GreenTangerineAde.JPG');
+insert into cafehi_menu values(35, 5500,'beverage','자몽에이드', '카페하이 자몽에이드', '/cafeHi/img/menu/beverage/GrapefruitAde.JPG');
+insert into cafehi_menu values(36, 5500,'beverage','블루레몬에이드', '카페하이 블루레몬에이드', '/cafeHi/img/menu/beverage/BlueLemonAde.JPG');
+insert into cafehi_menu values(37, 5000,'fruitJuice','수박 쥬스', '카페하이 수박 쥬스', '/cafeHi/img/cafehi_logo.jpeg');
+insert into cafehi_menu values(38, 5000,'fruitJuice','토마토 쥬스', '카페하이 토마토 쥬스', '/cafeHi/img/cafehi_logo.jpeg');
+insert into cafehi_menu values(39, 5000,'fruitJuice','바나나 쥬스', '카페하이 바나나 쥬스', '/cafeHi/img/cafehi_logo.jpeg');
+insert into cafehi_menu values(40, 3500,'tea','카모마일 차', '카페하이 카모마일 차', '/cafeHi/img/menu/tea/chamomileTea.JPG');
+insert into cafehi_menu values(41, 3500,'tea','페퍼민트 차', '카페하이 페퍼민트 차', '/cafeHi/img/cafehi_logo.jpeg');
+insert into cafehi_menu values(42, 3500,'tea','로즈마리 차', '카페하이 로즈마리 차', '/cafeHi/img/menu/tea/RosemaryTea.JPG');
+insert into cafehi_menu values(43, 3500,'tea','로즈플라워 차', '카페하이 로즈플라워 차', '/cafeHi/img/menu/tea/RoseFlowerTea.JPG');
+insert into cafehi_menu values(44, 3500,'tea','우롱 차', '카페하이 우롱 차', '/cafeHi/img/cafehi_logo.jpeg');
+insert into cafehi_menu values(45, 3500,'tea','허니자몽블랙티', '카페하이 허니자몽블랙티', '/cafeHi/img/menu/tea/HoneyGrapefruitBlackTea.jpg');
+insert into cafehi_menu values(46, 4500,'tea','이슬차(수국)', '카페하이 이슬차(수국)', '/cafeHi/img/menu/tea/DewTea.jpg');
+insert into cafehi_menu values(47, 3500,'tea','아이스티', '카페하이 아이스티', '/cafeHi/img/menu/tea/IceTea.jpg');
+insert into cafehi_menu values(48, 4500,'tea','유자차', '카페하이 유자차', '/cafeHi/img/cafehi_logo.jpeg');
+insert into cafehi_menu values(49, 4500,'tea','오렌지자몽차', '카페하이 오렌지자몽차', '/cafeHi/img/cafehi_logo.jpeg');
+insert into cafehi_menu values(50, 4500,'tea','생강차', '카페하이 생강차', '/cafeHi/img/cafehi_logo.jpeg');
+insert into cafehi_menu values(51, 4500,'tea','레몬차', '카페하이 레몬차', '/cafeHi/img/cafehi_logo.jpeg');
+insert into cafehi_menu values(52, 4500,'tea','베리차', '카페하이 베리차', '/cafeHi/img/cafehi_logo.jpeg');
+insert into cafehi_menu values(53, 4500,'tea','청귤차', '카페하이 청귤차', '/cafeHi/img/cafehi_logo.jpeg');
+insert into cafehi_menu values(54, 4500,'tea','자몽차', '카페하이 자몽차', '/cafeHi/img/cafehi_logo.jpeg');
+
+commit;
+
+select Menu.menu_price, Menu.menu_explain from cafehi_sub_category subCategory, cafehi_menu Menu
+where subCategory.category_sub_code = Menu.category_sub_code and subCategory.category_sub_name = 'coldbrew';
+
+-- 장바구니 테이블
+
+create table cafehi_cart(
+    cart_code number not null primary key,
+    member_id varchar2(50)not null,
+    constraint cart_member_id_fk foreign key(member_id) references cafehi_member(member_id),
+    menu_code number not null,
+    amount number default 0
+);
+
+-- 장바구니 기본키 시퀀스 생성
+create sequence seq_cart
+start with 1
+increment by 1;
+
+
+-- 하단) 초기 작업 테이블(수정 필요)
 
 -- 옵션
 
@@ -324,6 +397,15 @@ create table cafehi_mem_coupon(
      constraint fk_mem_code_coupon foreign key(mem_code) references cafehi_membership (mem_code),
     coupon_code number not null, 
     constraint fk_coupon_code_coupon foreign key(coupon_code) references cafehi_coupon (coupon_code)
+);
+
+-- 쿠폰
+create table cafehi_coupon(
+    coupon_code number not null primary key,
+    coupon_name varchar2(50) ,
+    coupon_price number,
+    coupon_start Date,
+    coupon_end Date
 );
 
 -- 주문 내역

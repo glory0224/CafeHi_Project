@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +11,32 @@
 </head>
 <body>
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+<c:forEach var="tea" items="${teaList }">
+      
+        <div class="col">
+          <div class="card shadow-sm">
+			<img alt="" src="${tea.menu_img_path }" width="100%" height="400">
+            <div class="card-body">
+            	<input type="hidden" name="menu_code" value="${tea.menu_code }">
+              <p class="card-text text-center">${tea.menu_name }</p>
+              <p class="card-text text-center">${tea.menu_explain }</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">구매하기</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">장바구니</button>
+                </div>
+                <small class="text">${tea.menu_price }원</small>
+              </div>
+            </div>
+          </div>
+        </div>
+</c:forEach>
+
+
+      </div>
+
+<!-- <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 		<div class="col">
 			<div class="card shadow-sm">
 				<img alt="" src="/cafeHi/img/menu/tea/chamomileTea.JPG" width="100%"
@@ -276,7 +303,7 @@
 
 
 
-	</div>
+	</div> -->
  
 </body>
 </html>

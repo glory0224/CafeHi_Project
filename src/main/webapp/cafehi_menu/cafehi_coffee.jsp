@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,96 +11,28 @@
 
 </head>
 <body>
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
-
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+<c:forEach var="coffee" items="${coffeeList }">
+      
         <div class="col">
           <div class="card shadow-sm">
-			<img alt="" src="/cafeHi/img/menu/coffee/IceAmericano.jpg" width="100%" height="400">
+			<img alt="" src="${coffee.menu_img_path }" width="100%" height="400">
             <div class="card-body">
-              <p class="card-text text-center">아메리카노</p>
+            	<input type="hidden" name="menu_code" value="${coffee.menu_code }">
+              <p class="card-text text-center">${coffee.menu_name }</p>
+              <p class="card-text text-center">${coffee.menu_explain }</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">구매하기</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">장바구니</button>
                 </div>
-                <small class="text-muted">3,000원</small>
+                <small class="text">${coffee.menu_price }원</small>
               </div>
             </div>
           </div>
         </div>
-
-     <div class="col">
-          <div class="card shadow-sm">
-			<img alt="" src="/cafeHi/img/cafehi_logo.jpeg" width="100%" height="400">
-            <div class="card-body">
-              <p class="card-text text-center">에스프레소</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
-                <small class="text-muted">3,000원</small>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-                <div class="col">
-          <div class="card shadow-sm">
-			<img alt="" src="/cafeHi/img/cafehi_logo.jpeg" width="100%" height="400">
-            <div class="card-body">
-              <p class="card-text text-center">유자메리카노</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
-                <small class="text-muted">4,500원</small>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-                <div class="col">
-          <div class="card shadow-sm">
-			<img alt="" src="/cafeHi/img/cafehi_logo.jpeg" width="100%" height="400">
-            <div class="card-body">
-              <p class="card-text text-center">샷 추가</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
-                <small class="text-muted">500원</small>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-                <div class="col">
-          <div class="card shadow-sm">
-			<img alt="" src="/cafeHi/img/cafehi_logo.jpeg" width="100%" height="400">
-            <div class="card-body">
-              <p class="card-text text-center">리필</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
-                <small class="text-muted">1,000원</small>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-
-
-
-
-
-
-
+</c:forEach>
 
 
       </div>

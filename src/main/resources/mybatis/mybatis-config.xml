@@ -17,6 +17,10 @@
  		<typeAlias type="com.cafeHi.www.board.qna.dto.QnADTO" alias="QnA"/>
  		<typeAlias type="com.cafeHi.www.admin.dto.adminDTO" alias="Admin"/>
  		<typeAlias type="com.cafeHi.www.member.dto.AuthDTO" alias="Auth"/>
+ 		<typeAlias type="com.cafeHi.www.common.dto.CategoryDTO" alias="Category"/>
+ 		<typeAlias type="com.cafeHi.www.common.dto.SubCategoryDTO" alias="SubCategory"/>
+ 		<typeAlias type="com.cafeHi.www.menu.dto.MenuDTO" alias="Menu"/>
+ 		<typeAlias type="com.cafeHi.www.cart.dto.CartDTO" alias="Cart"/>
  	</typeAliases>
 
 	 
@@ -27,6 +31,8 @@
  		<mapper resource="mappings/membership-mappings.xml"/>
  		<mapper resource="mappings/qna-mappings.xml"/>
  		<mapper resource="mappings/admin-mappings.xml"/>
+ 		<mapper resource="mappings/menu-mappings.xml"/>
+ 		<mapper resource="mappings/cart-mappings.xml"/> 		
  	</mappers>
  	
  </configuration>
