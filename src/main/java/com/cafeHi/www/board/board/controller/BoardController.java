@@ -1,5 +1,6 @@
 package com.cafeHi.www.board.board.controller;
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -31,5 +32,10 @@ public class BoardController {
 		
 	}
 	
-	
+
+	@RequestMapping("/Menu.do")
+	public String Menu() {
+		
+		return "cafehi_menu";
+	}
 }

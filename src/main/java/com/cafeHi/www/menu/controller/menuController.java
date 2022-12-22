@@ -18,29 +18,25 @@ public class menuController {
 	@Autowired
 	private menuService menuService;
 	
-	@RequestMapping("/Menu.do")
-	public String Menu(HttpSession session) {
-		List<MenuDTO> coffeeList = menuService.getCoffeeList();
-		session.setAttribute("coffeeList", coffeeList);
-		
-		return "cafehi_menu";
-	}
 	
 	
-	/*
-	 * @RequestMapping("/coffeeList.do") public String coffeeListView(HttpSession
-	 * session) {
-	 * 
-	 * 
-	 * }
-	 */
+	
+	  @RequestMapping("/coffeeList.do") 
+	  public String coffeeListView(HttpSession session) {
+		  List<MenuDTO> coffeeList = menuService.getCoffeeList();
+			session.setAttribute("coffeeList", coffeeList);
+			return "cafehi_menu/cafehi_coffee";
+			
+	  
+	  }
+	 
 	
 	@RequestMapping("/coldbrewList.do")
 	public String coldbrewListView(HttpSession session) {
 		List<MenuDTO> coldbrewList =  menuService.getColdBrewList();
 		
 		session.setAttribute("coldbrewList", coldbrewList);
-		return "cafehi_menu";
+		return "cafehi_menu/cafehi_coldbrew";
 	}
 	
 	@RequestMapping("/fruitJuiceList.do")
@@ -48,7 +44,7 @@ public class menuController {
 		List<MenuDTO> fruitJuiceList =  menuService.getFruitJuiceList();
 		
 		session.setAttribute("fruitJuiceList", fruitJuiceList);
-		return "cafehi_menu";
+		return "cafehi_menu/cafehi_fruitsJuice";
 	}
 	
 	@RequestMapping("/beverageList.do")
@@ -56,7 +52,7 @@ public class menuController {
 		List<MenuDTO> beverageList =  menuService.getBeverageList();
 		
 		session.setAttribute("beverageList", beverageList);
-		return "cafehi_menu";
+		return "cafehi_menu/cafehi_beverage";
 	}
 	
 	@RequestMapping("/latteList.do")
@@ -64,7 +60,7 @@ public class menuController {
 		List<MenuDTO> latteList =  menuService.getLatteList();
 		
 		session.setAttribute("latteList", latteList);
-		return "cafehi_menu";
+		return "cafehi_menu/cafehi_latte";
 	}
 	
 	@RequestMapping("/sideList.do")
@@ -72,7 +68,7 @@ public class menuController {
 		List<MenuDTO> sideList =  menuService.getSideList();
 		
 		session.setAttribute("sideList", sideList);
-		return "cafehi_menu";
+		return "cafehi_menu/cafehi_side&bruch";
 	}
 	
 	@RequestMapping("/smoothieList.do")
@@ -80,15 +76,16 @@ public class menuController {
 		List<MenuDTO> smoothieList =  menuService.getSmoothieList();
 		
 		session.setAttribute("smoothieList", smoothieList);
-		return "cafehi_menu";
+		return "cafehi_menu/cafehi_smoothie";
 	}
 	
 	@RequestMapping("/teaList.do")
 	public String teaListView(HttpSession session) {
 		List<MenuDTO> teaList =  menuService.getTeaList();
 		
+		
 		session.setAttribute("teaList", teaList);
-		return "cafehi_menu";
+		return "cafehi_menu/cafehi_tea";
 	}
 	
 	

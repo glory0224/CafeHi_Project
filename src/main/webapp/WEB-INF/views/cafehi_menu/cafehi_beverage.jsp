@@ -11,23 +11,39 @@
 
 </head>
 <body>
+	<jsp:include page="/cafeHi_module/header.jsp"/>
+ 
+	<div class="p-5 m-5 text-center">
+		<h1 class="display-4 fw-normal">Menu</h1>
+
+		<div class="pricing-header pb-md-4 mx-auto text-center">
+
+			<div
+				class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 "></div>
+			<p class="fs-5 text-muted">카페 하이의 메뉴를 소개합니다!</p>
+		</div>
+	</div>
+
+<jsp:include page="/cafeHi_module/cafehi_menuNav.jsp"/> 
+
+<div class="w-50 m-auto mt-4">
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
-<c:forEach var="coffee" items="${coffeeList }">
+<c:forEach var="beverage" items="${beverageList }">
       
         <div class="col">
           <div class="card shadow-sm">
-			<img alt="" src="${coffee.menu_img_path }" width="100%" height="400">
+			<img alt="" src="${beverage.menu_img_path }" width="100%" height="400">
             <div class="card-body">
-            	<input type="hidden" name="menu_code" value="${coffee.menu_code }">
-              <p class="card-text text-center">${coffee.menu_name }</p>
-              <p class="card-text text-center">${coffee.menu_explain }</p>
+            	<input type="hidden" name="menu_code" value="${beverage.menu_code }">
+              <p class="card-text text-center">${beverage.menu_name }</p>
+              <p class="card-text text-center">${beverage.menu_explain }</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <button type="button" class="btn btn-sm btn-outline-secondary">구매하기</button>
                   <button type="button" class="btn btn-sm btn-outline-secondary">장바구니</button>
                 </div>
-                <small class="text">${coffee.menu_price }원</small>
+                <small class="text">${beverage.menu_price }원</small>
               </div>
             </div>
           </div>
@@ -36,7 +52,9 @@
 
 
       </div>
+      </div>
 
- 
+  <!--카페 하이 FOOTER -->
+  <jsp:include page="/cafeHi_module/footer.jsp"/>
 </body>
 </html>

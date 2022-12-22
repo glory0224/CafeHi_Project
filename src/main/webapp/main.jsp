@@ -12,21 +12,6 @@
 
 <body>
 
-<%
-	// 쿠키로 팝업창 열기 
-/* 	boolean check = false;
-	Cookie[] cookies = request.getCookies();
-	if(cookies != null){
-	for(Cookie c : cookies){
-		if(c.getName().equals("cookieName")){
-			check = true;
-		}
-	}
-	}
-	if(!check){
-		out.print("<script>window.open('cafehi_popup.jsp','','width=800, height=600')</script>");
-	} */
- %>
 
 <jsp:include page="/cafeHi_module/header.jsp"/>
 

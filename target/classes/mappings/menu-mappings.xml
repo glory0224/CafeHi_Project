@@ -19,4 +19,27 @@
  	<select id="getColdBrewList" resultMap="MenuResult">
  		SELECT * FROM cafehi_menu WHERE menu_type = 'coldbrew'
  	</select>
+ 	<select id="getLatteList" resultMap="MenuResult">
+ 		SELECT * FROM cafehi_menu WHERE menu_type = 'latte'
+ 	</select>
+ 	<select id="getSmoothieList" resultMap="MenuResult">
+ 		SELECT * FROM cafehi_menu WHERE menu_type = 'smoothie'
+ 	</select>
+ 	
+ 	<select id="getSideList" resultMap="MenuResult">
+ 		SELECT * FROM cafehi_menu WHERE menu_type = 'side'
+ 	</select>
+ 	
+ 	<select id="getBeverageList" resultMap="MenuResult">
+ 		SELECT * FROM cafehi_menu WHERE menu_type = 'beverage'
+ 	</select>
+ 	
+ 	<select id="getFruitJuiceList" resultMap="MenuResult">
+ 		SELECT * FROM cafehi_menu WHERE menu_type = 'fruitJuice'
+ 	</select>
+ 	
+ 	<select id="getTeaList" resultMap="MenuResult">
+ 		SELECT * FROM cafehi_menu WHERE menu_type = 'tea'
+ 	</select>
+ 	
  </mapper>

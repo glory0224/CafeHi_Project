@@ -53,8 +53,7 @@ public class menuServiceImpl implements menuService{
 
 	@Override
 	public List<MenuDTO> getTeaList() {
-		// TODO Auto-generated method stub
-		return null;
+		return menuDAO.getTeaList();
 	}
 
 }
