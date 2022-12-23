@@ -10,5 +10,27 @@
  		values (seq_cart.nextval, #{member_id}, #{menu_code}, #{amount})
  	</insert>
  	
+ 	<select id="listCart" resultType="Cart">
+ 		<!-- DAO에서 listCart라는 태그로 인해 실행되고 결과타입은 DTO타입으로 한다. (다른계층으로 보내기 위해서) -->
+ 		
+ 		SELECT cart_code, p.menu_code, m.member_id, member_name, menu_name, amount, menu_price, (menu_price*amount) money
+ 		<!-- 장바구니의 번호, 상품 번호, 회원번호, 회원이름, 상품이름, 상품의양, 상품1개의 가격, 상품의 전체가격을 검색한다.-->
+		
+		FROM cafehi_member m, cafehi_cart c, cafehi_menu p
+		<!-- 회원테이블과, 장바구니 테이블과, 상품테이블로 부터 -->
+		
+		WHERE m.member_id = c.member_id and c.menu_code = p.menu_code and c.member_id=#{member_id} ORDER BY cart_code  		
+ 		 <!--회원테이블의 회원id와 장바구니테이블의 회원id가 같고, 장바구니의 상품 code와 상품테이블의 상품 code가 같고, 장바구니테이블의 회원id가  장바구니에 저장되있는 회원id와 같을때-->
+ 	</select>
  	
+ 	<select id="sumMoney" resultType="int">
+ 		SELECT nvl(sum(menu_price*amount), 0)
+ 		<!--금액과 상품갯수를 곱한값과 0을더해서 0이 나오는 것을 검색한다. -->
+ 		<!--그러니까 아무것도 담지 않았을 때 대체 값이 0이 나오도록 함 -->
+ 		
+ 		FROM cafehi_cart c, cafehi_menu p
+ 		
+ 		WHERE c.menu_code = p.menu_code AND member_id=#{member_id}
+ 		
+ 	</select>
  </mapper>

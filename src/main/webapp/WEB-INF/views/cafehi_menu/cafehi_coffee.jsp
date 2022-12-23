@@ -30,20 +30,30 @@
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
 <c:forEach var="coffee" items="${coffeeList }">
-      
+      	
         <div class="col">
           <div class="card shadow-sm">
 			<img alt="" src="${coffee.menu_img_path }" width="100%" height="400">
             <div class="card-body">
-            	<input type="hidden" name="menu_code" value="${coffee.menu_code }">
+            	
               <p class="card-text text-center">${coffee.menu_name }</p>
               <p class="card-text text-center">${coffee.menu_explain }</p>
+              <p class="card-text text-center">${coffee.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <button type="button" class="btn btn-sm btn-outline-secondary">구매하기</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">장바구니</button>
+                  <form action="insertCart.do" method="post">
+                  <input type="hidden" name="menu_code" value="${coffee.menu_code }">
+                  <input id="resultAmount" type="hidden" name="StringAmount" >
+                  <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+                  <input type="submit" class="btn btn-sm btn-outline-secondary" value="장바구니">
+				  </form>	                
                 </div>
-                <small class="text">${coffee.menu_price }원</small>
+                <%-- <small class="text">${coffee.menu_price }원</small> --%>
+								<input type='button' onclick='count("plus")' value='+' /> 
+								<input type='button' onclick='count("minus")' value='-' />
+								<span id='result'>0</span><p>개</p>
+								
               </div>
             </div>
           </div>
@@ -51,8 +61,60 @@
 </c:forEach>
 
 
-      </div>
+      </div>   
 </div>
+
+<%-- <div class="modal fade" id="member_cart_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <form action="insertCart.do" method="post" id="cartForm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel"> ${coffee.menu_name }를 얼마나 담으시겠어요? </h1>
+        <div class="ms-3">
+        <button type="button" class="btn-close btn-success " data-bs-dismiss="modal" aria-label="Close"></button>
+      	</div>
+      </div>
+      <div class="modal-body">
+      	<!-- <label for="member_name" class="form-label">변경할 이름을 입력하세요.</label> -->
+      	<input type="hidden" name="menu_code" value="${coffee.menu_code }">
+      	<input type='button' onclick='count("plus")' value='+' /> <input
+									type='button' onclick='count("minus")' value='-' />
+								<span id='result'>0</span><p>개</p>
+								<input id="amountResult" type="hidden" name="amount" >
+      	<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" /> 
+        <input type="text" id="memberName" class="form-control" name="member_name" value="<sec:authentication property="principal.member.member_name"/>">
+      </div>
+      <div class="modal-footer">
+     
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal">취소</button>
+        <input class="btn btn-md btn-success " type="submit" value="담기">
+      </div>
+    </div>
+     </form>
+  </div>
+</div> --%>
     <jsp:include page="/cafeHi_module/footer.jsp"/>
+    
+<script type="text/javascript">
+function count(type)  {
+	  // 결과를 표시할 element
+	  const resultElement = document.getElementById('result'); 
+	 
+	  
+	  // 현재 화면에 표시된 값
+	  let number = resultElement.innerText;
+	  
+	  // 더하기/빼기
+	  if(type === 'plus') {
+	    number = parseInt(number) + 1;
+	  }else if(type === 'minus' && number > 0)  {
+	    number = parseInt(number) - 1;
+	  }
+	  
+	  // 결과 출력
+	  resultElement.innerText = number;
+	  document.getElementById('resultAmount').value = resultElement.innerText; 
+	}
+</script>
 </body>
 </html>

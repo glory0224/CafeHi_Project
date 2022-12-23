@@ -3,10 +3,12 @@ package com.cafeHi.www.cart.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.cafeHi.www.cart.dao.CartDAO;
 import com.cafeHi.www.cart.dto.CartDTO;
 
+@Service("cartService")
 public class CartServiceImpl implements CartService {
 
 	@Autowired
