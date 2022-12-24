@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -50,13 +52,21 @@ public class CartController {
 	}
 	
 	@RequestMapping("/insertCart.do")
-	public String CartInsert(@RequestParam String StringAmount, CartDTO cart) {
-		System.out.println("amount : " + StringAmount);
+	public String CartInsert(@RequestParam(required = false) int orderAmount, CartDTO cart, HttpServletRequest request) {
+		
+		if(orderAmount == 0) {
+			request.setAttribute("msg", "수량은 1개 이상 담을 수 있습니다.");
+			request.setAttribute("url", "coffeeList.do");
+			
+			return "alert";
+		}
+		
+		System.out.println("amount : " + orderAmount);
 		System.out.println("menu_code : " +  cart.getMenu_code());
 		
-		int amount = Integer.parseInt(StringAmount);
+		//int amount = Integer.parseInt(StringAmount);
 		
-		cart.setAmount(amount);
+		cart.setAmount(orderAmount);
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		CustomUser userInfo = (CustomUser) principal;
 		String member_id = userInfo.getUsername();

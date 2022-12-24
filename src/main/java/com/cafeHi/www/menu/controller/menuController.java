@@ -2,7 +2,6 @@ package com.cafeHi.www.menu.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,7 +24,15 @@ public class menuController {
 	  public String coffeeListView(Model model) {
 		  List<MenuDTO> coffeeList = menuService.getCoffeeList();
 		  
-		  model.addAttribute("coffeeList", coffeeList);
+		  
+		  
+		  model.addAttribute("coffeeList0", coffeeList.get(0));
+		  model.addAttribute("coffeeList1", coffeeList.get(1));
+		  model.addAttribute("coffeeList2", coffeeList.get(2));
+		  model.addAttribute("coffeeList3", coffeeList.get(3));
+		  model.addAttribute("coffeeList4", coffeeList.get(4));
+		  
+		  
 			return "cafehi_menu/cafehi_coffee";
 			
 	  

@@ -12,7 +12,7 @@ public class MenuDTO {
 	private String menu_name;	
 	private String menu_explain;
 	private String menu_img_path;
-	
+	private int menu_amount;
 	
 	
 }

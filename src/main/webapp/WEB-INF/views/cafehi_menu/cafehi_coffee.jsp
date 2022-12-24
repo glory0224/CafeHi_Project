@@ -8,9 +8,113 @@
 <title>Insert title here</title>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+<script type="text/javascript">
 
+function countCoffeeList0(type)  {
+	  // 결과를 표시할 element
+	  const resultElement = document.getElementById('result0');
+	  const resultAmount = document.getElementById('resultAmount0');
+	  
+	  // 현재 화면에 표시된 값
+	  let number = resultElement.innerText;
+	  
+	  // 더하기/빼기
+	  if(type === 'plus') {
+	    number = parseInt(number) + 1;
+	  }else if(type === 'minus' && number > 0)  {
+	    number = parseInt(number) - 1;
+	  }
+	  
+	  // 결과 출력
+	  resultElement.innerText = number;
+	  resultAmount.value = resultElement.innerText
+	}
+	
+function countCoffeeList1(type)  {
+	  // 결과를 표시할 element
+	  const resultElement = document.getElementById('result1');
+	  const resultAmount = document.getElementById('resultAmount1');
+	  
+	  // 현재 화면에 표시된 값
+	  let number = resultElement.innerText;
+	  
+	  // 더하기/빼기
+	  if(type === 'plus') {
+	    number = parseInt(number) + 1;
+	  }else if(type === 'minus' && number > 0)  {
+	    number = parseInt(number) - 1;
+	  }
+	  
+	  // 결과 출력
+	  resultElement.innerText = number;
+	  resultAmount.value = resultElement.innerText
+	}
+
+function countCoffeeList2(type)  {
+	  // 결과를 표시할 element
+	  const resultElement = document.getElementById('result2');
+	  const resultAmount = document.getElementById('resultAmount2');
+	  
+	  // 현재 화면에 표시된 값
+	  let number = resultElement.innerText;
+	  
+	  // 더하기/빼기
+	  if(type === 'plus') {
+	    number = parseInt(number) + 1;
+	  }else if(type === 'minus' && number > 0)  {
+	    number = parseInt(number) - 1;
+	  }
+	  
+	  // 결과 출력
+	  resultElement.innerText = number;
+	  resultAmount.value = resultElement.innerText
+	}
+	
+function countCoffeeList3(type)  {
+	  // 결과를 표시할 element
+	  const resultElement = document.getElementById('result3');
+	  const resultAmount = document.getElementById('resultAmount3');
+	  
+	  // 현재 화면에 표시된 값
+	  let number = resultElement.innerText;
+	  
+	  // 더하기/빼기
+	  if(type === 'plus') {
+	    number = parseInt(number) + 1;
+	  }else if(type === 'minus' && number > 0)  {
+	    number = parseInt(number ) - 1;
+	  }
+	  
+	  // 결과 출력
+	  resultElement.innerText = number;
+	  resultAmount.value = resultElement.innerText
+	}
+	
+function countCoffeeList4(type)  {
+	  // 결과를 표시할 element
+	  const resultElement = document.getElementById('result4');
+	  const resultAmount = document.getElementById('resultAmount4');
+	  
+	  // 현재 화면에 표시된 값
+	  let number = resultElement.innerText;
+	  
+	  // 더하기/빼기
+	  if(type === 'plus') {
+	    number = parseInt(number) + 1;
+	  }else if(type === 'minus' && number > 0)  {
+	    number = parseInt(number) - 1;
+	  }
+	  
+	  // 결과 출력
+	  resultElement.innerText = number;
+	  resultAmount.value = resultElement.innerText
+	}
+	
+
+</script>
 </head>
 <body>
+
 	<jsp:include page="/cafeHi_module/header.jsp"/>
  
 	<div class="p-5 m-5 text-center">
@@ -28,96 +132,174 @@
 
 <div class="w-50 m-auto mt-4">
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-
-<c:forEach var="coffee" items="${coffeeList }">
-      	
+<c:set var="cal" value="1"/>
+<%-- <c:forEach var="coffee" items="${coffeeList }"> --%>
+ <%-- </c:forEach> --%>     	
         <div class="col">
           <div class="card shadow-sm">
-			<img alt="" src="${coffee.menu_img_path }" width="100%" height="400">
+			<img alt="" src="${coffeeList0.menu_img_path }" width="100%" height="400">
             <div class="card-body">
             	
-              <p class="card-text text-center">${coffee.menu_name }</p>
-              <p class="card-text text-center">${coffee.menu_explain }</p>
-              <p class="card-text text-center">${coffee.menu_price }원</p>
+              <p class="card-text text-center">${coffeeList0.menu_name }</p>
+              <p class="card-text text-center">${coffeeList0.menu_explain }</p>
+              <p class="card-text text-center">${coffeeList0.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">구매하기</button>
+                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
                   <form action="insertCart.do" method="post">
-                  <input type="hidden" name="menu_code" value="${coffee.menu_code }">
-                  <input id="resultAmount" type="hidden" name="StringAmount" >
+                  <input type="hidden" name="menu_code" value="${coffeeList0.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input type="submit" class="btn btn-sm btn-outline-secondary" value="장바구니">
-                  <!-- <input type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#member_cart_modal" value="장바구니"> -->
+                  <input id="resultAmount0" type="hidden" name="orderAmount" value="0">
+                  <div class="d-flex justify-content-between">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니">
+                   <div id='result0' class="m-1">
+                  	${coffeeList0.menu_amount }
+					</div>
+				<input class="btn btn-sm btn-outline-success" type='button' onclick='countCoffeeList0("plus")' value='+' /> &nbsp;
+                  <input class="btn btn-sm btn-outline-success" type='button' onclick='countCoffeeList0("minus")' value='-' />
+                  </div>
+                 
+				</form>		                
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col">
+          <div class="card shadow-sm">
+			<img alt="" src="${coffeeList1.menu_img_path }" width="100%" height="400">
+            <div class="card-body">
+            	
+              <p class="card-text text-center">${coffeeList1.menu_name }</p>
+              <p class="card-text text-center">${coffeeList1.menu_explain }</p>
+              <p class="card-text text-center">${coffeeList1.menu_price }원</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-success">구매하기</button> &nbsp;
+                  <form action="insertCart.do" method="post">
+                  <input type="hidden" name="menu_code" value="${coffeeList1.menu_code }">
+                  <input id="resultAmount1" type="hidden" name="orderAmount" value="0">
+                  <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+                  <div class="d-flex justify-content-between">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니">
+                   <div id='result1' class="m-1">
+                  	${coffeeList1.menu_amount }
+					</div>
+				<input class="btn btn-sm btn-outline-success" type='button' onclick='countCoffeeList1("plus")' value='+' /> &nbsp;
+                  <input class="btn btn-sm btn-outline-success" type='button' onclick='countCoffeeList1("minus")' value='-' />
+                  </div>
+				  				
 				  </form>	                
                 </div>
-           
-								<input type='button' onclick='count("plus")' value='+' /> 
-								<input type='button' onclick='count("minus")' value='-' />
-								<span id='result'>0</span><p>개</p>
 								
               </div>
             </div>
           </div>
         </div>
         
-</c:forEach>
+        <div class="col">
+          <div class="card shadow-sm">
+			<img alt="" src="${coffeeList2.menu_img_path }" width="100%" height="400">
+            <div class="card-body">
+            	
+              <p class="card-text text-center">${coffeeList2.menu_name }</p>
+              <p class="card-text text-center">${coffeeList2.menu_explain }</p>
+              <p class="card-text text-center">${coffeeList2.menu_price }원</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                 <button type="button" class="btn btn-sm btn-outline-success">구매하기</button> &nbsp;
+                  <form action="insertCart.do" method="post">
+                  <input type="hidden" name="menu_code" value="${coffeeList2.menu_code }">
+                  <input id="resultAmount2" type="hidden" name="orderAmount" value="0">
+                  <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+                  <div class="d-flex justify-content-between">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니">
+                   <div id='result2' class="m-1">
+                  	${coffeeList2.menu_amount }
+					</div>
+				<input class="btn btn-sm btn-outline-success" type='button' onclick='countCoffeeList2("plus")' value='+' /> &nbsp;
+                  <input class="btn btn-sm btn-outline-success" type='button' onclick='countCoffeeList2("minus")' value='-' />
+                  </div>
+				  				
+				  </form>	            	                
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col">
+          <div class="card shadow-sm">
+			<img alt="" src="${coffeeList3.menu_img_path }" width="100%" height="400">
+            <div class="card-body">
+            	
+              <p class="card-text text-center">${coffeeList3.menu_name }</p>
+              <p class="card-text text-center">${coffeeList3.menu_explain }</p>
+              <p class="card-text text-center">${coffeeList3.menu_price }원</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-success">구매하기</button> &nbsp;
+                 <form action="insertCart.do" method="post">
+                  <input type="hidden" name="menu_code" value="${coffeeList3.menu_code }">
+                  <input id="resultAmount3" type="hidden" name="orderAmount" value="0">
+                  <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+                  <div class="d-flex justify-content-between">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니">
+                   <div id='result3' class="m-1">
+                  	${coffeeList3.menu_amount }
+					</div>
+				<input class="btn btn-sm btn-outline-success" type='button' onclick='countCoffeeList3("plus")' value='+' /> &nbsp;
+                  <input class="btn btn-sm btn-outline-success" type='button' onclick='countCoffeeList3("minus")' value='-' />
+                  </div>
+				  				
+				  </form>		                
+                </div>
+								
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col">
+          <div class="card shadow-sm">
+			<img alt="" src="${coffeeList4.menu_img_path }" width="100%" height="400">
+            <div class="card-body">
+            	
+              <p class="card-text text-center">${coffeeList4.menu_name }</p>
+              <p class="card-text text-center">${coffeeList4.menu_explain }</p>
+              <p class="card-text text-center">${coffeeList4.menu_price }원</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-success">구매하기</button> &nbsp;
+                 <form action="insertCart.do" method="post">
+                  <input type="hidden" name="menu_code" value="${coffeeList4.menu_code }">
+                  <input id="resultAmount4" type="hidden" name="orderAmount" value="0">
+                  <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+                  <div class="d-flex justify-content-between">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니">
+                   <div id='result4' class="m-1">
+                  	${coffeeList4.menu_amount }
+					</div>
+				<input class="btn btn-sm btn-outline-success" type='button' onclick='countCoffeeList4("plus")' value='+' /> &nbsp;
+                  <input class="btn btn-sm btn-outline-success" type='button' onclick='countCoffeeList4("minus")' value='-' />
+                  </div>
+				  				
+				  </form>		                	                
+                </div>
+								
+              </div>
+            </div>
+          </div>
+        </div>
+        
+
 
 
       </div>   
 </div>
 
-<%-- <c:forEach var="coffee" items="${coffeeList }">
-<div class="modal fade" id="member_cart_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <form action="insertCart.do" method="post" id="cartForm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel"> ${coffee.menu_name }를 얼마나 담으시겠어요? </h1>
-        <div class="ms-3">
-        <button type="button" class="btn-close btn-success " data-bs-dismiss="modal" aria-label="Close"></button>
-      	</div>
-      </div>
-      <div class="modal-body">
-      	<input type="hidden" name="menu_code" value="${coffee.menu_code }">
-      	<input id="resultAmount" type="hidden" name="StringAmount" >
-      	<input type='button' onclick='count("plus")' value='+' /> <input
-									type='button' onclick='count("minus")' value='-' />
-								<span id='result'>0</span><p>개</p>
-								<input id="amountResult" type="hidden" name="amount" >
-      	<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" /> 
-      </div>
-      <div class="modal-footer">
-     
-        <button type="button" class="btn btn-success" data-bs-dismiss="modal">취소</button>
-        <input class="btn btn-md btn-success " type="submit" value="담기">
-      </div>
-    </div>
-     </form>
-  </div>
-</div>
-</c:forEach> --%>
     <jsp:include page="/cafeHi_module/footer.jsp"/>
-    
-<script type="text/javascript">
-function count(type)  {
-	  // 결과를 표시할 element
-	  const resultElement = document.getElementById('result'); 
-	 
-	  
-	  // 현재 화면에 표시된 값
-	  let number = resultElement.innerText;
-	  
-	  // 더하기/빼기
-	  if(type === 'plus') {
-	    number = parseInt(number) + 1;
-	  }else if(type === 'minus' && number > 0)  {
-	    number = parseInt(number) - 1;
-	  }
-	  
-	  // 결과 출력
-	  resultElement.innerText = number;
-	  document.getElementById('resultAmount').value = resultElement.innerText; 
-	}
-</script>
+
 </body>
 </html>
