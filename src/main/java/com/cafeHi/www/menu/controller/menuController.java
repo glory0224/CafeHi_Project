@@ -22,9 +22,10 @@ public class menuController {
 	
 	
 	  @RequestMapping("/coffeeList.do") 
-	  public String coffeeListView(HttpSession session) {
+	  public String coffeeListView(Model model) {
 		  List<MenuDTO> coffeeList = menuService.getCoffeeList();
-			session.setAttribute("coffeeList", coffeeList);
+		  
+		  model.addAttribute("coffeeList", coffeeList);
 			return "cafehi_menu/cafehi_coffee";
 			
 	  
@@ -32,59 +33,52 @@ public class menuController {
 	 
 	
 	@RequestMapping("/coldbrewList.do")
-	public String coldbrewListView(HttpSession session) {
+	public String coldbrewListView(Model model) {
 		List<MenuDTO> coldbrewList =  menuService.getColdBrewList();
 		
-		session.setAttribute("coldbrewList", coldbrewList);
+		model.addAttribute("coldbrewList", coldbrewList);
 		return "cafehi_menu/cafehi_coldbrew";
 	}
 	
 	@RequestMapping("/fruitJuiceList.do")
-	public String fruitJuiceListView(HttpSession session) {
+	public String fruitJuiceListView(Model model) {
 		List<MenuDTO> fruitJuiceList =  menuService.getFruitJuiceList();
-		
-		session.setAttribute("fruitJuiceList", fruitJuiceList);
+		model.addAttribute("fruitJuiceList", fruitJuiceList);
 		return "cafehi_menu/cafehi_fruitsJuice";
 	}
 	
 	@RequestMapping("/beverageList.do")
-	public String beverageListView(HttpSession session) {
+	public String beverageListView(Model model) {
 		List<MenuDTO> beverageList =  menuService.getBeverageList();
-		
-		session.setAttribute("beverageList", beverageList);
+		model.addAttribute("beverageList", beverageList);
 		return "cafehi_menu/cafehi_beverage";
 	}
 	
 	@RequestMapping("/latteList.do")
-	public String latteListView(HttpSession session) {
+	public String latteListView(Model model) {
 		List<MenuDTO> latteList =  menuService.getLatteList();
-		
-		session.setAttribute("latteList", latteList);
+		model.addAttribute("latteList", latteList);
 		return "cafehi_menu/cafehi_latte";
 	}
 	
 	@RequestMapping("/sideList.do")
-	public String sideListView(HttpSession session) {
+	public String sideListView(Model model) {
 		List<MenuDTO> sideList =  menuService.getSideList();
-		
-		session.setAttribute("sideList", sideList);
+		model.addAttribute("sideList", sideList);
 		return "cafehi_menu/cafehi_side&bruch";
 	}
 	
 	@RequestMapping("/smoothieList.do")
-	public String smoothieListView(HttpSession session) {
+	public String smoothieListView(Model model) {
 		List<MenuDTO> smoothieList =  menuService.getSmoothieList();
-		
-		session.setAttribute("smoothieList", smoothieList);
+		model.addAttribute("smoothieList", smoothieList);
 		return "cafehi_menu/cafehi_smoothie";
 	}
 	
 	@RequestMapping("/teaList.do")
-	public String teaListView(HttpSession session) {
+	public String teaListView(Model model) {
 		List<MenuDTO> teaList =  menuService.getTeaList();
-		
-		
-		session.setAttribute("teaList", teaList);
+		model.addAttribute("teaList", teaList);
 		return "cafehi_menu/cafehi_tea";
 	}
 	

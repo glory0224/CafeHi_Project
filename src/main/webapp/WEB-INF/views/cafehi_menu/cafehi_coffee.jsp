@@ -47,9 +47,10 @@
                   <input id="resultAmount" type="hidden" name="StringAmount" >
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
                   <input type="submit" class="btn btn-sm btn-outline-secondary" value="장바구니">
+                  <!-- <input type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#member_cart_modal" value="장바구니"> -->
 				  </form>	                
                 </div>
-                <%-- <small class="text">${coffee.menu_price }원</small> --%>
+           
 								<input type='button' onclick='count("plus")' value='+' /> 
 								<input type='button' onclick='count("minus")' value='-' />
 								<span id='result'>0</span><p>개</p>
@@ -58,13 +59,15 @@
             </div>
           </div>
         </div>
+        
 </c:forEach>
 
 
       </div>   
 </div>
 
-<%-- <div class="modal fade" id="member_cart_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<%-- <c:forEach var="coffee" items="${coffeeList }">
+<div class="modal fade" id="member_cart_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <form action="insertCart.do" method="post" id="cartForm">
     <div class="modal-content">
@@ -75,14 +78,13 @@
       	</div>
       </div>
       <div class="modal-body">
-      	<!-- <label for="member_name" class="form-label">변경할 이름을 입력하세요.</label> -->
       	<input type="hidden" name="menu_code" value="${coffee.menu_code }">
+      	<input id="resultAmount" type="hidden" name="StringAmount" >
       	<input type='button' onclick='count("plus")' value='+' /> <input
 									type='button' onclick='count("minus")' value='-' />
 								<span id='result'>0</span><p>개</p>
 								<input id="amountResult" type="hidden" name="amount" >
       	<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" /> 
-        <input type="text" id="memberName" class="form-control" name="member_name" value="<sec:authentication property="principal.member.member_name"/>">
       </div>
       <div class="modal-footer">
      
@@ -92,7 +94,8 @@
     </div>
      </form>
   </div>
-</div> --%>
+</div>
+</c:forEach> --%>
     <jsp:include page="/cafeHi_module/footer.jsp"/>
     
 <script type="text/javascript">
