@@ -25,8 +25,9 @@
 <div class="float-start mt-5 p-5">		 
 <jsp:include page="/cafeHi_module/myPageNav.jsp"/>
 </div>
-<div></div>
+<img class="w-50 m-auto" style="padding-top: 5%" src="/cafeHi/img/cafehi_view.jpeg">
 </div>
+
 <jsp:include page="/cafeHi_module/footer.jsp" />
 </body>
 </html>

@@ -78,4 +78,45 @@ public class CartController {
 	}
 	
 	
+	// 장바구니 수정 
+	@RequestMapping("/modifyCart.do")
+	public String CartModify(CartDTO cart) {
+		
+		System.out.println("cart_code : " + cart.getCart_code());
+		System.out.println("amount : " + cart.getAmount());
+		
+		cartService.modifyCart(cart);
+		
+		return "redirect:/myCartList.do";
+		
+	}
+	
+	// 장바구니 삭제
+	@RequestMapping("/deleteCart.do")
+	public String CartDelete(CartDTO cart) {
+		
+		System.out.println("cart_code : " + cart.getCart_code());
+		
+		cartService.deleteCart(cart.getCart_code());
+		
+		return "redirect:/myCartList.do";
+		
+	}
+	
+	// 장바구니 비우기
+	@RequestMapping("/deleteCartAll.do")
+	public String CartDeleteAll() {
+		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		CustomUser userInfo = (CustomUser) principal;
+		String member_id = userInfo.getUsername();
+		
+		
+		cartService.deleteAllCart(member_id);
+		
+		return "redirect:/myCartList.do";
+		
+	}
+	
+	
 }

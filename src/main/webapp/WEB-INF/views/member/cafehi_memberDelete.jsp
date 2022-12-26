@@ -21,7 +21,7 @@
 			<p class="fs-5 text-muted">환영합니다! 카페하이입니다. 이곳에서 다양한 정보를 조회 하실 수 있습니다.</p>
 		</div>
 	</div>
-<div class="d-flex justify-content-between">
+<div class="d-flex justify-content-center">
 <div class="float-start mt-5 p-5">
 	<jsp:include page="/cafeHi_module/myPageNav.jsp"/>
 </div>

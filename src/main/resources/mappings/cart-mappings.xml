@@ -5,10 +5,27 @@
  
  <mapper namespace="cartDAO">
  	
+ 	<!-- 장바구니 추가 -->
  	<insert id="insertCart">
- 		insert into cafehi_cart (cart_code, member_id, menu_code, amount)
- 		values (seq_cart.nextval, #{member_id}, #{menu_code}, #{amount})
+ 		INSERT INTO cafehi_cart (cart_code, member_id, menu_code, amount)
+ 		VALUES (seq_cart.nextval, #{member_id}, #{menu_code}, #{amount})
  	</insert>
+ 	
+ 	<!-- 장바구니 수정 -->
+ 	<update id="modifyCart">
+ 		UPDATE cafehi_cart SET amount = #{amount}
+ 		WHERE cart_code = #{cart_code}   
+ 	</update>
+ 	
+ 	<!-- 장바구니 삭제 -->
+ 	<delete id="deleteCart">
+ 		DELETE FROM cafehi_cart WHERE cart_code = #{cart_code}
+ 	</delete>
+ 	
+ 	<!-- 장바구니 비우기 -->
+ 	<delete id="deleteAllCart">
+ 		DELETE FROM cafehi_cart WHERE member_id = #{member_id}
+ 	</delete>
  	
  	<select id="listCart" resultType="Cart">
  		<!-- DAO에서 listCart라는 태그로 인해 실행되고 결과타입은 DTO타입으로 한다. (다른계층으로 보내기 위해서) -->

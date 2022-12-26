@@ -28,7 +28,7 @@
 		</div>
 	</div>
 
-<div class="d-flex justify-content-between">
+<div class="d-flex justify-content-center">
 <div class="float-start mt-5 p-5">
 <jsp:include page="/cafeHi_module/myPageNav.jsp"/>
 </div>
