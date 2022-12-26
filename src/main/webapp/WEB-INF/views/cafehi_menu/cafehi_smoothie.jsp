@@ -16,6 +16,8 @@
 	integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
 	crossorigin="anonymous">
 
+<!-- 수량 증가 JavaScript -->
+<script src="/cafeHi/js/menu/smoothieCount.js"></script>
 </head>
 <body>
 <jsp:include page="/cafeHi_module/header.jsp"/>
@@ -37,26 +39,187 @@
 <div class="w-50 m-auto mt-4">
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
-<c:forEach var="smoothie" items="${smoothieList }">
       
-        <div class="col">
+         <div class="col">
           <div class="card shadow-sm">
-			<img alt="" src="${smoothie.menu_img_path }" width="100%" height="400">
+			<img alt="" src="${smoothieList0.menu_img_path }" width="100%" height="400">
             <div class="card-body">
-            	<input type="hidden" name="menu_code" value="${smoothie.menu_code }">
-              <p class="card-text text-center">${smoothie.menu_name }</p>
-              <p class="card-text text-center">${smoothie.menu_explain }</p>
+            	
+              <p class="card-text text-center">${smoothieList0.menu_name }</p>
+              <p class="card-text text-center">${smoothieList0.menu_explain }</p>
+              <p class="card-text text-center">${smoothieList0.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">구매하기</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">장바구니</button>
+                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                  <form action="insertCart.do" method="post">
+                  <input type="hidden" name="menu_code" value="${smoothieList0.menu_code }">
+                  <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+                  <input id="smoothieAmount0" type="hidden" name="orderAmount" value="0">
+                  <div class="d-flex justify-content-between">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
+                   <div id='smoothieCount0' class="m-1">
+                  	${smoothieList0.menu_amount }
+					</div>
+				<input class="btn btn-sm btn-outline-success" type='button' onclick='countSmoothieList0("plus")' value='+' /> &nbsp;
+                  <input class="btn btn-sm btn-outline-success" type='button' onclick='countSmoothieList0("minus")' value='-' />
+                  </div>
+                 
+				</form>		                
                 </div>
-                <small class="text">${smoothie.menu_price }원</small>
               </div>
             </div>
           </div>
         </div>
-</c:forEach>
+         <div class="col">
+          <div class="card shadow-sm">
+			<img alt="" src="${smoothieList1.menu_img_path }" width="100%" height="400">
+            <div class="card-body">
+            	
+              <p class="card-text text-center">${smoothieList1.menu_name }</p>
+              <p class="card-text text-center">${smoothieList1.menu_explain }</p>
+              <p class="card-text text-center">${smoothieList1.menu_price }원</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                  <form action="insertCart.do" method="post">
+                  <input type="hidden" name="menu_code" value="${smoothieList1.menu_code }">
+                  <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+                  <input id="smoothieAmount1" type="hidden" name="orderAmount" value="0">
+                  <div class="d-flex justify-content-between">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
+                   <div id='smoothieCount1' class="m-1">
+                  	${smoothieList1.menu_amount }
+					</div>
+				<input class="btn btn-sm btn-outline-success" type='button' onclick='countSmoothieList1("plus")' value='+' /> &nbsp;
+                  <input class="btn btn-sm btn-outline-success" type='button' onclick='countSmoothieList1("minus")' value='-' />
+                  </div>
+                 
+				</form>		                
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+         <div class="col">
+          <div class="card shadow-sm">
+			<img alt="" src="${smoothieList2.menu_img_path }" width="100%" height="400">
+            <div class="card-body">
+            	
+              <p class="card-text text-center">${smoothieList2.menu_name }</p>
+              <p class="card-text text-center">${smoothieList2.menu_explain }</p>
+              <p class="card-text text-center">${smoothieList2.menu_price }원</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                  <form action="insertCart.do" method="post">
+                  <input type="hidden" name="menu_code" value="${smoothieList2.menu_code }">
+                  <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+                  <input id="smoothieAmount2" type="hidden" name="orderAmount" value="0">
+                  <div class="d-flex justify-content-between">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
+                   <div id='smoothieCount2' class="m-1">
+                  	${smoothieList2.menu_amount }
+					</div>
+				<input class="btn btn-sm btn-outline-success" type='button' onclick='countSmoothieList2("plus")' value='+' /> &nbsp;
+                  <input class="btn btn-sm btn-outline-success" type='button' onclick='countSmoothieList2("minus")' value='-' />
+                  </div>
+                 
+				</form>		                
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+         <div class="col">
+          <div class="card shadow-sm">
+			<img alt="" src="${smoothieList3.menu_img_path }" width="100%" height="400">
+            <div class="card-body">
+            	
+              <p class="card-text text-center">${smoothieList3.menu_name }</p>
+              <p class="card-text text-center">${smoothieList3.menu_explain }</p>
+              <p class="card-text text-center">${smoothieList3.menu_price }원</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                  <form action="insertCart.do" method="post">
+                  <input type="hidden" name="menu_code" value="${smoothieList3.menu_code }">
+                  <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+                  <input id="smoothieAmount3" type="hidden" name="orderAmount" value="0">
+                  <div class="d-flex justify-content-between">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
+                   <div id='smoothieCount3' class="m-1">
+                  	${smoothieList3.menu_amount }
+					</div>
+				<input class="btn btn-sm btn-outline-success" type='button' onclick='countSmoothieList3("plus")' value='+' /> &nbsp;
+                  <input class="btn btn-sm btn-outline-success" type='button' onclick='countSmoothieList3("minus")' value='-' />
+                  </div>
+                 
+				</form>		                
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+         <div class="col">
+          <div class="card shadow-sm">
+			<img alt="" src="${smoothieList4.menu_img_path }" width="100%" height="400">
+            <div class="card-body">
+            	
+              <p class="card-text text-center">${smoothieList4.menu_name }</p>
+              <p class="card-text text-center">${smoothieList4.menu_explain }</p>
+              <p class="card-text text-center">${smoothieList4.menu_price }원</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                  <form action="insertCart.do" method="post">
+                  <input type="hidden" name="menu_code" value="${smoothieList4.menu_code }">
+                  <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+                  <input id="smoothieAmount4" type="hidden" name="orderAmount" value="0">
+                  <div class="d-flex justify-content-between">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
+                   <div id='smoothieCount4' class="m-1">
+                  	${smoothieList4.menu_amount }
+					</div>
+				<input class="btn btn-sm btn-outline-success" type='button' onclick='countSmoothieList4("plus")' value='+' /> &nbsp;
+                  <input class="btn btn-sm btn-outline-success" type='button' onclick='countSmoothieList4("minus")' value='-' />
+                  </div>
+                 
+				</form>		                
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+         <div class="col">
+          <div class="card shadow-sm">
+			<img alt="" src="${smoothieList5.menu_img_path }" width="100%" height="400">
+            <div class="card-body">
+            	
+              <p class="card-text text-center">${smoothieList5.menu_name }</p>
+              <p class="card-text text-center">${smoothieList5.menu_explain }</p>
+              <p class="card-text text-center">${smoothieList5.menu_price }원</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                  <form action="insertCart.do" method="post">
+                  <input type="hidden" name="menu_code" value="${smoothieList5.menu_code }">
+                  <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+                  <input id="smoothieAmount5" type="hidden" name="orderAmount" value="0">
+                  <div class="d-flex justify-content-between">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
+                   <div id='smoothieCount5' class="m-1">
+                  	${smoothieList5.menu_amount }
+					</div>
+				<input class="btn btn-sm btn-outline-success" type='button' onclick='countSmoothieList5("plus")' value='+' /> &nbsp;
+                  <input class="btn btn-sm btn-outline-success" type='button' onclick='countSmoothieList5("minus")' value='-' />
+                  </div>
+                 
+				</form>		                
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
 
       </div>
