@@ -1,4 +1,4 @@
-# CafeHi PROJECT
+☕ # CafeHi PROJECT ☕
 
 ### 사용된 기술 스택
 
