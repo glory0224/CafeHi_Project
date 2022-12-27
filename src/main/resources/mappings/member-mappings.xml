@@ -77,9 +77,9 @@
  		DELETE FROM cafehi_member WHERE member_id = #{member_id}
  	</delete>
  	
- 	<!-- <select id="getMemberId" parameterType="String" resultMap="MemberResult">
+ 	<!-- <select id="getMemberId" parameterType="Member" resultType="Member">
  		SELECT * FROM cafehi_member 
- 		WHERE member_id = #{find_id}
+ 		WHERE member_id = #{member_id}
  	</select> -->
  		
  	
@@ -102,11 +102,14 @@
 		SELECT count(*) FROM cafehi_member WHERE member_id = #{member_id}	
  	</select>
  	
- 	<!-- 아이디 찾기용 이메일 확인  -->
+ 	<!-- 아이디 찾기 관련  -->
  	<select id="checkEmail" parameterType="String" resultType="int">
  		SELECT count(*) FROM cafehi_member WHERE member_email = #{member_email} 
  	</select>
  	
+ 	<select id="findEmailId" parameterType="Member" resultType="Member">
+ 		SELECT * FROM cafehi_member WHERE member_email = #{member_email}
+ 	</select>
  	
  	
 </mapper>

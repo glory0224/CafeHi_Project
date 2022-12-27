@@ -4,7 +4,6 @@ import com.cafeHi.www.member.dto.AuthDTO;
 import com.cafeHi.www.member.dto.MemberDTO;
 
 public interface MemberService {
-	public MemberDTO getMemberId(String find_id);
 	public MemberDTO getMember(MemberDTO member);
 	public void insertMemberAuth(AuthDTO memberauth);
 	public MemberDTO readMember(String member_id);
@@ -23,7 +22,11 @@ public interface MemberService {
 	public void updateMemberEmail(MemberDTO member);
 	
 	// 중복 확인
-	public int findEmail(String email);
+	public int checkEmail(String email);
+	
+	// 아이디 찾기
+	public MemberDTO findEmailId(MemberDTO member);
+	public MemberDTO getMemberId(MemberDTO member);
 	
 	
 	

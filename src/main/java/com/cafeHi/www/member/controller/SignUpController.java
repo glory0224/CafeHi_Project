@@ -79,7 +79,7 @@ public class SignUpController {
 	@RequestMapping("/EmailCheck.do")
 	public @ResponseBody int EmailCheck(String member_email) {
 		System.out.println("member_email : " + member_email);
-		int result = memberService.findEmail(member_email);
+		int result = memberService.checkEmail(member_email);
 		System.out.println("result : " + result);
 		return result;
 	}

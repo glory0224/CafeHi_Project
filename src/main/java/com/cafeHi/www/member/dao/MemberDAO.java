@@ -14,10 +14,10 @@ public class MemberDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	public MemberDTO getMemberId(String find_id) {
-		if(sqlSessionTemplate.selectOne("MemberDAO.getMemberId", find_id) != null) {
+	public MemberDTO getMemberId(MemberDTO member) {
+		if(sqlSessionTemplate.selectOne("MemberDAO.getMemberId", member) != null) {
 			
-			return sqlSessionTemplate.selectOne("MemberDAO.getMemberId", find_id);
+			return sqlSessionTemplate.selectOne("MemberDAO.getMemberId", member);
 		}
 			return null;
 		
@@ -83,14 +83,15 @@ public class MemberDAO {
 
 
 	
-	// 이메일 중복 확인
-	public int findEmail(String email) {
+	// 이메일 중복
+	public int checkEmail(String email) {
 		return sqlSessionTemplate.selectOne("MemberDAO.checkEmail", email);
 	}
-
-
-
 	
-	
+	// 해당하는 이메일의 아이디 찾기
+	public MemberDTO findEmailId(MemberDTO member) {
+		
+		return sqlSessionTemplate.selectOne("MemberDAO.findEmailId", member);
+	}
 	
 }

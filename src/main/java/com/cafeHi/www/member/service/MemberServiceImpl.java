@@ -17,9 +17,9 @@ public class MemberServiceImpl implements MemberService{
 	private MemberDAO memberDAO;
 
 	@Override
-	public MemberDTO getMemberId(String find_id) {
-		if (memberDAO.getMemberId(find_id) != null) {
-			return memberDAO.getMemberId(find_id);
+	public MemberDTO getMemberId(MemberDTO member) {
+		if (memberDAO.getMemberId(member) != null) {
+			return memberDAO.getMemberId(member);
 		}
 		return null;
 	}
@@ -93,8 +93,13 @@ public class MemberServiceImpl implements MemberService{
 	
 	// 이메일 중복 확인
 	@Override
-	public int findEmail(String email) {
-		return memberDAO.findEmail(email);
+	public int checkEmail(String email) {
+		return memberDAO.checkEmail(email);
+	}
+
+	@Override
+	public MemberDTO findEmailId(MemberDTO member) {
+		return memberDAO.findEmailId(member);
 	}
 
 
