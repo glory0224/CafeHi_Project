@@ -75,6 +75,15 @@ public class SignUpController {
 		return result;
 	}
 	
+	// 이메일 중복 체크 
+	@RequestMapping("/EmailCheck.do")
+	public @ResponseBody int EmailCheck(String member_email) {
+		System.out.println("member_email : " + member_email);
+		int result = memberService.findEmail(member_email);
+		System.out.println("result : " + result);
+		return result;
+	}
+	
 	// 이메일 인증 
 	@RequestMapping(value="/mailCheck.do", method = RequestMethod.GET)
 	@ResponseBody
@@ -119,10 +128,6 @@ public class SignUpController {
         return num;
         
 	}
-	
-	
-
-	
 	
 
 }

@@ -23,25 +23,9 @@
   <div class="m-5">
     <p><label for="user_email_id" class="form-label">가입한 계정의 이메일을 입력하세요.</label></p>
     <div class="d-flex justify-content-between">
-    <input type="text" id="userEmailId" class="form-control" placeholder="이메일 아이디를 입력하세요." name="user_email_id">&nbsp;
-    <select class="form-select" aria-label="Default select example" id="userEmailAddress" name="user_email_address" >
-    	<option value="">선택</option>
-    	<option>@naver.com</option>
-    	<option>@daum.net</option>
-		<option>@gmail.com</option>
-		<option>@hanmail.com</option>
-	 	<option>@yahoo.co.kr</option>
-    </select>
+    <input type="text" id="authEmail" class="form-control" placeholder="가입한 계정의 이메일을 입력하세요." name="member_email">&nbsp;
     </div>
     <br>
-    <div class="d-flex justify-content-end">
-    	<button type="button" class="btn btn-sm btn-success" id="mail-Check-Btn">본인인증</button>
-    </div>
-    <br>
-    <div class="mail-check-box">
-    <input class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6">
-  	</div>
-  	<span id="mail-check-warn"></span>
   </div>
 	
 <div class="d-flex justify-content-end">
@@ -54,7 +38,46 @@
 </form>
 
 </body>
-<script src="/cafehi/js/idSearch.js"></script> 
+<script src="/cafeHi/js/idSearch.js"></script> 
+
+<script>
+var code = "";			// 이메일전송 인증번호 저장을 위한 코드 
+var blank = "";			// 공백 비교, ""로 if문에서 직접 비교 하려 했더니 동작하지 않아서 따로 변수 등록 후 비교 
+
+/* 회원가입 했던 인증번호 이메일 전송 */
+window.document.getElementById("#mail-Check-Btn").click(function(){
+	var email = window.document.getElementById("#authEmail").val(); 		// 입력한 이메일
+	var checkBox = window.document.getElementByClassName(".mail_auth_input");  // 인증번호 입력란
+	var boxWrap =  window.document.getElementByClassName(".mail_auth_input_box");  // 인증번호 입력란 박스 
+	// RFC 5322 이메일 정규 표현식
+	emailReg = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])");
+	
+	if(email == blank){
+		alert("이메일을 입력해주세요.");
+		return false;
+	}else if(!emailReg.test(email)){
+		alert('올바른 이메일 형식을 입력하세요. \n ex) ID@naver.com or ID@yale.edu.com');
+		return false;
+	}
+	
+	$.ajax({
+		
+		type:"GET",
+		url:"http://localhost:8080/cafeHi/mailCheck.do?email=" + email,
+		success:function(data){
+			//console.log("data : " + data);
+			alert(email + " 메일로 인증번호 전송이 완료 되었습니다.");
+			checkBox.prop("disabled", false);
+			boxWrap.attr("id", "mail_auth_input_box_true");
+			code = data;
+		},
+		error : function(){
+			alert("메일 전송을 하지 못했습니다.");
+		}
+	});
+});
+
+</script>
 
 </html>
 

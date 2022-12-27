@@ -56,20 +56,23 @@
     <h4><label for="memberEmail " class="form-label">이메일</label></h4>
     <div class="d-flex justify-content-between mail_check_wrap">
     <input type="text" id="memberEmail" class="form-control" placeholder="이메일을 입력하세요." name="member_email"> &nbsp;
-   
-    	<input id="mail_check_button" class="btn btn-sm btn-success" type="button" value="인증번호 전송">
+   		<input id="email_duplicate_button" class="btn btn-sm btn-success" type="button" value="중복 확인"> &nbsp;
+    	<input id="email_check_button" class="btn btn-sm btn-success" type="button" value="인증번호 전송">
     	
     </div>
+    <div><font id="email_duplicate_feedback" size="2"></font></div>
+    <input id="email_duplicate_boolean" type="checkbox" style="display: none" >
+    <input id="email_dup_boolean" type="checkbox" style="display: none" >
     <br>
-    <div class="d-flex justify-content-between mail_check_input_box" id="mail_check_input_box_false">
-    		<input class="mail_check_input form-control" disabled="disabled" placeholder="인증번호를 입력하세요.">
+    <div class="d-flex justify-content-between email_check_input_box" id="email_check_input_box_false">
+    		<input class="email_check_input form-control" disabled="disabled" placeholder="인증번호를 입력하세요.">
     		 &nbsp;
-    		<input id="mail_num_check" class="btn btn-sm btn-success" type="button" value="인증번호 확인">
+    		<input id="email_num_check" class="btn btn-sm btn-success" type="button" value="인증번호 확인">
     </div>
     
-    <span id="mail_check_input_box_warn"></span>
-    <input id="mail_check_boolean" type="checkbox" style="display: none" >
-    <input id="mail_boolean" type="checkbox" style="display: none" >
+    <span id="email_check_input_box_warn"></span>
+    <input id="email_check_boolean" type="checkbox" style="display: none" >
+    <input id="email_chk_boolean" type="checkbox" style="display: none" >
   </div> 
   <div class="m-5">
   <h4><label for="user_address" class="form-label">주소</label> <input class="btn btn-sm btn-success float-end" type="button" onclick="find_address()" value="주소 찾기"></h4>
@@ -202,14 +205,52 @@
 			 
 	}); // function 종료
 	
+	/* 회원가입 이메일 중복 체크  */
+	$('#email_duplicate_button').click(function(){
+		$("#email_dup_boolean").attr("checked", true);
+		let member_email = $('#memberEmail').val();
+		
+		$.ajax({
+			url : "http://localhost:8080/cafeHi/EmailCheck.do",
+			type : "post",
+			data : {member_email: member_email},
+			dataType : 'json',
+			beforeSend : function(xhr){
+				xhr.setRequestHeader( "${_csrf.headerName}", "${_csrf.token}" );
+			},
+			success : function(result){
+				if(result == 1){
+					member_email = document.getElementById('member_email');
+					member_email.value = "";
+					$("#email_duplicate_feedback").html('이미 사용중인 이메일입니다.');
+					$('#email_duplicate_boolean').attr("checked", false);
+					$("#email_duplicate_feedback").attr('color','#dc3545');
+				} else{
+					$("#email_duplicate_feedback").html('사용할 수 있는 이메일입니다.');
+					$('#email_duplicate_boolean').attr("checked", true);
+					$("#email_duplicate_feedback").attr('color','#2fb380');
+				} 
+			},
+			error : function(data){
+				console.log(data)
+				alert("서버요청실패");
+			}
+		}); // ajax 종료 
+			 
+	}); // function 종료
+	
 	var code = "";			// 이메일전송 인증번호 저장을 위한 코드 
 	var blank = "";			// 공백 비교, ""로 if문에서 직접 비교 하려 했더니 동작하지 않아서 따로 변수 등록 후 비교 
 	
 	/* 회원가입 인증번호 이메일 전송 */
-	$("#mail_check_button").click(function(){
+	$("#email_check_button").click(function(){
+		if(!(document.getElementById('email_duplicate_boolean').checked)){
+			alert('중복 확인 되지 않은 이메일에는 인증번호를 전송할 수 없습니다.');
+			return false;
+		}
 		var email = $("#memberEmail").val(); 		// 입력한 이메일
-		var checkBox = $(".mail_check_input");  // 인증번호 입력란
-		var boxWrap = $(".mail_check_input_box");  // 인증번호 입력란 박스 
+		var checkBox = $(".email_check_input");  // 인증번호 입력란
+		var boxWrap = $(".email_check_input_box");  // 인증번호 입력란 박스 
 		// RFC 5322 이메일 정규 표현식
 		emailReg = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])");
 		
@@ -229,7 +270,7 @@
 				//console.log("data : " + data);
 				alert(email + " 메일로 인증번호 전송이 완료 되었습니다.");
 				checkBox.prop("disabled", false);
-				boxWrap.attr("id", "mail_check_input_box_true");
+				boxWrap.attr("id", "email_check_input_box_true");
 				code = data;
 			},
 			error : function(){
@@ -237,13 +278,14 @@
 			}
 		});
 	});
+
 	
 	/* 인증번호 비교 */
-	$("#mail_num_check").click(function(){
-		$("#mail_boolean").attr("checked", true);
-		var inputCode = $(".mail_check_input").val();		// 입력코드
-		var checkResult = $("#mail_check_input_box_warn");	// 비교 결과
-		var checkBoolean = $("#mail_check_boolean");
+	$("#email_num_check").click(function(){
+		$("#email_chk_boolean").attr("checked", true);
+		var inputCode = $(".email_check_input").val();		// 입력코드
+		var checkResult = $("#email_check_input_box_warn");	// 비교 결과
+		var checkBoolean = $("#email_check_boolean");
 		
 		if(inputCode == blank){
 			alert("인증번호를 먼저 전송해주세요.");
@@ -265,7 +307,7 @@
 			checkResult.html("인증번호를 다시 확인해주세요.");		// 일치하지 않는 경우 
 			checkResult.attr("class", "incorrect");
 			checkBoolean.attr("checked", false);
-			if (document.getElementsById('mail_check_boolean').checked == true) {
+			if (document.getElementsById('email_check_boolean').checked == true) {
 	            console.log('true');
 
 	            } else {

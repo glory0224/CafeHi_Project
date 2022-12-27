@@ -89,6 +89,13 @@ public class MemberServiceImpl implements MemberService{
 	public void updateMemberEmail(MemberDTO member) {
 		memberDAO.updateMemberEmail(member);
 	}
+	
+	
+	// 이메일 중복 확인
+	@Override
+	public int findEmail(String email) {
+		return memberDAO.findEmail(email);
+	}
 
 
 	

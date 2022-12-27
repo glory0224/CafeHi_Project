@@ -82,6 +82,13 @@ public class MemberDAO {
 	}
 
 
+	
+	// 이메일 중복 확인
+	public int findEmail(String email) {
+		return sqlSessionTemplate.selectOne("MemberDAO.checkEmail", email);
+	}
+
+
 
 	
 	

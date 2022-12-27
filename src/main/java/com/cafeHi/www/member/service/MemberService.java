@@ -22,6 +22,9 @@ public interface MemberService {
 	public void updateMemberDetailAddress(MemberDTO member);
 	public void updateMemberEmail(MemberDTO member);
 	
+	// 중복 확인
+	public int findEmail(String email);
+	
 	
 	
 	

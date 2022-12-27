@@ -15,8 +15,11 @@ function signupcheck() {
 	var memberJibunAddress = document.getElementById('memberJibunAddress');
 	var detailAddress = document.getElementById('memberDetailAddress');
 	var privacyCheck = document.getElementById('privacyCheck').checked;
-	var mailAuthCheck = document.getElementById('mail_check_boolean').checked;
-	var mailCheck = document.getElementById('mail_boolean').checked;
+	/*mailAuthCheck : 인증번호 일치 여부 확인*/
+	var mailAuthCheck = document.getElementById('email_check_boolean').checked;
+	/*mailInputCheck : 인증번호 입력 여부 확인*/
+	var mailInputCheck = document.getElementById('email_chk_boolean').checked;
+	var mailDuplicateCheck = document.getElementById('email_dup_boolean').checked;
 	var idDuplicateCheck = document.getElementById('id_check_boolean').checked;
 	var idCheck = document.getElementById('id_boolean').checked;
 	
@@ -61,7 +64,7 @@ function signupcheck() {
 		return;
 	}
 	
-	if(!mailCheck){
+	if(!mailInputCheck){
 		alert('인증번호를 입력하셔야합니다.');
 		return;
 	}
@@ -81,6 +84,10 @@ function signupcheck() {
 		return;
 	}
 	
+	if(!mailDuplicateCheck){
+		alert('중복된 이메일이 존재합니다. 이메일을 확인해주세요.');
+		return;
+	}
 	
 	
 	
