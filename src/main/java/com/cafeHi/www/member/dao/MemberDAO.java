@@ -94,4 +94,9 @@ public class MemberDAO {
 		return sqlSessionTemplate.selectOne("MemberDAO.findEmailId", member);
 	}
 	
+	// 이메일을 통한 임시 비밀번호 찾기
+	public void findPw(MemberDTO member) {
+		sqlSessionTemplate.update("MemberDAO.findPw", member);
+	}
+	
 }

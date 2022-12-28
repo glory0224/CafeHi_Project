@@ -102,6 +102,12 @@ public class MemberServiceImpl implements MemberService{
 		return memberDAO.findEmailId(member);
 	}
 
+	// 비밀번호 찾기
+	@Override
+	public void findPw(MemberDTO member) {
+		memberDAO.findPw(member);
+	}
+
 
 	
 

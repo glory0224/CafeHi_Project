@@ -1,13 +1,14 @@
 package com.cafeHi.www.member.controller;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 
 import javax.mail.internet.MimeMessage;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,8 @@ public class AccountController {
 	@Autowired
 	private JavaMailSender mailsender;
 	
-	
+	@Autowired
+	BCryptPasswordEncoder pwdEncoder;
 	
 	// 아이디 찾기 페이지
 	@RequestMapping(value = "/idSearch.do", method = RequestMethod.GET)
@@ -113,9 +115,7 @@ public class AccountController {
 		
 	}
 	
-	// 비밀번호 이메일 인증 
-	// 현재 Spring Security로 비밀번호가 암호화 되어 있어 Java의 URLDecoder로 복호화를 시도 했으나 실패, 찾아보니 스프링 시큐리티는 복호화 할 수 없고 내장된 match 함수로 입력받은 비밀번호와 비교만 가능하다. 
-	// 그렇다면 비밀번호를 인증하고 변경해주는 방식을 이용해야 할까? 어떻게 비밀번호를 찾아주는지 고민해야겠다. 
+	// 이메일로 비밀번호 찾기 
 	@RequestMapping(value = "/pwSearchAuth.do", method = RequestMethod.POST)
 	public String pwEmailAuth(MemberDTO member, Model model) throws UnsupportedEncodingException {
 		String member_email = member.getMember_email();
@@ -127,12 +127,16 @@ public class AccountController {
 			model.addAttribute("url", "pwSearchAuth.do");
 			return "alert";
 		}else {
+			
 			member = memberService.findEmailId(member);
-			String encodePw = member.getMember_pw();
-			System.out.println("encodePw : " + encodePw);
+			//랜덤한 문자열 생성 라이브러리 apache commons lang 사용
+			String generatedString = RandomStringUtils.randomAlphanumeric(10);
 			
-				String member_pw = URLDecoder.decode(encodePw, "UTF-8");
+			String changePw = pwdEncoder.encode(generatedString);
 			
+			member.setMember_pw(changePw); // 랜덤 문자열 비밀번호 set 주입 
+			memberService.findPw(member);
+					
 			 /* 이메일 보내기 */
 	        String setFrom = "CafeHi1004@gmail.com";
 	        String toMail = member_email;
@@ -141,9 +145,9 @@ public class AccountController {
 	        		"홈페이지를 방문해주셔서 감사합니다." +
 	        		"<br><br>" +
 	        		"해당 메일은 카페하이 홈페이지의 비밀번호 찾기를 통해 전송된 메일입니다. " + 
-	        		"<br>" + "요청하신 계정의 비밀번호는 " + member_pw + "입니다." +
+	        		"<br>" + "요청하신 계정의 새로 발급된 비밀번호는 " + generatedString + "입니다." +
 	        		"<br>" +
-	        		"홈페이지로 오셔서 로그인 해주세요!";
+	        		"로그인 이후에 변경 부탁드립니다.";
 	        
 	        try {
 	            MimeMessage message = mailsender.createMimeMessage();
@@ -158,7 +162,7 @@ public class AccountController {
 	            	e.printStackTrace();
 	            }
 	        
-	        model.addAttribute("msg", "해당 메일로 비밀번호를 전송했습니다. 메일을 확인해주세요!");
+	        model.addAttribute("msg", "해당 메일로 임시 비밀번호를 전송했습니다. 메일을 확인해주세요!");
 	        model.addAttribute("url", "login.do");
 			return "alert";
 		}

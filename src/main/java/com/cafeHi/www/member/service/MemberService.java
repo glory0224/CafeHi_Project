@@ -28,7 +28,8 @@ public interface MemberService {
 	public MemberDTO findEmailId(MemberDTO member);
 	public MemberDTO getMemberId(MemberDTO member);
 	
-	
+	// 비밀번호 찾기 
+	public void findPw(MemberDTO member);
 	
 	
 	

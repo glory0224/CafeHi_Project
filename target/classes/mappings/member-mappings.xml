@@ -111,5 +111,9 @@
  		SELECT * FROM cafehi_member WHERE member_email = #{member_email}
  	</select>
  	
+ 	<!-- 비밀번호 찾기 관련 -->
+ 	<update id="findPw">
+ 		UPDATE cafehi_member SET member_pw = #{member_pw} WHERE member_email = #{member_email}
+ 	</update>
  	
 </mapper>
