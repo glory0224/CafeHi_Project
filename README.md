@@ -10,6 +10,8 @@
 
 <li>프레임워크 : Spring MVC, BootStrap 5.2.0 </li>
 
+<li> IDE : Eclipse </li>
+
 ### 구현된 기능
 
 1. 회원가입, QnA CRUD 기능
