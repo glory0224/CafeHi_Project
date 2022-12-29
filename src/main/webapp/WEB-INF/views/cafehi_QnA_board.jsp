@@ -71,7 +71,7 @@
 						
 						
 						<%-- <input type="hidden" name="type" value="${pageDTO.cri.type }"> --%>
-						
+						<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
 						<input class="btn btn-success" type="text" name="keyword" value="${pageDTO.cri.keyword }">
 						<button class="btn btn-success">검색</button>
 						<!-- <input class="btn btn-success" type="button" value="검색" > -->

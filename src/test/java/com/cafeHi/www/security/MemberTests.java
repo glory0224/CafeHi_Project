@@ -23,7 +23,7 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class MemberTests {
 	
-	// 스프링 시큐리티 db 더미 데이터 테스트
+	
 	
 	@Setter(onMethod= @__({@Autowired}))
 	private PasswordEncoder pwencoder;
@@ -31,13 +31,14 @@ public class MemberTests {
 	@Setter(onMethod = @__({@Autowired}))
 	private DataSource ds;
 	
+	// 멤버 테스트 데이터 삽입 
 	@Test
 	public void testInsertMember() {
 		
 		String sql = "insert into cafehi_member(member_seq, member_id, member_pw, member_name)"
 				+ "values(?,?,?,?)";
 		
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 200; i++) {
 			
 			Connection con = null;
 			PreparedStatement pstmt = null;
@@ -75,7 +76,7 @@ public class MemberTests {
 		
 		String sql = "insert into cafehi_member_auth(member_id, auth) values (?, ?)";
 		
-		for(int i = 0; i < 100; i++) {
+		for(int i = 0; i < 200; i++) {
 			Connection con = null;
 			PreparedStatement pstmt = null;
 			
