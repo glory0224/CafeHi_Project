@@ -1,3 +1,5 @@
+-- 테이블 컬럼 조회
+
 select * from tab;
 select * from cafehi_member;
 select * from cafehi_member_auth;
@@ -5,29 +7,26 @@ select * from cafehi_admin;
 select * from cafehi_qna;
 select * from cafehi_membership;
 select * from my_membership;
-select * from cafehi_category;
-select * from cafehi_sub_category;
 select * from cafehi_menu;
 select * from cafehi_cart;
 
+
+-- 테이블 컬럼 타입 조회
 
 desc cafehi_member;
 desc cafehi_member_auth;
 desc cafehi_admin;
 desc cafehi_qna;
-desc cafehi_category;
-desc cafehi_sub_category;
 desc cafehi_menu;
 desc cafehi_cart;
 
--- 컬럼 제거
+-- 테이블 컬럼 제거
 
 delete cafehi_member;
+delete cafehi_member_auth;
 delete my_membership;
 delete cafehi_admin;
 delete cafehi_qna;
-delete cafehi_category;
-delete cafehi_sub_category;
 delete cafehi_menu;
 delete cafehi_cart;
 
@@ -42,25 +41,11 @@ drop table my_membership;
 drop table cafehi_mem_coupon;
 drop table cafehi_orderlist;
 drop table cafehi_coupon;
-drop table cafehi_sub_category;
-drop table cafehi_category;
 drop table cafehi_menu;
 drop table cafehi_option;
 
 commit;
 rollback;
-
-
-
--- 더미 데이터 생성(오류가 발생함 - 왜일까?) 
---BEGIN
---FOR i IN 1..50 LOOP
---INSERT INTO cafehi_qna(qna_title, qna_content, qna_writetime, qna_hit, user_id) 
---VALUES(CONCAT('제목', i), CONCAT('내용', i), '22/11/17', 0, 'user1');
---END LOOP;
---END;
-
-
 
 SELECT rownum rn, q.qna_num, q.qna_title, q.qna_content, q.qna_writetime,q.qna_hit, u.user_id
 FROM cafehi_user u, cafehi_qna q
@@ -122,42 +107,6 @@ create table cafehi_qna(
     constraint fk_member_id foreign key(member_id) references cafehi_member (member_id) on delete cascade 
 );
 
--- QnA 게시판 페이징 쿼리
-
- select rownum as rn, qna_num, qna_title, qna_content, qna_writetime, qna_hit, user_id
-    from cafehi_qna where rownum <= 20;
-
-
-
-
-select rn, qna_num, qna_title, qna_content, qna_writetime, qna_hit, user_id from(
-    select rownum as rn, qna_num, qna_title, qna_content, qna_writetime, qna_hit, user_id
-    from cafehi_qna where rownum <= 10)
-where rn > 20
-
-order by qna_num desc
-;
-
-
-
-SELECT qna_num, qna_title, qna_writetime, user_id, qna_content, qna_hit FROM(
-				SELECT rownum as rn, qna_num, qna_title, qna_writetime, user_id, qna_content, qna_hit 
-				FROM cafehi_qna WHERE rownum <= 10)
-			
-			WHERE rn >= 1;
-            
-
-SELECT * FROM (
- 		SELECT qna_num, qna_title, qna_writetime, user_id, qna_content, qna_hit FROM(
- 		SELECT rownum as rn, qna_num, qna_title, qna_writetime, user_id, qna_content, qna_hit
- 		FROM cafehi_qna WHERE rownum <= 10)
- 		WHERE rn > 0)
- 		WHERE 1=1
-        AND qna_title LIKE '%' || '제목' || '%' 
- 		ORDER BY qna_num DESC;
-
-
-
 -- 나의 멤버쉽 
 create table my_membership(
     membership_code number,
@@ -185,112 +134,6 @@ insert into cafehi_membership values(03, 'gold');
 insert into cafehi_membership values(04, 'vip'); 
 
 commit;
-
--- 카테고리 
-
-create table cafehi_category(
-    category_code number not null primary key,
-    category_type varchar2(15),
-    category_name varchar2(30)
-);
-
-insert into cafehi_category values(01, 'menu', 'coffee');
-insert into cafehi_category values(02, 'menu', 'coldbrew');
-insert into cafehi_category values(03, 'menu', 'latte');
-insert into cafehi_category values(04, 'menu', 'smoothie');
-insert into cafehi_category values(05, 'menu', 'side');
-insert into cafehi_category values(06, 'menu', 'beverage');
-insert into cafehi_category values(07, 'menu', 'fruitJuice');
-insert into cafehi_category values(08, 'menu', 'tea');
-
--- 서브 카테고리 
-
-create table cafehi_sub_category(
-    category_sub_code number not null primary key,
-    category_sub_type varchar2(15),
-    category_sub_name varchar2(30),
-    
-    category_code number not null,
-    constraint fk_sub_category_code foreign key(category_code) references cafehi_category (category_code)
-);
-
--- 커피 메뉴
-
-insert into cafehi_sub_category values(01, 'coffee', 'americano', 01);
-insert into cafehi_sub_category values(02, 'coffee', 'espresso', 01);
-insert into cafehi_sub_category values(03, 'coffee', 'citronAmericano', 01);
-insert into cafehi_sub_category values(04, 'coffee', 'addShot', 01);
-insert into cafehi_sub_category values(05, 'coffee', 'refill', 01);
-
--- 콜드브루
-
-insert into cafehi_sub_category values(06, 'coldbrew', 'coldbrew', 02);
-insert into cafehi_sub_category values(07, 'coldbrew', 'specialTea', 02);
-insert into cafehi_sub_category values(08, 'coldbrew', 'coldbrewLatte', 02);
-insert into cafehi_sub_category values(09, 'coldbrew', 'einstephener', 02);
-insert into cafehi_sub_category values(10, 'coldbrew', 'coldbrewBottle', 02);
-
--- 라떼
-
-insert into cafehi_sub_category values(11, 'latte', 'vanillaLatte', 03);
-insert into cafehi_sub_category values(12, 'latte', 'icecreamLatte', 03);
-insert into cafehi_sub_category values(13, 'latte', 'caffeMocha', 03);
-insert into cafehi_sub_category values(14, 'latte', 'hazelnutLatte', 03);
-insert into cafehi_sub_category values(15, 'latte', 'dolceLatte', 03);
-insert into cafehi_sub_category values(16, 'latte', 'yuzabianco', 03);
-insert into cafehi_sub_category values(17, 'latte', 'caramelMacchiato', 03);
-
--- 스무디
-
-insert into cafehi_sub_category values(18, 'smoothie', 'mochaFrappuccino', 04);
-insert into cafehi_sub_category values(19, 'smoothie', 'caramelFrappuccino', 04);
-insert into cafehi_sub_category values(20, 'smoothie', 'greenTeaFrappuccino', 04);
-insert into cafehi_sub_category values(21, 'smoothie', 'yogurtSmoothie', 04);
-insert into cafehi_sub_category values(22, 'smoothie', 'cloudYogurtSmoothie', 04);
-insert into cafehi_sub_category values(23, 'smoothie', 'strawberryYogurtSmoothie', 04);
-
--- 사이드 
-
-insert into cafehi_sub_category values(24, 'side', 'croissant', 05);
-insert into cafehi_sub_category values(25, 'side', 'whippedCreamCrople', 05);
-insert into cafehi_sub_category values(26, 'side', 'brownCheeseCrople', 05);
-insert into cafehi_sub_category values(27, 'side', 'icecreamCrople', 05);
-
--- 음료
-
-insert into cafehi_sub_category values(28, 'beverage', 'greenTeaLatte', 06);
-insert into cafehi_sub_category values(29, 'beverage', 'chocoLatte', 06);
-insert into cafehi_sub_category values(30, 'beverage', 'strawberryLatte', 06);
-insert into cafehi_sub_category values(31, 'beverage', 'berryberryLatte', 06);
-insert into cafehi_sub_category values(32, 'beverage', 'passionFruitAde', 06);
-insert into cafehi_sub_category values(33, 'beverage', 'lemonade', 06);
-insert into cafehi_sub_category values(34, 'beverage', 'greenTangerineAde', 06);
-insert into cafehi_sub_category values(35, 'beverage', 'grapefruitAde', 06);
-insert into cafehi_sub_category values(36, 'beverage', 'blueLemonade', 06);
-
--- 생과일 주스 
-insert into cafehi_sub_category values(37, 'fruitJuice', 'watermelonJuice', 07);
-insert into cafehi_sub_category values(38, 'fruitJuice', 'tomatoJuice', 07);
-insert into cafehi_sub_category values(39, 'fruitJuice', 'bananaJuice', 07);
-
--- 차
-insert into cafehi_sub_category values(40, 'tea', 'chamomileTea', 08);
-insert into cafehi_sub_category values(41, 'tea', 'rooibosTea', 08);
-insert into cafehi_sub_category values(42, 'tea', 'peppermintTea', 08);
-insert into cafehi_sub_category values(43, 'tea', 'rosemaryTea', 08);
-insert into cafehi_sub_category values(44, 'tea', 'roseFlowerTea', 08);
-insert into cafehi_sub_category values(45, 'tea', 'oolongTea', 08);
-insert into cafehi_sub_category values(46, 'tea', 'honeyGrapefruitBlackTea', 08);
-insert into cafehi_sub_category values(47, 'tea', 'dewTea', 08);
-insert into cafehi_sub_category values(48, 'tea', 'icedTea', 08);
-insert into cafehi_sub_category values(49, 'tea', 'yuzaTea', 08);
-insert into cafehi_sub_category values(50, 'tea', 'orangeGrapefruitTea', 08);
-insert into cafehi_sub_category values(51, 'tea', 'gingerTea', 08);
-insert into cafehi_sub_category values(52, 'tea', 'lemonTea', 08);
-insert into cafehi_sub_category values(53, 'tea', 'berryTea', 08);
-insert into cafehi_sub_category values(54, 'tea', 'greenTangerineTea', 08);
-insert into cafehi_sub_category values(55, 'tea', 'GrapefruitTea', 08);
-
 
 
 -- 메뉴(카테고리를 외래키로 사용해서 써보려 했으나 오히려 복잡성이 높아지는거 같아서 그냥 독립적으로 생성)
@@ -387,14 +230,6 @@ drop sequence seq_cart;
 
 -- 하단) 초기 작업 테이블(수정 필요)
 
--- 옵션
-
-create table cafehi_option(
-    option_code number not null primary key,
-    option_name varchar2(30) ,
-    option_price number
-);
-
 -- 멤버쉽 쿠폰
 create table cafehi_mem_coupon(
      user_id varchar2(30) not null,
@@ -427,15 +262,34 @@ create table cafehi_orderlist(
 );
 
 
+-- QnA 게시판 페이징 쿼리
+
+ select rownum as rn, qna_num, qna_title, qna_content, qna_writetime, qna_hit, user_id
+    from cafehi_qna where rownum <= 20;
+
+
+select rn, qna_num, qna_title, qna_content, qna_writetime, qna_hit, user_id from(
+    select rownum as rn, qna_num, qna_title, qna_content, qna_writetime, qna_hit, user_id
+    from cafehi_qna where rownum <= 10)
+where rn > 20
+
+order by qna_num desc
+;
 
 
 
+SELECT qna_num, qna_title, qna_writetime, user_id, qna_content, qna_hit FROM(
+				SELECT rownum as rn, qna_num, qna_title, qna_writetime, user_id, qna_content, qna_hit 
+				FROM cafehi_qna WHERE rownum <= 10)
+			
+			WHERE rn >= 1;
+            
 
-
-
-
-
-
-
-    
-    
+SELECT * FROM (
+ 		SELECT qna_num, qna_title, qna_writetime, user_id, qna_content, qna_hit FROM(
+ 		SELECT rownum as rn, qna_num, qna_title, qna_writetime, user_id, qna_content, qna_hit
+ 		FROM cafehi_qna WHERE rownum <= 10)
+ 		WHERE rn > 0)
+ 		WHERE 1=1
+        AND qna_title LIKE '%' || '제목' || '%' 
+ 		ORDER BY qna_num DESC;
