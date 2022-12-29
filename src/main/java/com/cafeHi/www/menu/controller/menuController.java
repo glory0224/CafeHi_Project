@@ -19,6 +19,7 @@ public class menuController {
 	
 	
 	
+	// DB에 저장된 각각의 메뉴 정보를 조회 
 	
 	  @RequestMapping("/coffeeList.do") 
 	  public String coffeeListView(Model model) {

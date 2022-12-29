@@ -28,16 +28,7 @@
  		</association>
  		<association property="admin_id" javaType="Admin" column="ADMIN_ID" resultMap="AdminResult"/>
  	</resultMap>
- 	
- <!-- 	<resultMap type="User" id="UserResult">
- 		<id property="user_id" column="USER_ID"/>
- 		<result property="user_seq" column="USER_SEQ"/>
- 		<result property="user_pw" column="USER_PW"/>
- 		<result property="user_name" column="USER_NAME"/>
- 		<result property="user_contact" column="USER_CONTACT"/>
- 		<result property="user_address" column="USER_ADDRESS"/>
- 	</resultMap> -->
- 	
+ 	 	
  	<resultMap type="Admin" id="AdminResult">
  		<id property="admin_id" column="ADMIN_ID"/>
  		<result property="admin_seq" column="ADMIN_SEQ"/>

@@ -43,13 +43,10 @@
         <input type="checkbox" value="remember-me"> 로그인 상태 유지
       </label> -->
     </div>
-    <!-- <button class="w-100 btn btn-lg btn-success" type="submit">로그인</button><br> -->
     <input class="w-100 btn btn-lg btn-success " type="button" value="로그인" onclick="loginCheck();">
  <div class="d-flex justify-content-evenly" style="margin-top: 20px">
-	<!-- <span><a href="cafehi_pwSearch.jsp" onclick="window.open('pwSearch.do','', 'width=800, height=600'); return false;" style="text-decoration: none; color:black">비밀번호 찾기</a></span> -->
 	<span><a href="pwSearch.do" style="text-decoration: none; color:black">비밀번호 찾기</a></span>
 	<!-- window 내장 메소드 open 사용 시 return false;를 해주지 않으면 팝업창이 열리고 해당 페이지도 넘어간다. 그렇기 때문에 return false로 href가 실행되지 않도록 한다. -->
-	<!-- <span><a href="" onclick="window.open('idSearch.do','', 'width=800, height=600'); return false;" style="text-decoration: none; color:black">아이디 찾기</a></span> -->
 	<span><a href="idSearch.do" style="text-decoration: none; color:black">아이디 찾기</a></span>
 	<span><a href="signup.do" style="text-decoration: none; color:black">회원 가입</a></span>
 	</div>

@@ -25,6 +25,8 @@
  		<result property="auth" column="AUTH"/>
  	</resultMap>
  	
+ 	<!-- 회원 CRUD -->
+ 	
  	<insert id="insertMember" parameterType="Member">
  		INSERT INTO cafehi_member(member_seq, member_id, member_pw, member_name, member_contact, member_email, member_road_address, member_jibun_address, member_detail_address) 
  		VALUES((select nvl(max(member_seq), 0)+1 from cafehi_member), #{member_id}, #{member_pw},#{member_name},#{member_contact}, #{member_email}, #{member_road_address},#{member_jibun_address},#{member_detail_address})
@@ -34,13 +36,7 @@
  		INSERT INTO cafehi_member_auth(member_id, auth) VALUES(#{member_id}, #{auth})
  	</insert>
  	
- 	
- 	<!-- <update id="updateMemberId" parameterType="Member">
- 		UPDATE cafehi_member
- 		SET member_id = #{member_id}
- 		WHERE member_id = #{member_id}
- 	</update> -->
- 	
+
  	<update id="updateMemberName" parameterType="Member">
  		UPDATE cafehi_member
  		SET member_name = #{member_name}
@@ -72,17 +68,11 @@
  	</update>
  	
  	
- 	
  	<delete id="deleteMember" parameterType="Member">
  		DELETE FROM cafehi_member WHERE member_id = #{member_id}
  	</delete>
- 	
- 	<!-- <select id="getMemberId" parameterType="Member" resultType="Member">
- 		SELECT * FROM cafehi_member 
- 		WHERE member_id = #{member_id}
- 	</select> -->
- 		
- 	
+ 
+	
  	<select id="getMember" parameterType="Member" resultType="Member">
  		SELECT * FROM cafehi_member
  		WHERE member_id = #{member_id}
@@ -98,15 +88,16 @@
  			mem.member_id = #{member_id}
  	</select>
  	
- 	<select id="checkId" parameterType="String" resultType="int">
+ 	<!-- 아이디 찾기 관련  -->
+ 	
+ 	 <select id="checkId" parameterType="String" resultType="int">
 		SELECT count(*) FROM cafehi_member WHERE member_id = #{member_id}	
  	</select>
  	
- 	<!-- 아이디 찾기 관련  -->
  	<select id="checkEmail" parameterType="String" resultType="int">
  		SELECT count(*) FROM cafehi_member WHERE member_email = #{member_email} 
  	</select>
- 	
+ 		
  	<select id="findEmailId" parameterType="Member" resultType="Member">
  		SELECT * FROM cafehi_member WHERE member_email = #{member_email}
  	</select>

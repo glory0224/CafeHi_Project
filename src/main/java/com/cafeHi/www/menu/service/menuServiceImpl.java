@@ -26,7 +26,6 @@ public class menuServiceImpl implements menuService{
 
 	@Override
 	public List<MenuDTO> getLatteList() {
-		// TODO Auto-generated method stub
 		return menuDAO.getLatteList();
 	}
 

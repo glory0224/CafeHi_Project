@@ -1,9 +1,6 @@
 package com.cafeHi.www.member.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.cafeHi.www.member.dao.MemberDAO;
@@ -16,14 +13,9 @@ public class MemberServiceImpl implements MemberService{
 	@Autowired
 	private MemberDAO memberDAO;
 
-	@Override
-	public MemberDTO getMemberId(MemberDTO member) {
-		if (memberDAO.getMemberId(member) != null) {
-			return memberDAO.getMemberId(member);
-		}
-		return null;
-	}
-
+	
+	// 회원 CURD 
+	
 	@Override
 	public MemberDTO getMember(MemberDTO member) {
 		return memberDAO.getMember(member);
@@ -32,13 +24,6 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public MemberDTO readMember(String member_id) {
 		return memberDAO.readMember(member_id);
-	}
-	
-
-	@Override
-	public int idCheck(String member_id) {
-		int result = memberDAO.idCheck(member_id);
-		return result;
 	}
 
 	@Override
@@ -58,12 +43,6 @@ public class MemberServiceImpl implements MemberService{
 		memberDAO.deleteMember(member);
 	}
 
-	// 정보 수정
-	
-//	@Override
-//	public void updateMemberId(MemberDTO member) {
-//		memberDAO.updateMemberId(member);
-//	}
 
 	@Override
 	public void updateMemberName(MemberDTO member) {
@@ -91,18 +70,27 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	
-	// 이메일 중복 확인
+	// 중복 확인
 	@Override
 	public int checkEmail(String email) {
 		return memberDAO.checkEmail(email);
 	}
+	
+	@Override
+	public int idCheck(String member_id) {
+		int result = memberDAO.idCheck(member_id);
+		return result;
+	}
 
+	// 아이디 찾기 
+	
 	@Override
 	public MemberDTO findEmailId(MemberDTO member) {
 		return memberDAO.findEmailId(member);
 	}
 
 	// 비밀번호 찾기
+	
 	@Override
 	public void findPw(MemberDTO member) {
 		memberDAO.findPw(member);

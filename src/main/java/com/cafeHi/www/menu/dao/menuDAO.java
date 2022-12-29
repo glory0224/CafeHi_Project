@@ -15,12 +15,7 @@ public class menuDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	
-	/*
-	 * public MenuDTO getMenu() { return sqlSessionTemplate.selectOne("MenuDAO.",
-	 * sqlSessionTemplate); }
-	 */
-	
+		
 	public List<MenuDTO> getCoffeeList(){
 		return sqlSessionTemplate.selectList("MenuDAO.getCoffeeList");
 	}

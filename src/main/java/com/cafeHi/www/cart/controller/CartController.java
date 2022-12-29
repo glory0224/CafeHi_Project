@@ -64,7 +64,6 @@ public class CartController {
 		System.out.println("amount : " + orderAmount);
 		System.out.println("menu_code : " +  cart.getMenu_code());
 		
-		//int amount = Integer.parseInt(StringAmount);
 		
 		cart.setAmount(orderAmount);
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

@@ -47,6 +47,7 @@ public class CartDAO {
 		
 	}
 	
+	// 장바구니 리스트 조회
 	public List<CartDTO> listCart(String member_id){
 		return sqlsessionTemplate.selectList("cartDAO.listCart", member_id);
 		

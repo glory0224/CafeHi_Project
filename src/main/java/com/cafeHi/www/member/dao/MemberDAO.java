@@ -11,27 +11,12 @@ import com.cafeHi.www.member.dto.MemberDTO;
 @Repository
 public class MemberDAO {
 	
+	//MyBatis
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	public MemberDTO getMemberId(MemberDTO member) {
-		if(sqlSessionTemplate.selectOne("MemberDAO.getMemberId", member) != null) {
-			
-			return sqlSessionTemplate.selectOne("MemberDAO.getMemberId", member);
-		}
-			return null;
-		
-	}
 	
-	
-	
-	public int idCheck(String member_id) {
-		int result = sqlSessionTemplate.selectOne("MemberDAO.checkId", member_id);
-		return result;
-	}
-	
-	
-	
+	// 회원 CRUD
 	public MemberDTO getMember(MemberDTO member) {
 		return sqlSessionTemplate.selectOne("MemberDAO.getMember", member);
 	}
@@ -41,24 +26,17 @@ public class MemberDAO {
 		
 	}
 	
-	
 	public void insertMember(MemberDTO member) {
 		
 		sqlSessionTemplate.insert("MemberDAO.insertMember", member);
 	}
 	
-
 	public void insertMemberAuth(AuthDTO memberauth) {
 		sqlSessionTemplate.insert("MemberDAO.insertMemberAuth", memberauth);
 	}
 	
-
 	public void deleteMember(MemberDTO member) {
 		sqlSessionTemplate.delete("MemberDAO.deleteMember", member);
-	}
-
-	public void updateMemberId(MemberDTO member) {
-		sqlSessionTemplate.update("MemberDAO.updateMemberId", member);
 	}
 
 	public void updateMemberName(MemberDTO member) {
@@ -83,9 +61,14 @@ public class MemberDAO {
 
 
 	
-	// 이메일 중복
+	// 중복 확인
 	public int checkEmail(String email) {
 		return sqlSessionTemplate.selectOne("MemberDAO.checkEmail", email);
+	}
+	
+	public int idCheck(String member_id) {
+		int result = sqlSessionTemplate.selectOne("MemberDAO.checkId", member_id);
+		return result;
 	}
 	
 	// 해당하는 이메일의 아이디 찾기

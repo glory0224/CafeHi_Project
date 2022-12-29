@@ -27,6 +27,7 @@
  		DELETE FROM cafehi_cart WHERE member_id = #{member_id}
  	</delete>
  	
+ 	<!-- 장바구니 리스트 조회 -->
  	<select id="listCart" resultType="Cart">
  		<!-- DAO에서 listCart라는 태그로 인해 실행되고 결과타입은 DTO타입으로 한다. (다른계층으로 보내기 위해서) -->
  		

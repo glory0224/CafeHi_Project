@@ -50,17 +50,16 @@ public class QnAController {
 	private QnAService qnaService;
 	
 	
-	// 검색 조건 
-	@ModelAttribute("conditionMap")
-	public Map<String, String> searchConditionMap(){
-		Map<String, String> conditionMap = new HashMap<String, String>();
-		conditionMap.put("제목", "TITLE");
-		conditionMap.put("내용", "CONTENT");
-		return conditionMap;
-	}
+	/*
+	 * // 검색 조건
+	 * 
+	 * @ModelAttribute("conditionMap") public Map<String, String>
+	 * searchConditionMap(){ Map<String, String> conditionMap = new HashMap<String,
+	 * String>(); conditionMap.put("제목", "TITLE"); conditionMap.put("내용",
+	 * "CONTENT"); return conditionMap; }
+	 */
 	
-	
-	// 게시글
+	// 게시글 조회
 	@RequestMapping("/getQnA.do")
 	public String getQnA(HttpServletRequest request, HttpServletResponse response, QnADTO qna, Model model) {
 		System.out.println("fileName : "+ qna.getFileName());
@@ -96,7 +95,6 @@ public class QnAController {
 		}
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		//CustomUser userInfo = (CustomUser) principal;
 		model.addAttribute("securityId", authentication.getName());
 		model.addAttribute("QnA", qnaService.getQnA(qna));
 		
@@ -106,22 +104,10 @@ public class QnAController {
 		return "cafehi_QnA_content";
 	}
 	
-	// 게시글 목록 
+	// 게시글 목록 조회
 	@RequestMapping("/QnAList.do")
 	public String SearchQnAList(QnADTO qna, CriteriaDTO cri, Model model) {
-		
-		
-		// cri.setAmount(qnaService.getQnANum());
-		//System.out.println("qna 총 게시글 수 :" + cri.getAmount());
-		//System.out.println("qna 현재 페이지 : " + cri.getPageNum());
-		
-		// null check
-//		if(cri.getBoardSelect() == null) cri.setBoardSelect("TITLE");  
-//		if(cri.getBoardSearch() == null) cri.setBoardSelect("");
-		
-		// qna.setPageNum(cri.getPageNum());
-		// qna.setAmount(cri.getAmount());
-		
+				
 		int total = qnaService.getQnANum(cri);
 		
 		PageDTO pageDTO = new PageDTO(cri, total);
@@ -130,31 +116,33 @@ public class QnAController {
 		System.out.println("page의 cri의 keyword : " + pageDTO.getCri().getKeyword());
 		model.addAttribute("pageDTO", pageDTO);
 		model.addAttribute("qnaList", qnaService.getQnAList(cri));
-		
-		
-		
-		// 딱 떨어지지 않는 수 형변환 
-//		Double dnum = Double.valueOf(cri.getAmount());
-//		double num = qnaService.getQnANum() / dnum;
-//		int totalPageNum = (int) Math.ceil(num);
-//		
-//		System.out.println("총 페이지 수 : " + totalPageNum);
-		
-		
-//		model.addAttribute("currentPage", cri.getPageNum());
-//		model.addAttribute("totalPage", totalPageNum);
-		
-		
-		
-		// model.addAttribute("qnaPageNum", qna.getPageNum());
-		// model.addAttribute("qnaAmount", qna.getAmount());		
+			
 		return "cafehi_QnA_board";
 	}
 	
-	
+	// 글쓰기 페이지 이동
 	@RequestMapping("/QnAWritePage.do")
 	public String QnAWritePage() {
 		return "member/cafehi_QnA_write";
+		
+	}
+	
+	// 파일 다운로드 
+	@RequestMapping("/getFile.do")
+	public ResponseEntity<Resource> getFile(QnADTO qna) throws IOException {
+		
+		System.out.println("FileName : " + qna.getFileName());
+		
+		Path path = Paths.get(qna.getUpload_path());
+		String contentType = Files.probeContentType(path);
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentDisposition(ContentDisposition.builder("attachment").filename(qna.getFileName(), StandardCharsets.UTF_8)
+												.build());
+		headers.add(HttpHeaders.CONTENT_TYPE, contentType);
+		
+		Resource resource = new InputStreamResource(Files.newInputStream(path));
+		return new ResponseEntity<>(resource, headers, HttpStatus.OK);
 		
 	}
 	
@@ -189,25 +177,7 @@ public class QnAController {
 		
 	}
 	
-	@RequestMapping("/getFile.do")
-	public ResponseEntity<Resource> getFile(QnADTO qna) throws IOException {
-		
-		System.out.println("FileName : " + qna.getFileName());
-		
-		Path path = Paths.get(qna.getUpload_path());
-		String contentType = Files.probeContentType(path);
-		
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentDisposition(ContentDisposition.builder("attachment").filename(qna.getFileName(), StandardCharsets.UTF_8)
-												.build());
-		headers.add(HttpHeaders.CONTENT_TYPE, contentType);
-		
-		Resource resource = new InputStreamResource(Files.newInputStream(path));
-		return new ResponseEntity<>(resource, headers, HttpStatus.OK);
-		
-	}
-	
-	
+
 	@RequestMapping(value = "/QnAUpdate.do", method = RequestMethod.GET)
 	public String QnAUpdatePage(QnADTO qna, Model model) {
 		 
