@@ -50,14 +50,7 @@ public class QnAController {
 	private QnAService qnaService;
 	
 	
-	/*
-	 * // 검색 조건
-	 * 
-	 * @ModelAttribute("conditionMap") public Map<String, String>
-	 * searchConditionMap(){ Map<String, String> conditionMap = new HashMap<String,
-	 * String>(); conditionMap.put("제목", "TITLE"); conditionMap.put("내용",
-	 * "CONTENT"); return conditionMap; }
-	 */
+
 	
 	// 게시글 조회
 	@RequestMapping("/getQnA.do")
@@ -204,6 +197,25 @@ public class QnAController {
 	}
 	
 	
+	// 계정 활동 내역 페이지
+		@RequestMapping("myQnAInfo.do")
+		public String MemberQnAInfoView(Model model) {
+			
+			 Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			  CustomUser userInfo = (CustomUser) principal;
+		    String member_id = userInfo.getUsername();
+			System.out.println("member_id : " + member_id);
+			List<QnADTO> myQnAList = qnaService.getMyQnA(member_id);
+			
+			for(QnADTO myQnA : myQnAList) {
+				System.out.println(myQnA);
+			}
+			
+			model.addAttribute("myQnAList", myQnAList);
+			
+			
+			return "member/cafehi_memberQnA";
+		}
 	
 	
 	

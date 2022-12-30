@@ -13,7 +13,8 @@
  		<result property="qna_select" column="QNA_SELECT" />
  		<result property="qna_search" column="QNA_SEARCH" />
  		<result property="upload_path" column="UPLOAD_PATH" />
- 		<association property="member_id" javaType="Member" column="MEMBER_ID" resultMap="MemberResult">
+ 		<result property="member_id" column="MEMBER_ID" />
+ 		<!-- <association property="member_id" javaType="Member" column="MEMBER_ID" resultMap="MemberResult">
 	 		<id property="member_id" column="MEMBER_ID"/>
 	 		<result property="member_seq" column="MEMBER_SEQ"/>
 	 		<result property="member_id" column="MEMBER_ID"/>
@@ -25,8 +26,8 @@
 	 		<collection property="authList" resultMap="AuthResult">
 	 		
 	 		</collection>
- 		</association>
- 		<association property="admin_id" javaType="Admin" column="ADMIN_ID" resultMap="AdminResult"/>
+ 		</association> -->
+ 		<!-- <association property="admin_id" javaType="Admin" column="ADMIN_ID" resultMap="AdminResult"/> -->
  	</resultMap>
  	 	
  	<resultMap type="Admin" id="AdminResult">
@@ -35,6 +36,23 @@
  		<result property="admin_pw" column="ADMIN_PW"/>
  		<result property="admin_name" column="ADMIN_NAME"/>
  		<result property="admin_contact" column="ADMIN_CONTACT"/>
+ 	</resultMap>
+ 	
+ 	<resultMap type="Member" id="MemberResult">
+ 		<id property="member_id" column="MEMBER_ID"/>
+ 		<result property="member_seq" column="MEMBER_SEQ"/>
+ 		<result property="member_id" column="MEMBER_ID"/>
+ 		<result property="member_pw" column="MEMBER_PW"/>
+ 		<result property="member_name" column="MEMBER_NAME"/>
+ 		<result property="member_contact" column="MEMBER_CONTACT"/>
+ 		<result property="member_email" column="MEMBER_EMAIL"/>
+ 		<result property="member_road_address" column="MEMBER_ROAD_ADDRESS"/>
+ 		<result property="member_jibun_address" column="MEMBER_JIBUN_ADDRESS"/>
+ 		<result property="member_detail_address" column="MEMBER_DETAIL_ADDRESS"/>
+ 		<result property="enabled" column="ENABLED"/>
+ 		<collection property="authList" resultMap="AuthResult">
+ 		
+ 		</collection>
  	</resultMap>
  	
  	<!-- 검색 조건문 --> 	
@@ -111,6 +129,10 @@
 		SELECT q.qna_num, q.qna_title, q.qna_content, q.qna_writetime, q.qna_hit, m.member_id, q.upload_path, q.filename FROM cafehi_qna q, cafehi_member m WHERE m.member_id = q.member_id
 		)
 		  WHERE qna_num=#{qna_num}
+	</select>
+	
+	<select id="getMyQnA" resultMap="QnAResult">
+		SELECT * FROM cafehi_qna WHERE member_id = #{member_id}
 	</select>
 
 	<!-- 게시글 작성  -->

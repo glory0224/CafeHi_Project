@@ -38,6 +38,6 @@ public class InfoController {
 		return "member/cafehi_memberDelete";
 		
 	}
-	
+		
 	
 }

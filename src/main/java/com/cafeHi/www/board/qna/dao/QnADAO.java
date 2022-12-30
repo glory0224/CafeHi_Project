@@ -31,6 +31,10 @@ public class QnADAO {
 		return sqlSessionTemplate.selectOne("QnADAO.getQnA", qna);
 	}
 	
+	public List<QnADTO> getMyQnA(String member_id) {
+		return sqlSessionTemplate.selectList("QnADAO.getMyQnA", member_id);
+	}
+	
 	public int getQnANum(CriteriaDTO cri) {
 		
 		return sqlSessionTemplate.selectOne("QnADAO.getQnANum");
@@ -60,5 +64,7 @@ public class QnADAO {
 	public void updateHit(QnADTO qna) {
 		sqlSessionTemplate.update("QnADAO.updateHit", qna);
 	}
+
+
 	
 }

@@ -18,7 +18,7 @@
   <div>혜택 Hi!</div>
   	<a class="nav-link" href="myCoupon.do">할인쿠폰</a>
   <div>활동 Hi!</div>
-  	<a class="nav-link" href="myBoard.do">나의 활동</a>
+  	<a class="nav-link" href="myQnAInfo.do">나의 QnA</a>
   <div>주문 Hi!</div>
   <a class="nav-link" href="myCartList.do">장바구니</a> 
   <a class="nav-link" href="myOrderList.do">주문목록/배송조회</a>

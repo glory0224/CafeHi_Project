@@ -24,6 +24,9 @@ public interface QnAService {
 	public void updateQnA(QnADTO qna);
 	public void deleteQnA(QnADTO qna);
 	
+	// 내 게시글 리스트 조회
+	public List<QnADTO> getMyQnA(String member_id);
+	
 	
 	
 }

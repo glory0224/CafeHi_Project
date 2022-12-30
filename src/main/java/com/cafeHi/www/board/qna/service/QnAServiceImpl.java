@@ -61,6 +61,12 @@ public class QnAServiceImpl implements QnAService {
 		qnADAO.updateHit(qna);
 	}
 
+
+	@Override
+	public List<QnADTO> getMyQnA(String member_id) {
+		return qnADAO.getMyQnA(member_id);
+	}
+
 	
 
 
