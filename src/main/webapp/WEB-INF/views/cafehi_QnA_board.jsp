@@ -100,7 +100,6 @@
 								<tbody>
 									<tr>
 										<td>${qna.qna_num }</td>
-										<%-- <td onclick="location.href='cafehi_QnA_content.jsp?num=<%=qna.getNum()%>'"> --%>
 										<td><a href="getQnA.do?qna_num=${qna.qna_num }"
 											style="text-decoration: none; color: black; font-weight: bold;">
 												${qna.qna_title }</a></td>

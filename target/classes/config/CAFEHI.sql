@@ -109,6 +109,7 @@ create table cafehi_qna(
 
 -- 나의 멤버쉽 
 create table my_membership(
+    my_membership_code number not null primary key, 
     membership_code number,
     constraint fk_membership_code foreign key(membership_code) references cafehi_membership (membership_code),
     member_id  varchar2(50), 
@@ -226,6 +227,19 @@ minvalue 0
 increment by 1;
 
 drop sequence seq_cart;
+
+-- 주문
+create table cafehi_order(
+    order_code number not null primary key,
+    member_id varchar2(50)not null,
+    constraint order_member_id_fk foreign key(member_id) references cafehi_member(member_id),
+    my_membership_code number not null,
+    constraint order_membership_code_fk foreign key(my_membership_code) references my_membership(my_membership_code),
+    menu_code number not null,
+    constraint order_menu_code_fk foreign key(menu_code) references cafehi_menu(menu_code),
+    orderState varchar2(30),
+    orderDate Date
+);
 
 
 -- 하단) 초기 작업 테이블(수정 필요)

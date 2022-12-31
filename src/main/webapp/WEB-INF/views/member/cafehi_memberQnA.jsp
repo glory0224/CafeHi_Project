@@ -26,7 +26,7 @@
 </div>
 	<div class="w-50 m-auto" style="padding-top: 5%">
 	 <div class="m-5">
-    <label for="membershipGrade" class="form-label">나의 QnA</label><br>
+    <h3>나의 QnA</h3>
   	
   </div>
     <div class="m-5">
@@ -45,7 +45,8 @@
 								<tbody>
 									<tr>
 										<td>${myQnA.qna_num }</td>
-										<td>${myQnA.qna_title }</td>
+										<td><a href="getQnA.do?qna_num=${myQnA.qna_num }"
+											style="text-decoration: none; color: black; font-weight: bold;">${myQnA.qna_title }</a></td>
 										<td>${myQnA.member_id }</td>
 										<td><fmt:formatDate value="${myQnA.qna_writetime }"
 												pattern="yyyy-MM-dd" /></td>
