@@ -188,14 +188,25 @@
 					memberId = document.getElementById('member_id');
 					memberId.value = "";
 					$("#id_feedback").html('이미 사용중인 아이디입니다.');
-					
 					$('#id_check_boolean').attr("checked", false);
 					$("#id_feedback").attr('color','#dc3545');
-				} else{
+				}
+				
+				if(result == 0){
 					$("#id_feedback").html('사용할 수 있는 아이디입니다.');
 					$('#id_check_boolean').attr("checked", true);
 					$("#id_feedback").attr('color','#2fb380');
-				} 
+				}
+				
+				if(member_id == ""){
+					$("#id_feedback").html('아이디를 입력해주세요.');
+					$('#id_check_boolean').attr("checked", false);
+					$("#id_feedback").attr('color','#dc3545');
+				}
+				
+				
+				
+				
 			},
 			error : function(data){
 				console.log(data)

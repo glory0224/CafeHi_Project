@@ -70,6 +70,7 @@ public class SignUpController {
 	@RequestMapping("/IdCheck.do")
 	public @ResponseBody int IdCheck(String member_id) {
 		int result = memberService.idCheck(member_id);
+		System.out.println("result : " + result);
 		return result;
 	}
 	
