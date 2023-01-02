@@ -17,18 +17,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.cafeHi.www.member.dto.MemberDTO;
 import com.cafeHi.www.member.service.MemberService;
 
+import lombok.RequiredArgsConstructor;
+
 
 @Controller
+@RequiredArgsConstructor
 public class AccountController {
 	
-	@Autowired
-	private MemberService memberService;
+	private final MemberService memberService;
 	
-	@Autowired
-	private JavaMailSender mailsender;
+	private final JavaMailSender mailsender;
 	
-	@Autowired
-	BCryptPasswordEncoder pwdEncoder;
+	private final BCryptPasswordEncoder pwdEncoder;
 	
 	// 아이디 찾기 페이지
 	@RequestMapping(value = "/idSearch.do", method = RequestMethod.GET)

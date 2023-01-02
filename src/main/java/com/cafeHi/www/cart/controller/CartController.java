@@ -6,8 +6,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,11 +16,13 @@ import com.cafeHi.www.cart.dto.CartDTO;
 import com.cafeHi.www.cart.service.CartService;
 import com.cafeHi.www.member.dto.CustomUser;
 
+import lombok.RequiredArgsConstructor;
+
 @Controller
+@RequiredArgsConstructor
 public class CartController {
 	
-	@Autowired
-	CartService cartService;
+	private final CartService cartService;
 	
 	@RequestMapping("/myCartList.do")
 	public String CartListView(Model model) {

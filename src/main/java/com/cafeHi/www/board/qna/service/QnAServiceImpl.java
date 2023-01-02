@@ -2,18 +2,18 @@ package com.cafeHi.www.board.qna.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.cafeHi.www.board.qna.dao.QnADAO;
 import com.cafeHi.www.board.qna.dto.QnADTO;
 import com.cafeHi.www.common.dto.CriteriaDTO;
 
+import lombok.RequiredArgsConstructor;
+
 @Service("qnaService")
+@RequiredArgsConstructor
 public class QnAServiceImpl implements QnAService {
 
-	@Autowired
-	private QnADAO qnADAO;
+	private final QnADAO qnADAO;
 
 
 

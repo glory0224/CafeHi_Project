@@ -1,23 +1,22 @@
 package com.cafeHi.www.membership.controller;
 
-import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.cafeHi.www.member.dto.CustomUser;
-import com.cafeHi.www.membership.dto.MembershipDTO;
 import com.cafeHi.www.membership.dto.myMembershipDTO;
 import com.cafeHi.www.membership.service.MembershipService;
 
+import lombok.RequiredArgsConstructor;
+
 @Controller
+@RequiredArgsConstructor
 public class MembershipController {
 	
-	@Autowired
-	MembershipService membershipService;
+	private final MembershipService membershipService;
 	
 	
 	

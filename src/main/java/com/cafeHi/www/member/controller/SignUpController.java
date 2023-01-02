@@ -5,7 +5,6 @@ import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,21 +18,20 @@ import com.cafeHi.www.member.dto.MemberDTO;
 import com.cafeHi.www.member.service.MemberService;
 import com.cafeHi.www.membership.service.MembershipService;
 
+import lombok.RequiredArgsConstructor;
+
 
 @Controller
+@RequiredArgsConstructor
 public class SignUpController {
 		
-	@Autowired
-	private MemberService memberService;
+	private final MemberService memberService;
 	
-	@Autowired
-	private MembershipService membershipService;
+	private final MembershipService membershipService;
 	
-	@Autowired
-	private JavaMailSender mailsender;
+	private final JavaMailSender mailsender;
 	
-	@Autowired
-	BCryptPasswordEncoder pwdEncoder;
+	private final BCryptPasswordEncoder pwdEncoder;
 	
 	@RequestMapping(value = "/signup.do", method = RequestMethod.GET)
 	public String signUpView() {

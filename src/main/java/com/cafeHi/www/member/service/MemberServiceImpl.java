@@ -1,17 +1,18 @@
 package com.cafeHi.www.member.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cafeHi.www.member.dao.MemberDAO;
 import com.cafeHi.www.member.dto.AuthDTO;
 import com.cafeHi.www.member.dto.MemberDTO;
 
+import lombok.RequiredArgsConstructor;
+
 @Service("memberService")
+@RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService{
 
-	@Autowired
-	private MemberDAO memberDAO;
+	private final MemberDAO memberDAO;
 
 	
 	// È¸¿ø CURD 

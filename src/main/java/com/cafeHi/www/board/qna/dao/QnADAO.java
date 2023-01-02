@@ -4,18 +4,19 @@ package com.cafeHi.www.board.qna.dao;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cafeHi.www.board.qna.dto.QnADTO;
 import com.cafeHi.www.common.dto.CriteriaDTO;
 
+import lombok.RequiredArgsConstructor;
+
 
 @Repository
+@RequiredArgsConstructor
 public class QnADAO {
 	
-	@Autowired
-	private SqlSessionTemplate sqlSessionTemplate;
+	private final SqlSessionTemplate sqlSessionTemplate;
 	
 
 	public List<QnADTO> getQnAList(CriteriaDTO cri) {

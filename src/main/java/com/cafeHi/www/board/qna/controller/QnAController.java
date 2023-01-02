@@ -8,16 +8,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ContentDisposition;
@@ -28,7 +25,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,14 +36,15 @@ import com.cafeHi.www.board.qna.service.QnAService;
 import com.cafeHi.www.common.dto.CriteriaDTO;
 import com.cafeHi.www.common.dto.PageDTO;
 import com.cafeHi.www.member.dto.CustomUser;
-import com.cafeHi.www.member.service.MemberService;
+
+import lombok.RequiredArgsConstructor;
 
 // qna 관련 이동 
 @Controller
+@RequiredArgsConstructor
 public class QnAController {
 	
-	@Autowired
-	private QnAService qnaService;
+	private final QnAService qnaService;
 	
 	
 

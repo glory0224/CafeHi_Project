@@ -17,15 +17,17 @@ import com.cafeHi.www.member.dto.CustomUser;
 import com.cafeHi.www.member.dto.MemberDTO;
 import com.cafeHi.www.member.service.MemberService;
 
+import lombok.RequiredArgsConstructor;
+
 
 @Controller
+@RequiredArgsConstructor
 public class MemberController {
 	
-	@Autowired
-	private MemberService memberService;
+	private final MemberService memberService;
 	
-	@Autowired
-	private BCryptPasswordEncoder pwdEncoder;
+	
+	private final BCryptPasswordEncoder pwdEncoder;
 	
 	// 회원 수정
 

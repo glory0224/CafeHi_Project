@@ -3,16 +3,17 @@ package com.cafeHi.www.cart.dao;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cafeHi.www.cart.dto.CartDTO;
 
+import lombok.RequiredArgsConstructor;
+
 @Repository
+@RequiredArgsConstructor
 public class CartDAO {
 	
-	@Autowired
-	SqlSessionTemplate sqlsessionTemplate;
+	private final SqlSessionTemplate sqlsessionTemplate;
 	
 	//장바구니 담기
 	public void insertCart(CartDTO cart) {
