@@ -215,7 +215,7 @@ create table cafehi_cart(
     member_id varchar2(50)not null,
     constraint cart_member_id_fk foreign key(member_id) references cafehi_member(member_id),
     menu_code number not null,
-    amount number default 0
+    cart_amount number default 0
 );
 
 -- 장바구니 기본키 시퀀스 생성

@@ -65,7 +65,7 @@ public class CartController {
 		System.out.println("menu_code : " +  cart.getMenu_code());
 		
 		
-		cart.setAmount(orderAmount);
+		cart.setCart_amount(orderAmount);
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		CustomUser userInfo = (CustomUser) principal;
 		String member_id = userInfo.getUsername();
@@ -82,7 +82,7 @@ public class CartController {
 	public String CartModify(CartDTO cart) {
 		
 		System.out.println("cart_code : " + cart.getCart_code());
-		System.out.println("amount : " + cart.getAmount());
+		System.out.println("amount : " + cart.getCart_amount());
 		
 		cartService.modifyCart(cart);
 		

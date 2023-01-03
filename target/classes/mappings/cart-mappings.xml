@@ -7,13 +7,13 @@
  	
  	<!-- 장바구니 추가 -->
  	<insert id="insertCart">
- 		INSERT INTO cafehi_cart (cart_code, member_id, menu_code, amount)
- 		VALUES (seq_cart.nextval, #{member_id}, #{menu_code}, #{amount})
+ 		INSERT INTO cafehi_cart (cart_code, member_id, menu_code, cart_amount)
+ 		VALUES (seq_cart.nextval, #{member_id}, #{menu_code}, #{cart_amount})
  	</insert>
  	
  	<!-- 장바구니 수정 -->
  	<update id="modifyCart">
- 		UPDATE cafehi_cart SET amount = #{amount}
+ 		UPDATE cafehi_cart SET cart_amount = #{cart_amount}
  		WHERE cart_code = #{cart_code}   
  	</update>
  	
@@ -31,7 +31,7 @@
  	<select id="listCart" resultType="Cart">
  		<!-- DAO에서 listCart라는 태그로 인해 실행되고 결과타입은 DTO타입으로 한다. (다른계층으로 보내기 위해서) -->
  		
- 		SELECT cart_code, p.menu_code, m.member_id, member_name, menu_name, amount, menu_price, (menu_price*amount) money
+ 		SELECT cart_code, p.menu_code, m.member_id, member_name, menu_name, cart_amount, menu_price, (menu_price*cart_amount) money
  		<!-- 장바구니의 번호, 상품 번호, 회원번호, 회원이름, 상품이름, 상품의양, 상품1개의 가격, 상품의 전체가격을 검색한다.-->
 		
 		FROM cafehi_member m, cafehi_cart c, cafehi_menu p
@@ -42,7 +42,7 @@
  	</select>
  	
  	<select id="sumMoney" resultType="int">
- 		SELECT nvl(sum(menu_price*amount), 0)
+ 		SELECT nvl(sum(menu_price*cart_amount), 0)
  		<!--금액과 상품갯수를 곱한값과 0을더해서 0이 나오는 것을 검색한다. -->
  		<!--그러니까 아무것도 담지 않았을 때 대체 값이 0이 나오도록 함 -->
  		

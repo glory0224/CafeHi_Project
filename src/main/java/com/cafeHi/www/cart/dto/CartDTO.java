@@ -12,5 +12,5 @@ public class CartDTO {
 	private String menu_name;
 	private int menu_price;
 	private int money;
-	private int amount;
+	private int cart_amount;
 }

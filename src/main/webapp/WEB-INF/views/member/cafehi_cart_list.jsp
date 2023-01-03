@@ -66,8 +66,8 @@
 								<!-- 여기서는 금액을 표현할 때 사용 -->
 								<!-- ex) 5,000 / 10,000 등등등-->
 
-								<td><input type="number" name="amount" style="width: 50px; border: none;"
-									value="<fmt:formatNumber value="${row.amount}" pattern="#,###,###" />">
+								<td><input type="number" name="cart_amount" style="width: 50px; border: none;"
+									value="<fmt:formatNumber value="${row.cart_amount}" pattern="#,###,###" />">
 									<!-- 물건의 개수 (amount)를 fmt태그를 사용해서 패턴의 형식에 맞춰서 문자열로 변환함 --> <!--1,000 / 5,000 등등~  -->
 
 									<input type="hidden" name="cart_code" value="${row.cart_code}">
@@ -77,6 +77,7 @@
 								<td><fmt:formatNumber value="${row.money}"
 										pattern="#,###,###" /></td>
 								<td><%-- <button><a href="deleteCart.do?cart_code=${row.cart_code}">삭제</a></button> --%>
+								<button class="btn btn-success btn-sm">수정</button>
 								<button type="button" class="btn btn-success btn-sm" onclick = "location.href='deleteCart.do?cart_code=${row.cart_code}'">삭제</button>
 									<!-- 삭제 버튼을 누르면 delete.do로 장바구니 개별 id (삭제하길원하는 장바구니 id)를 보내서 삭제한다. -->
 								</td>
@@ -94,7 +95,7 @@
 					<div class="d-flex justify-content-evenly">
 					<div class="float-end">
 					
-					<button class="btn btn-success">수정</button>
+					
 					<button type="button" class="btn btn-success" onclick = "location.href='deleteCartAll.do'">장바구니 비우기</button>
 					<button type="button" class="btn btn-success" onclick = "location.href='Menu.do'">카페하이 메뉴 보기</button>
 					<!-- btnUpdate와 btnDelete id는 위쪽에 있는 자바스크립트가 처리한다. -->
