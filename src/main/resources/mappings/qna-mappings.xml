@@ -10,24 +10,8 @@
  		<result property="qna_content" column="QNA_CONTENT"/>
  		<result property="qna_writetime" column="QNA_WRITETIME"/>
  		<result property="qna_hit" column="QNA_HIT" />
- 		<result property="qna_select" column="QNA_SELECT" />
- 		<result property="qna_search" column="QNA_SEARCH" />
  		<result property="upload_path" column="UPLOAD_PATH" />
  		<result property="member_id" column="MEMBER_ID" />
- 		<!-- <association property="member_id" javaType="Member" column="MEMBER_ID" resultMap="MemberResult">
-	 		<id property="member_id" column="MEMBER_ID"/>
-	 		<result property="member_seq" column="MEMBER_SEQ"/>
-	 		<result property="member_id" column="MEMBER_ID"/>
-	 		<result property="member_pw" column="MEMBER_PW"/>
-	 		<result property="member_name" column="MEMBER_NAME"/>
-	 		<result property="member_contact" column="MEMBER_CONTACT"/>
-	 		<result property="member_email" column="MEMBER_EMAIL"/>
-	 		<result property="member_address" column="MEMBER_ADDRESS"/>
-	 		<collection property="authList" resultMap="AuthResult">
-	 		
-	 		</collection>
- 		</association> -->
- 		<!-- <association property="admin_id" javaType="Admin" column="ADMIN_ID" resultMap="AdminResult"/> -->
  	</resultMap>
  	 	
  	<resultMap type="Admin" id="AdminResult">
@@ -86,9 +70,6 @@
  				WHERE qna_title LIKE '%'||#{keyword}||'%'
  			</if>
  			
- 			<!-- <if test="keyword != null">
- 				where qna_num > 0 <include refid="criteria"></include>
- 			</if> -->
  	
  	</select>
  	
