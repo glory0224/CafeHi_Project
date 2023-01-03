@@ -98,8 +98,6 @@ create table cafehi_qna(
     qna_content varchar2(500),
     qna_writetime Date,
     qna_hit number,
-    qna_select varchar2(30),
-    qna_search varchar2(100),
     upload_path varchar2(300),
     fileName varchar2(50),
     
@@ -145,7 +143,7 @@ create table cafehi_menu(
     menu_name varchar2(50),
     menu_explain varchar2(100), 
     menu_img_path varchar2(200),
-    menu_amount number default 0
+    menu_count number default 0
 );
 
 -- 메뉴 데이터(이미지 경로는 메뉴 사진이 없는 경우 로고 사진으로 대체, 추후 사진 추가 예정)

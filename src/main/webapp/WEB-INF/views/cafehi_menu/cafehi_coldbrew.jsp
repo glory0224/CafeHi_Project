@@ -49,7 +49,7 @@
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='coldbrewCount0' class="m-1">
-                  	${coldbrewList0.menu_amount }
+                  	${coldbrewList0.menu_count }
 					</div>
 				<input class="btn btn-sm btn-outline-success" type='button' onclick='countColdBrewList0("plus")' value='+' /> &nbsp;
                   <input class="btn btn-sm btn-outline-success" type='button' onclick='countColdBrewList0("minus")' value='-' />
@@ -79,7 +79,7 @@
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='coldbrewCount1' class="m-1">
-                  	${coldbrewList1.menu_amount }
+                  	${coldbrewList1.menu_count }
 					</div>
 				<input class="btn btn-sm btn-outline-success" type='button' onclick='countColdBrewList1("plus")' value='+' /> &nbsp;
                   <input class="btn btn-sm btn-outline-success" type='button' onclick='countColdBrewList1("minus")' value='-' />
@@ -109,7 +109,7 @@
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='coldbrewCount2' class="m-1">
-                  	${coldbrewList2.menu_amount }
+                  	${coldbrewList2.menu_count }
 					</div>
 				<input class="btn btn-sm btn-outline-success" type='button' onclick='countColdBrewList2("plus")' value='+' /> &nbsp;
                   <input class="btn btn-sm btn-outline-success" type='button' onclick='countColdBrewList2("minus")' value='-' />
@@ -139,7 +139,7 @@
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='coldbrewCount3' class="m-1">
-                  	${coldbrewList3.menu_amount }
+                  	${coldbrewList3.menu_count }
 					</div>
 				<input class="btn btn-sm btn-outline-success" type='button' onclick='countColdBrewList3("plus")' value='+' /> &nbsp;
                   <input class="btn btn-sm btn-outline-success" type='button' onclick='countColdBrewList3("minus")' value='-' />
@@ -169,7 +169,7 @@
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='coldbrewCount4' class="m-1">
-                  	${coldbrewList4.menu_amount }
+                  	${coldbrewList4.menu_count }
 					</div>
 				<input class="btn btn-sm btn-outline-success" type='button' onclick='countColdBrewList4("plus")' value='+' /> &nbsp;
                   <input class="btn btn-sm btn-outline-success" type='button' onclick='countColdBrewList4("minus")' value='-' />

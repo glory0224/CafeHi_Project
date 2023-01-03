@@ -50,7 +50,7 @@
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='teaCount0' class="m-1">
-                  	${teaList0.menu_amount }
+                  	${teaList0.menu_count }
 					</div>
 				<input class="btn btn-sm btn-outline-success" type='button' onclick='countTeaList0("plus")' value='+' /> &nbsp;
                   <input class="btn btn-sm btn-outline-success" type='button' onclick='countTeaList0("minus")' value='-' />
@@ -80,7 +80,7 @@
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='teaCount1' class="m-1">
-                  	${teaList1.menu_amount }
+                  	${teaList1.menu_count }
 					</div>
 				<input class="btn btn-sm btn-outline-success" type='button' onclick='countTeaList1("plus")' value='+' /> &nbsp;
                   <input class="btn btn-sm btn-outline-success" type='button' onclick='countTeaList1("minus")' value='-' />
@@ -110,7 +110,7 @@
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='teaCount2' class="m-1">
-                  	${teaList2.menu_amount }
+                  	${teaList2.menu_count }
 					</div>
 				<input class="btn btn-sm btn-outline-success" type='button' onclick='countTeaList2("plus")' value='+' /> &nbsp;
                   <input class="btn btn-sm btn-outline-success" type='button' onclick='countTeaList2("minus")' value='-' />
@@ -140,7 +140,7 @@
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='teaCount3' class="m-1">
-                  	${teaList3.menu_amount }
+                  	${teaList3.menu_count }
 					</div>
 				<input class="btn btn-sm btn-outline-success" type='button' onclick='countTeaList3("plus")' value='+' /> &nbsp;
                   <input class="btn btn-sm btn-outline-success" type='button' onclick='countTeaList3("minus")' value='-' />
@@ -170,7 +170,7 @@
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='teaCount4' class="m-1">
-                  	${teaList0.menu_amount }
+                  	${teaList0.menu_count }
 					</div>
 				<input class="btn btn-sm btn-outline-success" type='button' onclick='countTeaList4("plus")' value='+' /> &nbsp;
                   <input class="btn btn-sm btn-outline-success" type='button' onclick='countTeaList4("minus")' value='-' />
@@ -200,7 +200,7 @@
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='teaCount5' class="m-1">
-                  	${teaList5.menu_amount }
+                  	${teaList5.menu_count }
 					</div>
 				<input class="btn btn-sm btn-outline-success" type='button' onclick='countTeaList5("plus")' value='+' /> &nbsp;
                   <input class="btn btn-sm btn-outline-success" type='button' onclick='countTeaList5("minus")' value='-' />
@@ -230,7 +230,7 @@
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='teaCount6' class="m-1">
-                  	${teaList0.menu_amount }
+                  	${teaList0.menu_count }
 					</div>
 				<input class="btn btn-sm btn-outline-success" type='button' onclick='countTeaList6("plus")' value='+' /> &nbsp;
                   <input class="btn btn-sm btn-outline-success" type='button' onclick='countTeaList6("minus")' value='-' />
@@ -260,7 +260,7 @@
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='teaCount7' class="m-1">
-                  	${teaList7.menu_amount }
+                  	${teaList7.menu_count }
 					</div>
 				<input class="btn btn-sm btn-outline-success" type='button' onclick='countTeaList7("plus")' value='+' /> &nbsp;
                   <input class="btn btn-sm btn-outline-success" type='button' onclick='countTeaList7("minus")' value='-' />
@@ -290,7 +290,7 @@
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='teaCount8' class="m-1">
-                  	${teaList8.menu_amount }
+                  	${teaList8.menu_count }
 					</div>
 				<input class="btn btn-sm btn-outline-success" type='button' onclick='countTeaList8("plus")' value='+' /> &nbsp;
                   <input class="btn btn-sm btn-outline-success" type='button' onclick='countTeaList8("minus")' value='-' />
@@ -320,7 +320,7 @@
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='teaCount9' class="m-1">
-                  	${teaList9.menu_amount }
+                  	${teaList9.menu_count }
 					</div>
 				<input class="btn btn-sm btn-outline-success" type='button' onclick='countTeaList9("plus")' value='+' /> &nbsp;
                   <input class="btn btn-sm btn-outline-success" type='button' onclick='countTeaList9("minus")' value='-' />
@@ -350,7 +350,7 @@
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='teaCount10' class="m-1">
-                  	${teaList10.menu_amount }
+                  	${teaList10.menu_count }
 					</div>
 				<input class="btn btn-sm btn-outline-success" type='button' onclick='countTeaList10("plus")' value='+' /> &nbsp;
                   <input class="btn btn-sm btn-outline-success" type='button' onclick='countTeaList10("minus")' value='-' />
@@ -380,7 +380,7 @@
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='teaCount11' class="m-1">
-                  	${teaList11.menu_amount }
+                  	${teaList11.menu_count }
 					</div>
 				<input class="btn btn-sm btn-outline-success" type='button' onclick='countTeaList11("plus")' value='+' /> &nbsp;
                   <input class="btn btn-sm btn-outline-success" type='button' onclick='countTeaList11("minus")' value='-' />
@@ -410,7 +410,7 @@
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='teaCount12' class="m-1">
-                  	${teaList12.menu_amount }
+                  	${teaList12.menu_count }
 					</div>
 				<input class="btn btn-sm btn-outline-success" type='button' onclick='countTeaList12("plus")' value='+' /> &nbsp;
                   <input class="btn btn-sm btn-outline-success" type='button' onclick='countTeaList12("minus")' value='-' />
@@ -440,7 +440,7 @@
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='teaCount13' class="m-1">
-                  	${teaList13.menu_amount }
+                  	${teaList13.menu_count }
 					</div>
 				<input class="btn btn-sm btn-outline-success" type='button' onclick='countTeaList13("plus")' value='+' /> &nbsp;
                   <input class="btn btn-sm btn-outline-success" type='button' onclick='countTeaList13("minus")' value='-' />
@@ -470,7 +470,7 @@
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='teaCount14' class="m-1">
-                  	${teaList14.menu_amount }
+                  	${teaList14.menu_count }
 					</div>
 				<input class="btn btn-sm btn-outline-success" type='button' onclick='countTeaList14("plus")' value='+' /> &nbsp;
                   <input class="btn btn-sm btn-outline-success" type='button' onclick='countTeaList14("minus")' value='-' />

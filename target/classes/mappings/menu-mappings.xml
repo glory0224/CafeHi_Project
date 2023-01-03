@@ -11,6 +11,7 @@
  		<result property="menu_name" column="MENU_NAME"/>
  		<result property="menu_explain" column="MENU_EXPLAIN"/>
  		<result property="menu_img_path" column="MENU_IMG_PATH" />
+ 		<result property="menu_count" column="MENU_COUNT" />
  	</resultMap>
  	
  	<select id="getCoffeeList" resultMap="MenuResult">
