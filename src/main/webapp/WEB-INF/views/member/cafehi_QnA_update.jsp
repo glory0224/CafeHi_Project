@@ -28,7 +28,7 @@
 		<p class="fs-5 text-muted">문의 사항을 게시글에 남겨주세요!</p>
 	</div>
 	
-	<form action="QnAUpdate.do" method="post">
+	<form action="QnAUpdate.do" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
 		<main class="mt-5 pt-5 w-50 m-auto">
 		<div class="container-fluid px-4">
@@ -52,7 +52,11 @@
 									</c:when>
 									<c:otherwise>
 										<th>첨부파일</th>
-										<td onclick="location.href='cafehi_fileDown.jsp?fileName=${QnA.upload_path} &writeId=${QnA.member_id }'">${QnA.upload_path }</td>
+										
+										<td>${QnA.fileName } &nbsp; 
+										<input type="file" name="uploadfile">
+										<button>삭제</button>
+										</td>
 									</c:otherwise>
 								</c:choose>
 							</tr>
