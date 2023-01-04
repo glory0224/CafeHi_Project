@@ -139,30 +139,23 @@ public class QnAController {
 		
 	}
 	
-	@PostMapping("/removeFile.do")
-    public ResponseEntity<String> removeFile(@RequestParam("uploadfile") MultipartFile uploadfile,  QnADTO qna){
+	// 파일 삭제 
+	@RequestMapping("/removeFile.do")
+    public String removeFile(QnADTO qna, Model model, HttpServletRequest request) throws UnsupportedEncodingException{
 		
-		String fileName = uploadfile.getOriginalFilename();
-		System.out.println("origin fileName : " + fileName);
+		System.out.println("removeFile controller");
 		System.out.println("qnaFileName : " + qna.getFileName());
 		System.out.println("qnaOriginPath : " + qna.getUpload_path());
-        String srcFileName = null;
-		//return "redirect:getQnA.do";
-
-//        try{
-//            srcFileName = URLDecoder.decode(fileName,"UTF-8");
-//            //UUID가 포함된 파일이름을 디코딩해줍니다.
-//            File file = new File(uploadPath +File.separator + srcFileName);
-//            boolean result = file.delete();
-//
-//            File thumbnail = new File(file.getParent(),"s_"+file.getName());
-//            //getParent() - 현재 File 객체가 나태내는 파일의 디렉토리의 부모 디렉토리의 이름 을 String으로 리턴해준다.
-//            result = thumbnail.delete();
-//            return new ResponseEntity<>(result,HttpStatus.OK);
-//        }catch (UnsupportedEncodingException e){
-//            e.printStackTrace();
-//            return new ResponseEntity<>(false,HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
+		
+		
+		File file = new File(qna.getUpload_path());
+		
+		file.delete(); 
+		System.out.println("가져온 파일 이름 : " + qna.getFileName());
+		qna.setFileName(null);
+		System.out.println("삭제 후  파일 확인 : " + qna.getFileName());
+		return "redirect:/QnAUpdate.do?qna_num=" + qna.getQna_num();	
+		
     }
 	
 	
@@ -170,7 +163,7 @@ public class QnAController {
 	
 
 	@RequestMapping(value= "/InsertQnA.do", method = RequestMethod.POST)
-	public String InsertQnA(@RequestParam("uploadfile") MultipartFile uploadfile,  QnADTO qna, RedirectAttributes ra) throws IOException {
+	public String InsertQnA(@RequestParam(value = "uploadfile", required = false) MultipartFile uploadfile,  QnADTO qna, RedirectAttributes ra) throws IOException {
 		
 		
 		System.out.println("qna_title : " + qna.getQna_title()); 
@@ -201,12 +194,14 @@ public class QnAController {
 	public String QnAUpdatePage(QnADTO qna, Model model) {
 		 
 		model.addAttribute("QnA", qnaService.getQnA(qna));
+		System.out.println("getfileName :" + qna.getFileName());
+		System.out.println("getOriginPath : " + qna.getUpload_path());
 		return "member/cafehi_QnA_update";
 	}
 	
 	
 	@RequestMapping(value= "/QnAUpdate.do", method = RequestMethod.POST)
-	public String UpdateQnA(@RequestParam("uploadfile") MultipartFile uploadfile, QnADTO qna, HttpServletRequest request) throws IllegalStateException, IOException {
+	public String UpdateQnA(@RequestParam(value = "uploadfile", required = false) MultipartFile uploadfile, QnADTO qna, HttpServletRequest request) throws IllegalStateException, IOException {
 		
 		
 		
@@ -220,12 +215,19 @@ public class QnAController {
 			File path = new File("D:/Spring/upload/" + UUID.randomUUID().toString() + fileName);
 			qna.setUpload_path(path.getPath());
 			File.transferTo(path);
+			
+			qnaService.updateQnA(qna);
+			request.setAttribute("msg", "수정이 완료되었습니다.");
+			request.setAttribute("url", "QnAUpdate.do?qna_num=" + qna.getQna_num());
+			return "alert";
+		}else {
+			qnaService.updateQnA(qna);
+			request.setAttribute("msg", "수정이 완료되었습니다.");
+			request.setAttribute("url", "QnAUpdate.do?qna_num=" + qna.getQna_num());
+			return "alert";
 		}
 		
-		qnaService.updateQnA(qna);
-		request.setAttribute("msg", "수정이 완료되었습니다.");
-		request.setAttribute("url", "QnAUpdate.do?qna_num=" + qna.getQna_num());
-		return "alert";
+		
 	}
 	
 	@RequestMapping("/DeleteQnA.do")

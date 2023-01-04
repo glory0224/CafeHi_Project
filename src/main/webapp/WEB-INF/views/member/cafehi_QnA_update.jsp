@@ -48,14 +48,20 @@
 								<th>작성일</th><td><fmt:formatDate value="${QnA.qna_writetime }" pattern="yyyy-MM-dd"/></td>
 								<c:choose>
 									<c:when test="${QnA.upload_path eq null }">
-										<th>첨부파일</th><td>없음</td>
+										<th>첨부파일</th>
+										<td><input type="file" name="uploadfile"></td>
 									</c:when>
 									<c:otherwise>
 										<th>첨부파일</th>
-										
 										<td>${QnA.fileName } &nbsp; 
 										<input type="file" name="uploadfile">
-										<button>삭제</button>
+										<!-- url encoding 문제로 인해 c:url 태그 사용  -->
+										<c:url value="removeFile.do" var="path">
+											<c:param name="upload_path" value="${QnA.upload_path }"/>
+											<c:param name="fileName" value="${QnA.fileName }"/>
+											<c:param name="qna_num" value="${QnA.qna_num }"/>
+										</c:url>
+										<a href="${path }">삭제</a>
 										</td>
 									</c:otherwise>
 								</c:choose>
@@ -90,7 +96,7 @@
 						</div>
  						<div class="d-flex flex-row-reverse bd-highlight">
 							<div class="justify-content-between">
-							<input class="btn btn-success" type="submit" value="수정">
+							<button class="btn btn-success">수정</button>
 							<button type="button" class="btn btn-success" onclick = "location.href='QnAList.do'">목록</button>
 							
 							</div>
@@ -103,4 +109,22 @@
 </form>
 	<jsp:include page="/cafeHi_module/footer.jsp"/>
 </body>
+<script type="text/javascript">
+	$.ajax({
+	   url: path ,
+	   type: 'get',
+	   contentType: "application/json",
+	   data: {
+	   },
+	   success: function(data) {
+	      alert("성공");
+	   },
+	   error: function(xhr, error, msg) {
+	      console.log(xhr);
+	      console.log(error);
+	      console.log(msg);
+	   },
+	   dataType: 'json'
+	})
+</script>
 </html>
