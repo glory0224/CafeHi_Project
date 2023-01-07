@@ -30,21 +30,6 @@ public class MemberController {
 	private final BCryptPasswordEncoder pwdEncoder;
 	
 	// 회원 수정
-
-//	@RequestMapping("/updateMemberId.do")
-//	public String updateUserId(MemberDTO member) {
-//		
-//		memberService.updateMemberId(member);
-//		
-//		// session 정보 변경 
-//		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//		CustomUser userInfo = (CustomUser) principal;
-//		userInfo.getMember().setMember_id(member.getMember_id());
-//		System.out.println("update id : " + userInfo.getMember().getMember_id());
-//		
-//		return "member/cafehi_memberInfo";
-//		
-//	}
 	
 	@RequestMapping("/updateMemberName.do")
 	public String updateUserName(MemberDTO member) {

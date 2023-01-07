@@ -27,7 +27,6 @@ public class MembershipController {
 	    String member_id = userInfo.getUsername();
 		System.out.println(member_id);
 		myMembershipDTO myMembership = membershipService.getMembership(member_id);
-		//System.out.println(myMembership.getMember().getMember_id());
 		System.out.println(myMembership.getMembership().getMembership_grade());
 		System.out.println(myMembership.getMembership_point());
 		model.addAttribute("membershipGrade",myMembership.getMembership().getMembership_grade());

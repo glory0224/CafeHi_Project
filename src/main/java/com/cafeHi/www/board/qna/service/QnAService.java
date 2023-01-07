@@ -10,8 +10,7 @@ public interface QnAService {
 	
 	//게시판 목록
 	public List<QnADTO> getQnAList(CriteriaDTO cri);
-//	// 페이징 적용 게시판 목록
-//	public List<QnADTO> getQnAListPaging(Criteria cri);
+
 	// 게시판 개수
 	public int getQnANum(CriteriaDTO cri);
 	public QnADTO getQnA(QnADTO qna);
