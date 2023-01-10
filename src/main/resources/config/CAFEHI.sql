@@ -289,8 +289,8 @@ create table cafehi_menu(
 
 commit;
 
-select Menu.menu_price, Menu.menu_explain from cafehi_sub_category subCategory, cafehi_menu Menu
-where subCategory.category_sub_code = Menu.category_sub_code and subCategory.category_sub_name = 'coldbrew';
+--select Menu.menu_price, Menu.menu_explain from cafehi_sub_category subCategory, cafehi_menu Menu
+--where subCategory.category_sub_code = Menu.category_sub_code and subCategory.category_sub_name = 'coldbrew';
 
 -- 장바구니 테이블
 
@@ -358,32 +358,32 @@ create table cafehi_mem_coupon(
 
 -- QnA 게시판 페이징 쿼리
 
- select rownum as rn, qna_num, qna_title, qna_content, qna_writetime, qna_hit, user_id
-    from cafehi_qna where rownum <= 20;
-
-
-select rn, qna_num, qna_title, qna_content, qna_writetime, qna_hit, user_id from(
-    select rownum as rn, qna_num, qna_title, qna_content, qna_writetime, qna_hit, user_id
-    from cafehi_qna where rownum <= 10)
-where rn > 20
-
-order by qna_num desc
-;
-
-
-
-SELECT qna_num, qna_title, qna_writetime, user_id, qna_content, qna_hit FROM(
-				SELECT rownum as rn, qna_num, qna_title, qna_writetime, user_id, qna_content, qna_hit 
-				FROM cafehi_qna WHERE rownum <= 10)
-			
-			WHERE rn >= 1;
-            
-
-SELECT * FROM (
- 		SELECT qna_num, qna_title, qna_writetime, user_id, qna_content, qna_hit FROM(
- 		SELECT rownum as rn, qna_num, qna_title, qna_writetime, user_id, qna_content, qna_hit
- 		FROM cafehi_qna WHERE rownum <= 10)
- 		WHERE rn > 0)
- 		WHERE 1=1
-        AND qna_title LIKE '%' || '제목' || '%' 
- 		ORDER BY qna_num DESC;
+-- select rownum as rn, qna_num, qna_title, qna_content, qna_writetime, qna_hit, user_id
+--    from cafehi_qna where rownum <= 20;
+--
+--
+--select rn, qna_num, qna_title, qna_content, qna_writetime, qna_hit, user_id from(
+--    select rownum as rn, qna_num, qna_title, qna_content, qna_writetime, qna_hit, user_id
+--    from cafehi_qna where rownum <= 10)
+--where rn > 20
+--
+--order by qna_num desc
+--;
+--
+--
+--
+--SELECT qna_num, qna_title, qna_writetime, user_id, qna_content, qna_hit FROM(
+--				SELECT rownum as rn, qna_num, qna_title, qna_writetime, user_id, qna_content, qna_hit 
+--				FROM cafehi_qna WHERE rownum <= 10)
+--			
+--			WHERE rn >= 1;
+--            
+--
+--SELECT * FROM (
+-- 		SELECT qna_num, qna_title, qna_writetime, user_id, qna_content, qna_hit FROM(
+-- 		SELECT rownum as rn, qna_num, qna_title, qna_writetime, user_id, qna_content, qna_hit
+-- 		FROM cafehi_qna WHERE rownum <= 10)
+-- 		WHERE rn > 0)
+-- 		WHERE 1=1
+--        AND qna_title LIKE '%' || '제목' || '%' 
+-- 		ORDER BY qna_num DESC;
