@@ -23,8 +23,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	public MemberDTO readMember(String member_id) {
-		return memberDAO.readMember(member_id);
+	public MemberDTO readMember(String member_code) {
+		return memberDAO.readMember(member_code);
 	}
 
 	@Override
@@ -78,8 +78,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	public int idCheck(String member_id) {
-		int result = memberDAO.idCheck(member_id);
+	public int idCheck(String member_code) {
+		int result = memberDAO.idCheck(member_code);
 		return result;
 	}
 

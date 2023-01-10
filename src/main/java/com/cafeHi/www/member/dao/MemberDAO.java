@@ -21,8 +21,8 @@ public class MemberDAO {
 		return sqlSessionTemplate.selectOne("MemberDAO.getMember", member);
 	}
 	
-	public MemberDTO readMember(String member_id) {
-		return sqlSessionTemplate.selectOne("MemberDAO.readMember", member_id);
+	public MemberDTO readMember(String member_code) {
+		return sqlSessionTemplate.selectOne("MemberDAO.readMember", member_code);
 		
 	}
 	
@@ -66,8 +66,8 @@ public class MemberDAO {
 		return sqlSessionTemplate.selectOne("MemberDAO.checkEmail", email);
 	}
 	
-	public int idCheck(String member_id) {
-		int result = sqlSessionTemplate.selectOne("MemberDAO.checkId", member_id);
+	public int idCheck(String member_code) {
+		int result = sqlSessionTemplate.selectOne("MemberDAO.checkId", member_code);
 		return result;
 	}
 	

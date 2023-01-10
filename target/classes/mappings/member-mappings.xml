@@ -4,8 +4,8 @@
  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="MemberDAO">
  	<resultMap type="Member" id="MemberResult">
- 		<id property="member_id" column="MEMBER_ID"/>
- 		<result property="member_seq" column="MEMBER_SEQ"/>
+ 		<id property="member_code" column="MEMBER_CODE"/>
+ 		<result property="member_code" column="MEMBER_CODE"/>
  		<result property="member_id" column="MEMBER_ID"/>
  		<result property="member_pw" column="MEMBER_PW"/>
  		<result property="member_name" column="MEMBER_NAME"/>
@@ -21,77 +21,78 @@
  	</resultMap>
  	
  	<resultMap type="Auth" id="AuthResult">
- 		<result property="member_id" column="MEMBER_ID"/>
+ 		<result property="member_auth_code" column = "member_auth_code" />
+ 		<result property="member_code" column="member_code"/>
  		<result property="auth" column="AUTH"/>
  	</resultMap>
  	
  	<!-- 회원 CRUD -->
  	
  	<insert id="insertMember" parameterType="Member">
- 		INSERT INTO cafehi_member(member_seq, member_id, member_pw, member_name, member_contact, member_email, member_road_address, member_jibun_address, member_detail_address) 
- 		VALUES((select nvl(max(member_seq), 0)+1 from cafehi_member), #{member_id}, #{member_pw},#{member_name},#{member_contact}, #{member_email}, #{member_road_address},#{member_jibun_address},#{member_detail_address})
+ 		INSERT INTO cafehi_member(member_code, member_id, member_pw, member_name, member_contact, member_email, member_road_address, member_jibun_address, member_detail_address) 
+ 		VALUES((select nvl(max(member_code), 0)+1 from cafehi_member), #{member_id}, #{member_pw},#{member_name},#{member_contact}, #{member_email}, #{member_road_address},#{member_jibun_address},#{member_detail_address})
  	</insert>
  	
  	<insert id="insertMemberAuth" parameterType="Auth">
- 		INSERT INTO cafehi_member_auth(member_id, auth) VALUES(#{member_id}, #{auth})
+ 		INSERT INTO cafehi_member_auth(member_code, auth) VALUES(#{member_code}, #{auth})
  	</insert>
  	
 
  	<update id="updateMemberName" parameterType="Member">
  		UPDATE cafehi_member
  		SET member_name = #{member_name}
- 		WHERE member_id = #{member_id}
+ 		WHERE member_code = #{member_code}
  	</update>
  	
  	<update id="updateMemberContact" parameterType="Member">
  		UPDATE cafehi_member
  		SET member_contact = #{member_contact}
- 		WHERE member_id = #{member_id}
+ 		WHERE member_code = #{member_code}
  	</update>
  	
  	<update id="updateMemberEmail" parameterType="Member">
  		UPDATE cafehi_member
  		SET member_email = #{member_email}
- 		WHERE member_id = #{member_id}
+ 		WHERE member_code = #{member_code}
  	</update>
  	
  	<update id="updateMemberAddress" parameterType="Member">
  		UPDATE cafehi_member
  		SET member_road_address = #{member_road_address}, member_jibun_address = #{member_jibun_address}
- 		WHERE member_id = #{member_id}
+ 		WHERE member_code = #{member_code}
  	</update>
  	
  	<update id="updateMemberDetailAddress" parameterType="Member">
  		UPDATE cafehi_member
  		SET member_detail_address = #{member_detail_address}
- 		WHERE member_id = #{member_id}
+ 		WHERE member_code = #{member_code}
  	</update>
  	
  	
  	<delete id="deleteMember" parameterType="Member">
- 		DELETE FROM cafehi_member WHERE member_id = #{member_id}
+ 		DELETE FROM cafehi_member WHERE member_code = #{member_code}
  	</delete>
  
 	
  	<select id="getMember" parameterType="Member" resultType="Member">
  		SELECT * FROM cafehi_member
- 		WHERE member_id = #{member_id}
+ 		WHERE member_code = #{member_code}
  	</select>
  	
  	<select id="readMember" parameterType="String" resultMap="MemberResult">
  		SELECT 
- 			member_seq, mem.member_id, member_pw, member_name, member_contact, member_email, member_road_address, member_jibun_address, member_detail_address, enabled, auth
+ 			member_code, mem.member_id, member_pw, member_name, member_contact, member_email, member_road_address, member_jibun_address, member_detail_address, enabled, auth
  		FROM
- 			cafehi_member mem LEFT OUTER JOIN cafehi_member_auth auth on mem.member_id = 
- 			auth.member_id
+ 			cafehi_member mem LEFT OUTER JOIN cafehi_member_auth auth on mem.member_code = 
+ 			auth.member_code
  		WHERE
- 			mem.member_id = #{member_id}
+ 			mem.member_code = #{member_code}
  	</select>
  	
  	<!-- 아이디 찾기 관련  -->
  	
  	 <select id="checkId" parameterType="String" resultType="int">
-		SELECT count(*) FROM cafehi_member WHERE member_id = #{member_id}	
+		SELECT count(*) FROM cafehi_member WHERE member_code = #{member_code}	
  	</select>
  	
  	<select id="checkEmail" parameterType="String" resultType="int">

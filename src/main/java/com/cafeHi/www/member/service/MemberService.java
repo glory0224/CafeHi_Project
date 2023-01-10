@@ -7,7 +7,7 @@ public interface MemberService {
 	
 	// 회원 CRUD
 	public MemberDTO getMember(MemberDTO member);
-	public MemberDTO readMember(String member_id);
+	public MemberDTO readMember(String member_code);
 	public void insertMember(MemberDTO member);
 	public void insertMemberAuth(AuthDTO memberauth);
 	public void updateMemberName(MemberDTO member);
@@ -20,7 +20,7 @@ public interface MemberService {
 
 	// 중복 확인
 	public int checkEmail(String email);
-	public int idCheck(String member_id);
+	public int idCheck(String member_code);
 	
 	// 아이디 찾기
 	public MemberDTO findEmailId(MemberDTO member);
