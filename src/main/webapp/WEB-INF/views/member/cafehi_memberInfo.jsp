@@ -32,7 +32,7 @@
 <jsp:include page="/cafeHi_module/myPageNav.jsp"/>
 </div>
 <div class="w-50 m-auto" style="padding-top: 5%">
-	<input name="userSeq" value="<sec:authentication property="principal.member.member_seq"/>" type="hidden" />
+	<input name="userSeq" value="<sec:authentication property="principal.member.member_code"/>" type="hidden" />
   <div class="m-5">
     <label for="userId" class="form-label">아이디</label>
   	<h3><b><sec:authentication property="principal.member.member_id"/></b></h3>

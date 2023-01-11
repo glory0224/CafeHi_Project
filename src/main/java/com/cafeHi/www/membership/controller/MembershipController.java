@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.cafeHi.www.member.dto.CustomUser;
+import com.cafeHi.www.member.dto.MemberDTO;
 import com.cafeHi.www.membership.dto.myMembershipDTO;
 import com.cafeHi.www.membership.service.MembershipService;
 
@@ -24,9 +25,11 @@ public class MembershipController {
 	public String myMembershipView(Model model) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		CustomUser userInfo = (CustomUser) principal;
-	    String member_id = userInfo.getUsername();
-		System.out.println(member_id);
-		myMembershipDTO myMembership = membershipService.getMembership(member_id);
+		MemberDTO mem = userInfo.getMember();
+		int member_code = mem.getMember_code();
+	    //String member_id = userInfo.getUsername();
+		System.out.println(mem.getMember_code());
+		myMembershipDTO myMembership = membershipService.getMembership(member_code);
 		System.out.println(myMembership.getMembership().getMembership_grade());
 		System.out.println(myMembership.getMembership_point());
 		model.addAttribute("membershipGrade",myMembership.getMembership().getMembership_grade());

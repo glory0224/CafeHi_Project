@@ -34,7 +34,7 @@
  	</insert>
  	
  	<insert id="insertMemberAuth" parameterType="Auth">
- 		INSERT INTO cafehi_member_auth(member_auth_code, member_code, auth) VALUES((select nvl(max(member_auth_code), 0)+1 from cafehi_member_auth), #{member_code}, #{auth})
+ 		INSERT INTO cafehi_member_auth VALUES((select nvl(max(member_auth_code), 0)+1 from cafehi_member_auth), #{member_code}, #{auth})
  	</insert>
  	
 
@@ -69,7 +69,7 @@
  	</update>
  	
  	
- 	<delete id="deleteMember" parameterType="Member">
+ 	<delete id="deleteMember" parameterType="int">
  		DELETE FROM cafehi_member WHERE member_code = #{member_code}
  	</delete>
  
@@ -81,12 +81,12 @@
  	
  	<select id="readMember" parameterType="String" resultMap="MemberResult">
  		SELECT 
- 			member_code, mem.member_id, member_pw, member_name, member_contact, member_email, member_road_address, member_jibun_address, member_detail_address, enabled, auth
+ 			mem.member_id, member_pw, member_name, member_contact, member_email, member_road_address, member_jibun_address, member_detail_address, enabled, auth
  		FROM
  			cafehi_member mem LEFT OUTER JOIN cafehi_member_auth auth on mem.member_code = 
  			auth.member_code
  		WHERE
- 			mem.member_code = #{member_code}
+ 			mem.member_id = #{member_id}
  	</select>
  	
  	<!-- 아이디 찾기 관련  -->

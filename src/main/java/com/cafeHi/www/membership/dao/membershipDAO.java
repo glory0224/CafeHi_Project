@@ -19,12 +19,12 @@ public class membershipDAO {
 		sqlSessionTemplate.insert("MembershipDAO.insertMembership", member);
 	}
 	
-	public myMembershipDTO getMembership(String member_id) {
+	public myMembershipDTO getMembership(int member_code) {
 		
-		myMembershipDTO result = sqlSessionTemplate.selectOne("MembershipDAO.getMembership", member_id);
+		myMembershipDTO result = sqlSessionTemplate.selectOne("MembershipDAO.getMembership", member_code);
 		
 		System.out.println(result);
-		return sqlSessionTemplate.selectOne("MembershipDAO.getMembership", member_id);
+		return sqlSessionTemplate.selectOne("MembershipDAO.getMembership", member_code);
 		
 	}
 	

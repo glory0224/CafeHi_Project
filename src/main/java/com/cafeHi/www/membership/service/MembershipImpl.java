@@ -25,11 +25,11 @@ public class MembershipImpl implements MembershipService{
 	}
 
 	@Override
-	public myMembershipDTO getMembership(String member_id) {
+	public myMembershipDTO getMembership(int member_code) {
 		
 		
 		
-		return membershipDAO.getMembership(member_id);
+		return membershipDAO.getMembership(member_code);
 	}
 
 	

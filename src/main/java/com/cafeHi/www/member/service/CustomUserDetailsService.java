@@ -27,8 +27,8 @@ public class CustomUserDetailsService implements UserDetailsService{
 		
 		// userName means userid
 		MemberDTO mem = memberService.readMember(username);
-		
-		
+		MemberDTO getMem = memberService.getMember(mem);
+		mem.setMember_code(getMem.getMember_code());
 		log.warn("queried by member : " + mem);
 		
 		return mem ==  null ? null : new CustomUser(mem);

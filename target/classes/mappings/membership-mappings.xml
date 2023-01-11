@@ -51,8 +51,8 @@
  		INSERT INTO my_membership(my_membership_code, membership_code, member_code, membership_point) VALUES((select nvl(max(my_membership_code), 0)+1 from my_membership) , 1, #{member_code}, 0)
  	</insert>
  	
- 	<select id="getMembership" parameterType="String" resultMap="myMembershipResult">
- 		select myMembership.member_code, membership.membership_grade, myMembership.membership_point from my_membership myMembership, cafehi_membership membership 
+ 	<select id="getMembership" parameterType="int" resultMap="myMembershipResult">
+ 		select membership.membership_grade, myMembership.membership_point from my_membership myMembership, cafehi_membership membership 
 		where myMembership.membership_code = membership.membership_code and myMembership.member_code = #{member_code} 
  	</select>
  </mapper>

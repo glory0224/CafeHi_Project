@@ -7,5 +7,5 @@ import com.cafeHi.www.membership.dto.myMembershipDTO;
 public interface MembershipService {
 
 	public void insertMembership(MemberDTO member);
-	public myMembershipDTO getMembership(String member_id);
+	public myMembershipDTO getMembership(int member_code);
 }
