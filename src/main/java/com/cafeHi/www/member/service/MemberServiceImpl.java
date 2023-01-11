@@ -78,8 +78,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	public int idCheck(String member_code) {
-		int result = memberDAO.idCheck(member_code);
+	public int idCheck(String member_id) {
+		int result = memberDAO.idCheck(member_id);
 		return result;
 	}
 

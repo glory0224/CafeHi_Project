@@ -57,10 +57,12 @@ public class SignUpController {
 			}
 			
 			memberService.insertMember(member);
-			memberauth.setMember_id(member.getMember_id());
+			MemberDTO getMember = memberService.getMember(member);
+		
+			memberauth.setMember_code(getMember.getMember_code());
 			memberauth.setAuth("ROLE_USER");
 			memberService.insertMemberAuth(memberauth);
-			membershipService.insertMembership(member);
+			membershipService.insertMembership(getMember);
 			
 			return "cafehi_login";
 		}

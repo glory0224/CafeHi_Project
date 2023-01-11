@@ -66,8 +66,8 @@ public class MemberDAO {
 		return sqlSessionTemplate.selectOne("MemberDAO.checkEmail", email);
 	}
 	
-	public int idCheck(String member_code) {
-		int result = sqlSessionTemplate.selectOne("MemberDAO.checkId", member_code);
+	public int idCheck(String member_id) {
+		int result = sqlSessionTemplate.selectOne("MemberDAO.checkId", member_id);
 		return result;
 	}
 	

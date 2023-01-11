@@ -21,8 +21,8 @@
  	</resultMap>
  	
  	<resultMap type="Auth" id="AuthResult">
- 		<result property="member_auth_code" column = "member_auth_code" />
- 		<result property="member_code" column="member_code"/>
+ 		<result property="member_auth_code" column = "MEMBER_AUTH_CODE" />
+ 		<result property="member_code" column="MEMBER_CODE"/>
  		<result property="auth" column="AUTH"/>
  	</resultMap>
  	
@@ -34,7 +34,7 @@
  	</insert>
  	
  	<insert id="insertMemberAuth" parameterType="Auth">
- 		INSERT INTO cafehi_member_auth(member_code, auth) VALUES(#{member_code}, #{auth})
+ 		INSERT INTO cafehi_member_auth(member_auth_code, member_code, auth) VALUES((select nvl(max(member_auth_code), 0)+1 from cafehi_member_auth), #{member_code}, #{auth})
  	</insert>
  	
 
@@ -76,7 +76,7 @@
 	
  	<select id="getMember" parameterType="Member" resultType="Member">
  		SELECT * FROM cafehi_member
- 		WHERE member_code = #{member_code}
+ 		WHERE member_id = #{member_id}
  	</select>
  	
  	<select id="readMember" parameterType="String" resultMap="MemberResult">
@@ -92,7 +92,7 @@
  	<!-- 아이디 찾기 관련  -->
  	
  	 <select id="checkId" parameterType="String" resultType="int">
-		SELECT count(*) FROM cafehi_member WHERE member_code = #{member_code}	
+		SELECT count(*) FROM cafehi_member WHERE member_id = #{member_id}	
  	</select>
  	
  	<select id="checkEmail" parameterType="String" resultType="int">

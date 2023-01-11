@@ -5,6 +5,9 @@
  
  <mapper namespace="MembershipDAO">
  	<resultMap type="myMembership" id="myMembershipResult">
+ 		
+ 		<result property="my_membership_code" column="MY_MEMBERSHIP_CODE"/>
+ 		
  		<result property="membership_point" column="MEMBERSHIP_POINT"/>
  		
  		<association property="membership" javaType="Membership" resultMap="MembershipResult"/>
@@ -20,32 +23,36 @@
  	</resultMap>
  	
  	<resultMap type="Member" id="MemberResult">
- 		<id property="member_id" column="MEMBER_ID"/>
-	 		<result property="member_seq" column="MEMBER_SEQ"/>
-	 		<result property="member_id" column="MEMBER_ID"/>
-	 		<result property="member_pw" column="MEMBER_PW"/>
-	 		<result property="member_name" column="MEMBER_NAME"/>
-	 		<result property="member_contact" column="MEMBER_CONTACT"/>
-	 		<result property="member_email" column="MEMBER_EMAIL"/>
-	 		<result property="member_address" column="MEMBER_ADDRESS"/>
-	 		<collection property="authList" resultMap="AuthResult">
-	 		
-	 		</collection>
+ 		<id property="member_code" column="MEMBER_CODE"/>
+ 		<result property="member_code" column="MEMBER_CODE"/>
+ 		<result property="member_id" column="MEMBER_ID"/>
+ 		<result property="member_pw" column="MEMBER_PW"/>
+ 		<result property="member_name" column="MEMBER_NAME"/>
+ 		<result property="member_contact" column="MEMBER_CONTACT"/>
+ 		<result property="member_email" column="MEMBER_EMAIL"/>
+ 		<result property="member_road_address" column="MEMBER_ROAD_ADDRESS"/>
+ 		<result property="member_jibun_address" column="MEMBER_JIBUN_ADDRESS"/>
+ 		<result property="member_detail_address" column="MEMBER_DETAIL_ADDRESS"/>
+ 		<result property="enabled" column="ENABLED"/>
+ 		<collection property="authList" resultMap="AuthResult">
+ 		
+ 		</collection>
  	</resultMap>
  	
  	<resultMap type="Auth" id="AuthResult">
- 		<result property="member_id" column="MEMBER_ID"/>
+ 		<result property="member_auth_code" column = "MEMBER_AUTH_CODE" />
+ 		<result property="member_code" column="MEMBER_CODE"/>
  		<result property="auth" column="AUTH"/>
  	</resultMap>
  	
  	
  	
  	<insert id="insertMembership" parameterType="Member">
- 		INSERT INTO my_membership VALUES(1, #{member_id}, 0)
+ 		INSERT INTO my_membership(my_membership_code, membership_code, member_code, membership_point) VALUES((select nvl(max(my_membership_code), 0)+1 from my_membership) , 1, #{member_code}, 0)
  	</insert>
  	
  	<select id="getMembership" parameterType="String" resultMap="myMembershipResult">
- 		select myMembership.member_id, membership.membership_grade, myMembership.membership_point from my_membership myMembership, cafehi_membership membership 
-		where myMembership.membership_code = membership.membership_code and myMembership.member_id = #{member_id} 
+ 		select myMembership.member_code, membership.membership_grade, myMembership.membership_point from my_membership myMembership, cafehi_membership membership 
+		where myMembership.membership_code = membership.membership_code and myMembership.member_code = #{member_code} 
  	</select>
  </mapper>
