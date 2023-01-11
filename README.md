@@ -40,9 +40,9 @@
 
 1. UserDTO 삭제, MemberDTO 생성
 
-2. UserDTO로 구현하던 프로젝트를 MemberDTO로 변경 <br> (스프링 시큐리티의 User 객체를 사용하기 위해 모호함 제거)
+2. UserDTO로 구현하던 프로젝트를 MemberDTO로 변경 <br><br> (스프링 시큐리티의 User 객체를 사용하기 위해 모호함 제거)
 
-3. CAFEHI_MEMBER TABLE Primary key 변경 <br> 이전에는 입력받는 아이디를 기본키로 사용했으나 수정 기능에 아이디를 수정할 수 있도록 하는 기능으로 변경하기 위해 코드 수정 
+3. CAFEHI_MEMBER TABLE Primary key 변경 <br><br> 이전에는 입력받는 아이디를 기본키로 사용했으나 <br><br> 회원 정보 수정에 아이디도 수정 못하는 문제 발생 <br><br> 기본키 컬럼을 하나 더 만들기로 결정
 
 ### 구현 하고 있는 기능 
 
