@@ -35,8 +35,8 @@ public class MemberTests {
 	@Test
 	public void testInsertMember() {
 		
-		String sql = "insert into cafehi_member(member_seq, member_id, member_pw, member_name)"
-				+ "values(?,?,?,?)";
+		String sql = "insert into cafehi_member(member_code, member_id, member_pw, member_name, member_contact, member_email, member_road_address, member_jibun_address, member_detail_address, enabled)"
+				+ "values(?,?,?,?,?,?,?,?,?,?)";
 		
 		for (int i = 0; i < 200; i++) {
 			
@@ -49,6 +49,13 @@ public class MemberTests {
 				
 				pstmt.setInt(1, i);
 				pstmt.setString(3, pwencoder.encode("pw" + i));
+				pstmt.setString(5, "01011111111");
+				pstmt.setString(6,"aaa@naver.com");
+				pstmt.setString(7,"서울");
+				pstmt.setString(8,"은평구");
+				pstmt.setString(9,"메카타운");
+				pstmt.setString(10,"1");
+				
 				
 				if (i < 80) {
 					pstmt.setString(2, "user" + i);
@@ -74,7 +81,7 @@ public class MemberTests {
 	@Test
 	public void testInsertAuth() {
 		
-		String sql = "insert into cafehi_member_auth(member_id, auth) values (?, ?)";
+		String sql = "insert into cafehi_member_auth(member_auth_code, member_code, auth) values (?, ?, ?)";
 		
 		for(int i = 0; i < 200; i++) {
 			Connection con = null;
@@ -83,17 +90,15 @@ public class MemberTests {
 			try {
 				con = ds.getConnection();
 				pstmt = con.prepareStatement(sql);
-				
-				
+				pstmt.setInt(1, i);
+				pstmt.setInt(2, i);
 				if (i < 80) {
-					pstmt.setString(1, "user" + i);
-					pstmt.setString(2, "ROLE_USER");
+					pstmt.setString(3, "ROLE_USER");
 				} else if (i < 90) {
-					pstmt.setString(1, "manager" + i);
-					pstmt.setString(2, "ROLE_MEMBER");
+					
+					pstmt.setString(3, "ROLE_MEMBER");
 				} else {
-					pstmt.setString(1, "admin" + i);
-					pstmt.setString(2, "ROLE_ADMIN");
+					pstmt.setString(3, "ROLE_ADMIN");
 				}
 				
 				pstmt.executeUpdate();

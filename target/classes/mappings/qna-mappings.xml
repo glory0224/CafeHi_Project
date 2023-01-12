@@ -11,20 +11,10 @@
  		<result property="qna_writetime" column="QNA_WRITETIME"/>
  		<result property="qna_hit" column="QNA_HIT" />
  		<result property="upload_path" column="UPLOAD_PATH" />
- 		<result property="member_id" column="MEMBER_ID" />
- 	</resultMap>
- 	 	
- 	<resultMap type="Admin" id="AdminResult">
- 		<id property="admin_id" column="ADMIN_ID"/>
- 		<result property="admin_seq" column="ADMIN_SEQ"/>
- 		<result property="admin_pw" column="ADMIN_PW"/>
- 		<result property="admin_name" column="ADMIN_NAME"/>
- 		<result property="admin_contact" column="ADMIN_CONTACT"/>
- 	</resultMap>
- 	
- 	<resultMap type="Member" id="MemberResult">
- 		<id property="member_id" column="MEMBER_ID"/>
- 		<result property="member_seq" column="MEMBER_SEQ"/>
+ 	<!-- has one -->
+ 	<association property="Member" javaType="Member">
+ 		<id property="member_code" column="MEMBER_CODE"/>
+ 		<result property="member_code" column="MEMBER_CODE"/>
  		<result property="member_id" column="MEMBER_ID"/>
  		<result property="member_pw" column="MEMBER_PW"/>
  		<result property="member_name" column="MEMBER_NAME"/>
@@ -37,7 +27,10 @@
  		<collection property="authList" resultMap="AuthResult">
  		
  		</collection>
+ 	</association>
  	</resultMap>
+ 	 	
+
  	
  	<!-- 검색 조건문 --> 	
 <!-- 	<sql id="criteria">
@@ -78,16 +71,15 @@
   <select id="getQnAList" resultType="QnA">
  		
 
- 	
  	SELECT qna_num, qna_title, qna_content, qna_writetime, qna_hit, member_id FROM(
 	
-	SELECT rownum rn, q.qna_num, q.qna_title, q.qna_content, q.qna_writetime,q.qna_hit, m.member_id FROM
+	SELECT rownum rn, cq.qna_num, cq.qna_title, cq.qna_content, cq.qna_writetime, cq.qna_hit, cm.member_id FROM
 	
-	(SELECT * FROM cafehi_qna ORDER BY qna_num DESC) q, cafehi_member m
+	(SELECT * FROM cafehi_qna ORDER BY qna_num DESC) cq, cafehi_member cm
 	
-	WHERE m.member_id = q.member_id
+	WHERE cm.member_code = cq.member_code
 	<if test="keyword != null">
-          AND q.qna_title like '%'||#{keyword}||'%' 
+          AND cq.qna_title like '%'||#{keyword}||'%' 
     </if>
 	)
 	 <![CDATA[
@@ -107,7 +99,7 @@
 	<!-- 게시글 조회 -->
 	<select id="getQnA" resultType="QnA">
 		SELECT  * FROM(
-		SELECT q.qna_num, q.qna_title, q.qna_content, q.qna_writetime, q.qna_hit, m.member_id, q.upload_path, q.filename FROM cafehi_qna q, cafehi_member m WHERE m.member_id = q.member_id
+		SELECT q.qna_num, q.qna_title, q.qna_content, q.qna_writetime, q.qna_hit, m.member_id, q.upload_path, q.filename FROM cafehi_qna q, cafehi_member m WHERE m.member_code = q.member_code
 		)
 		  WHERE qna_num=#{qna_num}
 	</select>
@@ -118,8 +110,8 @@
 
 	<!-- 게시글 작성  -->
 	<insert id="insertQnA" parameterType="QnA">
-		INSERT INTO cafehi_qna (qna_num, qna_title, qna_writetime, qna_hit, member_id , qna_content, upload_path, filename)
-		VALUES((select nvl(max(qna_num), 0)+1 from cafehi_qna), #{qna_title}, #{qna_writetime}, #{qna_hit}, #{member_id}, #{qna_content}, #{upload_path}, #{fileName})
+		INSERT INTO cafehi_qna (qna_num, qna_title, qna_writetime, qna_hit, member_code , qna_content, upload_path, filename)
+		VALUES((select nvl(max(qna_num), 0)+1 from cafehi_qna), #{qna_title}, #{qna_writetime}, #{qna_hit}, #{member_code}, #{qna_content}, #{upload_path}, #{fileName})
 	</insert>
 	
 	<!-- 게시글 수정 -->

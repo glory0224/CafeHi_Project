@@ -36,6 +36,7 @@
 			<div class="card mb-4">
 				<form action="InsertQnA.do" method="post" 
 					 enctype="multipart/form-data" >
+					 <input type="hidden" name="member_code" value="<sec:authentication property="principal.member.member_code"/>">
 					 <input type="hidden" name="qna_hit" value="0">
 					 <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
 					<div class="card-body">

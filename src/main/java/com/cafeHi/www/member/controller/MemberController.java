@@ -115,7 +115,6 @@ public class MemberController {
 	@RequestMapping("/deleteMember.do")
 	public String deleteUser(MemberDTO member, HttpSession session, HttpServletRequest request) {
 		String MemberId = member.getMember_id();
-		//String encodepw = pwdEncoder.encode(member.getMember_pw());
 		String MemberPw = member.getMember_pw();
 		
 		  Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

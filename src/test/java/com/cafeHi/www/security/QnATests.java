@@ -37,8 +37,8 @@ public class QnATests {
 		
 		
 		 
-		String sql = "insert into cafehi_qna(qna_num, qna_title, qna_content, qna_writetime, qna_hit, member_id)"
-				+"values(?,?,?,?,?,?)";
+		String sql = "insert into cafehi_qna(qna_num, qna_title, qna_content, qna_writetime, qna_hit, upload_path, filename, member_code)"
+				+"values(?,?,?,?,?,?,?,?)";
 		
 		for (int i = 0; i < 200; i++) {
 			
@@ -54,15 +54,18 @@ public class QnATests {
 				pstmt.setString(3, "테스트용 게시글 내용" + i);
 				pstmt.setDate(4, sqlDate);
 				pstmt.setInt(5, 0);
+				pstmt.setString(6, "0"); // null이 안들어오게 하기위한 더미 값 
+				pstmt.setString(7, "0"); // null이 안들어오게 하기위한 더미 값 
+				pstmt.setInt(8, i);
 				
-				if (i < 80) {
-					pstmt.setString(6, "user" + i);
-					
-				} else if (i < 90) {
-					pstmt.setString(6, "manager" + i);
-				} else {
-					pstmt.setString(6, "admin" + i);
-				}
+//				if (i < 80) {
+//					pstmt.setString(6, "user" + i);
+//					
+//				} else if (i < 90) {
+//					pstmt.setString(6, "manager" + i);
+//				} else {
+//					pstmt.setString(6, "admin" + i);
+//				}
 				pstmt.executeUpdate();
 			}catch(Exception e) {
 				e.printStackTrace();

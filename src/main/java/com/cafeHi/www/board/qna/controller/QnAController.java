@@ -39,6 +39,8 @@ import com.cafeHi.www.board.qna.service.QnAService;
 import com.cafeHi.www.common.dto.CriteriaDTO;
 import com.cafeHi.www.common.dto.PageDTO;
 import com.cafeHi.www.member.dto.CustomUser;
+import com.cafeHi.www.member.dto.MemberDTO;
+import com.cafeHi.www.member.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -48,6 +50,8 @@ import lombok.RequiredArgsConstructor;
 public class QnAController {
 	
 	private final QnAService qnaService;
+	
+	private final MemberService memberService;
 	
 	
 
@@ -109,6 +113,8 @@ public class QnAController {
 		System.out.println("page¿« cri¿« keyword : " + pageDTO.getCri().getKeyword());
 		model.addAttribute("pageDTO", pageDTO);
 		model.addAttribute("qnaList", qnaService.getQnAList(cri));
+		
+		
 			
 		return "cafehi_QnA_board";
 	}
@@ -163,12 +169,12 @@ public class QnAController {
 	
 
 	@RequestMapping(value= "/InsertQnA.do", method = RequestMethod.POST)
-	public String InsertQnA(@RequestParam(value = "uploadfile", required = false) MultipartFile uploadfile,  QnADTO qna, RedirectAttributes ra) throws IOException {
+	public String InsertQnA(@RequestParam(value = "uploadfile", required = false) MultipartFile uploadfile,  QnADTO qna, MemberDTO mem, RedirectAttributes ra) throws IOException {
 		
-		
-		System.out.println("qna_title : " + qna.getQna_title()); 
-		System.out.println("qna_content : " + qna.getQna_content());
-		System.out.println("qna_hit : " + qna.getQna_hit());
+		System.out.println("member_code : " + mem.getMember_code());
+		int code = mem.getMember_code();
+		//MemberDTO getMember = memberService.getMember(mem);
+		//qna.
 		
 		
 		qna.setQna_writetime(new Date());

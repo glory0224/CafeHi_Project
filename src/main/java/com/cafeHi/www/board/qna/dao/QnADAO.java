@@ -21,6 +21,7 @@ public class QnADAO {
 
 	public List<QnADTO> getQnAList(CriteriaDTO cri) {
 		List<QnADTO> result = sqlSessionTemplate.selectList("QnADAO.getQnAList", cri);
+		
 		System.out.println("result : " + result);
 		return sqlSessionTemplate.selectList("QnADAO.getQnAList", cri);
 		

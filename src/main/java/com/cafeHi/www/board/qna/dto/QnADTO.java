@@ -4,6 +4,8 @@ import java.util.Date;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cafeHi.www.member.dto.MemberDTO;
+
 import lombok.Data;
 
 @Data
@@ -16,8 +18,9 @@ public class QnADTO {
 	private int qna_hit;
 	
 	
+	//private MemberDTO member;
+	private int member_code;
 	private String member_id;
-	
 	
 	private String upload_path;
 	private MultipartFile uploadFile;
