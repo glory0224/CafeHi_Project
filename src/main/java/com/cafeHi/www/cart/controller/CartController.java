@@ -30,11 +30,11 @@ public class CartController {
 		
 		 Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		    CustomUser userInfo = (CustomUser)principal;
-		    String member_id = userInfo.getMember().getMember_id();
+		    int member_code = userInfo.getMember().getMember_code();
 		
-		if (member_id != null) {
-			List<CartDTO> list = cartService.listCart(member_id); // 장바구니 목록
-			int sumMoney = cartService.sumMoney(member_id); // 금액 합계
+		if (member_code != 0) {
+			List<CartDTO> list = cartService.listCart(member_code); // 장바구니 목록
+			int sumMoney = cartService.sumMoney(member_code); // 금액 합계
 			// 배송료 계산
 			// 30000원이 넘으면 배송료가 0원, 안넘으면 2500원
 			int fee=sumMoney >= 30000? 0 : 2500;
@@ -68,9 +68,8 @@ public class CartController {
 		cart.setCart_amount(orderAmount);
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		CustomUser userInfo = (CustomUser) principal;
-		String member_id = userInfo.getUsername();
-		System.out.println("member_id : " + member_id);
-		cart.setMember_id(member_id);
+		int member_code = userInfo.getMember().getMember_code();
+		cart.setMember_code(member_code);
 		cartService.insertCart(cart);
 		return "redirect:/myCartList.do";
 		
@@ -108,10 +107,10 @@ public class CartController {
 		
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		CustomUser userInfo = (CustomUser) principal;
-		String member_id = userInfo.getUsername();
+		int member_code = userInfo.getMember().getMember_code();
 		
 		
-		cartService.deleteAllCart(member_id);
+		cartService.deleteAllCart(member_code);
 		
 		return "redirect:/myCartList.do";
 		

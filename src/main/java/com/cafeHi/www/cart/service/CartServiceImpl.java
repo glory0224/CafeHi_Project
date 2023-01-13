@@ -21,8 +21,8 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public List<CartDTO> listCart(String member_id) {
-		return cartDAO.listCart(member_id);
+	public List<CartDTO> listCart(int member_code) {
+		return cartDAO.listCart(member_code);
 	}
 
 	@Override
@@ -31,18 +31,18 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public void deleteAllCart(String member_id) {
-		cartDAO.deleteAllCart(member_id);
+	public void deleteAllCart(int member_code) {
+		cartDAO.deleteAllCart(member_code);
 	}
 
 	@Override
-	public int sumMoney(String member_id) {
-		return cartDAO.sumMoney(member_id);
+	public int sumMoney(int member_code) {
+		return cartDAO.sumMoney(member_code);
 	}
 
 	@Override
-	public int countCart(String member_id, int menu_code) {
-		return cartDAO.countCart(member_id, menu_code);
+	public int countCart(int member_code, int menu_code) {
+		return cartDAO.countCart(member_code, menu_code);
 	}
 
 	@Override

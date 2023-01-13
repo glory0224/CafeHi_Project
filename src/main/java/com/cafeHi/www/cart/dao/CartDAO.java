@@ -31,17 +31,17 @@ public class CartDAO {
 	}
 	
 	// 장바구니 비우기
-	public void deleteAllCart(String member_id) {
-		sqlsessionTemplate.delete("cartDAO.deleteAllCart", member_id);
+	public void deleteAllCart(int member_code) {
+		sqlsessionTemplate.delete("cartDAO.deleteAllCart", member_code);
 	}
 	
 	// 장바구니 금액 합계
-	public int sumMoney(String member_id) {
-		return sqlsessionTemplate.selectOne("cartDAO.sumMoney", member_id);
+	public int sumMoney(int member_code) {
+		return sqlsessionTemplate.selectOne("cartDAO.sumMoney", member_code);
 	}
 	
 	
-	public int countCart(String member_id, int menu_code) {
+	public int countCart(int member_code, int menu_code) {
 		
 		
 		return 0; 
@@ -49,8 +49,8 @@ public class CartDAO {
 	}
 	
 	// 장바구니 리스트 조회
-	public List<CartDTO> listCart(String member_id){
-		return sqlsessionTemplate.selectList("cartDAO.listCart", member_id);
+	public List<CartDTO> listCart(int member_code){
+		return sqlsessionTemplate.selectList("cartDAO.listCart", member_code);
 		
 	}
 	

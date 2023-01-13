@@ -7,8 +7,8 @@
  	
  	<!-- 장바구니 추가 -->
  	<insert id="insertCart">
- 		INSERT INTO cafehi_cart (cart_code, member_id, menu_code, cart_amount)
- 		VALUES (seq_cart.nextval, #{member_id}, #{menu_code}, #{cart_amount})
+ 		INSERT INTO cafehi_cart (cart_code, member_code, menu_code, cart_amount)
+ 		VALUES (seq_cart.nextval, #{member_code}, #{menu_code}, #{cart_amount})
  	</insert>
  	
  	<!-- 장바구니 수정 -->
@@ -24,7 +24,7 @@
  	
  	<!-- 장바구니 비우기 -->
  	<delete id="deleteAllCart">
- 		DELETE FROM cafehi_cart WHERE member_id = #{member_id}
+ 		DELETE FROM cafehi_cart WHERE member_code = #{member_code}
  	</delete>
  	
  	<!-- 장바구니 리스트 조회 -->
@@ -37,7 +37,7 @@
 		FROM cafehi_member m, cafehi_cart c, cafehi_menu p
 		<!-- 회원테이블과, 장바구니 테이블과, 상품테이블로 부터 -->
 		
-		WHERE m.member_id = c.member_id and c.menu_code = p.menu_code and c.member_id=#{member_id} ORDER BY cart_code  		
+		WHERE m.member_code = c.member_code and c.menu_code = p.menu_code and c.member_code=#{member_code} ORDER BY cart_code  		
  		 <!--회원테이블의 회원id와 장바구니테이블의 회원id가 같고, 장바구니의 상품 code와 상품테이블의 상품 code가 같고, 장바구니테이블의 회원id가  장바구니에 저장되있는 회원id와 같을때-->
  	</select>
  	
@@ -48,7 +48,7 @@
  		
  		FROM cafehi_cart c, cafehi_menu p
  		
- 		WHERE c.menu_code = p.menu_code AND member_id=#{member_id}
+ 		WHERE c.menu_code = p.menu_code AND member_code=#{member_code}
  		
  	</select>
  </mapper>

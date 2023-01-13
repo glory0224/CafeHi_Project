@@ -6,7 +6,7 @@ import lombok.Data;
 public class CartDTO {
 	
 	private int cart_code;
-	private String member_id;
+	private int member_code;
 	private String member_name;
 	private int menu_code;
 	private String menu_name;
