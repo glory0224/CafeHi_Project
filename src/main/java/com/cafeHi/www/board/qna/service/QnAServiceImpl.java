@@ -63,8 +63,8 @@ public class QnAServiceImpl implements QnAService {
 
 
 	@Override
-	public List<QnADTO> getMyQnA(String member_id) {
-		return qnADAO.getMyQnA(member_id);
+	public List<QnADTO> getMyQnA(int member_code) {
+		return qnADAO.getMyQnA(member_code);
 	}
 
 	

@@ -19,6 +19,7 @@
  		<typeAlias type="com.cafeHi.www.member.dto.AuthDTO" alias="Auth"/>
  		<typeAlias type="com.cafeHi.www.menu.dto.MenuDTO" alias="Menu"/>
  		<typeAlias type="com.cafeHi.www.cart.dto.CartDTO" alias="Cart"/>
+ 		
  	</typeAliases>
 
 	 

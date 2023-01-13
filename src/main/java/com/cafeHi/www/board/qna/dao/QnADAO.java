@@ -33,8 +33,8 @@ public class QnADAO {
 		return sqlSessionTemplate.selectOne("QnADAO.getQnA", qna);
 	}
 	
-	public List<QnADTO> getMyQnA(String member_id) {
-		return sqlSessionTemplate.selectList("QnADAO.getMyQnA", member_id);
+	public List<QnADTO> getMyQnA(int member_code) {
+		return sqlSessionTemplate.selectList("QnADAO.getMyQnA", member_code);
 	}
 	
 	public int getQnANum(CriteriaDTO cri) {

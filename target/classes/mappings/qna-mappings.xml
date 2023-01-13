@@ -12,7 +12,7 @@
  		<result property="qna_hit" column="QNA_HIT" />
  		<result property="upload_path" column="UPLOAD_PATH" />
  	<!-- has one -->
- 	<association property="Member" javaType="Member">
+ 	<association property="member_code" javaType="Member">
  		<id property="member_code" column="MEMBER_CODE"/>
  		<result property="member_code" column="MEMBER_CODE"/>
  		<result property="member_id" column="MEMBER_ID"/>
@@ -105,7 +105,7 @@
 	</select>
 	
 	<select id="getMyQnA" resultMap="QnAResult">
-		SELECT * FROM cafehi_qna WHERE member_id = #{member_id}
+		SELECT * FROM cafehi_qna WHERE member_code = #{member_code}
 	</select>
 
 	<!-- 게시글 작성  -->

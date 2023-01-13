@@ -251,12 +251,15 @@ public class QnAController {
 			
 			 Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			  CustomUser userInfo = (CustomUser) principal;
-		    String member_id = userInfo.getUsername();
-			System.out.println("member_id : " + member_id);
-			List<QnADTO> myQnAList = qnaService.getMyQnA(member_id);
+		    MemberDTO getMember = userInfo.getMember();
+			System.out.println("member_id : " + getMember.getMember_code());
+			
+			List<QnADTO> myQnAList = qnaService.getMyQnA(getMember.getMember_code());
+			
+			
 			
 			for(QnADTO myQnA : myQnAList) {
-				System.out.println(myQnA);
+				
 			}
 			
 			model.addAttribute("myQnAList", myQnAList);

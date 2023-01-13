@@ -14,6 +14,7 @@
  		<result property="menu_count" column="MENU_COUNT" />
  	</resultMap>
  	
+ 		
  	<select id="getCoffeeList" resultMap="MenuResult">
  		SELECT * FROM cafehi_menu WHERE menu_type = 'coffee'
  	</select>
