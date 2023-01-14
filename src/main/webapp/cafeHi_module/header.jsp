@@ -61,6 +61,9 @@
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="myPage.do">마이페이지</a>
           </li>
+          <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+          	<a>관리자 페이지</a>
+          </sec:authorize>      
           <li class="nav-item">
           	<form action="logout.do" method="post">
           	<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
