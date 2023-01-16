@@ -1,6 +1,6 @@
 package com.cafeHi.www.member.service;
 
-import com.cafeHi.www.member.dto.AuthDTO;
+import com.cafeHi.www.member.dto.MemberAuthDTO;
 import com.cafeHi.www.member.dto.MemberDTO;
 
 public interface MemberService {
@@ -9,7 +9,7 @@ public interface MemberService {
 	public MemberDTO getMember(MemberDTO member);
 	public MemberDTO readMember(String member_code);
 	public void insertMember(MemberDTO member);
-	public void insertMemberAuth(AuthDTO memberauth);
+	public void insertMemberAuth(MemberAuthDTO memberauth);
 	public void updateMemberName(MemberDTO member);
 	public void updateMemberContact(MemberDTO member);
 	public void updateMemberAddress(MemberDTO member);

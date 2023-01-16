@@ -3,7 +3,7 @@ package com.cafeHi.www.member.dao;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.cafeHi.www.member.dto.AuthDTO;
+import com.cafeHi.www.member.dto.MemberAuthDTO;
 import com.cafeHi.www.member.dto.MemberDTO;
 
 import lombok.RequiredArgsConstructor;
@@ -31,7 +31,7 @@ public class MemberDAO {
 		sqlSessionTemplate.insert("MemberDAO.insertMember", member);
 	}
 	
-	public void insertMemberAuth(AuthDTO memberauth) {
+	public void insertMemberAuth(MemberAuthDTO memberauth) {
 		sqlSessionTemplate.insert("MemberDAO.insertMemberAuth", memberauth);
 	}
 	

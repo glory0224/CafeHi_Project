@@ -16,5 +16,5 @@ public class MemberDTO {
 	private String member_jibun_address;
 	private String member_detail_address;
 	private boolean enabled;
-	private List<AuthDTO> authList;
+	private List<MemberAuthDTO> authList;
 }

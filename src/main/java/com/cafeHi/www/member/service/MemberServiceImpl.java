@@ -3,7 +3,7 @@ package com.cafeHi.www.member.service;
 import org.springframework.stereotype.Service;
 
 import com.cafeHi.www.member.dao.MemberDAO;
-import com.cafeHi.www.member.dto.AuthDTO;
+import com.cafeHi.www.member.dto.MemberAuthDTO;
 import com.cafeHi.www.member.dto.MemberDTO;
 
 import lombok.RequiredArgsConstructor;
@@ -34,7 +34,7 @@ public class MemberServiceImpl implements MemberService{
 	
 
 	@Override
-	public void insertMemberAuth(AuthDTO memberauth) {
+	public void insertMemberAuth(MemberAuthDTO memberauth) {
 		memberDAO.insertMemberAuth(memberauth);
 	}
 

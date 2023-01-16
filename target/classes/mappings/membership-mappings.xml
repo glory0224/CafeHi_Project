@@ -39,7 +39,7 @@
  		</collection>
  	</resultMap>
  	
- 	<resultMap type="Auth" id="AuthResult">
+ 	<resultMap type="MemberAuth" id="AuthResult">
  		<result property="member_auth_code" column = "MEMBER_AUTH_CODE" />
  		<result property="member_code" column="MEMBER_CODE"/>
  		<result property="auth" column="AUTH"/>

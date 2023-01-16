@@ -20,7 +20,7 @@
  		</collection>
  	</resultMap>
  	
- 	<resultMap type="Auth" id="AuthResult">
+ 	<resultMap type="MemberAuth" id="AuthResult">
  		<result property="member_auth_code" column = "MEMBER_AUTH_CODE" />
  		<result property="member_code" column="MEMBER_CODE"/>
  		<result property="auth" column="AUTH"/>
@@ -33,7 +33,7 @@
  		VALUES((select nvl(max(member_code), 0)+1 from cafehi_member), #{member_id}, #{member_pw},#{member_name},#{member_contact}, #{member_email}, #{member_road_address},#{member_jibun_address},#{member_detail_address})
  	</insert>
  	
- 	<insert id="insertMemberAuth" parameterType="Auth">
+ 	<insert id="insertMemberAuth" parameterType="MemberAuth">
  		INSERT INTO cafehi_member_auth VALUES((select nvl(max(member_auth_code), 0)+1 from cafehi_member_auth), #{member_code}, #{auth})
  	</insert>
  	

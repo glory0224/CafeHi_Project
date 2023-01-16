@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.cafeHi.www.member.dto.AuthDTO;
+import com.cafeHi.www.member.dto.MemberAuthDTO;
 import com.cafeHi.www.member.dto.MemberDTO;
 import com.cafeHi.www.member.service.MemberService;
 import com.cafeHi.www.membership.service.MembershipService;
@@ -41,7 +41,7 @@ public class SignUpController {
 	
 	// 회원 등록
 		@RequestMapping(value = "/insertMember.do", method = RequestMethod.POST)
-		public String insertUser(MemberDTO member, AuthDTO memberauth) {
+		public String insertUser(MemberDTO member, MemberAuthDTO memberauth) {
 			System.out.println(member.getMember_id());
 			System.out.println(member.getMember_name());
 			System.out.println(member.getMember_road_address());
