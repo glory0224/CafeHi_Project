@@ -58,11 +58,15 @@
  <div class=" collapse navbar-collapse " id="navbarCollapse">
         <ul class="navbar-nav">
         <li class="nav-item"><b><sec:authentication property="principal.member.member_id"/></b>님 환영합니다.</li>        
+          <sec:authorize access="hasAnyRole('ROLE_USER')">
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="myPage.do">마이페이지</a>
           </li>
+          </sec:authorize>
           <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
-          	<a>관리자 페이지</a>
+           <li class="nav-item">
+          	<a class="nav-link" href="adminPage.do">관리자 페이지</a>
+          	</li>
           </sec:authorize>      
           <li class="nav-item">
           	<form action="logout.do" method="post">
