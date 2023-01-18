@@ -1,5 +1,7 @@
 package com.cafeHi.www.member.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.cafeHi.www.member.dao.MemberDAO;
@@ -21,6 +23,12 @@ public class MemberServiceImpl implements MemberService{
 	public MemberDTO getMember(MemberDTO member) {
 		return memberDAO.getMember(member);
 	}
+	
+	@Override
+	public List<MemberDTO> getMemberList(String roleName) {
+		return memberDAO.getMemberList(roleName);
+	}
+
 	
 	@Override
 	public MemberDTO readMember(String member_code) {
@@ -97,6 +105,7 @@ public class MemberServiceImpl implements MemberService{
 		memberDAO.findPw(member);
 	}
 
+	
 
 	
 

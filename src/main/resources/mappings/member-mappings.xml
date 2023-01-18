@@ -79,6 +79,17 @@
  		WHERE member_id = #{member_id}
  	</select>
  	
+ 	<select id="getMemberList" parameterType="String" resultMap="MemberResult">
+ 		SELECT 
+ 			mem.member_id, member_pw, member_name, member_contact, member_email, member_road_address, member_jibun_address, member_detail_address, enabled, auth
+ 		FROM
+ 			cafehi_member mem LEFT OUTER JOIN cafehi_member_auth auth on mem.member_code = 
+ 			auth.member_code
+ 		WHERE
+ 			auth.auth = #{roleName}
+ 	</select>
+ 	
+ 	
  	<select id="readMember" parameterType="String" resultMap="MemberResult">
  		SELECT 
  			mem.member_id, member_pw, member_name, member_contact, member_email, member_road_address, member_jibun_address, member_detail_address, enabled, auth

@@ -1,5 +1,7 @@
 package com.cafeHi.www.member.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -80,6 +82,10 @@ public class MemberDAO {
 	// 이메일을 통한 임시 비밀번호 찾기
 	public void findPw(MemberDTO member) {
 		sqlSessionTemplate.update("MemberDAO.findPw", member);
+	}
+
+	public List<MemberDTO> getMemberList(String roleName) {
+		return sqlSessionTemplate.selectList("MemberDAO.getMemberList", roleName);
 	}
 	
 }

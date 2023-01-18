@@ -4,6 +4,8 @@ package com.cafeHi.www.member.controller;
 
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.cafeHi.www.member.dto.CustomUser;
@@ -132,7 +135,6 @@ public class MemberController {
 		if(MemberId.equals(securityId) && pwdEncoder.matches(MemberPw, securityPw)) {
 		
 			int member_code = userInfo.getMember().getMember_code();
-		//memberService.deleteMember(member);
 		memberService.deleteMember(member_code);
 		
 		session.invalidate();
@@ -151,6 +153,21 @@ public class MemberController {
 		}
 		
 	}
+	
+	// 관리자 회원 정보 리스트
+	@RequestMapping("getMemeberList.do")
+	public String getMemberList(Model model) {
+		
+		String roleName = "ROLE_USER";
+		
+		List<MemberDTO> memberList = memberService.getMemberList(roleName);
+		
+		model.addAttribute("memberList", memberList);
+		
+		return "admin/cafehi_adminMemberList";
+		
+	}
+	
 	
 	
 }

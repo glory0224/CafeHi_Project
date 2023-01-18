@@ -67,24 +67,26 @@
 									<th>회원 이름</th>
 									<th>회원 연락처</th>
 									<th>회원 이메일</th>
-									<th>회원 주소</th>
+									<th>회원 도로명 주소</th>
+									<th>회원 지번 주소</th>
 									<th>회원 상세 주소</th>
 								</tr>
 							</thead>
 
-							<%-- <c:forEach var="qna" items="${qnaList}">
+							<c:forEach var="member" items="${memberList}">
 								<tbody>
 									<tr>
-										<td>${qna.qna_num }</td>
-										<td><a href="getQnA.do?qna_num=${qna.qna_num }"
+										<td>${member.member_code }</td>
+										<td><a href="getQnA.do?qna_num=${member.member_id }"
 											style="text-decoration: none; color: black; font-weight: bold;">
-												${qna.qna_title }</a></td>
-										<td>${qna.member_id }</td>
-										<td><fmt:formatDate value="${qna.qna_writetime }"
-												pattern="yyyy-MM-dd" /></td>
-										<td>${qna.qna_hit }</td>
+												${member.member_name }</a></td>
+										<td>${member.member_contact }</td>
+										<td>${member.member_email }</td>
+										<td>${member.member_road_address }</td>
+										<td>${member.member_jibun_address }</td>
+										<td>${member.member_detail_address }</td>
 									</tr>
-							</c:forEach> --%>
+							</c:forEach>
 							
 							<!-- 페이징 view  -->
 							<tr align="center">
