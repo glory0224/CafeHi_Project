@@ -135,6 +135,94 @@ function signupcheck() {
 }
 
 
+// 관리자 계정 등록
+function adminSignupCheck(){
+	
+	var memberId = document.getElementById('member_id');
+	var memberName = document.getElementById('memberName');
+	var memberPassword = document.getElementById('memberPassword');
+	var checkPassword = document.getElementById('checkPassword');
+	var contact = document.getElementById('memberContact');
+	var memberEmail = document.getElementById('memberEmail');
+	
+	
+	if (memberId.value == "") {
+		alert('아이디를 입력해주세요');
+		memberId.focus();
+		return;
+	} else if (memberName.value == "") {
+		alert('이름을 입력해주세요');
+		memberName.focus();
+		return;
+	} else if (memberPassword.value == "") {
+		alert('비밀번호를 입력해주세요');
+		memberPassword.focus();
+		return;
+	} else if (checkPassword.value == "") {
+		alert('비밀번호를 한번 더 입력해주세요');
+		checkPassword.focus();
+		return;
+	} else if (contact.value == "") {
+		alert('연락처를 입력해주세요');
+		contact.focus();
+		return;
+	} else if (memberEmail.value == "") {
+		alert('이메일을 입력해주세요');
+		memberEmail.focus();
+		return;
+	}
+	
+	
+		if(!mailInputCheck){
+		alert('인증번호를 입력하셔야합니다.');
+		return;
+	}
+	
+	if(!mailAuthCheck){
+		alert('인증번호가 일치 하지 않습니다. 메일 인증 절차를 다시 진행해주세요.');
+		return;
+	}
+	
+	if(!idCheck){
+		alert('아이디 중복확인를 진행해주세요.');
+		return;
+	}
+	
+	if(!idDuplicateCheck){
+		alert('중복된 아이디가 존재합니다. 아이디를 확인해주세요.');
+		return;
+	}
+	
+	if(!mailDuplicateCheck){
+		alert('중복된 이메일이 존재합니다. 이메일을 확인해주세요.');
+		return;
+	}
+	
+	
+	
+	
+	// RFC 5322 이메일 정규 표현식
+	emailReg = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])");
+	
+	if(!emailReg.test(memberEmail.value)){
+		alert('올바른 이메일 형식을 입력하세요. \n ex) ID@naver.com or ID@yale.edu.com');
+		return;
+	}
+	
+	
+	// 전화번호 정규표현식 - 계속 먹히지 않아서 애먹었는데 알고보니 edge에서 실행하지 않고 chrome으로 실행 했더니 작동함 - 이것때문에 애먹었다.
+	phonReg = /^01(0|1|6|7|8|9]{1})-?([0-9]{3,4})-?[0-9]{4}$/;
+	
+	if(!phonReg.test(contact.value)) {
+		alert('올바른 연락처 형식을 입력하세요.\n ex) 010-1234-1234 (특수문자 외 숫자만 입력도 가능)');
+		return;
+	}
+	
+	document.getElementById('adminForm').submit();
+	
+}
+
+
 // 패스워드가 서로 일치한 것인지 확인
 function pwCheck() {
 	memberPassword = document.getElementById('memberPassword');

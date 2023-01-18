@@ -1,18 +1,20 @@
-package com.cafeHi.www.admin.controller;
+package com.cafeHi.www.member.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller
+@Controller("AdminpageController")
 public class AdminPageController {
 	
-	@RequestMapping("/adminPage.do")
+	// 관리자 페이지
+	
+	@RequestMapping("/AdminPage.do")
 	public String adminPage() {
 		
 		return "admin/cafehi_adminPage";
 	}
 	
-	@RequestMapping("/adminInfoPage.do")
+	@RequestMapping("/AdminInfoPage.do")
 	public String adminInfoPage() {
 		
 		return "admin/cafehi_adminInfo";
@@ -49,5 +51,5 @@ public class AdminPageController {
 	public String adminBoardPage() {
 		return "admin/cafehi_adminBoard";
 	}
-	
+
 }

@@ -52,8 +52,6 @@ public class SignUpController {
 				String[] nums = member.getMember_contact().split("-");
 				String join_nums = String.join("", nums);
 				member.setMember_contact(join_nums);
-				memberService.insertMember(member);
-				return "cafehi_login";
 			}
 			
 			memberService.insertMember(member);
@@ -63,6 +61,31 @@ public class SignUpController {
 			memberauth.setAuth("ROLE_USER");
 			memberService.insertMemberAuth(memberauth);
 			membershipService.insertMembership(getMember);
+			
+			return "cafehi_login";
+		}
+		
+	// 관리자 등록
+		@RequestMapping(value = "/insertAdmin.do", method = RequestMethod.POST)
+		public String insertAdmin(MemberDTO member, MemberAuthDTO memberauth) {
+			System.out.println(member.getMember_id());
+			System.out.println(member.getMember_name());
+			System.out.println(member.getMember_road_address());
+			String encodepw = pwdEncoder.encode(member.getMember_pw());
+			member.setMember_pw(encodepw);
+			// '-'을 입력한 정보일 경우 
+			if(member.getMember_contact().contains("-")) {
+				String[] nums = member.getMember_contact().split("-");
+				String join_nums = String.join("", nums);
+				member.setMember_contact(join_nums);
+			}
+			
+			memberService.insertMember(member);
+			MemberDTO getMember = memberService.getMember(member);
+		
+			memberauth.setMember_code(getMember.getMember_code());
+			memberauth.setAuth("ROLE_ADMIN");
+			memberService.insertMemberAuth(memberauth);
 			
 			return "cafehi_login";
 		}

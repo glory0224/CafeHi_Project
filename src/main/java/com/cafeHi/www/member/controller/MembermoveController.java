@@ -5,7 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class InfoController {
+public class MembermoveController {
+	
+	// 회원
 	
 	// 마이페이지 
 		@RequestMapping("/myPage.do")
@@ -38,6 +40,7 @@ public class InfoController {
 		return "member/cafehi_memberDelete";
 		
 	}
-		
+	
+
 	
 }
