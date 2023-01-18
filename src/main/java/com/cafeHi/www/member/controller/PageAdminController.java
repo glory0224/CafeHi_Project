@@ -3,8 +3,8 @@ package com.cafeHi.www.member.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller("AdminpageController")
-public class AdminPageController {
+@Controller
+public class PageAdminController {
 	
 	// 관리자 페이지
 	
@@ -20,34 +20,34 @@ public class AdminPageController {
 		return "admin/cafehi_adminInfo";
 	}
 	
-	@RequestMapping("/adminInfoUpdatePage.do")
+	@RequestMapping("/AdminInfoUpdatePage.do")
 	public String adminInfoUpdatePage() {
 		
 		return "admin/cafehi_adminInfoUpdate";
 	}
 	
-	@RequestMapping("/adminDeletePage.do")
+	@RequestMapping("/AdminDeletePage.do")
 	public String adminDeletePage() {
 		return "admin/cafehi_adminDelete";
 	}
 	
-	@RequestMapping("/adminSignUpPage.do")
+	@RequestMapping("/AdminSignUpPage.do")
 	public String adminSignUpPage() {
 		return "admin/cafehi_adminSignUp";
 	}
 	
 	
-	@RequestMapping("/adminMemberListPage.do")
+	@RequestMapping("/MemberListPage.do")
 	public String adminMemberListPage() {
 		return "admin/cafehi_adminMemberList";
 	}
 	
-	@RequestMapping("/adminMemberBoardPage.do")
+	@RequestMapping("/MemberBoardPage.do")
 	public String adminMemberBoardPage() {
 		return "admin/cafehi_adminMemberBoard";
 	}
 	
-	@RequestMapping("/adminBoardPage.do")
+	@RequestMapping("/AdminBoardPage.do")
 	public String adminBoardPage() {
 		return "admin/cafehi_adminBoard";
 	}

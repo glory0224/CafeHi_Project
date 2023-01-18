@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<!-- <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
- "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="AdminDAO">
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ <mapper namespace="AdminDAO">
  	<resultMap type="Admin" id="AdminResult">
  		<id property="admin_id" column="ADMIN_ID"/>
  		<result property="admin_seq" column="ADMIN_SEQ"/>
@@ -27,4 +27,4 @@
  	</select>
  	
  	
-</mapper>
+</mapper> -->

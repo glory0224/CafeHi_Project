@@ -6,7 +6,8 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 	
 	<!-- 해당 경로에 모든 컴포넌트를 읽어들인다. -->
-	<context:component-scan base-package="com.cafeHi.www"></context:component-scan>
+	<context:component-scan base-package="com.cafeHi.www" >
+	</context:component-scan>
 	
 	<!-- properties 파일을 이용한 JDBC 설정  -->
 	<context:property-placeholder location="classpath:config/database.properties"/>
