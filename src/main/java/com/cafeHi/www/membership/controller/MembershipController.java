@@ -4,7 +4,7 @@ package com.cafeHi.www.membership.controller;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import com.cafeHi.www.member.dto.CustomUser;
 import com.cafeHi.www.member.dto.MemberDTO;
@@ -21,7 +21,7 @@ public class MembershipController {
 	
 	
 	
-	@RequestMapping("/myMembership.do")
+	@GetMapping("/myMembership.do")
 	public String myMembershipView(Model model) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		CustomUser userInfo = (CustomUser) principal;

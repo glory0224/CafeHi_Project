@@ -27,6 +27,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -57,7 +58,7 @@ public class QnAController {
 
 	
 	// 게시글 조회
-	@RequestMapping("/getQnA.do")
+	@GetMapping("/getQnA.do")
 	public String getQnA(HttpServletRequest request, HttpServletResponse response, QnADTO qna, Model model) {
 		System.out.println("fileName : "+ qna.getFileName());
 		
@@ -102,7 +103,7 @@ public class QnAController {
 	}
 	
 	// 게시글 목록 조회
-	@RequestMapping("/QnAList.do")
+	@GetMapping("/QnAList.do")
 	public String SearchQnAList(QnADTO qna, CriteriaDTO cri, Model model) {
 				
 		int total = qnaService.getQnANum(cri);
@@ -120,7 +121,7 @@ public class QnAController {
 	}
 	
 	// 글쓰기 페이지 이동
-	@RequestMapping("/QnAWritePage.do")
+	@GetMapping("/QnAWritePage.do")
 	public String QnAWritePage() {
 		return "member/cafehi_QnA_write";
 		
@@ -168,13 +169,11 @@ public class QnAController {
 	// QnA CRUD
 	
 
-	@RequestMapping(value= "/InsertQnA.do", method = RequestMethod.POST)
+	@PostMapping("/InsertQnA.do")
 	public String InsertQnA(@RequestParam(value = "uploadfile", required = false) MultipartFile uploadfile,  QnADTO qna, MemberDTO mem, RedirectAttributes ra) throws IOException {
 		
 		System.out.println("member_code : " + mem.getMember_code());
 		int code = mem.getMember_code();
-		//MemberDTO getMember = memberService.getMember(mem);
-		//qna.
 		
 		
 		qna.setQna_writetime(new Date());
@@ -196,7 +195,7 @@ public class QnAController {
 	}
 	
 
-	@RequestMapping(value = "/QnAUpdate.do", method = RequestMethod.GET)
+	@GetMapping("/QnAUpdate.do")
 	public String QnAUpdatePage(QnADTO qna, Model model) {
 		 
 		model.addAttribute("QnA", qnaService.getQnA(qna));
@@ -206,7 +205,7 @@ public class QnAController {
 	}
 	
 	
-	@RequestMapping(value= "/QnAUpdate.do", method = RequestMethod.POST)
+	@PostMapping("/QnAUpdate.do")
 	public String UpdateQnA(@RequestParam(value = "uploadfile", required = false) MultipartFile uploadfile, QnADTO qna, HttpServletRequest request) throws IllegalStateException, IOException {
 		
 		
@@ -236,7 +235,7 @@ public class QnAController {
 		
 	}
 	
-	@RequestMapping("/DeleteQnA.do")
+	@PostMapping("/DeleteQnA.do")
 	public String DeleteQnA(QnADTO qna,  HttpServletRequest request) {
 		qnaService.deleteQnA(qna);
 		request.setAttribute("msg", "삭제가 완료되었습니다.");
@@ -246,7 +245,7 @@ public class QnAController {
 	
 	
 	// 계정 활동 내역 페이지
-		@RequestMapping("myQnAInfo.do")
+		@GetMapping("myQnAInfo.do")
 		public String MemberQnAInfoView(Model model) {
 			
 			 Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

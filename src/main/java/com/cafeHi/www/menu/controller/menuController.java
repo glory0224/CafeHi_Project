@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.cafeHi.www.menu.dto.MenuDTO;
@@ -21,7 +22,7 @@ public class menuController {
 	
 	// DB에 저장된 각각의 메뉴 정보를 조회 
 	
-	  @RequestMapping("/coffeeList.do") 
+	  @GetMapping("/coffeeList.do") 
 	  public String coffeeListView(Model model) {
 		  List<MenuDTO> coffeeList = menuService.getCoffeeList();
 		  
@@ -40,7 +41,7 @@ public class menuController {
 	  }
 	 
 	
-	@RequestMapping("/coldbrewList.do")
+	@GetMapping("/coldbrewList.do")
 	public String coldbrewListView(Model model) {
 		List<MenuDTO> coldbrewList =  menuService.getColdBrewList();
 		
@@ -53,7 +54,7 @@ public class menuController {
 		return "cafehi_menu/cafehi_coldbrew";
 	}
 	
-	@RequestMapping("/fruitJuiceList.do")
+	@GetMapping("/fruitJuiceList.do")
 	public String fruitJuiceListView(Model model) {
 		List<MenuDTO> fruitJuiceList =  menuService.getFruitJuiceList();
 		
@@ -63,7 +64,7 @@ public class menuController {
 		return "cafehi_menu/cafehi_fruitsJuice";
 	}
 	
-	@RequestMapping("/beverageList.do")
+	@GetMapping("/beverageList.do")
 	public String beverageListView(Model model) {
 		List<MenuDTO> beverageList =  menuService.getBeverageList();
 		
@@ -80,7 +81,7 @@ public class menuController {
 		return "cafehi_menu/cafehi_beverage";
 	}
 	
-	@RequestMapping("/latteList.do")
+	@GetMapping("/latteList.do")
 	public String latteListView(Model model) {
 		List<MenuDTO> latteList =  menuService.getLatteList();
 		
@@ -95,7 +96,7 @@ public class menuController {
 		return "cafehi_menu/cafehi_latte";
 	}
 	
-	@RequestMapping("/sideList.do")
+	@GetMapping("/sideList.do")
 	public String sideListView(Model model) {
 		List<MenuDTO> sideList =  menuService.getSideList();
 		
@@ -107,7 +108,7 @@ public class menuController {
 		return "cafehi_menu/cafehi_side&bruch";
 	}
 	
-	@RequestMapping("/smoothieList.do")
+	@GetMapping("/smoothieList.do")
 	public String smoothieListView(Model model) {
 		List<MenuDTO> smoothieList =  menuService.getSmoothieList();
 		
@@ -121,7 +122,7 @@ public class menuController {
 		return "cafehi_menu/cafehi_smoothie";
 	}
 	
-	@RequestMapping("/teaList.do")
+	@GetMapping("/teaList.do")
 	public String teaListView(Model model) {
 		List<MenuDTO> teaList =  menuService.getTeaList();
 		

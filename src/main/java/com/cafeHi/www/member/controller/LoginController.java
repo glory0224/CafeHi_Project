@@ -3,6 +3,7 @@ package com.cafeHi.www.member.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -17,7 +18,7 @@ public class LoginController {
 
 
 	// Get ฟไรป
-	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
+	@GetMapping("/login.do")
 	public String loginView(String error, String logout, Model model) {
 
 		log.info("error : " + error);

@@ -9,6 +9,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,14 +35,14 @@ public class SignUpController {
 	
 	private final BCryptPasswordEncoder pwdEncoder;
 	
-	@RequestMapping(value = "/signup.do", method = RequestMethod.GET)
+	@GetMapping("/signup.do")
 	public String signUpView() {
 		
 		return "cafehi_signup";
 	}
 	
 	// 회원 등록
-		@RequestMapping(value = "/insertMember.do", method = RequestMethod.POST)
+		@PostMapping("/insertMember.do")
 		public String insertUser(MemberDTO member, MemberAuthDTO memberauth) {
 			System.out.println(member.getMember_id());
 			System.out.println(member.getMember_name());
@@ -66,7 +68,7 @@ public class SignUpController {
 		}
 		
 	// 관리자 등록
-		@RequestMapping(value = "/insertAdmin.do", method = RequestMethod.POST)
+		@PostMapping("/insertAdmin.do")
 		public String insertAdmin(MemberDTO member, MemberAuthDTO memberauth) {
 			System.out.println(member.getMember_id());
 			System.out.println(member.getMember_name());
@@ -92,7 +94,7 @@ public class SignUpController {
 	
 	
 	// 아이디 중복체크
-	@RequestMapping("/IdCheck.do")
+	@PostMapping("/IdCheck.do")
 	public @ResponseBody int IdCheck(String member_id) {
 		int result = memberService.idCheck(member_id);
 		System.out.println("result : " + result);
@@ -100,7 +102,7 @@ public class SignUpController {
 	}
 	
 	// 이메일 중복 체크 
-	@RequestMapping("/EmailCheck.do")
+	@PostMapping("/EmailCheck.do")
 	public @ResponseBody int EmailCheck(String member_email) {
 		System.out.println("member_email : " + member_email);
 		int result = memberService.checkEmail(member_email);
@@ -109,7 +111,7 @@ public class SignUpController {
 	}
 	
 	// 이메일 인증 
-	@RequestMapping(value="/mailCheck.do", method = RequestMethod.GET)
+	@GetMapping("/mailCheck.do")
 	@ResponseBody
 	public String mailCheckGET(String email) throws Exception{
 		

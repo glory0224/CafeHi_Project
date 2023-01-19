@@ -1,53 +1,53 @@
 package com.cafeHi.www.member.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class PageAdminController {
 	
 	// 관리자 페이지
 	
-	@RequestMapping("/AdminPage.do")
+	@GetMapping("/AdminPage.do")
 	public String adminPage() {
 		
 		return "admin/cafehi_adminPage";
 	}
 	
-	@RequestMapping("/AdminInfoPage.do")
+	@GetMapping("/AdminInfoPage.do")
 	public String adminInfoPage() {
 		
 		return "admin/cafehi_adminInfo";
 	}
 	
-	@RequestMapping("/AdminInfoUpdatePage.do")
+	@GetMapping("/AdminInfoUpdatePage.do")
 	public String adminInfoUpdatePage() {
 		
 		return "admin/cafehi_adminInfoUpdate";
 	}
 	
-	@RequestMapping("/AdminDeletePage.do")
+	@GetMapping("/AdminDeletePage.do")
 	public String adminDeletePage() {
 		return "admin/cafehi_adminDelete";
 	}
 	
-	@RequestMapping("/AdminSignUpPage.do")
+	@GetMapping("/AdminSignUpPage.do")
 	public String adminSignUpPage() {
 		return "admin/cafehi_adminSignUp";
 	}
 	
 	
-	@RequestMapping("/MemberListPage.do")
+	@GetMapping("/MemberListPage.do")
 	public String adminMemberListPage() {
 		return "admin/cafehi_adminMemberList";
 	}
 	
-	@RequestMapping("/MemberBoardPage.do")
+	@GetMapping("/MemberBoardPage.do")
 	public String adminMemberBoardPage() {
 		return "admin/cafehi_adminMemberBoard";
 	}
 	
-	@RequestMapping("/AdminBoardPage.do")
+	@GetMapping("/AdminBoardPage.do")
 	public String adminBoardPage() {
 		return "admin/cafehi_adminBoard";
 	}

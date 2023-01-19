@@ -2,38 +2,38 @@ package com.cafeHi.www.board.board.controller;
 
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class BoardController {
 	
-	@RequestMapping("/Introduce.do")
+	@GetMapping("/Introduce.do")
 	public String Introduce() {
 		
 		return "cafehi_introduce";
 		
 	}
 	
-	@RequestMapping("/Membership.do")
+	@GetMapping("/Membership.do")
 	public String Membership() {
 		return "cafehi_membership";
 		
 	}
 	
-	@RequestMapping("/Event.do")
+	@GetMapping("/Event.do")
 	public String Event() {
 		return "cafehi_event";
 		
 	}
 	
-	@RequestMapping("/Place.do")
+	@GetMapping("/Place.do")
 	public String Place() {
 		return "cafehi_place";
 		
 	}
 	
 
-	@RequestMapping("/Menu.do")
+	@GetMapping("/Menu.do")
 	public String Menu() {
 		
 		return "cafehi_menu";

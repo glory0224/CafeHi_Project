@@ -14,6 +14,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.cafeHi.www.member.dto.CustomUser;
@@ -34,7 +36,7 @@ public class MemberController {
 	
 	// 회원 수정
 	
-	@RequestMapping("/updateMemberName.do")
+	@PostMapping("/updateMemberName.do")
 	public String updateUserName(MemberDTO member) {
 		// db 정보 변경
 		memberService.updateMemberName(member);
@@ -49,7 +51,7 @@ public class MemberController {
 		
 	}
 	
-	@RequestMapping("/updateMemberContact.do")
+	@PostMapping("/updateMemberContact.do")
 	public String updateUserContact(MemberDTO member) {
 		// db 정보 변경 
 		memberService.updateMemberContact(member);
@@ -65,7 +67,7 @@ public class MemberController {
 	}
 	
 	
-	@RequestMapping("/updateMemberEmail.do")
+	@PostMapping("/updateMemberEmail.do")
 	public String updateUserEmail(MemberDTO member) {
 		
 		// db 정보 변경 
@@ -81,7 +83,7 @@ public class MemberController {
 		return "member/cafehi_memberInfo";
 	}
 	
-	@RequestMapping("/updateMemberAddress.do")
+	@PostMapping("/updateMemberAddress.do")
 	public String updateUserAddress(MemberDTO member) {
 		
 		// db 정보 변경 
@@ -100,7 +102,7 @@ public class MemberController {
 		return "member/cafehi_memberInfo";
 	}
 	
-	@RequestMapping("/updateMemberDetailAddress.do")
+	@PostMapping("/updateMemberDetailAddress.do")
 	public String updateUserDetailAddress(MemberDTO member) {
 		memberService.updateMemberDetailAddress(member);
 		
@@ -115,7 +117,7 @@ public class MemberController {
 	}
 	
 	// 회원 삭제 
-	@RequestMapping("/deleteMember.do")
+	@PostMapping("/deleteMember.do")
 	public String deleteUser(MemberDTO member, HttpSession session, HttpServletRequest request) {
 		String MemberId = member.getMember_id();
 		String MemberPw = member.getMember_pw();
@@ -155,7 +157,7 @@ public class MemberController {
 	}
 	
 	// 관리자 회원 정보 리스트
-	@RequestMapping("getMemeberList.do")
+	@GetMapping("getMemeberList.do")
 	public String getMemberList(Model model) {
 		
 		String roleName = "ROLE_USER";

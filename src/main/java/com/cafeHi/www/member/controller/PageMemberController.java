@@ -2,7 +2,7 @@ package com.cafeHi.www.member.controller;
 
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class PageMemberController {
@@ -10,7 +10,7 @@ public class PageMemberController {
 	// 회원
 	
 	// 마이페이지 
-		@RequestMapping("/myPage.do")
+		@GetMapping("/myPage.do")
 		public String MyPageView() {
 			return "member/cafehi_myPage";
 			
@@ -18,7 +18,7 @@ public class PageMemberController {
 	
 	// 계정 정보 페이지
 	
-	@RequestMapping("/info.do") 
+	@GetMapping("/info.do") 
 	public String MemberInfoView() { 
 		
 		return "member/cafehi_memberInfo";
@@ -28,14 +28,14 @@ public class PageMemberController {
 	
 	
 	// 계정 정보 수정 페이지
-	@RequestMapping("/infoUpdate.do")
+	@GetMapping("/infoUpdate.do")
 	public String MemberInfoUpdateView() {
 		
 		return "member/cafehi_memberUpdate";
 	}
 	
 	// 계정 탈퇴 페이지
-	@RequestMapping("/infoDelete.do")
+	@GetMapping("/infoDelete.do")
 	public String MemberInfoDeleteView() {
 		return "member/cafehi_memberDelete";
 		

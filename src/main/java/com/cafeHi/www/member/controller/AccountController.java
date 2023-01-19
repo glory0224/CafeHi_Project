@@ -11,6 +11,8 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -31,14 +33,15 @@ public class AccountController {
 	private final BCryptPasswordEncoder pwdEncoder;
 	
 	// 아이디 찾기 페이지
-	@RequestMapping(value = "/idSearch.do", method = RequestMethod.GET)
+	@GetMapping("/idSearch.do")
 	public String idSearchView() {
 		
 		return "cafehi_idSearch";
 	}
 	
+	
 	// 아이디 찾기
-	@RequestMapping(value = "/idSearch.do", method = RequestMethod.POST)
+	@PostMapping("/idSearch.do")
 	public String idSearch(MemberDTO member, Model model) {
 		
 		String member_email = member.getMember_email();
@@ -87,14 +90,14 @@ public class AccountController {
 	}
 	
 	// 비밀번호 찾기 페이지
-	@RequestMapping(value = "/pwSearch.do", method = RequestMethod.GET)
+	@GetMapping("/pwSearch.do")
 	public String pwSearchView() {
 		
 		return "cafehi_pwSearch";
 	}
 	
 	// 비밀번호 이메일 인증 페이지
-	@RequestMapping(value="/pwSearch.do", method = RequestMethod.POST)
+	@PostMapping("/pwSearch.do")
 	public String pwEmailView(MemberDTO member, Model model) {
 		member = memberService.getMember(member);
 		if(member != null) {
@@ -108,7 +111,7 @@ public class AccountController {
 	}
 	
 	// 비밀번호 이메일 인증 페이지
-	@RequestMapping(value = "/pwSearchAuth.do", method = RequestMethod.GET)
+	@GetMapping("/pwSearchAuth.do")
 	public String pwEmailAuthView() {
 		
 		return "cafehi_pwSearchAuth";
@@ -116,7 +119,7 @@ public class AccountController {
 	}
 	
 	// 이메일로 비밀번호 찾기 
-	@RequestMapping(value = "/pwSearchAuth.do", method = RequestMethod.POST)
+	@PostMapping("/pwSearchAuth.do")
 	public String pwEmailAuth(MemberDTO member, Model model) throws UnsupportedEncodingException {
 		String member_email = member.getMember_email();
 		

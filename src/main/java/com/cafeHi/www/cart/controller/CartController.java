@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -24,7 +26,7 @@ public class CartController {
 	
 	private final CartService cartService;
 	
-	@RequestMapping("/myCartList.do")
+	@GetMapping("/myCartList.do")
 	public String CartListView(Model model) {
 		Map<String, Object> map = new HashMap<>();
 		
@@ -51,7 +53,7 @@ public class CartController {
 		return "member/cafehi_cart_list";
 	}
 	
-	@RequestMapping("/insertCart.do")
+	@PostMapping("/insertCart.do")
 	public String CartInsert(@RequestParam(required = false) int orderAmount, CartDTO cart, HttpServletRequest request) {
 		
 		if(orderAmount == 0) {
@@ -77,7 +79,7 @@ public class CartController {
 	
 	
 	// 장바구니 수정 
-	@RequestMapping("/modifyCart.do")
+	@PostMapping("/modifyCart.do")
 	public String CartModify(CartDTO cart) {
 		
 		System.out.println("cart_code : " + cart.getCart_code());
@@ -90,7 +92,7 @@ public class CartController {
 	}
 	
 	// 장바구니 삭제
-	@RequestMapping("/deleteCart.do")
+	@PostMapping("/deleteCart.do")
 	public String CartDelete(CartDTO cart) {
 		
 		System.out.println("cart_code : " + cart.getCart_code());
@@ -102,7 +104,7 @@ public class CartController {
 	}
 	
 	// 장바구니 비우기
-	@RequestMapping("/deleteCartAll.do")
+	@PostMapping("/deleteCartAll.do")
 	public String CartDeleteAll() {
 		
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
