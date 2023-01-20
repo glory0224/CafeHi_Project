@@ -2,6 +2,7 @@ package com.cafeHi.www.member.service;
 
 import java.util.List;
 
+import com.cafeHi.www.common.dto.CriteriaDTO;
 import com.cafeHi.www.member.dto.MemberAuthDTO;
 import com.cafeHi.www.member.dto.MemberDTO;
 
@@ -30,6 +31,9 @@ public interface MemberService {
 	
 	// 비밀번호 찾기 
 	public void findPw(MemberDTO member);
+	
+	// 회원 리스트 페이징
+	public int getMemberNum(CriteriaDTO cri);
 	
 	
 	

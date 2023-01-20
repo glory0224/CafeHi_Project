@@ -81,12 +81,15 @@
  	
  	<select id="getMemberList" parameterType="String" resultMap="MemberResult">
  		SELECT 
- 			mem.member_id, member_pw, member_name, member_contact, member_email, member_road_address, member_jibun_address, member_detail_address, enabled, auth
+ 			mem.member_code, member_pw, member_name, member_contact, member_email, member_road_address, member_jibun_address, member_detail_address, enabled, auth
  		FROM
- 			cafehi_member mem LEFT OUTER JOIN cafehi_member_auth auth on mem.member_code = 
+ 			cafehi_member mem 
+ 		LEFT OUTER JOIN cafehi_member_auth auth on mem.member_code = 
  			auth.member_code
  		WHERE
  			auth.auth = #{roleName}
+ 		ORDER BY
+ 			mem.member_code DESC
  	</select>
  	
  	
@@ -98,6 +101,16 @@
  			auth.member_code
  		WHERE
  			mem.member_id = #{member_id}
+ 	</select>
+ 	
+ 	<!-- 전체 멤버 수 조회 -->
+ 	<select id="getMemberNum" resultType="int">
+ 			SELECT COUNT(*) FROM cafehi_member
+ 			
+ 			<if test="keyword != null">
+ 				WHERE qna_title LIKE '%'||#{keyword}||'%'
+ 			</if>
+ 		
  	</select>
  	
  	<!-- 아이디 찾기 관련  -->

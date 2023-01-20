@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.cafeHi.www.common.dto.CriteriaDTO;
+import com.cafeHi.www.common.dto.PageDTO;
 import com.cafeHi.www.member.dto.CustomUser;
 import com.cafeHi.www.member.dto.MemberDTO;
 import com.cafeHi.www.member.service.MemberService;
@@ -158,18 +160,44 @@ public class MemberController {
 	
 	// 관리자 회원 정보 리스트
 	@GetMapping("getMemeberList.do")
-	public String getMemberList(Model model) {
+	public String getMemberList(MemberDTO member, CriteriaDTO cri, Model model) {
 		
 		String roleName = "ROLE_USER";
 		
 		List<MemberDTO> memberList = memberService.getMemberList(roleName);
 		
+		for(MemberDTO mem : memberList) {
+			System.out.println("mem_code" + mem.getMember_code());
+		}
+		
+		int total = memberService.getMemberNum(cri);
+		
+		PageDTO pageDTO = new PageDTO(cri, total);
+		model.addAttribute("pageDTO", pageDTO);
 		model.addAttribute("memberList", memberList);
+		
 		
 		return "admin/cafehi_adminMemberList";
 		
 	}
 	
+//	@GetMapping("/MemberList.do")
+//	public String SearchQnAList(MemberDTO member, CriteriaDTO cri, Model model) {
+//				
+//		int total = qnaService.getQnANum(cri);
+//		
+//		PageDTO pageDTO = new PageDTO(cri, total);
+//		System.out.println("page의 cri의 pageNum : " + pageDTO.getCri().getPageNum());
+//		System.out.println("page의 cri의 amount : " + pageDTO.getCri().getAmount());
+//		System.out.println("page의 cri의 keyword : " + pageDTO.getCri().getKeyword());
+//		model.addAttribute("pageDTO", pageDTO);
+//		model.addAttribute("qnaList", qnaService.getQnAList(cri));
+//		
+//		
+//			
+//		return "cafehi_QnA_board";
+//	}
+//	
 	
 	
 }

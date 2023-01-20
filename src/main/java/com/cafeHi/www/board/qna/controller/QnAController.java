@@ -267,6 +267,7 @@ public class QnAController {
 			return "member/cafehi_memberQnA";
 		}
 	
+		
 	
 	
 }

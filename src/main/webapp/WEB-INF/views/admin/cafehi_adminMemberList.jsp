@@ -40,7 +40,7 @@
 <jsp:include page="/cafeHi_module/adminPageNav.jsp"/>
 </div>
 <div class="w-50 m-auto" style="padding-top: 5%">
-	<form action="QnAList.do" method="post">
+	<form action="MemberList.do" method="post">
 		
 			<div class="container-fluid px-4">
 				<h1 class="mb-4">회원 관리</h1>
@@ -95,12 +95,12 @@
 									<div class="container mt-3">
 									<ul class="pagination justify-content-center" >
 										<c:if test="${pageDTO.prev }">
-										<li class="page-item"><a class="page-link" href="QnAList.do?pageNum=${pageDTO.startPage - 1 }&amount=${pageDTO.amount }" style='text-decoration: none; color: black;'>
+										<li class="page-item"><a class="page-link" href="getMemeberList.do?pageNum=${pageDTO.startPage - 1 }&amount=${pageDTO.amount }" style='text-decoration: none; color: black;'>
 												<span aria-hidden="true">&laquo;</span> </a></li>
 										</c:if>
 									<c:forEach var="num" begin="${pageDTO.startPage }" end="${pageDTO.endPage }">
 									<li class="page-item ">
-									<a class="page-link ${pageDTO.pageNum eq num? 'bg-success' : 'text-dark' }" href="QnAList.do?pageNum=${num }&amount=${pageDTO.amount }" style='text-decoration: none; color: white; '>
+									<a class="page-link ${pageDTO.pageNum eq num? 'bg-success' : 'text-dark' }" href="getMemeberList.do?pageNum=${num }&amount=${pageDTO.amount }" style='text-decoration: none; color: white; '>
 												<c:out value="${num }"/>
 												</a>
 									</li>
@@ -122,7 +122,7 @@
 	</form>
 </div>
 </div>
-	<form id="QnAForm" method="get">
+	<form id="MemberForm" method="get">
 		<input type="hidden" name="pageNum" value="${pageDTO.cri.pageNum }">
 		<input type="hidden" name="amount" value="${pageDTO.cri.amount }">
 		<input type="hidden" name="keyword" value="${pageDTO.cri.keyword }">
@@ -135,9 +135,9 @@
 	$(".search_area button").on("click", function(e){
         e.preventDefault();
         let val = $("input[name='keyword']").val();
-        QnAForm.find("input[name='keyword']").val(val);
-        QnAForm.find("input[name='pageNum']").val(1);
-        QnAForm.submit();
+        MemberForm.find("input[name='keyword']").val(val);
+        MemberForm.find("input[name='pageNum']").val(1);
+        MemberForm.submit();
     });
 	</script>
 </body>
