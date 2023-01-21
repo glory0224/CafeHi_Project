@@ -110,12 +110,17 @@
  	</select>
  	
  	<!-- 전체 멤버 수 조회 -->
- 	<select id="getMemberNum" resultType="int">
- 			SELECT COUNT(*) FROM cafehi_member
+ 	<select id="getMemberNum" parameterType="hashMap" resultType="int">
+ 			SELECT COUNT(*) 
+ 			FROM cafehi_member mem 
+ 			LEFT OUTER JOIN cafehi_member_auth auth on mem.member_code = 
+ 			auth.member_code
+ 			WHERE
+ 			auth.auth = #{mem_auth}
  			
- 			<if test="keyword != null">
+ 			<!-- <if test="keyword != null">
  				WHERE qna_title LIKE '%'||#{keyword}||'%'
- 			</if>
+ 			</if> -->
  		
  	</select>
  	

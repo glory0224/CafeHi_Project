@@ -34,7 +34,7 @@ public interface MemberService {
 	public void findPw(MemberDTO member);
 	
 	// 회원 리스트 페이징
-	public int getMemberNum(CriteriaDTO cri);
+	public int getMemberNum(String mem_auth);
 	
 	
 	

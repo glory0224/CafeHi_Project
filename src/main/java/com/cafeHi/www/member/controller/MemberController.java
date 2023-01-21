@@ -168,22 +168,22 @@ public class MemberController {
 		System.out.println("keyword : " + cri.getKeyword());
 		System.out.println("amount : " + cri.getAmount());
 		
+		String mem_auth = "ROLE_USER";
+		
 		Map<String, Object> auth = new HashMap();
 		
-		auth.put("auth", "ROLE_USER");
+		auth.put("auth", mem_auth);
 		auth.put("cri", cri);
 		
-		String roleName = "ROLE_USER";
+		
+		int total = memberService.getMemberNum(mem_auth);
+		
+		System.out.println("total : " + total);
+		
+		PageDTO pageDTO = new PageDTO(cri, total);
 		
 		List<MemberDTO> memberList = memberService.getMemberList(auth);
 		
-		for(MemberDTO mem : memberList) {
-			System.out.println("mem_code" + mem.getMember_code());
-		}
-		
-		int total = memberService.getMemberNum(cri);
-		
-		PageDTO pageDTO = new PageDTO(cri, total);
 		model.addAttribute("pageDTO", pageDTO);
 		model.addAttribute("memberList", memberList);
 		
@@ -192,23 +192,7 @@ public class MemberController {
 		
 	}
 	
-//	@GetMapping("/MemberList.do")
-//	public String SearchQnAList(MemberDTO member, CriteriaDTO cri, Model model) {
-//				
-//		int total = qnaService.getQnANum(cri);
-//		
-//		PageDTO pageDTO = new PageDTO(cri, total);
-//		System.out.println("page의 cri의 pageNum : " + pageDTO.getCri().getPageNum());
-//		System.out.println("page의 cri의 amount : " + pageDTO.getCri().getAmount());
-//		System.out.println("page의 cri의 keyword : " + pageDTO.getCri().getKeyword());
-//		model.addAttribute("pageDTO", pageDTO);
-//		model.addAttribute("qnaList", qnaService.getQnAList(cri));
-//		
-//		
-//			
-//		return "cafehi_QnA_board";
-//	}
-//	
+
 	
 	
 }

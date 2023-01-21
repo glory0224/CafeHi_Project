@@ -90,8 +90,8 @@ public class MemberDAO {
 		return sqlSessionTemplate.selectList("MemberDAO.getMemberList", auth);
 	}
 
-	public int getMemberNum(CriteriaDTO cri) {
-		return sqlSessionTemplate.selectOne("MemberDAO.getMemberNum");
+	public int getMemberNum(String mem_auth) {
+		return sqlSessionTemplate.selectOne("MemberDAO.getMemberNum", mem_auth);
 	}
 	
 }

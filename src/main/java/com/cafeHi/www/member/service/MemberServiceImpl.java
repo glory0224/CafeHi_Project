@@ -25,13 +25,7 @@ public class MemberServiceImpl implements MemberService{
 	public MemberDTO getMember(MemberDTO member) {
 		return memberDAO.getMember(member);
 	}
-	
 
-//	@Override
-//	public List<MemberDTO> getMemberList(CriteriaDTO cri) {
-//		return memberDAO.getMemberList(cri);
-//	}
-//	
 
 	@Override
 	public List<MemberDTO> getMemberList(Map<String, Object> auth) {
@@ -114,14 +108,16 @@ public class MemberServiceImpl implements MemberService{
 		memberDAO.findPw(member);
 	}
 
-	// 회원 수 
-	@Override
-	public int getMemberNum(CriteriaDTO cri) {
-		return memberDAO.getMemberNum(cri);
-	}
-
 
 	
+
+	// 회원 수 
+	
+
+	@Override
+	public int getMemberNum(String mem_auth) {
+		return memberDAO.getMemberNum(mem_auth);
+	}
 
 	
 
