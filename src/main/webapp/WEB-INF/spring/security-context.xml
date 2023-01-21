@@ -13,6 +13,7 @@
 
 	<security:http>
 		<security:intercept-url pattern="/getQnA.do" access="permitAll" />
+		
 		<security:intercept-url pattern="/info.do" access="hasRole('ROLE_USER')"/>
 		<security:intercept-url pattern="/infoUpdate.do" access="hasRole('ROLE_USER')"/>
 		<security:intercept-url pattern="/infoDelete.do" access="hasRole('ROLE_USER')"/>		
@@ -27,7 +28,17 @@
 		
 						
 		<security:intercept-url pattern="/manager/*" access="hasRole('ROLE_MEMBER')"/>
-		<security:intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')"/>
+		
+		<security:intercept-url pattern="/adminPage.do" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/adminInfoPage.do" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/adminInfoUpdatePage.do" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/adminDeletePage.do" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/adminSignUpPage.do" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/getMemeberList.do" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/adminMemberBoardPage.do" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/adminBoardPage.do" access="hasRole('ROLE_ADMIN')"/>
+		
+		
 			
 		<!-- <security:form-login/> -->		
 			<security:form-login login-page="/login.do" login-processing-url="/login.do" authentication-success-handler-ref="customLoginSuccess"/>

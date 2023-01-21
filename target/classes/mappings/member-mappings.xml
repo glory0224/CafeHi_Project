@@ -79,6 +79,7 @@
  		WHERE member_id = #{member_id}
  	</select>
  	
+ 	<!-- cri 객체와 member_auth를 동시에 파라미터로 넘겨주기 위해 hashMap을 사용했다. -->
  	<select id="getMemberList" parameterType="hashMap" resultMap="MemberResult">
  		
  		
@@ -110,7 +111,7 @@
  	</select>
  	
  	<!-- 전체 멤버 수 조회 -->
- 	<select id="getMemberNum" parameterType="hashMap" resultType="int">
+ 	<select id="getMemberNum" parameterType="String" resultType="int">
  			SELECT COUNT(*) 
  			FROM cafehi_member mem 
  			LEFT OUTER JOIN cafehi_member_auth auth on mem.member_code = 

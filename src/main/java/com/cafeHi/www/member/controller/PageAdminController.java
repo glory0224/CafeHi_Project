@@ -8,46 +8,41 @@ public class PageAdminController {
 	
 	// 관리자 페이지
 	
-	@GetMapping("/AdminPage.do")
+	@GetMapping("adminPage.do")
 	public String adminPage() {
 		
 		return "admin/cafehi_adminPage";
 	}
 	
-	@GetMapping("/AdminInfoPage.do")
+	@GetMapping("adminInfoPage.do")
 	public String adminInfoPage() {
 		
 		return "admin/cafehi_adminInfo";
 	}
 	
-	@GetMapping("/AdminInfoUpdatePage.do")
+	@GetMapping("adminInfoUpdatePage.do")
 	public String adminInfoUpdatePage() {
 		
 		return "admin/cafehi_adminInfoUpdate";
 	}
 	
-	@GetMapping("/AdminDeletePage.do")
+	@GetMapping("adminDeletePage.do")
 	public String adminDeletePage() {
 		return "admin/cafehi_adminDelete";
 	}
 	
-	@GetMapping("/AdminSignUpPage.do")
+	@GetMapping("adminSignUpPage.do")
 	public String adminSignUpPage() {
 		return "admin/cafehi_adminSignUp";
 	}
 	
 	
-	@GetMapping("/MemberListPage.do")
-	public String adminMemberListPage() {
-		return "admin/cafehi_adminMemberList";
-	}
-	
-	@GetMapping("/MemberBoardPage.do")
+	@GetMapping("adminMemberBoardPage.do")
 	public String adminMemberBoardPage() {
 		return "admin/cafehi_adminMemberBoard";
 	}
 	
-	@GetMapping("/AdminBoardPage.do")
+	@GetMapping("adminBoardPage.do")
 	public String adminBoardPage() {
 		return "admin/cafehi_adminBoard";
 	}
