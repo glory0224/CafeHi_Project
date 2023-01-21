@@ -1,6 +1,7 @@
 package com.cafeHi.www.member.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -85,8 +86,8 @@ public class MemberDAO {
 		sqlSessionTemplate.update("MemberDAO.findPw", member);
 	}
 
-	public List<MemberDTO> getMemberList(String roleName) {
-		return sqlSessionTemplate.selectList("MemberDAO.getMemberList", roleName);
+	public List<MemberDTO> getMemberList(Map<String, Object> auth) {
+		return sqlSessionTemplate.selectList("MemberDAO.getMemberList", auth);
 	}
 
 	public int getMemberNum(CriteriaDTO cri) {

@@ -106,7 +106,7 @@
 									</li>
 									</c:forEach>
 									<c:if test="${pageDTO.next }">
-									<li class="page-item"><a class="page-link" href="QnAList.do?pageNum=${pageDTO.endPage + 1 }&amount=${pageDTO.amount }" style='text-decoration: none; color: black;'>
+									<li class="page-item"><a class="page-link" href="getMemeberList.do?pageNum=${pageDTO.endPage + 1 }&amount=${pageDTO.amount }" style='text-decoration: none; color: black;'>
 												<span aria-hidden="true">&raquo;</span></a></li> 
 									</c:if>
 									</ul>

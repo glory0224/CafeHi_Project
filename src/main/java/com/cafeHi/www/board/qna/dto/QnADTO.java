@@ -18,7 +18,6 @@ public class QnADTO {
 	private int qna_hit;
 	
 	
-	//private MemberDTO member;
 	private int member_code;
 	private String member_id;
 	

@@ -1,6 +1,7 @@
 package com.cafeHi.www.member.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -25,9 +26,16 @@ public class MemberServiceImpl implements MemberService{
 		return memberDAO.getMember(member);
 	}
 	
+
+//	@Override
+//	public List<MemberDTO> getMemberList(CriteriaDTO cri) {
+//		return memberDAO.getMemberList(cri);
+//	}
+//	
+
 	@Override
-	public List<MemberDTO> getMemberList(String roleName) {
-		return memberDAO.getMemberList(roleName);
+	public List<MemberDTO> getMemberList(Map<String, Object> auth) {
+		return memberDAO.getMemberList(auth);
 	}
 
 	
@@ -111,6 +119,9 @@ public class MemberServiceImpl implements MemberService{
 	public int getMemberNum(CriteriaDTO cri) {
 		return memberDAO.getMemberNum(cri);
 	}
+
+
+	
 
 	
 

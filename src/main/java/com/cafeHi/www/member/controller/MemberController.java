@@ -4,7 +4,9 @@ package com.cafeHi.www.member.controller;
 
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -162,9 +164,18 @@ public class MemberController {
 	@GetMapping("getMemeberList.do")
 	public String getMemberList(MemberDTO member, CriteriaDTO cri, Model model) {
 		
+		System.out.println("pageNum : " + cri.getPageNum());
+		System.out.println("keyword : " + cri.getKeyword());
+		System.out.println("amount : " + cri.getAmount());
+		
+		Map<String, Object> auth = new HashMap();
+		
+		auth.put("auth", "ROLE_USER");
+		auth.put("cri", cri);
+		
 		String roleName = "ROLE_USER";
 		
-		List<MemberDTO> memberList = memberService.getMemberList(roleName);
+		List<MemberDTO> memberList = memberService.getMemberList(auth);
 		
 		for(MemberDTO mem : memberList) {
 			System.out.println("mem_code" + mem.getMember_code());

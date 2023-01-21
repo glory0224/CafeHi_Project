@@ -1,6 +1,7 @@
 package com.cafeHi.www.member.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.cafeHi.www.common.dto.CriteriaDTO;
 import com.cafeHi.www.member.dto.MemberAuthDTO;
@@ -10,7 +11,7 @@ public interface MemberService {
 	
 	// È¸¿ø CRUD
 	public MemberDTO getMember(MemberDTO member);
-	public List<MemberDTO> getMemberList(String roleName);
+	public List<MemberDTO> getMemberList(Map<String, Object> auth);
 	public MemberDTO readMember(String member_code);
 	public void insertMember(MemberDTO member);
 	public void insertMemberAuth(MemberAuthDTO memberauth);

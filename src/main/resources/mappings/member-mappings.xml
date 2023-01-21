@@ -79,17 +79,23 @@
  		WHERE member_id = #{member_id}
  	</select>
  	
- 	<select id="getMemberList" parameterType="String" resultMap="MemberResult">
- 		SELECT 
- 			mem.member_code, member_pw, member_name, member_contact, member_email, member_road_address, member_jibun_address, member_detail_address, enabled, auth
+ 	<select id="getMemberList" parameterType="hashMap" resultMap="MemberResult">
+ 		
+ 		
+ 		SELECT * 
+ 		FROM(
+ 		SELECT
+ 			rownum rn, mem.member_code, member_pw, member_name, member_contact, member_email, member_road_address, member_jibun_address, member_detail_address, enabled, auth
  		FROM
- 			cafehi_member mem 
+ 			(SELECT * FROM cafehi_member ORDER BY member_code DESC) mem 
  		LEFT OUTER JOIN cafehi_member_auth auth on mem.member_code = 
  			auth.member_code
  		WHERE
- 			auth.auth = #{roleName}
- 		ORDER BY
- 			mem.member_code DESC
+ 			auth.auth = #{auth}
+ 		)
+ 		 <![CDATA[
+	 			WHERE rn > (#{cri.pageNum} -1) * #{cri.amount} AND rn <= #{cri.pageNum} * #{cri.amount}
+	 		]]>
  	</select>
  	
  	
