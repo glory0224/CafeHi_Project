@@ -120,12 +120,19 @@ public class QnAController {
 		return "cafehi_QnA_board";
 	}
 	
-	// 글쓰기 페이지 이동
+	// 게시글 페이지 이동
 	@GetMapping("/QnAWritePage.do")
 	public String QnAWritePage() {
 		return "member/cafehi_QnA_write";
 		
 	}
+	
+	// 관리자 게시글 페이지 이동
+	@GetMapping("QnAAdminWritePage.do")
+	public String QnAAdminWritePage() {
+		return "admin/cafehi_QnA_adminWrite";
+	}
+	
 	
 	// 파일 다운로드 
 	@RequestMapping("/getFile.do")
@@ -193,6 +200,8 @@ public class QnAController {
 		return "redirect:QnAList.do";
 		
 	}
+	
+	
 	
 
 	@GetMapping("/QnAUpdate.do")

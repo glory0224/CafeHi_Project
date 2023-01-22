@@ -37,6 +37,8 @@
 		<security:intercept-url pattern="/getMemeberList.do" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/adminMemberBoardPage.do" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/adminBoardPage.do" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/QnAAdminWritePage.do" access="hasRole('ROLE_ADMIN')"/>
+		
 		
 		
 			
