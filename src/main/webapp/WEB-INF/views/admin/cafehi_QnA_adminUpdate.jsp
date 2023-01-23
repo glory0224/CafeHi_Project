@@ -25,10 +25,10 @@
 		<h1 class="display-4 fw-normal">QnA 게시판</h1>
 		<div
 			class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 "></div>
-		<p class="fs-5 text-muted">문의 사항을 게시글에 남겨주세요!</p>
+		<p class="fs-5 text-muted">공지할 글을 작성해주세요.</p>
 	</div>
 	
-	<form action="QnAUpdate.do" method="post" enctype="multipart/form-data">
+	<form action="AdminQnAUpdate.do" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
 		<main class="mt-5 pt-5 w-50 m-auto">
 		<div class="container-fluid px-4">
@@ -67,21 +67,39 @@
 								</c:choose>
 							</tr>
 							<tr>
+							
 							<c:choose>
 								<c:when test="${QnA.qna_title eq null }">
 									<th>제목</th>
+									<td>
+										<select name="classification">
+										<option selected="selected" value="${QnA.classification }" disabled="disabled">
+										<option value="[공지사항]">[공지사항]</option>
+										<option value="[긴급공지]">[긴급공지]</option>
+										<option value="[업데이트]">[업데이트]</option>
+										</select>
+									</td>
 									<td>없음</td>
 								</c:when>
 								<c:otherwise>
 									<th>제목</th>
-									<td colspan="3"><input type="text"  value="${QnA.qna_title }" size=100 name="qna_title"></td>
+									<td colspan="3">
+									<select name="classification">
+										<option selected="selected" value="${QnA.classification }" disabled="disabled">
+										<option value="[공지사항]">[공지사항]</option>
+										<option value="[긴급공지]">[긴급공지]</option>
+										<option value="[업데이트]">[업데이트]</option>
+										</select>
+									<input type="text"  value="${QnA.qna_title }" size=100 name="qna_title">
+									
+									</td>
 								</c:otherwise>
 								
 							</c:choose>
 							</tr>
 							<tr>
 									<c:choose>
-								<c:when test="${QnA.qna_content eq null }">
+								<c:when test="${QnA.qna_title eq null }">
 									<th>내용</th>
 									<td>없음</td>
 								</c:when>

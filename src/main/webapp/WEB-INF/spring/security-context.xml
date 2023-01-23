@@ -14,21 +14,29 @@
 	<security:http>
 		<security:intercept-url pattern="/getQnA.do" access="permitAll" />
 		
+		<!-- 유저 페이지 -->
 		<security:intercept-url pattern="/info.do" access="hasRole('ROLE_USER')"/>
 		<security:intercept-url pattern="/infoUpdate.do" access="hasRole('ROLE_USER')"/>
 		<security:intercept-url pattern="/infoDelete.do" access="hasRole('ROLE_USER')"/>		
 		<security:intercept-url pattern="/QnAWritePage.do" access="hasRole('ROLE_USER')"/>
-		<security:intercept-url pattern="/InsertQnA.do" access="hasRole('ROLE_USER')"/>
 		<security:intercept-url pattern="/QnAUpdate.do" access="hasRole('ROLE_USER')"/>		
 		<security:intercept-url pattern="/myQnAInfo.do" access="hasRole('ROLE_USER')"/>		
 		<security:intercept-url pattern="/myPage.do" access="hasRole('ROLE_USER')"/>
 		<security:intercept-url pattern="/myMembership.do" access="hasRole('ROLE_USER')"/>
+		
+		<!-- 유저 행위 -->
+		<security:intercept-url pattern="/InsertQnA.do" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/QnAUpdate.do" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/DeleteQnA.do" access="hasRole('ROLE_USER')"/>
+		
+		
 		<security:intercept-url pattern="/insertCart.do" access="hasRole('ROLE_USER')"/>						
 		<security:intercept-url pattern="/myCartList.do" access="hasRole('ROLE_USER')"/>
 		
 						
 		<security:intercept-url pattern="/manager/*" access="hasRole('ROLE_MEMBER')"/>
 		
+		<!-- 관리자 페이지-->
 		<security:intercept-url pattern="/adminPage.do" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/adminInfoPage.do" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/adminInfoUpdatePage.do" access="hasRole('ROLE_ADMIN')"/>
@@ -38,6 +46,10 @@
 		<security:intercept-url pattern="/adminMemberBoardPage.do" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/adminBoardPage.do" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/QnAAdminWritePage.do" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/QnAAdminWritePage.do" access="hasRole('ROLE_ADMIN')"/>
+		
+		<!-- 관리자 행위  -->
+		<security:intercept-url pattern="/InsertAdminQnA.do" access="hasRole('ROLE_ADMIN')"/>
 		
 		
 		

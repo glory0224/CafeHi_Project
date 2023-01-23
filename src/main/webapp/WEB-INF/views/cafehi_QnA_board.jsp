@@ -112,7 +112,7 @@
 										<td>${qna.qna_num }</td>
 										<td><a href="getQnA.do?qna_num=${qna.qna_num }"
 											style="text-decoration: none; color: black; font-weight: bold;">
-												${qna.qna_title }</a></td>
+												<c:if test="${qna.classification ne null }">${qna.classification }&nbsp; </c:if>${qna.qna_title }</a></td>
 										<td>${qna.member_id }</td>
 										<td><fmt:formatDate value="${qna.qna_writetime }"
 												pattern="yyyy-MM-dd" /></td>

@@ -71,9 +71,9 @@
   <select id="getQnAList" resultType="QnA">
  		
 
- 	SELECT qna_num, qna_title, qna_content, qna_writetime, qna_hit, member_id FROM(
+ 	SELECT qna_num, qna_title,classification, qna_content, qna_writetime, qna_hit, member_id FROM(
 	
-	SELECT rownum rn, cq.qna_num, cq.qna_title, cq.qna_content, cq.qna_writetime, cq.qna_hit, cm.member_id FROM
+	SELECT rownum rn, cq.qna_num, cq.qna_title, cq.classification, cq.qna_content, cq.qna_writetime, cq.qna_hit, cm.member_id FROM
 	
 	(SELECT * FROM cafehi_qna ORDER BY qna_num DESC) cq, cafehi_member cm
 	
@@ -99,7 +99,7 @@
 	<!-- 게시글 조회 -->
 	<select id="getQnA" resultType="QnA">
 		SELECT  * FROM(
-		SELECT q.qna_num, q.qna_title, q.qna_content, q.qna_writetime, q.qna_hit, m.member_id, q.upload_path, q.filename FROM cafehi_qna q, cafehi_member m WHERE m.member_code = q.member_code
+		SELECT q.qna_num, q.qna_title, q.classification, q.qna_content, q.qna_writetime, q.qna_hit, m.member_id, q.upload_path, q.filename FROM cafehi_qna q, cafehi_member m WHERE m.member_code = q.member_code
 		)
 		  WHERE qna_num=#{qna_num}
 	</select>
@@ -110,8 +110,8 @@
 
 	<!-- 게시글 작성  -->
 	<insert id="insertQnA" parameterType="QnA">
-		INSERT INTO cafehi_qna (qna_num, qna_title, qna_writetime, qna_hit, member_code , qna_content, upload_path, filename)
-		VALUES((select nvl(max(qna_num), 0)+1 from cafehi_qna), #{qna_title}, #{qna_writetime}, #{qna_hit}, #{member_code}, #{qna_content}, #{upload_path}, #{fileName})
+		INSERT INTO cafehi_qna (qna_num, qna_title, classification, qna_writetime, qna_hit, member_code , qna_content, upload_path, filename)
+		VALUES((select nvl(max(qna_num), 0)+1 from cafehi_qna), #{qna_title}, #{classification}, #{qna_writetime}, #{qna_hit}, #{member_code}, #{qna_content}, #{upload_path}, #{fileName})
 	</insert>
 	
 	<!-- 게시글 수정 -->

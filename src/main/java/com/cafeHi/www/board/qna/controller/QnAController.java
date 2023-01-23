@@ -175,11 +175,13 @@ public class QnAController {
 	
 	// QnA CRUD
 	
-
+	// 사용자 게시글 등록
+	
 	@PostMapping("/InsertQnA.do")
 	public String InsertQnA(@RequestParam(value = "uploadfile", required = false) MultipartFile uploadfile,  QnADTO qna, MemberDTO mem, RedirectAttributes ra) throws IOException {
 		
 		System.out.println("member_code : " + mem.getMember_code());
+		
 		int code = mem.getMember_code();
 		
 		
@@ -196,6 +198,42 @@ public class QnAController {
 			File.transferTo(path);
 		}
 		
+		
+		
+		qnaService.insertQnA(qna);
+		return "redirect:QnAList.do";
+		
+	}
+	
+	// 관리자 게시글 등록
+	
+	@PostMapping("/InsertAdminQnA.do")
+	public String InsertAdminQnA(@RequestParam(value = "uploadfile", required = false) MultipartFile uploadfile,  QnADTO qna, MemberDTO mem, RedirectAttributes ra) throws IOException {
+		
+		System.out.println("member_code : " + mem.getMember_code());
+		System.out.println("classification : " + qna.getClassification());
+		
+		int code = mem.getMember_code();
+		
+		
+		qna.setQna_writetime(new Date());
+		System.out.println("qna_writetime : " + qna.getQna_writetime());
+		qna.setUploadFile(uploadfile);
+		MultipartFile File = qna.getUploadFile();
+		// null check
+		if(!File.isEmpty()) {
+			String fileName = File.getOriginalFilename();
+			qna.setFileName(fileName);
+			File path = new File("D:/Spring/upload/" + UUID.randomUUID().toString() + fileName);
+			qna.setUpload_path(path.getPath());
+			File.transferTo(path);
+		}
+		
+//		if(classification != null) {
+//			String adminTitle = classification + qna.getQna_title();
+//			qna.setQna_title(adminTitle);
+//		}
+		
 		qnaService.insertQnA(qna);
 		return "redirect:QnAList.do";
 		
@@ -203,11 +241,13 @@ public class QnAController {
 	
 	
 	
-
+	// 사용자 게시글 수정 
+	
 	@GetMapping("/QnAUpdate.do")
 	public String QnAUpdatePage(QnADTO qna, Model model) {
-		 
+		
 		model.addAttribute("QnA", qnaService.getQnA(qna));
+		
 		System.out.println("getfileName :" + qna.getFileName());
 		System.out.println("getOriginPath : " + qna.getUpload_path());
 		return "member/cafehi_QnA_update";
@@ -243,6 +283,49 @@ public class QnAController {
 		
 		
 	}
+	
+	@GetMapping("/AdminQnAUpdate.do")
+	public String AdminQnAUpdatePage(QnADTO qna, Model model) {
+		QnADTO getQnA = qnaService.getQnA(qna);
+		String classification = getQnA.getQna_title().substring(0, 5);
+		System.out.println("classification : " + classification);
+		model.addAttribute("QnA", getQnA);
+		model.addAttribute("classification", classification);
+		
+		return "admin/cafehi_QnA_adminUpdate";
+	}
+	
+	@PostMapping("/AdminQnAUpdate.do")
+	public String AdminQnAUpdate(@RequestParam(value = "uploadfile", required = false) MultipartFile uploadfile, QnADTO qna, HttpServletRequest request) throws IllegalStateException, IOException {
+		
+		
+		
+		
+		qna.setUploadFile(uploadfile);
+		MultipartFile File = qna.getUploadFile();
+		// null check
+		if(!File.isEmpty()) {
+			String fileName = File.getOriginalFilename();
+			qna.setFileName(fileName);
+			File path = new File("D:/Spring/upload/" + UUID.randomUUID().toString() + fileName);
+			qna.setUpload_path(path.getPath());
+			File.transferTo(path);
+			
+			qnaService.updateQnA(qna);
+			request.setAttribute("msg", "수정이 완료되었습니다.");
+			request.setAttribute("url", "AdminQnAUpdate.do?qna_num=" + qna.getQna_num());
+			return "alert";
+		}else {
+			qnaService.updateQnA(qna);
+			request.setAttribute("msg", "수정이 완료되었습니다.");
+			request.setAttribute("url", "AdminQnAUpdate.do?qna_num=" + qna.getQna_num());
+			return "alert";
+		}
+		
+		
+	}
+	
+	// 사용자 게시글 삭제 
 	
 	@PostMapping("/DeleteQnA.do")
 	public String DeleteQnA(QnADTO qna,  HttpServletRequest request) {

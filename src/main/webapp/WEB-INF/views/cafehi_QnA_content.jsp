@@ -70,7 +70,7 @@
 								</c:when>
 								<c:otherwise>
 									<th>제목</th>
-									<td colspan="3"><input type="text"  value="${QnA.qna_title }" size=100 readonly></td>
+									<td colspan="3"><c:if test="${QnA.classification ne null }">${QnA.classification } &nbsp; </c:if>${QnA.qna_title }</td>
 								</c:otherwise>
 								
 							</c:choose>
@@ -91,21 +91,29 @@
 						</table>
 						</div>
  						<div class="d-flex flex-row-reverse bd-highlight">
-							<div class="justify-content-between">
+						<div class="justify-content-between">
 						<sec:authorize access="isAnonymous()">
 							<input class="btn btn-success" type="button" value="목록" onclick="location.href='QnAList.do'">
 						</sec:authorize>
 
-						<!-- 로그인 중인 사용자 -->
-						<sec:authorize access="isAuthenticated()">
+						<!-- 로그인 중인 사용자 분류 -->
+						
+						<sec:authorize access="hasAnyRole('ROLE_USER')">
 							<c:if test="${QnA.member_id eq  securityId }">
 							<input class="btn btn-success" type="button" value="수정" onclick="location.href='QnAUpdate.do?qna_num=${QnA.qna_num}'">
 							<input class="btn btn-success" type="button" value="삭제" onclick="alert('정말로 삭제하시겠습니까?'); location.href='DeleteQnA.do?qna_num=${QnA.qna_num}'">
-							</c:if>
 							<input class="btn btn-success" type="button" value="목록" onclick="location.href='QnAList.do'">
+							</c:if>
 						</sec:authorize>
-						
-							</div>
+						<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+							<c:if test="${QnA.member_id eq  securityId }">
+							<input class="btn btn-success" type="button" value="수정" onclick="location.href='AdminQnAUpdate.do?qna_num=${QnA.qna_num}'">
+							<input class="btn btn-success" type="button" value="삭제" onclick="alert('정말로 삭제하시겠습니까?'); location.href='DeleteQnA.do?qna_num=${QnA.qna_num}'">
+							<input class="btn btn-success" type="button" value="목록" onclick="location.href='QnAList.do'">
+							</c:if>
+						</sec:authorize>
+					
+						</div>
 
 						</div>
 						</div>

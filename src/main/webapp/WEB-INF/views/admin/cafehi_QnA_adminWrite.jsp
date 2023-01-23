@@ -17,14 +17,14 @@
 		<h1 class="display-4 fw-normal">QnA 관리자 게시판</h1>
 		<div
 			class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 "></div>
-		<p class="fs-5 text-muted">공지사항을 남겨주세요.</p>
+		<p class="fs-5 text-muted">공지할 글을 작성해주세요.</p>
 	</div>
 	<main class="mt-5 pt-5 w-50 m-auto">
 		<div class="container-fluid px-4">
 			<h1 class="mb-4">게시글 등록</h1>
 
 			<div class="card mb-4">
-				<form action="InsertQnA.do" method="post" 
+				<form action="InsertAdminQnA.do" method="post" 
 					 enctype="multipart/form-data" >
 					 <input type="hidden" name="member_code" value="<sec:authentication property="principal.member.member_code"/>">
 					 <input type="hidden" name="qna_hit" value="0">
@@ -38,10 +38,24 @@
 									readonly="readonly"></td>
 								
 							</tr>
-						
 							<tr>
+								<th>분류</th>
+								<td>
+								<select name="classification">
+								<option value="[공지사항]">[공지사항]</option>
+								<option value="[긴급공지]">[긴급공지]</option>
+								<option value="[업데이트]">[업데이트]</option>
+								</select>
+								</td>
+							</tr>
+							<tr>
+								
 								<th>제목</th>
-								<td><input type="text"  name="qna_title" size="100"></td>
+								<td>
+								
+								
+								<input type="text"  name="qna_title" size="100">
+								</td>
 							</tr>
 							<tr>
 								<th>내용</th>

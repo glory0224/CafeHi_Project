@@ -51,7 +51,9 @@
 						
 							<tr>
 								<th>제목</th>
-								<td><input type="text"  name="qna_title" size="100"></td>
+								<td>
+								<input type="text"  name="qna_title" size="100">
+								</td>
 							</tr>
 							<tr>
 								<th>내용</th>

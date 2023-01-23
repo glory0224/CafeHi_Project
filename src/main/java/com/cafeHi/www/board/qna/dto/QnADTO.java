@@ -13,6 +13,7 @@ public class QnADTO {
 	
 	private int qna_num;
 	private String qna_title;
+	private String classification; // 게시글 분류
 	private String qna_content;
 	private Date qna_writetime;
 	private int qna_hit;
