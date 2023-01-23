@@ -71,24 +71,57 @@
 							<c:choose>
 								<c:when test="${QnA.qna_title eq null }">
 									<th>제목</th>
-									<td>
-										<select name="classification">
-										<option selected="selected" value="${QnA.classification }" disabled="disabled">
-										<option value="[공지사항]">[공지사항]</option>
-										<option value="[긴급공지]">[긴급공지]</option>
-										<option value="[업데이트]">[업데이트]</option>
+									<td colspan="3">
+									<select name="classification">
+										<c:choose>
+										<c:when test="${QnA.classification eq '[공지사항]' }">
+											<option value="[공지사항]" selected="selected">[공지사항]</option>
+											<option value="[긴급공지]">[긴급공지]</option>
+											<option value="[업데이트]">[업데이트]</option>
+										</c:when>
+										
+										<c:when test="${QnA.classification eq '[긴급공지]' }">
+											<option value="[공지사항]">[공지사항]</option>
+											<option value="[긴급공지]" selected="selected">[긴급공지]</option>
+											<option value="[업데이트]">[업데이트]</option>
+										</c:when>
+										
+										<c:when test="${QnA.classification eq '[업데이트]' }">
+											<option value="[공지사항]">[공지사항]</option>
+											<option value="[긴급공지]">[긴급공지]</option>
+											<option value="[업데이트]" selected="selected">[업데이트]</option>
+										</c:when>
+										
+										</c:choose>
 										</select>
+										<h5>없음</h5>
 									</td>
-									<td>없음</td>
+									
 								</c:when>
 								<c:otherwise>
 									<th>제목</th>
 									<td colspan="3">
 									<select name="classification">
-										<option selected="selected" value="${QnA.classification }" disabled="disabled">
-										<option value="[공지사항]">[공지사항]</option>
-										<option value="[긴급공지]">[긴급공지]</option>
-										<option value="[업데이트]">[업데이트]</option>
+										<c:choose>
+										<c:when test="${QnA.classification eq '[공지사항]' }">
+											<option value="[공지사항]" selected="selected">[공지사항]</option>
+											<option value="[긴급공지]">[긴급공지]</option>
+											<option value="[업데이트]">[업데이트]</option>
+										</c:when>
+										
+										<c:when test="${QnA.classification eq '[긴급공지]' }">
+											<option value="[공지사항]">[공지사항]</option>
+											<option value="[긴급공지]" selected="selected">[긴급공지]</option>
+											<option value="[업데이트]">[업데이트]</option>
+										</c:when>
+										
+										<c:when test="${QnA.classification eq '[업데이트]' }">
+											<option value="[공지사항]">[공지사항]</option>
+											<option value="[긴급공지]">[긴급공지]</option>
+											<option value="[업데이트]" selected="selected">[업데이트]</option>
+										</c:when>
+										
+										</c:choose>
 										</select>
 									<input type="text"  value="${QnA.qna_title }" size=100 name="qna_title">
 									

@@ -284,13 +284,12 @@ public class QnAController {
 		
 	}
 	
+	// 관리자 게시글 수정
+	
 	@GetMapping("/AdminQnAUpdate.do")
 	public String AdminQnAUpdatePage(QnADTO qna, Model model) {
 		QnADTO getQnA = qnaService.getQnA(qna);
-		String classification = getQnA.getQna_title().substring(0, 5);
-		System.out.println("classification : " + classification);
 		model.addAttribute("QnA", getQnA);
-		model.addAttribute("classification", classification);
 		
 		return "admin/cafehi_QnA_adminUpdate";
 	}
@@ -299,7 +298,7 @@ public class QnAController {
 	public String AdminQnAUpdate(@RequestParam(value = "uploadfile", required = false) MultipartFile uploadfile, QnADTO qna, HttpServletRequest request) throws IllegalStateException, IOException {
 		
 		
-		
+		System.out.println("classification : " + qna.getClassification());
 		
 		qna.setUploadFile(uploadfile);
 		MultipartFile File = qna.getUploadFile();
@@ -327,8 +326,18 @@ public class QnAController {
 	
 	// 사용자 게시글 삭제 
 	
-	@PostMapping("/DeleteQnA.do")
+	@GetMapping("/DeleteQnA.do")
 	public String DeleteQnA(QnADTO qna,  HttpServletRequest request) {
+		qnaService.deleteQnA(qna);
+		request.setAttribute("msg", "삭제가 완료되었습니다.");
+		request.setAttribute("url", "QnAList.do");
+		return "alert";
+	}
+	
+	// 관리자 게시글 삭제 
+	
+	@GetMapping("/AdminDeleteQnA.do")
+	public String AdminDeleteQnA(QnADTO qna,  HttpServletRequest request) {
 		qnaService.deleteQnA(qna);
 		request.setAttribute("msg", "삭제가 완료되었습니다.");
 		request.setAttribute("url", "QnAList.do");
@@ -337,6 +346,7 @@ public class QnAController {
 	
 	
 	// 계정 활동 내역 페이지
+	
 		@GetMapping("myQnAInfo.do")
 		public String MemberQnAInfoView(Model model) {
 			

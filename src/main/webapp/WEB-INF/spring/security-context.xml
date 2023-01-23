@@ -50,6 +50,9 @@
 		
 		<!-- 관리자 행위  -->
 		<security:intercept-url pattern="/InsertAdminQnA.do" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/AdminQnAUpdate.do" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/AdminDeleteQnA.do" access="hasRole('ROLE_ADMIN')"/>
+		
 		
 		
 		

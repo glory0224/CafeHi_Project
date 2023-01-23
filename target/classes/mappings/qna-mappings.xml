@@ -117,7 +117,7 @@
 	<!-- 게시글 수정 -->
 	<update id="updateQnA" parameterType="QnA">
 		UPDATE cafehi_qna 
-		SET qna_title=#{qna_title}, qna_content=#{qna_content}, upload_path=#{upload_path}, filename=#{fileName} WHERE qna_num=#{qna_num}
+		SET qna_title=#{qna_title}, classification=#{classification}, qna_content=#{qna_content}, upload_path=#{upload_path}, filename=#{fileName} WHERE qna_num=#{qna_num}
 	</update>
 	
 	<!-- 게시글 삭제 -->
