@@ -62,10 +62,7 @@ public class CartController {
 			
 			return "alert";
 		}
-		
-		System.out.println("amount : " + orderAmount);
-		System.out.println("menu_code : " +  cart.getMenu_code());
-		
+				
 		
 		cart.setCart_amount(orderAmount);
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -81,10 +78,7 @@ public class CartController {
 	// 장바구니 수정 
 	@PostMapping("/modifyCart.do")
 	public String CartModify(CartDTO cart) {
-		
-		System.out.println("cart_code : " + cart.getCart_code());
-		System.out.println("amount : " + cart.getCart_amount());
-		
+				
 		cartService.modifyCart(cart);
 		
 		return "redirect:/myCartList.do";
@@ -94,9 +88,7 @@ public class CartController {
 	// 장바구니 삭제
 	@GetMapping("/deleteCart.do")
 	public String CartDelete(CartDTO cart) {
-		
-		System.out.println("cart_code : " + cart.getCart_code());
-		
+				
 		cartService.deleteCart(cart.getCart_code());
 		
 		return "redirect:/myCartList.do";

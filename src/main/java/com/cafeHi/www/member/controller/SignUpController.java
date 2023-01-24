@@ -44,9 +44,7 @@ public class SignUpController {
 	// 회원 등록
 		@PostMapping("/insertMember.do")
 		public String insertUser(MemberDTO member, MemberAuthDTO memberauth) {
-			System.out.println(member.getMember_id());
-			System.out.println(member.getMember_name());
-			System.out.println(member.getMember_road_address());
+			
 			String encodepw = pwdEncoder.encode(member.getMember_pw());
 			member.setMember_pw(encodepw);
 			// '-'을 입력한 정보일 경우 
@@ -70,9 +68,6 @@ public class SignUpController {
 	// 관리자 등록
 		@PostMapping("/insertAdmin.do")
 		public String insertAdmin(MemberDTO member, MemberAuthDTO memberauth) {
-			System.out.println(member.getMember_id());
-			System.out.println(member.getMember_name());
-			System.out.println(member.getMember_road_address());
 			String encodepw = pwdEncoder.encode(member.getMember_pw());
 			member.setMember_pw(encodepw);
 			// '-'을 입력한 정보일 경우 
@@ -97,16 +92,13 @@ public class SignUpController {
 	@PostMapping("/IdCheck.do")
 	public @ResponseBody int IdCheck(String member_id) {
 		int result = memberService.idCheck(member_id);
-		System.out.println("result : " + result);
 		return result;
 	}
 	
 	// 이메일 중복 체크 
 	@PostMapping("/EmailCheck.do")
 	public @ResponseBody int EmailCheck(String member_email) {
-		System.out.println("member_email : " + member_email);
 		int result = memberService.checkEmail(member_email);
-		System.out.println("result : " + result);
 		return result;
 	}
 	

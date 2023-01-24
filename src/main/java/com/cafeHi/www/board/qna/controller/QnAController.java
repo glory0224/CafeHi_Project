@@ -55,8 +55,6 @@ public class QnAController {
 	private final MemberService memberService;
 	
 	
-
-	
 	// 게시글 조회
 	@GetMapping("/getQnA.do")
 	public String getQnA(HttpServletRequest request, HttpServletResponse response, QnADTO qna, Model model) {
@@ -109,9 +107,7 @@ public class QnAController {
 		int total = qnaService.getQnANum(cri);
 		
 		PageDTO pageDTO = new PageDTO(cri, total);
-		System.out.println("page의 cri의 pageNum : " + pageDTO.getCri().getPageNum());
-		System.out.println("page의 cri의 amount : " + pageDTO.getCri().getAmount());
-		System.out.println("page의 cri의 keyword : " + pageDTO.getCri().getKeyword());
+		
 		model.addAttribute("pageDTO", pageDTO);
 		model.addAttribute("qnaList", qnaService.getQnAList(cri));
 		
@@ -138,7 +134,6 @@ public class QnAController {
 	@RequestMapping("/getFile.do")
 	public ResponseEntity<Resource> getFile(QnADTO qna) throws IOException {
 		
-		System.out.println("FileName : " + qna.getFileName());
 		
 		Path path = Paths.get(qna.getUpload_path());
 		String contentType = Files.probeContentType(path);
@@ -157,17 +152,10 @@ public class QnAController {
 	@RequestMapping("/removeFile.do")
     public String removeFile(QnADTO qna, Model model, HttpServletRequest request) throws UnsupportedEncodingException{
 		
-		System.out.println("removeFile controller");
-		System.out.println("qnaFileName : " + qna.getFileName());
-		System.out.println("qnaOriginPath : " + qna.getUpload_path());
-		
-		
 		File file = new File(qna.getUpload_path());
 		
 		file.delete(); 
-		System.out.println("가져온 파일 이름 : " + qna.getFileName());
 		qna.setFileName(null);
-		System.out.println("삭제 후  파일 확인 : " + qna.getFileName());
 		return "redirect:/QnAUpdate.do?qna_num=" + qna.getQna_num();	
 		
     }
@@ -180,15 +168,15 @@ public class QnAController {
 	@PostMapping("/InsertQnA.do")
 	public String InsertQnA(@RequestParam(value = "uploadfile", required = false) MultipartFile uploadfile,  QnADTO qna, MemberDTO mem, RedirectAttributes ra) throws IOException {
 		
-		System.out.println("member_code : " + mem.getMember_code());
 		
 		int code = mem.getMember_code();
 		
 		
 		qna.setQna_writetime(new Date());
-		System.out.println("qna_writetime : " + qna.getQna_writetime());
+		
 		qna.setUploadFile(uploadfile);
 		MultipartFile File = qna.getUploadFile();
+		
 		// null check
 		if(!File.isEmpty()) {
 			String fileName = File.getOriginalFilename();
@@ -209,17 +197,13 @@ public class QnAController {
 	
 	@PostMapping("/InsertAdminQnA.do")
 	public String InsertAdminQnA(@RequestParam(value = "uploadfile", required = false) MultipartFile uploadfile,  QnADTO qna, MemberDTO mem, RedirectAttributes ra) throws IOException {
-		
-		System.out.println("member_code : " + mem.getMember_code());
-		System.out.println("classification : " + qna.getClassification());
-		
+				
 		int code = mem.getMember_code();
 		
-		
 		qna.setQna_writetime(new Date());
-		System.out.println("qna_writetime : " + qna.getQna_writetime());
 		qna.setUploadFile(uploadfile);
 		MultipartFile File = qna.getUploadFile();
+		
 		// null check
 		if(!File.isEmpty()) {
 			String fileName = File.getOriginalFilename();
@@ -229,10 +213,7 @@ public class QnAController {
 			File.transferTo(path);
 		}
 		
-//		if(classification != null) {
-//			String adminTitle = classification + qna.getQna_title();
-//			qna.setQna_title(adminTitle);
-//		}
+
 		
 		qnaService.insertQnA(qna);
 		return "redirect:QnAList.do";
@@ -248,8 +229,6 @@ public class QnAController {
 		
 		model.addAttribute("QnA", qnaService.getQnA(qna));
 		
-		System.out.println("getfileName :" + qna.getFileName());
-		System.out.println("getOriginPath : " + qna.getUpload_path());
 		return "member/cafehi_QnA_update";
 	}
 	
@@ -353,7 +332,6 @@ public class QnAController {
 			 Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			  CustomUser userInfo = (CustomUser) principal;
 		    MemberDTO getMember = userInfo.getMember();
-			System.out.println("member_id : " + getMember.getMember_code());
 			
 			List<QnADTO> myQnAList = qnaService.getMyQnA(getMember.getMember_code());
 			

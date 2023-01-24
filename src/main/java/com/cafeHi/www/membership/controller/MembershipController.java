@@ -23,15 +23,16 @@ public class MembershipController {
 	
 	@GetMapping("/myMembership.do")
 	public String myMembershipView(Model model) {
+		// 세션 정보 
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		CustomUser userInfo = (CustomUser) principal;
 		MemberDTO mem = userInfo.getMember();
+		
+		
 		int member_code = mem.getMember_code();
-	    //String member_id = userInfo.getUsername();
-		System.out.println(mem.getMember_code());
+		
 		myMembershipDTO myMembership = membershipService.getMembership(member_code);
-		System.out.println(myMembership.getMembership().getMembership_grade());
-		System.out.println(myMembership.getMembership_point());
+		
 		model.addAttribute("membershipGrade",myMembership.getMembership().getMembership_grade());
 		model.addAttribute("membershipPoint", myMembership.getMembership_point());
 		

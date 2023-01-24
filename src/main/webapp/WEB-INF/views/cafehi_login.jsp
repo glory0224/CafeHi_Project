@@ -39,9 +39,6 @@
     <p><c:out value="${error }"/></p>
     <p><c:out value="${logout }"/></p>
     <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-     <!--  <label>
-        <input type="checkbox" value="remember-me"> 로그인 상태 유지
-      </label> -->
     </div>
     <input class="w-100 btn btn-lg btn-success " type="button" value="로그인" onclick="loginCheck();">
  <div class="d-flex justify-content-evenly" style="margin-top: 20px">
