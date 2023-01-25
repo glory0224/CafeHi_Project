@@ -324,7 +324,7 @@ public class QnAController {
 	}
 	
 	
-	// 계정 활동 내역 페이지
+	// 사용자 QnA 활동 내역 페이지
 	
 		@GetMapping("myQnAInfo.do")
 		public String MemberQnAInfoView(Model model) {
@@ -335,10 +335,9 @@ public class QnAController {
 			
 			List<QnADTO> myQnAList = qnaService.getMyQnA(getMember.getMember_code());
 			
-			
-			
-			for(QnADTO myQnA : myQnAList) {
+			for(QnADTO qna : myQnAList) {
 				
+				System.out.println(qna);
 			}
 			
 			model.addAttribute("myQnAList", myQnAList);
@@ -347,7 +346,23 @@ public class QnAController {
 			return "member/cafehi_memberQnA";
 		}
 	
+	// 관리자 QnA 활동 내역 페이지
 		
+		@GetMapping("AdminQnAInfo.do")
+		public String AdminQnAInfoView(Model model) {
+			
+			 Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			  CustomUser userInfo = (CustomUser) principal;
+		    MemberDTO getMember = userInfo.getMember();
+			
+			List<QnADTO> myQnAList = qnaService.getMyQnA(getMember.getMember_code());
+			
+			
+			model.addAttribute("myQnAList", myQnAList);
+			
+			
+			return "admin/cafehi_adminBoard";
+		}
 	
 	
 }

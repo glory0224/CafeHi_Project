@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>관리자 등록 페이지</title>
 <!-- 유효성 검사 js  -->
-<script src="/cafeHi/js/check.js"></script>
+<!-- <script src="/cafeHi/js/check.js"></script> -->
 </head>
 <body>
 
@@ -83,7 +83,8 @@
 
 <div class="d-flex justify-content-end">
 	<div style="margin-top: 40px;">
-      <input id="signup" class="btn btn-md btn-success " type="button" value="회원가입" onclick="adminSignupCheck()">
+      <!-- <input id="signup" class="btn btn-md btn-success " type="button" value="회원가입" onclick="adminSignupCheck()"> -->
+      <input id="signup" class="btn btn-md btn-success " type="submit">
       </div>
 </div>
 

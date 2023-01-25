@@ -11,27 +11,36 @@
  		<result property="qna_writetime" column="QNA_WRITETIME"/>
  		<result property="qna_hit" column="QNA_HIT" />
  		<result property="upload_path" column="UPLOAD_PATH" />
+ 		<result property="classification" column="CLASSIFICATION" javaType="String"/>
  	<!-- has one -->
- 	<association property="member_code" javaType="Member">
- 		<id property="member_code" column="MEMBER_CODE"/>
- 		<result property="member_code" column="MEMBER_CODE"/>
- 		<result property="member_id" column="MEMBER_ID"/>
- 		<result property="member_pw" column="MEMBER_PW"/>
- 		<result property="member_name" column="MEMBER_NAME"/>
- 		<result property="member_contact" column="MEMBER_CONTACT"/>
- 		<result property="member_email" column="MEMBER_EMAIL"/>
- 		<result property="member_road_address" column="MEMBER_ROAD_ADDRESS"/>
- 		<result property="member_jibun_address" column="MEMBER_JIBUN_ADDRESS"/>
- 		<result property="member_detail_address" column="MEMBER_DETAIL_ADDRESS"/>
- 		<result property="enabled" column="ENABLED"/>
- 		<collection property="authList" resultMap="AuthResult">
+ 	<!-- <association property="memberList" javaType="Member" resultMap="MemberResult">
  		
- 		</collection>
- 	</association>
- 	</resultMap>
- 	 	
-
+ 	</association> -->
  	
+ 	</resultMap>
+ 	
+ 	<resultMap type="Member" id="MemberResult">
+ 		<id property="member_code" column="MEMBER_CODE" javaType="int"/>
+ 		<result property="member_code" column="MEMBER_CODE" javaType="int"/>
+ 		<result property="member_id" column="MEMBER_ID" javaType="String"/>
+ 		<result property="member_pw" column="MEMBER_PW" javaType="String"/>
+ 		<result property="member_name" column="MEMBER_NAME" javaType="String"/>
+ 		<result property="member_contact" column="MEMBER_CONTACT" javaType="String"/>
+ 		<result property="member_email" column="MEMBER_EMAIL" javaType="String"/>
+ 		<result property="member_road_address" column="MEMBER_ROAD_ADDRESS" javaType="String"/>
+ 		<result property="member_jibun_address" column="MEMBER_JIBUN_ADDRESS" javaType="String"/>
+ 		<result property="member_detail_address" column="MEMBER_DETAIL_ADDRESS" javaType="String"/>
+ 		<result property="enabled" column="ENABLED" javaType="String"/>
+ 		<collection property="authList" javaType="MemberAuth" resultMap="AuthResult">
+ 			
+ 		</collection>
+ 	</resultMap>
+	<resultMap type="MemberAuth" id="AuthResult">
+		<id property="member_auth_code" column = "MEMBER_AUTH_CODE" />
+ 		<result property="member_auth_code" column = "MEMBER_AUTH_CODE" />
+ 		<result property="member_code" column="MEMBER_CODE"/>
+ 		<result property="member_auth" column="MEMBER_AUTH"/>
+ 	</resultMap> 
  	<!-- 검색 조건문 --> 	
 <!-- 	<sql id="criteria">
 		<trim prefix="AND (" suffix=")" prefixOverrides="OR">
@@ -104,8 +113,13 @@
 		  WHERE qna_num=#{qna_num}
 	</select>
 	
-	<select id="getMyQnA" resultMap="QnAResult">
-		SELECT * FROM cafehi_qna WHERE member_code = #{member_code}
+	<select id="getMyQnA" parameterType="int" resultMap="QnAResult">
+		
+		SELECT qna_num, qna_title, qna_content, qna_writetime, qna_hit, upload_path, filename, res.member_id, classification FROM 
+		(SELECT ma.member_auth_code, ma.member_code, ma.member_auth, mem.member_id FROM cafehi_member mem, cafehi_member_auth ma
+		WHERE mem.member_code = ma.member_code and ma.member_code = #{member_code}) res, cafehi_qna qna
+		WHERE res.member_code = qna.member_code
+		
 	</select>
 
 	<!-- 게시글 작성  -->

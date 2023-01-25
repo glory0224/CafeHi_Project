@@ -7,6 +7,7 @@ package com.cafeHi.www.member.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -157,9 +158,9 @@ public class MemberController {
 		
 		String mem_auth = "ROLE_USER";
 		
-		Map<String, Object> auth = new HashMap();
+		Map<String, Object> auth = new ConcurrentHashMap<String, Object>();
 		
-		auth.put("auth", mem_auth);
+		auth.put("member_auth", mem_auth);
 		auth.put("cri", cri);
 		
 		
@@ -178,7 +179,7 @@ public class MemberController {
 		
 	}
 	
-
+	
 	
 	
 }

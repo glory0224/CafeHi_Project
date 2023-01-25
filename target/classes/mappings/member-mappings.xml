@@ -16,14 +16,15 @@
  		<result property="member_detail_address" column="MEMBER_DETAIL_ADDRESS"/>
  		<result property="enabled" column="ENABLED"/>
  		<collection property="authList" resultMap="AuthResult">
- 		
+ 			
  		</collection>
  	</resultMap>
  	
  	<resultMap type="MemberAuth" id="AuthResult">
+ 		<id property="member_auth_code" column = "MEMBER_AUTH_CODE" />
  		<result property="member_auth_code" column = "MEMBER_AUTH_CODE" />
  		<result property="member_code" column="MEMBER_CODE"/>
- 		<result property="auth" column="AUTH"/>
+ 		<result property="member_auth" column="MEMBER_AUTH"/>
  	</resultMap>
  	
  	<!-- 회원 CRUD -->
@@ -34,7 +35,7 @@
  	</insert>
  	
  	<insert id="insertMemberAuth" parameterType="MemberAuth">
- 		INSERT INTO cafehi_member_auth VALUES((select nvl(max(member_auth_code), 0)+1 from cafehi_member_auth), #{member_code}, #{auth})
+ 		INSERT INTO cafehi_member_auth VALUES((select nvl(max(member_auth_code), 0)+1 from cafehi_member_auth), #{member_code}, #{member_auth})
  	</insert>
  	
 
@@ -86,13 +87,13 @@
  		SELECT * 
  		FROM(
  		SELECT
- 			rownum rn, mem.member_code, member_pw, member_name, member_contact, member_email, member_road_address, member_jibun_address, member_detail_address, enabled, auth
+ 			rownum rn, mem.member_code, member_pw, member_name, member_contact, member_email, member_road_address, member_jibun_address, member_detail_address, enabled, member_auth
  		FROM
  			(SELECT * FROM cafehi_member ORDER BY member_code DESC) mem 
  		LEFT OUTER JOIN cafehi_member_auth auth on mem.member_code = 
  			auth.member_code
  		WHERE
- 			auth.auth = #{auth}
+ 			auth.member_auth = #{member_auth}
  		)
  		 <![CDATA[
 	 			WHERE rn > (#{cri.pageNum} -1) * #{cri.amount} AND rn <= #{cri.pageNum} * #{cri.amount}
@@ -102,7 +103,7 @@
  	
  	<select id="readMember" parameterType="String" resultMap="MemberResult">
  		SELECT 
- 			mem.member_id, member_pw, member_name, member_contact, member_email, member_road_address, member_jibun_address, member_detail_address, enabled, auth
+ 			mem.member_id, member_pw, member_name, member_contact, member_email, member_road_address, member_jibun_address, member_detail_address, enabled, member_auth
  		FROM
  			cafehi_member mem LEFT OUTER JOIN cafehi_member_auth auth on mem.member_code = 
  			auth.member_code
@@ -117,7 +118,7 @@
  			LEFT OUTER JOIN cafehi_member_auth auth on mem.member_code = 
  			auth.member_code
  			WHERE
- 			auth.auth = #{mem_auth}
+ 			auth.member_auth = #{mem_auth}
  			
  			<!-- <if test="keyword != null">
  				WHERE qna_title LIKE '%'||#{keyword}||'%'

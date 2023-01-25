@@ -1,9 +1,11 @@
 package com.cafeHi.www.board.qna.dto;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cafeHi.www.member.dto.MemberAuthDTO;
 import com.cafeHi.www.member.dto.MemberDTO;
 
 import lombok.Data;
@@ -26,33 +28,9 @@ public class QnADTO {
 	private MultipartFile uploadFile;
 	private String fileName;
 	
+	//private List<MemberDTO> memberList;
+	private List<MemberAuthDTO> authList;
 	
 
-
-
-	
-
-
-
-
-
-
-
-
-
-	
-
-
-
-
-
-
-
-
-
-
-
-	
-	
 	
 }

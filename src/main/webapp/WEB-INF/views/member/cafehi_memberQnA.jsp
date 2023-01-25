@@ -46,7 +46,8 @@
 									<tr>
 										<td>${myQnA.qna_num }</td>
 										<td><a href="getQnA.do?qna_num=${myQnA.qna_num }"
-											style="text-decoration: none; color: black; font-weight: bold;">${myQnA.qna_title }</a></td>
+											style="text-decoration: none; color: black; font-weight: bold;">
+												<c:if test="${myQnA.classification ne null }">${myQnA.classification }&nbsp; </c:if>${myQnA.qna_title }</a></td>
 										<td>${myQnA.member_id }</td>
 										<td><fmt:formatDate value="${myQnA.qna_writetime }"
 												pattern="yyyy-MM-dd" /></td>

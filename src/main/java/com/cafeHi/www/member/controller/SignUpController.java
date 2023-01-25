@@ -58,7 +58,7 @@ public class SignUpController {
 			MemberDTO getMember = memberService.getMember(member);
 		
 			memberauth.setMember_code(getMember.getMember_code());
-			memberauth.setAuth("ROLE_USER");
+			memberauth.setMember_auth("ROLE_USER");
 			memberService.insertMemberAuth(memberauth);
 			membershipService.insertMembership(getMember);
 			
@@ -81,7 +81,7 @@ public class SignUpController {
 			MemberDTO getMember = memberService.getMember(member);
 		
 			memberauth.setMember_code(getMember.getMember_code());
-			memberauth.setAuth("ROLE_ADMIN");
+			memberauth.setMember_auth("ROLE_ADMIN");
 			memberService.insertMemberAuth(memberauth);
 			
 			return "cafehi_login";

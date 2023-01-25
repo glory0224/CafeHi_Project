@@ -23,7 +23,7 @@
   	
   <div>관리자 활동 </div>
   	
-  	<a class="nav-link" href="adminBoardPage.do">게시글 관리</a>
+  	<a class="nav-link" href="AdminQnAInfo.do">게시글 관리</a>
   	
   
 </nav>

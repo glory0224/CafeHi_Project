@@ -81,7 +81,7 @@ public class MemberTests {
 	@Test
 	public void testInsertAuth() {
 		
-		String sql = "insert into cafehi_member_auth(member_auth_code, member_code, auth) values (?, ?, ?)";
+		String sql = "insert into cafehi_member_auth(member_auth_code, member_code, member_auth) values (?, ?, ?)";
 		
 		for(int i = 0; i < 200; i++) {
 			Connection con = null;

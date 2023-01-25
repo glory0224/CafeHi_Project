@@ -6,5 +6,5 @@ import lombok.Data;
 public class MemberAuthDTO {
 	private int member_auth_code;
 	private int member_code;
-	private String auth;
+	private String member_auth;
 }
