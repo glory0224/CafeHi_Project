@@ -153,12 +153,12 @@ public class MemberController {
 	
 	// 관리자 회원 정보 리스트
 	@GetMapping("getMemeberList.do")
-	public String getMemberList(MemberDTO member, CriteriaDTO cri, Model model) {
+	public String getMemberList(CriteriaDTO cri, Model model) {
 		
 		
 		String mem_auth = "ROLE_USER";
 		
-		Map<String, Object> auth = new ConcurrentHashMap<String, Object>();
+		Map<String, Object> auth = new ConcurrentHashMap<String, Object>(); // 순서가 중요하지 않아서 
 		
 		auth.put("member_auth", mem_auth);
 		auth.put("cri", cri);

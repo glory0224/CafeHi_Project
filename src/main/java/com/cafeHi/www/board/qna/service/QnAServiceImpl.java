@@ -1,6 +1,7 @@
 package com.cafeHi.www.board.qna.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import com.cafeHi.www.board.qna.dao.QnADAO;
@@ -63,15 +64,29 @@ public class QnAServiceImpl implements QnAService {
 
 
 	@Override
-	public List<QnADTO> getMyQnA(int member_code) {
-		return qnADAO.getMyQnA(member_code);
+	public List<QnADTO> getMyQnA(Map<String, Object> infoHash) {
+		return qnADAO.getMyQnA(infoHash);
 	}
 
 
 	@Override
-	public List<QnADTO> getAllMemberQnA(String role_user) {
-		return qnADAO.getAllMemberQnA(role_user);
+	public List<QnADTO> getAllMemberQnA(Map<String, Object> auth) {
+		return qnADAO.getAllMemberQnA(auth);
 	}
+
+
+	@Override
+	public int getMyQnANum(int member_code) {
+		return qnADAO.getMyQnANum(member_code);
+	}
+
+
+	@Override
+	public int getMemberQnANum(String role_user) {
+		return qnADAO.getMemberQnANum(role_user);
+	}
+
+
 
 	
 

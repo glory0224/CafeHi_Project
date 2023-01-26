@@ -55,13 +55,56 @@
 									</tr>
 							</c:forEach>
 							
+							<!-- 페이징 view  -->
+							<tr align="center">
+								<td colspan=5 style="border: none; margin-top: 30px;">
+								
+									<div class="container mt-3">
+									<ul class="pagination justify-content-center" >
+										<c:if test="${pageDTO.prev }">
+										<li class="page-item"><a class="page-link" href="myQnAInfo.do?pageNum=${pageDTO.startPage - 1 }&amount=${pageDTO.amount }" style='text-decoration: none; color: black;'>
+												<span aria-hidden="true">&laquo;</span> </a></li>
+										</c:if>
+									<c:forEach var="num" begin="${pageDTO.startPage }" end="${pageDTO.endPage }">
+									<li class="page-item ">
+									<a class="page-link ${pageDTO.pageNum eq num? 'bg-success' : 'text-dark' }" href="myQnAInfo.do?pageNum=${num }&amount=${pageDTO.amount }" style='text-decoration: none; color: white; '>
+												<c:out value="${num }"/>
+												</a>
+									</li>
+									</c:forEach>
+									<c:if test="${pageDTO.next }">
+									<li class="page-item"><a class="page-link" href="myQnAInfo.do?pageNum=${pageDTO.endPage + 1 }&amount=${pageDTO.amount }" style='text-decoration: none; color: black;'>
+												<span aria-hidden="true">&raquo;</span></a></li> 
+									</c:if>
+									</ul>
+									</div>
+								
+								</td>
+							</tr>
 							
 							</tbody>
 						</table>
   	</div>
 	</div>
 </div>
+
+<form id="MemberQnA" method="get">
+		<input type="hidden" name="pageNum" value="${pageDTO.cri.pageNum }">
+		<input type="hidden" name="amount" value="${pageDTO.cri.amount }">
+		<input type="hidden" name="keyword" value="${pageDTO.cri.keyword }">
+</form>
+
  <jsp:include page="/cafeHi_module/footer.jsp"/>
+ 
+  <script type="text/javascript">
+	$(".search_area button").on("click", function(e){
+        e.preventDefault();
+        let val = $("input[name='keyword']").val();
+        MemberQnA.find("input[name='keyword']").val(val);
+        MemberQnA.find("input[name='pageNum']").val(1);
+        MemberQnA.submit();
+    });
+	</script>
 
 </body>
 </html>

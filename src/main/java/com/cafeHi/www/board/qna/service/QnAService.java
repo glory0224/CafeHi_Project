@@ -1,32 +1,41 @@
 package com.cafeHi.www.board.qna.service;
 
 import java.util.List;
-
+import java.util.Map;
 
 import com.cafeHi.www.board.qna.dto.QnADTO;
 import com.cafeHi.www.common.dto.CriteriaDTO;
 
 public interface QnAService {
 	
-	//게시판 목록
+	// QnA 글 목록
 	public List<QnADTO> getQnAList(CriteriaDTO cri);
 
-	// 게시판 개수
+	// QnA 글 개수
 	public int getQnANum(CriteriaDTO cri);
 	public QnADTO getQnA(QnADTO qna);
 	
-	// 게시판 조회수
+	// QnA 글 조회수
 	public void updateHit(QnADTO qna);
 	
-	// 게시판 CRUD
+	// QnA 글 CRUD
 	public void insertQnA(QnADTO qna);
 	public void updateQnA(QnADTO qna);
 	public void deleteQnA(QnADTO qna);
 	
-	// 내 게시글 리스트 조회
-	public List<QnADTO> getMyQnA(int member_code);
+	// 내 QnA 글 리스트 조회
+	public List<QnADTO> getMyQnA(Map<String, Object> infoHash);
+	
+	// 회원 전체 QnA 글 조회 
+	public List<QnADTO> getAllMemberQnA(Map<String, Object> auth);
+	
+	// 내 QnA 글 개수 
+	public int getMyQnANum(int member_code);
+	
+	// 회원 전체 QnA 글 개수
+	public int getMemberQnANum(String role_user);
 
-	public List<QnADTO> getAllMemberQnA(String role_user);
+	
 	
 	
 	

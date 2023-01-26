@@ -11,7 +11,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -327,19 +329,25 @@ public class QnAController {
 	// 사용자 QnA 활동 내역 페이지
 	
 		@GetMapping("myQnAInfo.do")
-		public String MemberQnAInfoView(Model model) {
+		public String MemberQnAInfoView(CriteriaDTO cri, Model model) {
 			
-			 Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			  CustomUser userInfo = (CustomUser) principal;
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			CustomUser userInfo = (CustomUser) principal;
 		    MemberDTO getMember = userInfo.getMember();
+		    
+		    int member_code = getMember.getMember_code();
+		    
+		    int total = qnaService.getMyQnANum(member_code);
+		    PageDTO pageDTO = new PageDTO(cri, total);
+		    
+		    Map<String, Object> infoHash = new ConcurrentHashMap<String, Object>();
+		    
+		    infoHash.put("member_code", member_code);
+		    infoHash.put("cri", cri);
 			
-			List<QnADTO> myQnAList = qnaService.getMyQnA(getMember.getMember_code());
+			List<QnADTO> myQnAList = qnaService.getMyQnA(infoHash);
 			
-			for(QnADTO qna : myQnAList) {
-				
-				System.out.println(qna);
-			}
-			
+			model.addAttribute("pageDTO", pageDTO);
 			model.addAttribute("myQnAList", myQnAList);
 			
 			
@@ -349,17 +357,26 @@ public class QnAController {
 	// 관리자 QnA 활동 내역 페이지
 		
 		@GetMapping("AdminQnAInfo.do")
-		public String AdminQnAInfoView(Model model) {
+		public String AdminQnAInfoView(CriteriaDTO cri, Model model) {
 			
-			 Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			  CustomUser userInfo = (CustomUser) principal;
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			CustomUser userInfo = (CustomUser) principal;
 		    MemberDTO getMember = userInfo.getMember();
+		    
+		    int member_code = getMember.getMember_code();
+		    
+		    int total = qnaService.getMyQnANum(member_code);
+		    PageDTO pageDTO = new PageDTO(cri, total);
+		    
+		    Map<String, Object> infoHash = new ConcurrentHashMap<String, Object>();
+		    
+		    infoHash.put("member_code", member_code);
+		    infoHash.put("cri", cri);
 			
-			List<QnADTO> myQnAList = qnaService.getMyQnA(getMember.getMember_code());
+			List<QnADTO> myQnAList = qnaService.getMyQnA(infoHash);
 			
-			
+			model.addAttribute("pageDTO", pageDTO);
 			model.addAttribute("myQnAList", myQnAList);
-			
 			
 			return "admin/cafehi_adminBoard";
 		}
@@ -367,14 +384,22 @@ public class QnAController {
 	// 사용자 QnA 활동 내역 페이지
 	
 		@GetMapping("MemberAllQnAInfo.do")
-		public String MemberAllQnAInfoView(Model model) {
+		public String MemberAllQnAInfoView(CriteriaDTO cri, Model model) {
 			
 			String role_user = "ROLE_USER";
 			
+			int total = qnaService.getMemberQnANum(role_user);
 			
+			PageDTO pageDTO = new PageDTO(cri, total);
 			
-			List<QnADTO> member_qna = qnaService.getAllMemberQnA(role_user);
+			Map<String, Object> auth = new ConcurrentHashMap<String, Object>(); // 순서가 중요하지 않아서 
 			
+			auth.put("role_user", role_user);
+			auth.put("cri", cri);
+			
+			List<QnADTO> member_qna = qnaService.getAllMemberQnA(auth);
+			
+			model.addAttribute("pageDTO", pageDTO);
 			model.addAttribute("memberQnAList", member_qna);
 			
 			return "admin/cafehi_adminMemberBoard";

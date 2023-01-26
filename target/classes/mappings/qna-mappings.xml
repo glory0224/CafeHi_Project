@@ -72,9 +72,22 @@
  				WHERE qna_title LIKE '%'||#{keyword}||'%'
  			</if>
  			
- 	
  	</select>
  	
+ 	<!-- 나의 QnA 개수 조회 -->
+ 	<select id="getMyQnANum" resultType="int">
+ 		SELECT COUNT(*) FROM cafehi_qna
+ 		WHERE member_code = #{member_code}
+ 	</select>
+ 	
+ 	<!-- 회원 전체 QnA 개수 조회 -->
+ 	<select id="getMemberQnANum" resultType="int">
+ 		SELECT COUNT(*) FROM cafehi_qna cq, cafehi_member_auth cma
+ 		WHERE cq.member_code = cma.member_code 
+ 		AND cma.member_auth = #{role_user}
+ 	</select>
+ 	
+  	
  	
  	<!-- 페이징 QnA 리스트 조회 -->
   <select id="getQnAList" resultType="QnA">
@@ -114,20 +127,36 @@
 	</select>
 	
 	<!-- 내가 작성한 QnA 조회 -->
-	<select id="getMyQnA" parameterType="int" resultMap="QnAResult">
+	<select id="getMyQnA" parameterType="hashMap" resultMap="QnAResult">
 		
-		SELECT qna_num, qna_title, qna_content, qna_writetime, qna_hit, upload_path, filename, res.member_id, classification FROM 
+		SELECT *
+		FROM(
+		SELECT rownum rn, qna_num, qna_title, qna_content, qna_writetime, qna_hit, upload_path, filename, res.member_id, classification FROM 
 		(SELECT ma.member_auth_code, ma.member_code, ma.member_auth, mem.member_id FROM cafehi_member mem, cafehi_member_auth ma
-		WHERE mem.member_code = ma.member_code and ma.member_code = #{member_code}) res, cafehi_qna qna
-		WHERE res.member_code = qna.member_code
+		WHERE mem.member_code = ma.member_code and ma.member_code = #{member_code}) res, (SELECT * FROM cafehi_qna ORDER BY qna_num DESC) qna
+		WHERE res.member_code = qna.member_code)
+		 <![CDATA[
+	 			WHERE rn > (#{cri.pageNum} -1) * #{cri.amount} AND rn <= #{cri.pageNum} * #{cri.amount}
+	 		]]>
 		
 	</select>
 	
 	<!-- 모든 회원의 QnA 조회  -->
-	<select id="MemberAllQnA" parameterType="String" resultMap="QnAResult">
+	<select id="MemberAllQnA" parameterType="hashMap" resultMap="QnAResult">
+		SELECT * FROM (
+		
+		SELECT rownum rn, qna_num, qna_title, qna_content, qna_writetime, qna_hit, upload_path, filename, member_id, classification FROM(
 		SELECT cq.qna_num, cq.qna_title, cq.qna_content, cq.qna_writetime, cq.qna_hit, cq.upload_path, cq.filename, cm.member_id, cq.classification 
-		FROM cafehi_member cm, cafehi_member_auth cma, cafehi_qna cq
-		WHERE cm.member_code = cma.member_code AND cm.member_code = cq.member_code AND cma.member_auth = #{role_user}
+		FROM cafehi_qna cq, cafehi_member cm, cafehi_member_auth cma 
+		WHERE cm.member_code = cma.member_code AND cm.member_code = cq.member_code AND cma.member_auth = #{role_user} 
+        ORDER BY qna_num DESC )
+		
+		)
+		 <![CDATA[
+	 			WHERE rn > (#{cri.pageNum} -1) * #{cri.amount} AND rn <= #{cri.pageNum} * #{cri.amount}
+	 		]]>
+	 	
+		
 	</select>
 
 	<!-- QnA 작성  -->

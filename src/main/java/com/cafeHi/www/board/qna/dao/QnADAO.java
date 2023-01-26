@@ -2,6 +2,7 @@ package com.cafeHi.www.board.qna.dao;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -31,26 +32,38 @@ public class QnADAO {
 		return sqlSessionTemplate.selectOne("QnADAO.getQnA", qna);
 	}
 	
-	public List<QnADTO> getMyQnA(int member_code) {
+	public List<QnADTO> getMyQnA(Map<String, Object> infoHash) {
 		
-		return sqlSessionTemplate.selectList("QnADAO.getMyQnA", member_code);
+		return sqlSessionTemplate.selectList("QnADAO.getMyQnA", infoHash);
 	}
 	
 	
-	public List<QnADTO> getAllMemberQnA(String role_user) {
-		return sqlSessionTemplate.selectList("QnADAO.MemberAllQnA", role_user);
+	public List<QnADTO> getAllMemberQnA(Map<String, Object> auth) {
+		return sqlSessionTemplate.selectList("QnADAO.MemberAllQnA", auth);
 	}
 	
+	
+	// QnA 게시글 개수 관련
 	
 	public int getQnANum(CriteriaDTO cri) {
 		
 		return sqlSessionTemplate.selectOne("QnADAO.getQnANum");
 	}
 	
+	public int getMyQnANum(int member_code) {
+		return sqlSessionTemplate.selectOne("QnADAO.getMyQnANum", member_code);
+	}
+	
+	public int getMemberQnANum(String role_user) {
+		return sqlSessionTemplate.selectOne("QnADAO.getMemberQnANum", role_user);
+	}
+	
 
 	public List<QnADTO> getQnAListPaging(CriteriaDTO cri) {
 		return sqlSessionTemplate.selectList("QnADAO.getQnAListPaging", cri);
 	}
+	
+	// QnA 게시글 CRUD
 	
 	public void insertQnA(QnADTO qna) {
 		sqlSessionTemplate.insert("QnADAO.insertQnA", qna);
@@ -69,6 +82,10 @@ public class QnADAO {
 	public void updateHit(QnADTO qna) {
 		sqlSessionTemplate.update("QnADAO.updateHit", qna);
 	}
+
+	
+
+	
 
 	
 
