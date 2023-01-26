@@ -363,6 +363,22 @@ public class QnAController {
 			
 			return "admin/cafehi_adminBoard";
 		}
+		
+	// 사용자 QnA 활동 내역 페이지
+	
+		@GetMapping("MemberAllQnAInfo.do")
+		public String MemberAllQnAInfoView(Model model) {
+			
+			String role_user = "ROLE_USER";
+			
+			
+			
+			List<QnADTO> member_qna = qnaService.getAllMemberQnA(role_user);
+			
+			model.addAttribute("memberQnAList", member_qna);
+			
+			return "admin/cafehi_adminMemberBoard";
+		}
 	
 	
 }

@@ -25,6 +25,8 @@ public interface QnAService {
 	
 	// 내 게시글 리스트 조회
 	public List<QnADTO> getMyQnA(int member_code);
+
+	public List<QnADTO> getAllMemberQnA(String role_user);
 	
 	
 	

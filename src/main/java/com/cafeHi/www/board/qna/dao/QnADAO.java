@@ -32,14 +32,15 @@ public class QnADAO {
 	}
 	
 	public List<QnADTO> getMyQnA(int member_code) {
-		List<QnADTO> getMyQnA = sqlSessionTemplate.selectList("QnADAO.getMyQnA", member_code);
-		
-		for (QnADTO qna : getMyQnA) {
-			System.out.println( "qna : " + qna);
-		}
 		
 		return sqlSessionTemplate.selectList("QnADAO.getMyQnA", member_code);
 	}
+	
+	
+	public List<QnADTO> getAllMemberQnA(String role_user) {
+		return sqlSessionTemplate.selectList("QnADAO.MemberAllQnA", role_user);
+	}
+	
 	
 	public int getQnANum(CriteriaDTO cri) {
 		
@@ -69,6 +70,7 @@ public class QnADAO {
 		sqlSessionTemplate.update("QnADAO.updateHit", qna);
 	}
 
+	
 
 	
 }

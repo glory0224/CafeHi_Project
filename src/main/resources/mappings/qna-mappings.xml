@@ -63,7 +63,7 @@
 	</sql> -->
  	
  	
- 	<!-- 전체 게시글 개수 조회 -->
+ 	<!-- 전체 QnA 개수 조회 -->
  	
  	<select id="getQnANum" resultType="int">
  			SELECT COUNT(*) FROM cafehi_qna
@@ -76,7 +76,7 @@
  	</select>
  	
  	
- 	<!-- 페이징 게시글 리스트 조회 -->
+ 	<!-- 페이징 QnA 리스트 조회 -->
   <select id="getQnAList" resultType="QnA">
  		
 
@@ -105,7 +105,7 @@
 		WHERE qna_num = #{qna_num}
 	</update>
 
-	<!-- 게시글 조회 -->
+	<!-- QnA 조회 -->
 	<select id="getQnA" resultType="QnA">
 		SELECT  * FROM(
 		SELECT q.qna_num, q.qna_title, q.classification, q.qna_content, q.qna_writetime, q.qna_hit, m.member_id, q.upload_path, q.filename FROM cafehi_qna q, cafehi_member m WHERE m.member_code = q.member_code
@@ -113,6 +113,7 @@
 		  WHERE qna_num=#{qna_num}
 	</select>
 	
+	<!-- 내가 작성한 QnA 조회 -->
 	<select id="getMyQnA" parameterType="int" resultMap="QnAResult">
 		
 		SELECT qna_num, qna_title, qna_content, qna_writetime, qna_hit, upload_path, filename, res.member_id, classification FROM 
@@ -121,20 +122,27 @@
 		WHERE res.member_code = qna.member_code
 		
 	</select>
+	
+	<!-- 모든 회원의 QnA 조회  -->
+	<select id="MemberAllQnA" parameterType="String" resultMap="QnAResult">
+		SELECT cq.qna_num, cq.qna_title, cq.qna_content, cq.qna_writetime, cq.qna_hit, cq.upload_path, cq.filename, cm.member_id, cq.classification 
+		FROM cafehi_member cm, cafehi_member_auth cma, cafehi_qna cq
+		WHERE cm.member_code = cma.member_code AND cm.member_code = cq.member_code AND cma.member_auth = #{role_user}
+	</select>
 
-	<!-- 게시글 작성  -->
+	<!-- QnA 작성  -->
 	<insert id="insertQnA" parameterType="QnA">
 		INSERT INTO cafehi_qna (qna_num, qna_title, classification, qna_writetime, qna_hit, member_code , qna_content, upload_path, filename)
 		VALUES((select nvl(max(qna_num), 0)+1 from cafehi_qna), #{qna_title}, #{classification}, #{qna_writetime}, #{qna_hit}, #{member_code}, #{qna_content}, #{upload_path}, #{fileName})
 	</insert>
 	
-	<!-- 게시글 수정 -->
+	<!-- QnA 수정 -->
 	<update id="updateQnA" parameterType="QnA">
 		UPDATE cafehi_qna 
 		SET qna_title=#{qna_title}, classification=#{classification}, qna_content=#{qna_content}, upload_path=#{upload_path}, filename=#{fileName} WHERE qna_num=#{qna_num}
 	</update>
 	
-	<!-- 게시글 삭제 -->
+	<!-- QnA 삭제 -->
 	<delete id="deleteQnA" parameterType="QnA">
 		DELETE FROM cafehi_qna WHERE qna_num=#{qna_num}
 	</delete>	

@@ -19,7 +19,7 @@
   <div>회원 정보 관리</div>
   
   	<a class="nav-link" aria-current="page" href="getMemeberList.do">회원 관리</a>
-  	<a class="nav-link" href="adminMemberBoardPage.do">게시글 관리</a>
+  	<a class="nav-link" href="MemberAllQnAInfo.do">회원 QnA 관리</a>
   	
   <div>관리자 활동 </div>
   	

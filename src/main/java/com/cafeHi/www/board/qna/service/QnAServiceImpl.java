@@ -67,6 +67,12 @@ public class QnAServiceImpl implements QnAService {
 		return qnADAO.getMyQnA(member_code);
 	}
 
+
+	@Override
+	public List<QnADTO> getAllMemberQnA(String role_user) {
+		return qnADAO.getAllMemberQnA(role_user);
+	}
+
 	
 
 
