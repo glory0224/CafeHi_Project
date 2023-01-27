@@ -1,5 +1,9 @@
 package com.cafeHi.www.common.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter @Setter
 public class PageDTO {
 	
 	private int startPage; // 첫페이지 번호 
@@ -56,148 +60,5 @@ public class PageDTO {
 
 
 
-
-
-	public int getStartPage() {
-		return startPage;
-	}
-
-
-
-
-
-
-	public int getEndPage() {
-		return endPage;
-	}
-
-
-
-
-
-
-	public boolean isNext() {
-		return next;
-	}
-
-
-
-
-
-
-	public boolean isPrev() {
-		return prev;
-	}
-
-
-
-
-
-
-	public int getTotal() {
-		return total;
-	}
-
-
-
-
-
-
-	public int getPageNum() {
-		return pageNum;
-	}
-
-
-
-
-
-
-	public int getAmount() {
-		return amount;
-	}
-
-
-
-
-
-
-	public CriteriaDTO getCri() {
-		return cri;
-	}
-
-
-
-
-
-
-	public void setStartPage(int startPage) {
-		this.startPage = startPage;
-	}
-
-
-
-
-
-
-	public void setEndPage(int endPage) {
-		this.endPage = endPage;
-	}
-
-
-
-
-
-
-	public void setNext(boolean next) {
-		this.next = next;
-	}
-
-
-
-
-
-
-	public void setPrev(boolean prev) {
-		this.prev = prev;
-	}
-
-
-
-
-
-
-	public void setTotal(int total) {
-		this.total = total;
-	}
-
-
-
-
-
-
-	public void setPageNum(int pageNum) {
-		this.pageNum = pageNum;
-	}
-
-
-
-
-
-
-	public void setAmount(int amount) {
-		this.amount = amount;
-	}
-
-
-
-
-
-
-	public void setCri(CriteriaDTO cri) {
-		this.cri = cri;
-	}
-	
-	
-	
 	
 }

@@ -60,7 +60,6 @@ public class QnAController {
 	// 게시글 조회
 	@GetMapping("/getQnA.do")
 	public String getQnA(HttpServletRequest request, HttpServletResponse response, QnADTO qna, Model model) {
-		System.out.println("fileName : "+ qna.getFileName());
 		
 		
 		// 쿠키 생성으로 방문 했던 게시글은 새로고침을 했을 때 계속해서 조회수가 증가하는 현상 방지 
@@ -132,35 +131,7 @@ public class QnAController {
 	}
 	
 	
-	// 파일 다운로드 
-	@RequestMapping("/getFile.do")
-	public ResponseEntity<Resource> getFile(QnADTO qna) throws IOException {
-		
-		
-		Path path = Paths.get(qna.getUpload_path());
-		String contentType = Files.probeContentType(path);
-		
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentDisposition(ContentDisposition.builder("attachment").filename(qna.getFileName(), StandardCharsets.UTF_8)
-												.build());
-		headers.add(HttpHeaders.CONTENT_TYPE, contentType);
-		
-		Resource resource = new InputStreamResource(Files.newInputStream(path));
-		return new ResponseEntity<>(resource, headers, HttpStatus.OK);
-		
-	}
-	
-	// 파일 삭제 
-	@RequestMapping("/removeFile.do")
-    public String removeFile(QnADTO qna, Model model, HttpServletRequest request) throws UnsupportedEncodingException{
-		
-		File file = new File(qna.getUpload_path());
-		
-		file.delete(); 
-		qna.setFileName(null);
-		return "redirect:/QnAUpdate.do?qna_num=" + qna.getQna_num();	
-		
-    }
+
 	
 	
 	// QnA CRUD

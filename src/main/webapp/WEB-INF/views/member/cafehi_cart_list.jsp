@@ -84,9 +84,11 @@
 							</tr>
 						</c:forEach>
 						<tr>
-							<td colspan="5" align="right">장바구니 금액 합계 : <fmt:formatNumber
-									value="${map.sumMoney}" pattern="#,###,###" /><br> 배송료 :
-								${map.fee}<br> 총합계 : <fmt:formatNumber value="${map.sum}"
+							<td align="right"></td>
+							<td colspan="5" align="right"> <b>30000원 이상부터 배송료가 무료입니다.</b> <br>
+															장바구니 금액 합계 : <fmt:formatNumber value="${map.sumMoney}" pattern="#,###,###" /><br> 
+															배송료 : ${map.fee}<br> 
+															총합계 : <fmt:formatNumber value="${map.sum}"
 									pattern="#,###,###" />
 							</td>
 						</tr>
