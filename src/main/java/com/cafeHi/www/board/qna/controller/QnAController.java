@@ -154,7 +154,7 @@ public class QnAController {
 		if(!File.isEmpty()) {
 			String fileName = File.getOriginalFilename();
 			qna.setFileName(fileName);
-			File path = new File("D:/Spring/upload/" + UUID.randomUUID().toString() + fileName);
+			File path = new File("D:/Spring/member_upload/" + UUID.randomUUID().toString() + fileName);
 			qna.setUpload_path(path.getPath());
 			File.transferTo(path);
 		}
@@ -181,7 +181,7 @@ public class QnAController {
 		if(!File.isEmpty()) {
 			String fileName = File.getOriginalFilename();
 			qna.setFileName(fileName);
-			File path = new File("D:/Spring/upload/" + UUID.randomUUID().toString() + fileName);
+			File path = new File("D:/Spring/admin_upload/" + UUID.randomUUID().toString() + fileName);
 			qna.setUpload_path(path.getPath());
 			File.transferTo(path);
 		}
@@ -218,7 +218,7 @@ public class QnAController {
 		if(!File.isEmpty()) {
 			String fileName = File.getOriginalFilename();
 			qna.setFileName(fileName);
-			File path = new File("D:/Spring/upload/" + UUID.randomUUID().toString() + fileName);
+			File path = new File("D:/Spring/member_upload/" + UUID.randomUUID().toString() + fileName);
 			qna.setUpload_path(path.getPath());
 			File.transferTo(path);
 			
@@ -258,7 +258,7 @@ public class QnAController {
 		if(!File.isEmpty()) {
 			String fileName = File.getOriginalFilename();
 			qna.setFileName(fileName);
-			File path = new File("D:/Spring/upload/" + UUID.randomUUID().toString() + fileName);
+			File path = new File("D:/Spring/admin_upload/" + UUID.randomUUID().toString() + fileName);
 			qna.setUpload_path(path.getPath());
 			File.transferTo(path);
 			
