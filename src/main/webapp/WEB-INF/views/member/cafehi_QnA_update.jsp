@@ -47,18 +47,18 @@
 							<tr>
 								<th>작성일</th><td><fmt:formatDate value="${QnA.qna_writetime }" pattern="yyyy-MM-dd"/></td>
 								<c:choose>
-									<c:when test="${QnA.upload_path eq null }">
+									<c:when test="${QnA.upload_file_name eq null }">
 										<th>첨부파일</th>
 										<td><input type="file" name="uploadfile"></td>
 									</c:when>
 									<c:otherwise>
 										<th>첨부파일</th>
-										<td>${QnA.fileName } &nbsp; 
-										<input type="file" name="uploadfile">
+										<td>${QnA.upload_file_name } &nbsp; 
+										<!-- <input type="file" name="uploadfile"> -->
 										<!-- url encoding 문제로 인해 c:url 태그 사용  -->
 										<c:url value="removeFile.do" var="path">
 											<c:param name="upload_path" value="${QnA.upload_path }"/>
-											<c:param name="fileName" value="${QnA.fileName }"/>
+											<c:param name="fileName" value="${QnA.upload_file_name }"/>
 											<c:param name="qna_num" value="${QnA.qna_num }"/>
 										</c:url>
 										<a href="${path }">삭제</a>

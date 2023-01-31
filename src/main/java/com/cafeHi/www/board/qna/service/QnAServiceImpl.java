@@ -6,7 +6,6 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 import com.cafeHi.www.board.qna.dao.QnADAO;
 import com.cafeHi.www.board.qna.dto.QnADTO;
-import com.cafeHi.www.board.qna.dto.QnAFormDTO;
 import com.cafeHi.www.common.dto.CriteriaDTO;
 
 import lombok.RequiredArgsConstructor;

@@ -43,7 +43,7 @@ public class QnAController {
 	
 	private final QnAService qnaService;
 	
-	private final MemberService memberService;
+	//private final MemberService memberService;
 	
 	private final FileStore fileStore;
 	
@@ -130,29 +130,29 @@ public class QnAController {
 	// 컨트롤러가 파일 저장 로직까지 수행하고 있어서 너무 많은 일을 하고 SRP 단일 책임 원칙을 위배한다. 
 	
 	//@PostMapping("/InsertQnA.do")
-	public String InsertQnA(@RequestParam(value = "uploadfile", required = false) MultipartFile uploadfile,  QnADTO qna, MemberDTO mem, RedirectAttributes ra) throws IOException {
-		
-			
-		qna.setQna_writetime(new Date());
-		
-		qna.setUploadFile(uploadfile);
-		MultipartFile File = qna.getUploadFile();
-		
-		// null check
-		if(!File.isEmpty()) {
-			String fileName = File.getOriginalFilename();
-			//qna.setFileName(fileName);
-			File path = new File("D:/Spring/member_upload/" + UUID.randomUUID().toString() + fileName);
-			qna.setUpload_path(path.getPath());
-			File.transferTo(path);
-		}
-		
-		
-		
-		qnaService.insertQnA(qna);
-		return "redirect:QnAList.do";
-		
-	}
+//	public String InsertQnA(@RequestParam(value = "uploadfile", required = false) MultipartFile uploadfile,  QnADTO qna, MemberDTO mem, RedirectAttributes ra) throws IOException {
+//		
+//			
+//		qna.setQna_writetime(new Date());
+//		
+//		qna.setUploadFile(uploadfile);
+//		MultipartFile File = qna.getUploadFile();
+//		
+//		// null check
+//		if(!File.isEmpty()) {
+//			String fileName = File.getOriginalFilename();
+//			//qna.setFileName(fileName);
+//			File path = new File("D:/Spring/member_upload/" + UUID.randomUUID().toString() + fileName);
+//			qna.setUpload_path(path.getPath());
+//			File.transferTo(path);
+//		}
+//		
+//		
+//		
+//		qnaService.insertQnA(qna);
+//		return "redirect:QnAList.do";
+//		
+//	}
 
 	
 	// 개선해본 코드 
@@ -190,26 +190,30 @@ public class QnAController {
 	// 관리자 게시글 등록
 	
 	@PostMapping("/InsertAdminQnA.do")
-	public String InsertAdminQnA(@RequestParam(value = "uploadfile", required = false) MultipartFile uploadfile,  QnADTO qna, MemberDTO mem, RedirectAttributes ra) throws IOException {
+	public String InsertAdminQnA(@RequestParam(value = "uploadfile", required = false) MultipartFile uploadfile,  QnADTO qna, MemberDTO mem) throws IOException {
 				
-		int code = mem.getMember_code();
-		
 		qna.setQna_writetime(new Date());
-		qna.setUploadFile(uploadfile);
-		MultipartFile File = qna.getUploadFile();
 		
-		// null check
-		if(!File.isEmpty()) {
-			String fileName = File.getOriginalFilename();
-			//qna.setFileName(fileName);
-			File path = new File("D:/Spring/admin_upload/" + UUID.randomUUID().toString() + fileName);
-			qna.setUpload_path(path.getPath());
-			File.transferTo(path);
-		}
+		UploadFileDTO attachFile = fileStore.storeFile(uploadfile);
 		
-
+		System.out.println("StoreFileName : " + attachFile.getStoreFileName());
+		System.out.println("UploadFileName : " + attachFile.getUploadFileName());
 		
+		String storeFile = attachFile.getStoreFileName();
+		
+		qna.setStore_file_name(storeFile);
+		
+		String uploadFile = attachFile.getUploadFileName();
+		
+		qna.setUpload_file_name(uploadFile);
+		
+		String fullPath = fileStore.getFullPath(storeFile);
+		
+		qna.setUpload_path(fullPath);
+				
 		qnaService.insertQnA(qna);
+		
+		
 		return "redirect:QnAList.do";
 		
 	}
@@ -233,26 +237,27 @@ public class QnAController {
 		
 		
 		
-		qna.setUploadFile(uploadfile);
-		MultipartFile File = qna.getUploadFile();
-		// null check
-		if(!File.isEmpty()) {
-			String fileName = File.getOriginalFilename();
-			//qna.setFileName(fileName);
-			File path = new File("D:/Spring/member_upload/" + UUID.randomUUID().toString() + fileName);
-			qna.setUpload_path(path.getPath());
-			File.transferTo(path);
+			UploadFileDTO attachFile = fileStore.storeFile(uploadfile);
+		
+			System.out.println("StoreFileName : " + attachFile.getStoreFileName());
+			System.out.println("UploadFileName : " + attachFile.getUploadFileName());
+			
+			String storeFile = attachFile.getStoreFileName();
+			
+			qna.setStore_file_name(storeFile);
+			
+			String uploadFile = attachFile.getUploadFileName();
+			
+			qna.setUpload_file_name(uploadFile);
+			
+			String fullPath = fileStore.getFullPath(storeFile);
+			
+			qna.setUpload_path(fullPath);
 			
 			qnaService.updateQnA(qna);
 			request.setAttribute("msg", "수정이 완료되었습니다.");
 			request.setAttribute("url", "QnAUpdate.do?qna_num=" + qna.getQna_num());
 			return "alert";
-		}else {
-			qnaService.updateQnA(qna);
-			request.setAttribute("msg", "수정이 완료되었습니다.");
-			request.setAttribute("url", "QnAUpdate.do?qna_num=" + qna.getQna_num());
-			return "alert";
-		}
 		
 		
 	}

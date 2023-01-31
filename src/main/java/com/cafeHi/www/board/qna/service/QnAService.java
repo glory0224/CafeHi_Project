@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.cafeHi.www.board.qna.dto.QnADTO;
-import com.cafeHi.www.board.qna.dto.QnAFormDTO;
 import com.cafeHi.www.common.dto.CriteriaDTO;
 
 public interface QnAService {
