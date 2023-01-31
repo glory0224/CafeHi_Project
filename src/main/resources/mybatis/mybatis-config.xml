@@ -28,7 +28,6 @@
  		<mapper resource="mappings/member-mappings.xml"/>
  		<mapper resource="mappings/membership-mappings.xml"/>
  		<mapper resource="mappings/qna-mappings.xml"/>
- 		<!-- <mapper resource="mappings/admin-mappings.xml"/> -->
  		<mapper resource="mappings/menu-mappings.xml"/>
  		<mapper resource="mappings/cart-mappings.xml"/> 		
  	</mappers>

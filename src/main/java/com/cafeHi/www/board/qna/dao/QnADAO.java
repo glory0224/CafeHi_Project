@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.cafeHi.www.board.qna.dto.QnADTO;
+import com.cafeHi.www.board.qna.dto.QnAFormDTO;
 import com.cafeHi.www.common.dto.CriteriaDTO;
 
 import lombok.RequiredArgsConstructor;
@@ -69,7 +70,6 @@ public class QnADAO {
 		sqlSessionTemplate.insert("QnADAO.insertQnA", qna);
 	}
 
-
 	public void updateQnA(QnADTO qna) {
 		
 		sqlSessionTemplate.update("QnADAO.updateQnA", qna);
@@ -82,6 +82,7 @@ public class QnADAO {
 	public void updateHit(QnADTO qna) {
 		sqlSessionTemplate.update("QnADAO.updateHit", qna);
 	}
+
 
 	
 

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 import com.cafeHi.www.board.qna.dao.QnADAO;
 import com.cafeHi.www.board.qna.dto.QnADTO;
+import com.cafeHi.www.board.qna.dto.QnAFormDTO;
 import com.cafeHi.www.common.dto.CriteriaDTO;
 
 import lombok.RequiredArgsConstructor;
@@ -36,6 +37,8 @@ public class QnAServiceImpl implements QnAService {
 	public void insertQnA(QnADTO qna) {
 		qnADAO.insertQnA(qna);
 	}
+	
+
 
 	
 	@Override
@@ -85,6 +88,8 @@ public class QnAServiceImpl implements QnAService {
 	public int getMemberQnANum(String role_user) {
 		return qnADAO.getMemberQnANum(role_user);
 	}
+
+
 
 
 

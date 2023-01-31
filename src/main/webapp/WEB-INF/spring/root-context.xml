@@ -9,8 +9,11 @@
 	<context:component-scan base-package="com.cafeHi.www" >
 	</context:component-scan>
 	
-	<!-- properties 파일을 이용한 JDBC 설정  -->
-	<context:property-placeholder location="classpath:config/database.properties"/>
+	<!-- properties 파일을 이용한 설정  -->
+	<!-- properites 파일이 여러개 있을 경우 태그를 또 쓰는 것이 아니라 아래와 같이 경로를 추가하는 방식이어야 적용된다. -->
+	<context:property-placeholder location="classpath:config/database.properties, classpath:config/application.properties"/>
+	
+	
 	
 	<!-- dataSource 빈 등록 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">

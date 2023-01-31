@@ -46,7 +46,7 @@
 							<tr>
 								<th>작성일</th><td><fmt:formatDate value="${QnA.qna_writetime }" pattern="yyyy-MM-dd"/></td>
 								<c:choose>
-									<c:when test="${QnA.fileName eq null }">
+									<c:when test="${QnA.store_file_name eq null }">
 										<th>첨부파일</th><td>없음</td>
 									</c:when>
 									<c:otherwise>
@@ -54,9 +54,9 @@
 										<!-- url encoding 문제로 인해 c:url 태그 사용  -->
 										<c:url value="getFile.do" var="url">
 											<c:param name="upload_path" value="${QnA.upload_path }"/>
-											<c:param name="fileName" value="${QnA.fileName }"/>
+											<c:param name="upload_file_name" value="${QnA.upload_file_name }"/>
 										</c:url>
-										<td><a href="${url }">${QnA.fileName }</a> </td>
+										<td><a href="${url }">${QnA.upload_file_name }</a> </td>
 										
 										
 									</c:otherwise>

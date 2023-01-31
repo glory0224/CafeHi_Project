@@ -34,9 +34,9 @@ public class FileController {
 		
 		Path path = Paths.get(qna.getUpload_path());
 		String contentType = Files.probeContentType(path);
-		
+	
 		HttpHeaders headers = new HttpHeaders();
-		headers.setContentDisposition(ContentDisposition.builder("attachment").filename(qna.getFileName(), StandardCharsets.UTF_8)
+		headers.setContentDisposition(ContentDisposition.builder("attachment").filename(qna.getUpload_file_name(), StandardCharsets.UTF_8)
 												.build());
 		headers.add(HttpHeaders.CONTENT_TYPE, contentType);
 		
@@ -52,7 +52,7 @@ public class FileController {
 		File file = new File(qna.getUpload_path());
 		
 		file.delete(); 
-		qna.setFileName(null);
+		//file.setFileName(null);
 		return "redirect:/QnAUpdate.do?qna_num=" + qna.getQna_num();	
 		
     }

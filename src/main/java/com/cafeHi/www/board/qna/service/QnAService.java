@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.cafeHi.www.board.qna.dto.QnADTO;
+import com.cafeHi.www.board.qna.dto.QnAFormDTO;
 import com.cafeHi.www.common.dto.CriteriaDTO;
 
 public interface QnAService {
@@ -20,6 +21,7 @@ public interface QnAService {
 	
 	// QnA ±Û CRUD
 	public void insertQnA(QnADTO qna);
+	
 	public void updateQnA(QnADTO qna);
 	public void deleteQnA(QnADTO qna);
 	

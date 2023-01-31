@@ -3,12 +3,6 @@ package com.cafeHi.www.board.qna.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -19,21 +13,14 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.core.io.Resource;
-import org.springframework.http.ContentDisposition;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -41,6 +28,8 @@ import com.cafeHi.www.board.qna.dto.QnADTO;
 import com.cafeHi.www.board.qna.service.QnAService;
 import com.cafeHi.www.common.dto.CriteriaDTO;
 import com.cafeHi.www.common.dto.PageDTO;
+import com.cafeHi.www.common.dto.UploadFileDTO;
+import com.cafeHi.www.common.file.FileStore;
 import com.cafeHi.www.member.dto.CustomUser;
 import com.cafeHi.www.member.dto.MemberDTO;
 import com.cafeHi.www.member.service.MemberService;
@@ -55,6 +44,8 @@ public class QnAController {
 	private final QnAService qnaService;
 	
 	private final MemberService memberService;
+	
+	private final FileStore fileStore;
 	
 	
 	// 게시글 조회
@@ -94,9 +85,6 @@ public class QnAController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("securityId", authentication.getName());
 		model.addAttribute("QnA", qnaService.getQnA(qna));
-		
-		
-		
 		
 		return "cafehi_QnA_content";
 	}
@@ -138,13 +126,13 @@ public class QnAController {
 	
 	// 사용자 게시글 등록
 	
-	@PostMapping("/InsertQnA.do")
+	
+	// 컨트롤러가 파일 저장 로직까지 수행하고 있어서 너무 많은 일을 하고 SRP 단일 책임 원칙을 위배한다. 
+	
+	//@PostMapping("/InsertQnA.do")
 	public String InsertQnA(@RequestParam(value = "uploadfile", required = false) MultipartFile uploadfile,  QnADTO qna, MemberDTO mem, RedirectAttributes ra) throws IOException {
 		
-		
-		int code = mem.getMember_code();
-		
-		
+			
 		qna.setQna_writetime(new Date());
 		
 		qna.setUploadFile(uploadfile);
@@ -153,7 +141,7 @@ public class QnAController {
 		// null check
 		if(!File.isEmpty()) {
 			String fileName = File.getOriginalFilename();
-			qna.setFileName(fileName);
+			//qna.setFileName(fileName);
 			File path = new File("D:/Spring/member_upload/" + UUID.randomUUID().toString() + fileName);
 			qna.setUpload_path(path.getPath());
 			File.transferTo(path);
@@ -165,7 +153,40 @@ public class QnAController {
 		return "redirect:QnAList.do";
 		
 	}
+
 	
+	// 개선해본 코드 
+	@PostMapping("/InsertQnA.do")
+	public String InsertQnAV2(@RequestParam(value = "uploadfile", required = false) MultipartFile uploadfile,  QnADTO qna, MemberDTO mem) throws IOException {
+		
+		
+		qna.setQna_writetime(new Date());
+		
+		UploadFileDTO attachFile = fileStore.storeFile(uploadfile);
+		
+		System.out.println("StoreFileName : " + attachFile.getStoreFileName());
+		System.out.println("UploadFileName : " + attachFile.getUploadFileName());
+		
+		String storeFile = attachFile.getStoreFileName();
+		
+		qna.setStore_file_name(storeFile);
+		
+		String uploadFile = attachFile.getUploadFileName();
+		
+		qna.setUpload_file_name(uploadFile);
+		
+		String fullPath = fileStore.getFullPath(storeFile);
+		
+		qna.setUpload_path(fullPath);
+				
+		qnaService.insertQnA(qna);
+		
+		
+		return "redirect:QnAList.do";
+		
+	}
+	
+
 	// 관리자 게시글 등록
 	
 	@PostMapping("/InsertAdminQnA.do")
@@ -180,7 +201,7 @@ public class QnAController {
 		// null check
 		if(!File.isEmpty()) {
 			String fileName = File.getOriginalFilename();
-			qna.setFileName(fileName);
+			//qna.setFileName(fileName);
 			File path = new File("D:/Spring/admin_upload/" + UUID.randomUUID().toString() + fileName);
 			qna.setUpload_path(path.getPath());
 			File.transferTo(path);
@@ -217,7 +238,7 @@ public class QnAController {
 		// null check
 		if(!File.isEmpty()) {
 			String fileName = File.getOriginalFilename();
-			qna.setFileName(fileName);
+			//qna.setFileName(fileName);
 			File path = new File("D:/Spring/member_upload/" + UUID.randomUUID().toString() + fileName);
 			qna.setUpload_path(path.getPath());
 			File.transferTo(path);
@@ -257,7 +278,7 @@ public class QnAController {
 		// null check
 		if(!File.isEmpty()) {
 			String fileName = File.getOriginalFilename();
-			qna.setFileName(fileName);
+			//qna.setFileName(fileName);
 			File path = new File("D:/Spring/admin_upload/" + UUID.randomUUID().toString() + fileName);
 			qna.setUpload_path(path.getPath());
 			File.transferTo(path);
