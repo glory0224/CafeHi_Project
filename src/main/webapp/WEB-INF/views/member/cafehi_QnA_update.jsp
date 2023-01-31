@@ -38,6 +38,8 @@
 				<div class="card-body">
 					<!--게시글 번호를 hidden으로 넘겨준다.  -->
 					<input type="hidden" name="qna_num" value="${QnA.qna_num }">
+					<input type="hidden" name="upload_path" value="${QnA.upload_path }">
+					
 					<table class="table table-striped">
 							<tr>
 								<th>작성자</th><td>${QnA.member_id }</td>
@@ -46,25 +48,10 @@
 							
 							<tr>
 								<th>작성일</th><td><fmt:formatDate value="${QnA.qna_writetime }" pattern="yyyy-MM-dd"/></td>
-								<c:choose>
-									<c:when test="${QnA.upload_file_name eq null }">
-										<th>첨부파일</th>
-										<td><input type="file" name="uploadfile"></td>
-									</c:when>
-									<c:otherwise>
-										<th>첨부파일</th>
-										<td>${QnA.upload_file_name } &nbsp; 
-										<!-- <input type="file" name="uploadfile"> -->
-										<!-- url encoding 문제로 인해 c:url 태그 사용  -->
-										<c:url value="removeFile.do" var="path">
-											<c:param name="upload_path" value="${QnA.upload_path }"/>
-											<c:param name="fileName" value="${QnA.upload_file_name }"/>
-											<c:param name="qna_num" value="${QnA.qna_num }"/>
-										</c:url>
-										<a href="${path }">삭제</a>
-										</td>
-									</c:otherwise>
-								</c:choose>
+								
+								<th>첨부파일</th>
+								<td><input type="file" name="uploadfile"></td>
+								
 							</tr>
 							<tr>
 							<c:choose>

@@ -28,9 +28,7 @@ public class QnADTO {
 	private MultipartFile uploadFile;
 	private String store_file_name;
 	private String upload_file_name;
-	
-	//private UploadFileDTO attachFile; 
-	
+		
 	private List<MemberAuthDTO> authList;
 	
 
