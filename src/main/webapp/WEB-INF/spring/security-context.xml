@@ -23,6 +23,8 @@
 		<security:intercept-url pattern="/myQnAInfo.do" access="hasRole('ROLE_USER')"/>		
 		<security:intercept-url pattern="/myPage.do" access="hasRole('ROLE_USER')"/>
 		<security:intercept-url pattern="/myMembership.do" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/CafehiOrder.do" access="hasRole('ROLE_USER')"/>
+		
 		
 		<!-- 유저 행위 -->
 		<security:intercept-url pattern="/InsertQnA.do" access="hasRole('ROLE_USER')"/>

@@ -13,4 +13,7 @@ public interface menuService {
 	public List<MenuDTO> getBeverageList();
 	public List<MenuDTO> getFruitJuiceList();
 	public List<MenuDTO> getTeaList();
+	
+	
+	public MenuDTO getMenu(int menu_code);
 }

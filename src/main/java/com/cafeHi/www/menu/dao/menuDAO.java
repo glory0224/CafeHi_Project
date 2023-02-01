@@ -47,6 +47,10 @@ public class menuDAO {
 	public List<MenuDTO> getTeaList(){
 		return sqlSessionTemplate.selectList("MenuDAO.getTeaList");
 	}
+
+	public MenuDTO getMenu(int menu_code) {
+		return sqlSessionTemplate.selectOne("MenuDAO.getMenu", menu_code);
+	}
 	
 	
 	

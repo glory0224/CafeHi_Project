@@ -55,4 +55,9 @@ public class menuServiceImpl implements menuService{
 		return menuDAO.getTeaList();
 	}
 
+	@Override
+	public MenuDTO getMenu(int menu_code) {
+		return menuDAO.getMenu(menu_code);
+	}
+
 }

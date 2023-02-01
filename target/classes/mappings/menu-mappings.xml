@@ -44,4 +44,8 @@
  		SELECT * FROM cafehi_menu WHERE menu_type = 'tea'
  	</select>
  	
+ 	<select id="getMenu" parameterType="int" resultType="Menu">
+ 		SELECT * FROM cafehi_menu WHERE menu_code = #{menu_code}
+ 	</select>
+ 	
  </mapper>

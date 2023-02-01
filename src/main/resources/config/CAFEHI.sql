@@ -7,20 +7,25 @@ select * from cafehi_qna;
 select * from cafehi_membership;
 select * from my_membership;
 select * from cafehi_menu;
-select * from cafehi_menu_category;
 select * from cafehi_cart;
+select * from cafehi_order;
+select * from cafehi_order_menu;
+select * from cafehi_coupon;
+select * from cafehi_mem_coupon;
 
 
 -- 테이블 컬럼 타입 조회
 
 desc cafehi_member;
 desc cafehi_member_auth;
-desc cafehi_admin;
-desc cafehi_admin_auth;
 desc cafehi_qna;
 desc cafehi_menu;
-desc cafehi_menu_category;
 desc cafehi_cart;
+desc cafehi_membership;
+desc cafehi_order;
+desc cafehi_order_menu;
+desc cafehi_coupon;
+desc cafehi_mem_coupon;
 
 -- 테이블 컬럼 제거
 
@@ -32,19 +37,9 @@ delete cafehi_qna;
 delete cafehi_menu;
 delete cafehi_cart;
 
+commit;
 
-SELECT rownum rn, q.qna_num, q.qna_title, q.qna_content, q.qna_writetime,q.qna_hit, u.user_id
-FROM cafehi_user u, cafehi_qna q
-WHERE u.user_seq = q.user_seq ;
-
-SELECT qna_num, qna_title, qna_content, qna_writetime, qna_hit, member_id FROM(
-SELECT rownum rn, cq.qna_num, cq.qna_title, cq.qna_content, cq.qna_writetime,cq.qna_hit, cm.member_id FROM
-(SELECT * FROM cafehi_qna ORDER BY qna_num DESC) cq join cafehi_member cm 
-on 
-cm.member_code = cq.member_code)
-WHERE rn > 0 and rn <=10
-;
-
+rollback;
 
 
 -- 삭제
@@ -62,12 +57,6 @@ drop table cafehi_member;
 
 
 
-
-
-
-
-
-
 -- 사용자 정보 테이블
 create table cafehi_member(
     member_code number primary key,
@@ -76,17 +65,24 @@ create table cafehi_member(
     member_name varchar2(50) not null,
     member_contact varchar2(15) not null,
     member_email varchar2(50) not null, -- 사용자 계정 인증용
-    member_road_address varchar2(100) not null,
-    member_jibun_address varchar2(100) not null,
-    member_detail_address varchar2(100) not null,
+    member_road_address varchar2(100),
+    member_jibun_address varchar2(100),
+    member_detail_address varchar2(100),
     enabled char(1) default '1'
 );
+
+-- 테스트용 관리자 계정
+
+insert into cafehi_member values(0, 'admin', 'admin', '관리자', '01012341234', 'admin@naver.com', '서울 강남', '강남로', '비밀',1 );
+insert into cafehi_member_auth values(0, 0, 'ROLE_ADMIN');
+
+commit;
 
 -- 사용자 정보 권한 테이블
 create table cafehi_member_auth(
     member_auth_code number primary key,
     member_code number not null,
-    auth varchar2(50) not null,
+    member_auth varchar2(50) not null,
     constraint fk_member_auth foreign key(member_code) references cafehi_member(member_code) on delete cascade
 );
 
@@ -99,8 +95,9 @@ create table cafehi_qna(
     qna_content varchar2(500) not null,
     qna_writetime Date not null,
     qna_hit number not null,
-    upload_path varchar2(300),
-    fileName varchar2(50),
+    upload_path varchar2(500),
+    store_file_name varchar2(300),
+    upload_file_name varchar2(100),
     member_code number not null,
     constraint fk_qna_member_code foreign key(member_code) references cafehi_member (member_code) on delete cascade 
 );

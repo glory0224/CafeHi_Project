@@ -1,5 +1,9 @@
 package com.cafeHi.www.order.dao;
 
-public class orderDAO {
+import org.springframework.stereotype.Repository;
 
+@Repository
+public class orderDAO {
+	
+	
 }
