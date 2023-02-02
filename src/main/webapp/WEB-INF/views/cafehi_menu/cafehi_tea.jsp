@@ -42,11 +42,17 @@
               <p class="card-text text-center">${teaList0.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                
+                <form action="CafehiOrder.do" method="get">
+                  <input type="hidden" name="menu_code" value="${teaList0.menu_code }">
+                  <input id="teaOrderAmount0" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${teaList0.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="teaAmount0" type="hidden" name="orderAmount" value="0">
+                  <input id="teaCartAmount0" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='teaCount0' class="m-1">
@@ -72,11 +78,17 @@
               <p class="card-text text-center">${teaList1.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                
+                 <form action="CafehiOrder.do" method="get">
+                  <input type="hidden" name="menu_code" value="${teaList1.menu_code }">
+                  <input id="teaOrderAmount1" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                  
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${teaList1.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="teaAmount1" type="hidden" name="orderAmount" value="0">
+                  <input id="teaCartAmount1" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='teaCount1' class="m-1">
@@ -102,11 +114,17 @@
               <p class="card-text text-center">${teaList2.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                
+                <form action="CafehiOrder.do" method="get">
+                  <input type="hidden" name="menu_code" value="${teaList2.menu_code }">
+                  <input id="teaOrderAmount2" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${teaList2.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="teaAmount2" type="hidden" name="orderAmount" value="0">
+                  <input id="teaCartAmount2" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='teaCount2' class="m-1">
@@ -132,11 +150,17 @@
               <p class="card-text text-center">${teaList3.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                
+                <form action="CafehiOrder.do" method="get">
+                  <input type="hidden" name="menu_code" value="${teaList3.menu_code }">
+                  <input id="teaOrderAmount3" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${teaList3.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="teaAmount3" type="hidden" name="orderAmount" value="0">
+                  <input id="teaCartAmount3" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='teaCount3' class="m-1">
@@ -162,11 +186,18 @@
               <p class="card-text text-center">${teaList4.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                
+                
+                <form action="CafehiOrder.do" method="get">
+                  <input type="hidden" name="menu_code" value="${teaList4.menu_code }">
+                  <input id="teaOrderAmount4" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                	
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${teaList4.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="teaAmount4" type="hidden" name="orderAmount" value="0">
+                  <input id="teaCartAmount4" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='teaCount4' class="m-1">
@@ -192,11 +223,17 @@
               <p class="card-text text-center">${teaList5.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                
+                <form action="CafehiOrder.do" method="get">
+                  <input type="hidden" name="menu_code" value="${teaList5.menu_code }">
+                  <input id="teaOrderAmount5" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${teaList5.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="teaAmount5" type="hidden" name="orderAmount" value="0">
+                  <input id="teaCartAmount5" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='teaCount5' class="m-1">
@@ -222,11 +259,17 @@
               <p class="card-text text-center">${teaList6.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                
+                 <form action="CafehiOrder.do" method="get">
+                  <input type="hidden" name="menu_code" value="${teaList6.menu_code }">
+                  <input id="teaOrderAmount6" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${teaList6.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="teaAmount6" type="hidden" name="orderAmount" value="0">
+                  <input id="teaCartAmount6" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='teaCount6' class="m-1">
@@ -252,11 +295,18 @@
               <p class="card-text text-center">${teaList7.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                
+                <form action="CafehiOrder.do" method="get">
+                  <input type="hidden" name="menu_code" value="${teaList7.menu_code }">
+                  <input id="teaOrderAmount7" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                   
+                
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${teaList7.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="teaAmount7" type="hidden" name="orderAmount" value="0">
+                  <input id="teaCartAmount7" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='teaCount7' class="m-1">
@@ -282,11 +332,17 @@
               <p class="card-text text-center">${teaList8.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                
+                <form action="CafehiOrder.do" method="get">
+                  <input type="hidden" name="menu_code" value="${teaList8.menu_code }">
+                  <input id="teaOrderAmount8" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${teaList8.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="teaAmount8" type="hidden" name="orderAmount" value="0">
+                  <input id="teaCartAmount8" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='teaCount8' class="m-1">
@@ -312,11 +368,18 @@
               <p class="card-text text-center">${teaList9.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                 
+                 <form action="CafehiOrder.do" method="get">
+                  <input type="hidden" name="menu_code" value="${teaList0.menu_code }">
+                  <input id="teaOrderAmount9" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                
+                	
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${teaList9.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="teaAmount9" type="hidden" name="orderAmount" value="0">
+                  <input id="teaCartAmount9" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='teaCount9' class="m-1">
@@ -342,11 +405,17 @@
               <p class="card-text text-center">${teaList10.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                
+                <form action="CafehiOrder.do" method="get">
+                  <input type="hidden" name="menu_code" value="${teaList10.menu_code }">
+                  <input id="teaOrderAmount10" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${teaList10.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="teaAmount10" type="hidden" name="orderAmount" value="0">
+                  <input id="teaCartAmount10" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='teaCount10' class="m-1">
@@ -372,11 +441,17 @@
               <p class="card-text text-center">${teaList11.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                
+                <form action="CafehiOrder.do" method="get">
+                  <input type="hidden" name="menu_code" value="${teaList11.menu_code }">
+                  <input id="teaOrderAmount11" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${teaList11.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="teaAmount11" type="hidden" name="orderAmount" value="0">
+                  <input id="teaCartAmount11" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='teaCount11' class="m-1">
@@ -402,11 +477,16 @@
               <p class="card-text text-center">${teaList12.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                <form action="CafehiOrder.do" method="get">
+                  <input type="hidden" name="menu_code" value="${teaList12.menu_code }">
+                  <input id="teaOrderAmount12" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${teaList12.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="teaAmount12" type="hidden" name="orderAmount" value="0">
+                  <input id="teaCartAmount12" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='teaCount12' class="m-1">
@@ -432,11 +512,17 @@
               <p class="card-text text-center">${teaList13.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                
+                <form action="CafehiOrder.do" method="get">
+                  <input type="hidden" name="menu_code" value="${teaList13.menu_code }">
+                  <input id="teaOrderAmount13" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${teaList13.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="teaAmount13" type="hidden" name="orderAmount" value="0">
+                  <input id="teaCartAmount13" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='teaCount13' class="m-1">
@@ -462,11 +548,17 @@
               <p class="card-text text-center">${teaList14.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                
+                <form action="CafehiOrder.do" method="get">
+                  <input type="hidden" name="menu_code" value="${teaList14.menu_code }">
+                  <input id="teaOrderAmount14" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${teaList14.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="teaAmount14" type="hidden" name="orderAmount" value="0">
+                  <input id="teaCartAmount14" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='teaCount14' class="m-1">

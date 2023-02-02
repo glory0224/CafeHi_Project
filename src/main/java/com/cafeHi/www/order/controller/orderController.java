@@ -21,9 +21,9 @@ public class orderController {
 	private final menuService menuService;
 	
 	@GetMapping("/CafehiOrder.do")
-	public String CafehiOrderView(@RequestParam(required = false) int orderAmount, MenuDTO menu, Model model, HttpServletRequest request) {
+	public String CafehiOrderView(@RequestParam(required = false) int toOrderAmount, MenuDTO menu, Model model, HttpServletRequest request) {
 		
-		if(orderAmount == 0) {
+		if(toOrderAmount == 0) {
 			request.setAttribute("msg", "수량을 선택 해야 구매 가능합니다.");
 			request.setAttribute("url", "coffeeList.do");
 			
@@ -32,7 +32,7 @@ public class orderController {
 		
 		
 		model.addAttribute("Menu", menuService.getMenu(menu.getMenu_code()));
-		model.addAttribute("orderAmount", orderAmount);
+		model.addAttribute("orderAmount", toOrderAmount);
 		
 		return "member/cafehi_order";
 	}

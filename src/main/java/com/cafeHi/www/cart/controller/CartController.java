@@ -54,17 +54,18 @@ public class CartController {
 	}
 	
 	@PostMapping("/insertCart.do")
-	public String CartInsert(@RequestParam(required = false) int orderAmount, CartDTO cart, HttpServletRequest request) {
+	public String CartInsert(@RequestParam(required = false) int toCartAmount, CartDTO cart, HttpServletRequest request) {
 		
-		if(orderAmount == 0) {
+		if(toCartAmount == 0) {
 			request.setAttribute("msg", "수량은 1개 이상 담을 수 있습니다.");
 			request.setAttribute("url", "coffeeList.do");
+			System.out.println("toCartAmount : " + toCartAmount);
 			
 			return "alert";
 		}
 				
 		
-		cart.setCart_amount(orderAmount);
+		cart.setCart_amount(toCartAmount);
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		CustomUser userInfo = (CustomUser) principal;
 		int member_code = userInfo.getMember().getMember_code();

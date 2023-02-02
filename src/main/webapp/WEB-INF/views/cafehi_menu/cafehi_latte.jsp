@@ -42,11 +42,17 @@
               <p class="card-text text-center">${latteList0.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                
+                <form action="CafehiOrder.do" method="get">
+                  <input type="hidden" name="menu_code" value="${latteList0.menu_code }">
+                  <input id="latteOrderAmount0" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${latteList0.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="latteAmount0" type="hidden" name="orderAmount" value="0">
+                  <input id="latteCartAmount0" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='latteCount0' class="m-1">
@@ -72,11 +78,17 @@
               <p class="card-text text-center">${latteList1.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                
+                <form action="CafehiOrder.do" method="get">
+                  <input type="hidden" name="menu_code" value="${latteList1.menu_code }">
+                  <input id="latteOrderAmount1" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                  
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${latteList1.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="latteAmount1" type="hidden" name="orderAmount" value="0">
+                  <input id="latteCartAmount1" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='latteCount1' class="m-1">
@@ -102,11 +114,17 @@
               <p class="card-text text-center">${latteList2.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                
+                 <form action="CafehiOrder.do" method="get">
+                  <input type="hidden" name="menu_code" value="${latteList2.menu_code }">
+                  <input id="latteOrderAmount2" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${latteList2.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="latteAmount2" type="hidden" name="orderAmount" value="0">
+                  <input id="latteCartAmount2" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='latteCount2' class="m-1">
@@ -132,11 +150,17 @@
               <p class="card-text text-center">${latteList3.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                
+                <form action="CafehiOrder.do" method="get">
+                  <input type="hidden" name="menu_code" value="${latteList3.menu_code }">
+                  <input id="latteOrderAmount3" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${latteList3.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="latteAmount3" type="hidden" name="orderAmount" value="0">
+                  <input id="latteCartAmount3" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='latteCount3' class="m-1">
@@ -162,11 +186,17 @@
               <p class="card-text text-center">${latteList4.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                
+                <form action="CafehiOrder.do" method="get">
+                  <input type="hidden" name="menu_code" value="${latteList4.menu_code }">
+                  <input id="latteOrderAmount4" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${latteList4.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="latteAmount4" type="hidden" name="orderAmount" value="0">
+                  <input id="latteCartAmount4" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='latteCount4' class="m-1">
@@ -192,11 +222,17 @@
               <p class="card-text text-center">${latteList5.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                  
+                  <form action="CafehiOrder.do" method="get">
+                  <input type="hidden" name="menu_code" value="${latteList5.menu_code }">
+                  <input id="latteOrderAmount5" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${latteList5.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="latteAmount5" type="hidden" name="orderAmount" value="0">
+                  <input id="latteCartAmount5" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='latteCount5' class="m-1">
@@ -222,11 +258,17 @@
               <p class="card-text text-center">${latteList6.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                
+                 <form action="CafehiOrder.do" method="get">
+                  <input type="hidden" name="menu_code" value="${latteList6.menu_code }">
+                  <input id="latteOrderAmount6" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                	
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${latteList6.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="latteAmount6" type="hidden" name="orderAmount" value="0">
+                  <input id="latteCartAmount6" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='latteCount6' class="m-1">

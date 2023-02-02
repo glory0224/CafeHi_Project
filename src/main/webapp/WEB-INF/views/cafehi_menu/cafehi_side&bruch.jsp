@@ -42,11 +42,17 @@
               <p class="card-text text-center">${sideList0.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+	
+				<form action="CafehiOrder.do" method="get">
+				<input type="hidden" name="menu_code" value="${sideList0.menu_code }">
+                  <input id="sideOrderAmount0" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>                
+                
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${sideList0.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="sideAmount0" type="hidden" name="orderAmount" value="0">
+                  <input id="sideCartAmount0" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='sideCount0' class="m-1">
@@ -72,11 +78,17 @@
               <p class="card-text text-center">${sideList1.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                
+                <form action="CafehiOrder.do" method="get">
+				<input type="hidden" name="menu_code" value="${sideList1.menu_code }">
+				<input id="sideOrderAmount1" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${sideList1.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="sideAmount1" type="hidden" name="orderAmount" value="0">
+                  <input id="sideCartAmount1" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='sideCount1' class="m-1">
@@ -102,11 +114,17 @@
               <p class="card-text text-center">${sideList2.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                  
+                  <form action="CafehiOrder.do" method="get">
+				<input type="hidden" name="menu_code" value="${sideList2.menu_code }">
+				<input id="sideOrderAmount2" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                  
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${sideList2.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="sideAmount2" type="hidden" name="orderAmount" value="0">
+                  <input id="sideCartAmount2" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='sideCount2' class="m-1">
@@ -132,11 +150,17 @@
               <p class="card-text text-center">${sideList3.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                  
+                  <form action="CafehiOrder.do" method="get">
+				<input type="hidden" name="menu_code" value="${sideList3.menu_code }">
+				<input id="sideOrderAmount3" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                  
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${sideList3.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="sideAmount3" type="hidden" name="orderAmount" value="0">
+                  <input id="sideCartAmount3" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='sideCount3' class="m-1">

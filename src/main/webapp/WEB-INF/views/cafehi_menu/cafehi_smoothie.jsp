@@ -50,11 +50,17 @@
               <p class="card-text text-center">${smoothieList0.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                
+                <form action="CafehiOrder.do" method="get">
+                  <input type="hidden" name="menu_code" value="${smoothieList0.menu_code }">
+                  <input id="smoothieOrderAmount0" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${smoothieList0.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="smoothieAmount0" type="hidden" name="orderAmount" value="0">
+                  <input id="smoothieCartAmount0" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='smoothieCount0' class="m-1">
@@ -80,11 +86,17 @@
               <p class="card-text text-center">${smoothieList1.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                
+                <form action="CafehiOrder.do" method="get">
+                  <input type="hidden" name="menu_code" value="${smoothieList1.menu_code }">
+                  <input id="smoothieOrderAmount1" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${smoothieList1.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="smoothieAmount1" type="hidden" name="orderAmount" value="0">
+                  <input id="smoothieCartAmount1" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='smoothieCount1' class="m-1">
@@ -110,11 +122,17 @@
               <p class="card-text text-center">${smoothieList2.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                  
+                  <form action="CafehiOrder.do" method="get">
+                  <input type="hidden" name="menu_code" value="${smoothieList2.menu_code }">
+                  <input id="smoothieOrderAmount2" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                  
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${smoothieList2.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="smoothieAmount2" type="hidden" name="orderAmount" value="0">
+                  <input id="smoothieCartAmount2" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='smoothieCount2' class="m-1">
@@ -140,11 +158,17 @@
               <p class="card-text text-center">${smoothieList3.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                
+                 <form action="CafehiOrder.do" method="get">
+                  <input type="hidden" name="menu_code" value="${smoothieList3.menu_code }">
+                  <input id="smoothieOrderAmount3" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${smoothieList3.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="smoothieAmount3" type="hidden" name="orderAmount" value="0">
+                  <input id="smoothieCartAmount3" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='smoothieCount3' class="m-1">
@@ -170,11 +194,17 @@
               <p class="card-text text-center">${smoothieList4.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                
+                <form action="CafehiOrder.do" method="get">
+                  <input type="hidden" name="menu_code" value="${smoothieList4.menu_code }">
+                  <input id="smoothieOrderAmount4" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${smoothieList4.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="smoothieAmount4" type="hidden" name="orderAmount" value="0">
+                  <input id="smoothieCartAmount4" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='smoothieCount4' class="m-1">
@@ -200,11 +230,17 @@
               <p class="card-text text-center">${smoothieList5.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                
+                <form action="CafehiOrder.do" method="get">
+                  <input type="hidden" name="menu_code" value="${smoothieList5.menu_code }">
+                  <input id="smoothieOrderAmount5" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${smoothieList5.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="smoothieAmount5" type="hidden" name="orderAmount" value="0">
+                  <input id="smoothieCartAmount5" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='smoothieCount5' class="m-1">

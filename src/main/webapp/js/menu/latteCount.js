@@ -1,7 +1,8 @@
 function countlatteList0(type)  {
 	  // 결과를 표시할 element
 	  const resultCount = document.getElementById('latteCount0');
-	  const resultAmount = document.getElementById('latteAmount0');
+	  const resultCartAmount = document.getElementById('latteCartAmount0');
+	  const resultOrderAmount = document.getElementById('latteOrderAmount0');
 	  
 	  // 현재 화면에 표시된 값
 	  let number = resultCount.innerText;
@@ -15,12 +16,15 @@ function countlatteList0(type)  {
 	  
 	  // 결과 출력
 	  resultCount.innerText = number;
-	  resultAmount.value = resultCount.innerText
+	  resultCartAmount.value = resultCount.innerText
+	  resultOrderAmount.value = resultCount.innerText
 	}
+	
 function countlatteList1(type)  {
 	  // 결과를 표시할 element
 	  const resultCount = document.getElementById('latteCount1');
-	  const resultAmount = document.getElementById('latteAmount1');
+	  const resultCartAmount = document.getElementById('latteCartAmount1');
+	  const resultOrderAmount = document.getElementById('latteOrderAmount1');
 	  
 	  // 현재 화면에 표시된 값
 	  let number = resultCount.innerText;
@@ -34,12 +38,15 @@ function countlatteList1(type)  {
 	  
 	  // 결과 출력
 	  resultCount.innerText = number;
-	  resultAmount.value = resultCount.innerText
+	  resultCartAmount.value = resultCount.innerText
+	  resultOrderAmount.value = resultCount.innerText
 	}
+	
 function countlatteList2(type)  {
 	  // 결과를 표시할 element
 	  const resultCount = document.getElementById('latteCount2');
-	  const resultAmount = document.getElementById('latteAmount2');
+	  const resultCartAmount = document.getElementById('latteCartAmount2');
+	  const resultOrderAmount = document.getElementById('latteOrderAmount2');
 	  
 	  // 현재 화면에 표시된 값
 	  let number = resultCount.innerText;
@@ -53,12 +60,15 @@ function countlatteList2(type)  {
 	  
 	  // 결과 출력
 	  resultCount.innerText = number;
-	  resultAmount.value = resultCount.innerText
+	  resultCartAmount.value = resultCount.innerText
+	  resultOrderAmount.value = resultCount.innerText
 	}
+	
 function countlatteList3(type)  {
 	  // 결과를 표시할 element
-	 const resultCount = document.getElementById('latteCount3');
-	  const resultAmount = document.getElementById('latteAmount3');
+	  const resultCount = document.getElementById('latteCount3');
+	  const resultCartAmount = document.getElementById('latteCartAmount3');
+	  const resultOrderAmount = document.getElementById('latteOrderAmount3');
 	  
 	  // 현재 화면에 표시된 값
 	  let number = resultCount.innerText;
@@ -72,12 +82,16 @@ function countlatteList3(type)  {
 	  
 	  // 결과 출력
 	  resultCount.innerText = number;
-	  resultAmount.value = resultCount.innerText
+	  resultCartAmount.value = resultCount.innerText
+	  resultOrderAmount.value = resultCount.innerText
 	}
+	
+	
 function countlatteList4(type)  {
 	  // 결과를 표시할 element
-	 const resultCount = document.getElementById('latteCount4');
-	  const resultAmount = document.getElementById('latteAmount4');
+	  const resultCount = document.getElementById('latteCount4');
+	  const resultCartAmount = document.getElementById('latteCartAmount4');
+	  const resultOrderAmount = document.getElementById('latteOrderAmount4');
 	  
 	  // 현재 화면에 표시된 값
 	  let number = resultCount.innerText;
@@ -91,12 +105,16 @@ function countlatteList4(type)  {
 	  
 	  // 결과 출력
 	  resultCount.innerText = number;
-	  resultAmount.value = resultCount.innerText
+	  resultCartAmount.value = resultCount.innerText
+	  resultOrderAmount.value = resultCount.innerText
 	}
+	
+	
 function countlatteList5(type)  {
 	  // 결과를 표시할 element
 	  const resultCount = document.getElementById('latteCount5');
-	  const resultAmount = document.getElementById('latteAmount5');
+	  const resultCartAmount = document.getElementById('latteCartAmount5');
+	  const resultOrderAmount = document.getElementById('latteOrderAmount5');
 	  
 	  // 현재 화면에 표시된 값
 	  let number = resultCount.innerText;
@@ -110,12 +128,16 @@ function countlatteList5(type)  {
 	  
 	  // 결과 출력
 	  resultCount.innerText = number;
-	  resultAmount.value = resultCount.innerText
+	  resultCartAmount.value = resultCount.innerText
+	  resultOrderAmount.value = resultCount.innerText
 	}
+	
+	
 function countlatteList6(type)  {
 	  // 결과를 표시할 element
 	  const resultCount = document.getElementById('latteCount6');
-	  const resultAmount = document.getElementById('latteAmount6');
+	  const resultCartAmount = document.getElementById('latteCartAmount6');
+	  const resultOrderAmount = document.getElementById('latteOrderAmount6');
 	  
 	  // 현재 화면에 표시된 값
 	  let number = resultCount.innerText;
@@ -129,5 +151,7 @@ function countlatteList6(type)  {
 	  
 	  // 결과 출력
 	  resultCount.innerText = number;
-	  resultAmount.value = resultCount.innerText
+	  resultCartAmount.value = resultCount.innerText
+	  resultOrderAmount.value = resultCount.innerText
 	}
+	

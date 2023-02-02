@@ -48,11 +48,17 @@
               <p class="card-text text-center">${fruitJuiceList0.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                
+                <form action="CafehiOrder.do" method="get">
+                  <input type="hidden" name="menu_code" value="${fruitJuiceList0.menu_code }">
+                  <input id="fruitOrderAmount0" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${fruitJuiceList0.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="fruitAmount0" type="hidden" name="orderAmount" value="0">
+                  <input id="fruitCartAmount0" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='fruitCount0' class="m-1">
@@ -78,11 +84,17 @@
               <p class="card-text text-center">${fruitJuiceList1.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                
+                <form action="CafehiOrder.do" method="get">
+                  <input type="hidden" name="menu_code" value="${fruitJuiceList1.menu_code }">
+                  <input id="fruitOrderAmount1" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${fruitJuiceList1.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="fruitAmount1" type="hidden" name="orderAmount" value="0">
+                  <input id="fruitCartAmount1" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='fruitCount1' class="m-1">
@@ -108,11 +120,17 @@
               <p class="card-text text-center">${fruitJuiceList2.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                  
+                 <form action="CafehiOrder.do" method="get">
+                  <input type="hidden" name="menu_code" value="${fruitJuiceList2.menu_code }">
+                  <input id="fruitOrderAmount2" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                  
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${fruitJuiceList2.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="fruitAmount2" type="hidden" name="orderAmount" value="0">
+                  <input id="fruitCartAmount1" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='fruitCount2' class="m-1">

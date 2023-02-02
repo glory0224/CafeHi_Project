@@ -44,14 +44,14 @@
                 
                 <form action="CafehiOrder.do" method="get">
                   <input type="hidden" name="menu_code" value="${beverageList0.menu_code }">
-                  <input id="beverageAmount0" type="hidden" name="orderAmount" value="0">
+                  <input id="beverageOrderAmount0" type="hidden" name="toOrderAmount" value="0">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
                 </form> 
                 
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${beverageList0.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="beverageAmount0" type="hidden" name="orderAmount" value="0">
+                  <input id="beverageCartAmount0" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='beverageCount0' class="m-1">
@@ -80,14 +80,14 @@
                 
                 <form action="CafehiOrder.do" method="get">
                   <input type="hidden" name="menu_code" value="${beverageList1.menu_code }">
-                  <input id="beverageAmount0" type="hidden" name="orderAmount" value="0">
+                  <input id="beverageOrderAmount1" type="hidden" name="toOrderAmount" value="0">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
                 </form>
                 
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${beverageList1.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="beverageAmount1" type="hidden" name="orderAmount" value="0">
+                  <input id="beverageCartAmount1" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='beverageCount1' class="m-1">
@@ -116,14 +116,14 @@
                 
                 <form action="CafehiOrder.do" method="get">
                   <input type="hidden" name="menu_code" value="${beverageList2.menu_code }">
-                  <input id="beverageAmount0" type="hidden" name="orderAmount" value="0">
+                  <input id="beverageOrderAmount2" type="hidden" name="toOrderAmount" value="0">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
                 </form>
                 
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${beverageList2.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="beverageAmount2" type="hidden" name="orderAmount" value="0">
+                  <input id="beverageCartAmount2" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='beverageCount2' class="m-1">
@@ -152,14 +152,14 @@
                 
                  <form action="CafehiOrder.do" method="get">
                   <input type="hidden" name="menu_code" value="${beverageList3.menu_code }">
-                  <input id="beverageAmount0" type="hidden" name="orderAmount" value="0">
+                  <input id="beverageOrderAmount3" type="hidden" name="toOrderAmount" value="0">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
                 </form>
                 
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${beverageList3.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="beverageAmount3" type="hidden" name="orderAmount" value="0">
+                  <input id="beverageCartAmount3" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='beverageCount3' class="m-1">
@@ -188,14 +188,14 @@
                 
                 <form action="CafehiOrder.do" method="get">
                   <input type="hidden" name="menu_code" value="${beverageList4.menu_code }">
-                  <input id="beverageAmount0" type="hidden" name="orderAmount" value="0">
+                  <input id="beverageOrderAmount4" type="hidden" name="toOrderAmount" value="0">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
                 </form>
                 
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${beverageList4.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="beverageAmount4" type="hidden" name="orderAmount" value="0">
+                  <input id="beverageCartAmount4" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='beverageCount4' class="m-1">
@@ -224,14 +224,14 @@
                 
                 <form action="CafehiOrder.do" method="get">
                   <input type="hidden" name="menu_code" value="${beverageList5.menu_code }">
-                  <input id="beverageAmount0" type="hidden" name="orderAmount" value="0">
+                  <input id="beverageOrderAmount5" type="hidden" name="toOrderAmount" value="0">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
                 </form>
                 
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${beverageList5.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="beverageAmount5" type="hidden" name="orderAmount" value="0">
+                  <input id="beverageCartAmount5" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='beverageCount5' class="m-1">
@@ -260,14 +260,14 @@
                 
                 <form action="CafehiOrder.do" method="get">
                   <input type="hidden" name="menu_code" value="${beverageList6.menu_code }">
-                  <input id="beverageAmount0" type="hidden" name="orderAmount" value="0">
+                  <input id="beverageOrderAmount6" type="hidden" name="toOrderAmount" value="0">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
                 </form>
                 
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${beverageList6.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="beverageAmount6" type="hidden" name="orderAmount" value="0">
+                  <input id="beverageCartAmount6" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='beverageCount6' class="m-1">
@@ -296,14 +296,14 @@
                 
                 <form action="CafehiOrder.do" method="get">
                   <input type="hidden" name="menu_code" value="${beverageList7.menu_code }">
-                  <input id="beverageAmount0" type="hidden" name="orderAmount" value="0">
+                  <input id="beverageOrderAmount7" type="hidden" name="toOrderAmount" value="0">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
                 </form>
                 
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${beverageList7.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="beverageAmount7" type="hidden" name="orderAmount" value="0">
+                  <input id="beverageCartAmount7" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='beverageCount7' class="m-1">
@@ -332,14 +332,14 @@
                 
                 <form action="CafehiOrder.do" method="get">
                   <input type="hidden" name="menu_code" value="${beverageList8.menu_code }">
-                  <input id="beverageAmount0" type="hidden" name="orderAmount" value="0">
+                  <input id="beverageOrderAmount8" type="hidden" name="toOrderAmount" value="0">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
                 </form>
                 
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${beverageList8.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="beverageAmount8" type="hidden" name="orderAmount" value="0">
+                  <input id="beverageCartAmount8" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='beverageCount8' class="m-1">

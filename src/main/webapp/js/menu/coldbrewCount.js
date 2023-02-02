@@ -1,7 +1,8 @@
 function countColdBrewList0(type)  {
 	  // 결과를 표시할 element
 	  const resultCount = document.getElementById('coldbrewCount0');
-	  const resultAmount = document.getElementById('coldbrewAmount0');
+	  const resultCartAmount = document.getElementById('coldbrewCartAmount0');
+	  const resultOrderAmount = document.getElementById('coldbrewOrderAmount0');
 	  
 	  // 현재 화면에 표시된 값
 	  let number = resultCount.innerText;
@@ -15,12 +16,15 @@ function countColdBrewList0(type)  {
 	  
 	  // 결과 출력
 	  resultCount.innerText = number;
-	  resultAmount.value = resultCount.innerText
+	  resultCartAmount.value = resultCount.innerText
+	  resultOrderAmount.value = resultCount.innerText
 	}
+	
 function countColdBrewList1(type)  {
 	  // 결과를 표시할 element
 	  const resultCount = document.getElementById('coldbrewCount1');
-	  const resultAmount = document.getElementById('coldbrewAmount1');
+	  const resultCartAmount = document.getElementById('coldbrewCartAmount1');
+	  const resultOrderAmount = document.getElementById('coldbrewOrderAmount1');
 	  
 	  // 현재 화면에 표시된 값
 	  let number = resultCount.innerText;
@@ -34,12 +38,15 @@ function countColdBrewList1(type)  {
 	  
 	  // 결과 출력
 	  resultCount.innerText = number;
-	  resultAmount.value = resultCount.innerText
+	  resultCartAmount.value = resultCount.innerText
+	  resultOrderAmount.value = resultCount.innerText
 	}
+	
 function countColdBrewList2(type)  {
 	  // 결과를 표시할 element
 	  const resultCount = document.getElementById('coldbrewCount2');
-	  const resultAmount = document.getElementById('coldbrewAmount2');
+	  const resultCartAmount = document.getElementById('coldbrewCartAmount2');
+	  const resultOrderAmount = document.getElementById('coldbrewOrderAmount2');
 	  
 	  // 현재 화면에 표시된 값
 	  let number = resultCount.innerText;
@@ -53,12 +60,15 @@ function countColdBrewList2(type)  {
 	  
 	  // 결과 출력
 	  resultCount.innerText = number;
-	  resultAmount.value = resultCount.innerText
+	  resultCartAmount.value = resultCount.innerText
+	  resultOrderAmount.value = resultCount.innerText
 	}
+	
 function countColdBrewList3(type)  {
 	  // 결과를 표시할 element
 	  const resultCount = document.getElementById('coldbrewCount3');
-	  const resultAmount = document.getElementById('coldbrewAmount3');
+	  const resultCartAmount = document.getElementById('coldbrewCartAmount3');
+	  const resultOrderAmount = document.getElementById('coldbrewOrderAmount3');
 	  
 	  // 현재 화면에 표시된 값
 	  let number = resultCount.innerText;
@@ -72,12 +82,15 @@ function countColdBrewList3(type)  {
 	  
 	  // 결과 출력
 	  resultCount.innerText = number;
-	  resultAmount.value = resultCount.innerText
+	  resultCartAmount.value = resultCount.innerText
+	  resultOrderAmount.value = resultCount.innerText
 	}
+	
 function countColdBrewList4(type)  {
 	  // 결과를 표시할 element
 	  const resultCount = document.getElementById('coldbrewCount4');
-	  const resultAmount = document.getElementById('coldbrewAmount4');
+	  const resultCartAmount = document.getElementById('coldbrewCartAmount4');
+	  const resultOrderAmount = document.getElementById('coldbrewOrderAmount4');
 	  
 	  // 현재 화면에 표시된 값
 	  let number = resultCount.innerText;
@@ -91,5 +104,9 @@ function countColdBrewList4(type)  {
 	  
 	  // 결과 출력
 	  resultCount.innerText = number;
-	  resultAmount.value = resultCount.innerText
+	  resultCartAmount.value = resultCount.innerText
+	  resultOrderAmount.value = resultCount.innerText
 	}
+	
+
+	

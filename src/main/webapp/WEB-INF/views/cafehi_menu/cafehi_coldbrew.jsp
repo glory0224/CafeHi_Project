@@ -41,11 +41,17 @@
               <p class="card-text text-center">${coldbrewList0.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                
+                <form action="CafehiOrder.do" method="get">
+                  <input type="hidden" name="menu_code" value="${coldbrewList0.menu_code }">
+                  <input id="coldbrewOrderAmount0" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${coldbrewList0.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="coldbrewAmount0" type="hidden" name="orderAmount" value="0">
+                  <input id="coldbrewCartAmount0" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='coldbrewCount0' class="m-1">
@@ -71,11 +77,18 @@
               <p class="card-text text-center">${coldbrewList1.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                
+                <form action="CafehiOrder.do" method="get">
+                  <input type="hidden" name="menu_code" value="${coldbrewList1.menu_code }">
+                  <input id="coldbrewOrderAmount1" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                
+                
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${coldbrewList1.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="coldbrewAmount1" type="hidden" name="orderAmount" value="0">
+                  <input id="coldbrewCartAmount1" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='coldbrewCount1' class="m-1">
@@ -101,11 +114,17 @@
               <p class="card-text text-center">${coldbrewList2.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                  
+                <form action="CafehiOrder.do" method="get">
+                  <input type="hidden" name="menu_code" value="${coldbrewList2.menu_code }">
+                  <input id="coldbrewOrderAmount2" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                  
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${coldbrewList2.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="coldbrewAmount2" type="hidden" name="orderAmount" value="0">
+                  <input id="coldbrewCartAmount2" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='coldbrewCount2' class="m-1">
@@ -131,11 +150,17 @@
               <p class="card-text text-center">${coldbrewList3.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                
+                <form action="CafehiOrder.do" method="get">
+                  <input type="hidden" name="menu_code" value="${coldbrewList3.menu_code }">
+                  <input id="coldbrewOrderAmount3" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${coldbrewList3.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="coldbrewAmount3" type="hidden" name="orderAmount" value="0">
+                  <input id="coldbrewCartAmount3" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='coldbrewCount3' class="m-1">
@@ -161,11 +186,17 @@
               <p class="card-text text-center">${coldbrewList4.menu_price }원</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                  
+                  <form action="CafehiOrder.do" method="get">
+                  <input type="hidden" name="menu_code" value="${coldbrewList4.menu_code }">
+                  <input id="coldbrewOrderAmount4" type="hidden" name="toOrderAmount" value="0">
+                  <input type="submit" class="btn btn-sm btn-outline-success" value="구매하기"> &nbsp;
+                </form>
+                  
                   <form action="insertCart.do" method="post">
                   <input type="hidden" name="menu_code" value="${coldbrewList4.menu_code }">
                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                  <input id="coldbrewAmount4" type="hidden" name="orderAmount" value="0">
+                  <input id="coldbrewCartAmount4" type="hidden" name="toCartAmount" value="0">
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='coldbrewCount4' class="m-1">
