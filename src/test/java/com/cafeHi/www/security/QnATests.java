@@ -37,8 +37,8 @@ public class QnATests {
 		
 		
 		 
-		String sql = "insert into cafehi_qna(qna_num, qna_title, qna_content, qna_writetime, qna_hit, upload_path, filename, member_code)"
-				+"values(?,?,?,?,?,?,?,?)";
+		String sql = "insert into cafehi_qna(qna_num, qna_title, classification, qna_writetime, qna_hit, member_code , qna_content, upload_path, store_file_name, upload_file_name)"
+				+"values(?,?,?,?,?,?,?,?,?,?)";
 		
 		for (int i = 0; i < 200; i++) {
 			
@@ -49,23 +49,33 @@ public class QnATests {
 				con = ds.getConnection();
 				pstmt = con.prepareStatement(sql);
 				
-				pstmt.setInt(1, i);
-				pstmt.setString(2, "테스트용 게시글 제목" + i);
-				pstmt.setString(3, "테스트용 게시글 내용" + i);
-				pstmt.setDate(4, sqlDate);
-				pstmt.setInt(5, 0);
-				pstmt.setString(6, "0"); // null이 안들어오게 하기위한 더미 값 
-				pstmt.setString(7, "0"); // null이 안들어오게 하기위한 더미 값 
-				pstmt.setInt(8, i);
+				pstmt.setInt(1, i);	
+				// pstmt.setString(2, "테스트용 게시글 제목" + i);
 				
-//				if (i < 80) {
-//					pstmt.setString(6, "user" + i);
-//					
-//				} else if (i < 90) {
-//					pstmt.setString(6, "manager" + i);
-//				} else {
-//					pstmt.setString(6, "admin" + i);
-//				}
+				if (i < 80) {
+					pstmt.setString(2, "테스트용 유저 게시글 제목" + i);
+					pstmt.setString(3, "");
+					pstmt.setInt(6, i); // member_code - user
+					
+				} else if (i < 90) {
+					pstmt.setString(2, "테스트용 매니저 게시글 제목" + i);
+					pstmt.setString(3, "");
+					pstmt.setInt(6, i); // member_code - user
+				} else {
+					pstmt.setString(2, "테스트용 관리자 게시글 제목" + i);
+					pstmt.setString(3, "[업데이트]");
+					pstmt.setInt(6, i); // member_code - user
+				}
+				
+				pstmt.setDate(4, sqlDate);
+				pstmt.setInt(5, 0); // hit
+				
+				pstmt.setString(7, "테스트용 게시글 내용" + i);
+				pstmt.setString(8, "0"); // upload_path
+				pstmt.setString(9, "0"); // store_file_name 
+				pstmt.setString(10, "0"); // upload_file_name
+				
+
 				pstmt.executeUpdate();
 			}catch(Exception e) {
 				e.printStackTrace();

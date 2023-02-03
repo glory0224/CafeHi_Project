@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -43,7 +44,6 @@ public class QnAController {
 	
 	private final QnAService qnaService;
 	
-	//private final MemberService memberService;
 	
 	private final FileStore fileStore;
 	
@@ -90,7 +90,7 @@ public class QnAController {
 	}
 	
 	// 게시글 목록 조회
-	@GetMapping("/QnAList.do")
+	@RequestMapping("/QnAList.do")
 	public String SearchQnAList(QnADTO qna, CriteriaDTO cri, Model model) {
 				
 		int total = qnaService.getQnANum(cri);
