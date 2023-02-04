@@ -10,6 +10,8 @@ import lombok.Setter;
 @RequiredArgsConstructor
 public class orderDTO {
 	
+	// 주문 행위 
+	
 	private int order_menu_code;
 	private int member_code;
 	private String orderstate;

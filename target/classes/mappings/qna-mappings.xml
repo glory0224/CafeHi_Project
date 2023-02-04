@@ -100,13 +100,15 @@
 	(SELECT * FROM cafehi_qna ORDER BY qna_num DESC) cq, cafehi_member cm
 	
 	WHERE cm.member_code = cq.member_code
-	<if test="keyword != null">
-          AND cq.qna_title like '%'||#{keyword}||'%' 
-    </if>
+	
 	)
 	 <![CDATA[
 	 	WHERE rn > (#{pageNum} -1) * #{amount} AND rn <= #{pageNum} * #{amount}
+
 	 ]]>
+	 <if test="keyword != null">
+          AND qna_title like '%'||#{keyword}||'%' 
+    </if>
 
  	
  	</select>

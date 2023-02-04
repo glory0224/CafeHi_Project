@@ -5,8 +5,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cafeHi.www.member.dto.MemberDTO;
 import com.cafeHi.www.member.service.MemberService;
 import com.cafeHi.www.menu.dto.MenuDTO;
 import com.cafeHi.www.menu.service.menuService;
@@ -36,6 +38,11 @@ public class orderController {
 		
 		return "member/cafehi_order";
 	}
+	
+//	@PostMapping("/CafehiOrder.do")
+//	public String CafehiOrder(MenuDTO menu, MemberDTO member) {
+//		
+//	}
 	
 	
 }
