@@ -3,7 +3,7 @@ package com.cafeHi.www.order.dao;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.cafeHi.www.order.dto.orderMenuDTO;
+import com.cafeHi.www.order.dto.orderDTO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -13,17 +13,17 @@ public class orderDAO {
 	
 	private final SqlSessionTemplate sqlSessionTemplate;
 
-	public void insertOrderMenu(orderMenuDTO orderMenu) {
-		sqlSessionTemplate.insert("OrderDAO.insertOrderMenu", orderMenu);
+	public void insertOrder(orderDTO order) {
+		sqlSessionTemplate.insert("OrderDAO.insertOrder", order);
 		
 	}
 
-	public void updateOrderMenu(orderMenuDTO orderMenu) {
-		sqlSessionTemplate.update("OrderDAO.updateOrderMenu", orderMenu);
+	public void updateOrder(orderDTO order) {
+		sqlSessionTemplate.update("OrderDAO.updateOrder", order);
 	}
 
-	public void deleteOrderMenu(orderMenuDTO orderMenu) {
-		sqlSessionTemplate.delete("OrderDAO.deleteOrderMenu", orderMenu);
+	public void deleteOrder(orderDTO order) {
+		sqlSessionTemplate.delete("OrderDAO.deleteOrder", order);
 	}
 	
 	

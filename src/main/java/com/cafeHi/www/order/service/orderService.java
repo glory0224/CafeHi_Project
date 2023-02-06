@@ -1,14 +1,14 @@
 package com.cafeHi.www.order.service;
 
-import com.cafeHi.www.order.dto.orderMenuDTO;
+import com.cafeHi.www.order.dto.orderDTO;
 
 public interface orderService {
 	
-	public void insertOrderMenu(orderMenuDTO orderMenu);
+	public void insertOrder(orderDTO order);
 	
-	public void updateOrderMenu(orderMenuDTO orderMenu);
+	public void updateOrder(orderDTO orderMenu);
 	
-	public void deleteOrderMenu(orderMenuDTO orderMenu);
+	public void deleteOrder(orderDTO orderMenu);
 	
 	
 }

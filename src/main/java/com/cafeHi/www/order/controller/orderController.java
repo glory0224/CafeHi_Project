@@ -1,5 +1,7 @@
 package com.cafeHi.www.order.controller;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
@@ -8,19 +10,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.cafeHi.www.member.dto.MemberDTO;
-import com.cafeHi.www.member.service.MemberService;
 import com.cafeHi.www.menu.dto.MenuDTO;
 import com.cafeHi.www.menu.service.menuService;
+import com.cafeHi.www.order.dto.orderDTO;
+import com.cafeHi.www.order.service.orderService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class orderController {
 	
-//	private final MemberService memberService;
 	private final menuService menuService;
+	
+	private final orderService orderService;
 	
 	@GetMapping("/CafehiOrder.do")
 	public String CafehiOrderView(@RequestParam(required = false) int toOrderAmount, MenuDTO menu, Model model, HttpServletRequest request) {
@@ -39,10 +45,23 @@ public class orderController {
 		return "member/cafehi_order";
 	}
 	
-//	@PostMapping("/CafehiOrder.do")
-//	public String CafehiOrder(MenuDTO menu, MemberDTO member) {
-//		
-//	}
+	@PostMapping("/CafehiOrder.do")
+	public String CafehiOrder(orderDTO order) {
+		order.setOrderDate(new Date());
+		order.setOrderState("주문완료");
+		log.info("CafehiOrder!!");
+		log.info("order = {} ", order);
+	
+		orderService.insertOrder(order);
+		
+		
+		return "redirect:/CafehiOrderList.do";
+	}
+	
+	@GetMapping("/CafehiOrderList.do")
+	public String CafehiOrderListView() {
+		return "member/cafehi_orderList";
+	}
 	
 	
 }

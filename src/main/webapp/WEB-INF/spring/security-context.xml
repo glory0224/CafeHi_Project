@@ -24,6 +24,8 @@
 		<security:intercept-url pattern="/myPage.do" access="hasRole('ROLE_USER')"/>
 		<security:intercept-url pattern="/myMembership.do" access="hasRole('ROLE_USER')"/>
 		<security:intercept-url pattern="/CafehiOrder.do" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/CafehiOrderList.do" access="hasRole('ROLE_USER')"/>
+		
 		
 		
 		<!-- 유저 행위 -->

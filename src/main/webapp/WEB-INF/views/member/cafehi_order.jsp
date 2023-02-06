@@ -14,11 +14,11 @@
 <jsp:include page="/cafeHi_module/header.jsp"/>
 
 <div class="w-50 m-auto p-5">
-<form class="container" action="CafehiOrder.do" method="post" id="memberForm">
+<form class="container" action="CafehiOrder.do" method="post" id="orderForm">
 <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-	<h1 class="text-center m-5">카페 하이 주문</h1>
-	
-	<input name="userSeq" value="<sec:authentication property="principal.member.member_code"/>" type="hidden" />
+	<h1 class="text-center m-5">카페 하이 주문</h1>	
+	<input name="member_code" value="<sec:authentication property="principal.member.member_code"/>" type="hidden" />
+	<input name="menu_code" value="${Menu.menu_code }" type="hidden" />
   <div class="m-5">
     <label for="userId" class="form-label">고객명</label>
   	<h3><b><sec:authentication property="principal.member.member_name"/></b></h3>
@@ -26,15 +26,19 @@
     <div class="m-5">
     <label for="userName" class="form-label">상품명</label>
   	<h3><b>${Menu.menu_name }</b></h3>
+  	<input type="hidden" name="menu_name" value="${Menu.menu_name }">
   </div>
   <div class="m-5">
     <label for="contact" class="form-label">상품가격</label>
   	<h3><b>${Menu.menu_price } 원</b></h3>
+  	<input type="hidden" name="menu_price" value="${Menu.menu_price }">
   </div>
   <div class="m-5">
     <label for="contact" class="form-label">수량</label>
   	<h3><b>${orderAmount } 개</b></h3>
+  	<input type="hidden" name="order_count" value="${orderAmount }">
   </div>
+  <h3 class="m-5">배송지 정보</h3>
   <div class="m-5">
     <label for="address" class="form-label">도로명 주소</label>
   	<h3><b><sec:authentication property="principal.member.member_road_address"/></b></h3>

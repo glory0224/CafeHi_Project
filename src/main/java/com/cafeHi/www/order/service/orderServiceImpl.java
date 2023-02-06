@@ -3,7 +3,7 @@ package com.cafeHi.www.order.service;
 import org.springframework.stereotype.Service;
 
 import com.cafeHi.www.order.dao.orderDAO;
-import com.cafeHi.www.order.dto.orderMenuDTO;
+import com.cafeHi.www.order.dto.orderDTO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -15,18 +15,18 @@ public class orderServiceImpl implements orderService{
 	
 	
 	@Override
-	public void insertOrderMenu(orderMenuDTO orderMenu) {
-		orderDAO.insertOrderMenu(orderMenu);
+	public void insertOrder(orderDTO order) {
+		orderDAO.insertOrder(order);
 	}
 
 	@Override
-	public void updateOrderMenu(orderMenuDTO orderMenu) {
-		orderDAO.updateOrderMenu(orderMenu);
+	public void updateOrder(orderDTO order) {
+		orderDAO.updateOrder(order);
 	}
 
 	@Override
-	public void deleteOrderMenu(orderMenuDTO orderMenu) {
-		orderDAO.deleteOrderMenu(orderMenu);
+	public void deleteOrder(orderDTO order) {
+		orderDAO.deleteOrder(order);
 	}
 	
 }
