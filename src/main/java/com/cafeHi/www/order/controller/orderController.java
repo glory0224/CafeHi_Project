@@ -1,15 +1,19 @@
 package com.cafeHi.www.order.controller;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cafeHi.www.member.dto.CustomUser;
 import com.cafeHi.www.menu.dto.MenuDTO;
 import com.cafeHi.www.menu.service.menuService;
 import com.cafeHi.www.order.dto.orderDTO;
@@ -46,12 +50,32 @@ public class orderController {
 	}
 	
 	@PostMapping("/CafehiOrder.do")
-	public String CafehiOrder(orderDTO order) {
+	public String CafehiOrder(@RequestParam(required = false) String deliveryFee, orderDTO order) {
 		order.setOrderDate(new Date());
 		order.setOrderState("주문완료");
 		log.info("CafehiOrder!!");
 		log.info("order = {} ", order);
-	
+		
+		int fee = Integer.parseInt(deliveryFee);
+		int orderCount = order.getOrder_count();
+		MenuDTO getMenu = menuService.getMenu(order.getMenu_code());
+		int menuPrice = getMenu.getMenu_price();
+		
+		if(deliveryFee != null) {
+			
+			
+			int deliveryTotal = (menuPrice * orderCount) + fee;
+			
+			order.setOrder_price(deliveryTotal);
+			
+			orderService.insertOrder(order);
+			
+		}
+		
+		int NotDeliveryTotal = menuPrice * orderCount;
+		
+		order.setOrder_price(NotDeliveryTotal);
+		
 		orderService.insertOrder(order);
 		
 		
@@ -59,7 +83,20 @@ public class orderController {
 	}
 	
 	@GetMapping("/CafehiOrderList.do")
-	public String CafehiOrderListView() {
+	public String CafehiOrderListView(Model model) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		 Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		    CustomUser userInfo = (CustomUser)principal;
+		    int member_code = userInfo.getMember().getMember_code();
+		    
+		if(member_code != 0) {
+			//orderService.listOrder(member_code); // 주문 목록
+			
+		}
+		
+		
 		return "member/cafehi_orderList";
 	}
 	

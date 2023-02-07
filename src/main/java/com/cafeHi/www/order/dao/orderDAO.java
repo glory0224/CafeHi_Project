@@ -1,5 +1,7 @@
 package com.cafeHi.www.order.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -24,6 +26,13 @@ public class orderDAO {
 
 	public void deleteOrder(orderDTO order) {
 		sqlSessionTemplate.delete("OrderDAO.deleteOrder", order);
+	}
+
+
+	
+	// ¡÷πÆ √— ∞°∞›
+	public int sumOrderMoney(int member_code) {
+		return sqlSessionTemplate.selectOne("OrderDAO.sumOrderMoney", member_code);
 	}
 	
 	

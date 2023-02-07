@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,6 +20,8 @@
 	<h1 class="text-center m-5">카페 하이 주문</h1>	
 	<input name="member_code" value="<sec:authentication property="principal.member.member_code"/>" type="hidden" />
 	<input name="menu_code" value="${Menu.menu_code }" type="hidden" />
+  
+  <h2 class="m-5" style="text-align: center"><b>주문 정보</b></h2>
   <div class="m-5">
     <label for="userId" class="form-label">고객명</label>
   	<h3><b><sec:authentication property="principal.member.member_name"/></b></h3>
@@ -38,7 +41,9 @@
   	<h3><b>${orderAmount } 개</b></h3>
   	<input type="hidden" name="order_count" value="${orderAmount }">
   </div>
-  <h3 class="m-5">배송지 정보</h3>
+  <br>
+  <h2 class="m-5" style="text-align: center"><b>배송지 정보</b></h2>
+  <br>
   <div class="m-5">
     <label for="address" class="form-label">도로명 주소</label>
   	<h3><b><sec:authentication property="principal.member.member_road_address"/></b></h3>
@@ -51,8 +56,25 @@
     <label for="address" class="form-label">상세 주소</label>
   	<h3><b><sec:authentication property="principal.member.member_detail_address"/></b></h3>
   </div>
-	
-	
+  <br>
+  <h2 class="m-5" style="text-align: center"><b>결제 정보</b></h2>
+   <br>
+   <div class="m-5">
+    <label for="contact" class="form-label">주문 가격</label>
+  	<h3><b>${Menu.menu_price * orderAmount} 원</b></h3>
+  </div>
+ 
+  <div class="m-5">
+    <label for="contact" class="form-label">배송비 </label> <p style="color: red">배송비는 주문 가격 30000원 이상부터 무료입니다.</p>
+  	<c:if test="${(Menu.menu_price * orderAmount) lt 30000 }">
+  	<h3><b>2500 원</b></h3>
+  	<input type="hidden" name="deliveryFee" value="2500">
+ 	 </c:if>
+ 	 <c:if test="${(Menu.menu_price * orderAmount) ge 30000 }">
+ 	 	<h3><b>무료</b></h3>
+ 	 </c:if>
+  </div> 		
+  	
 <div class="d-flex justify-content-end">
 	<div style="margin-top: 40px;">
       <input id="signup" class="btn btn-md btn-success " type="submit" value="주문하기">

@@ -1,5 +1,7 @@
 package com.cafeHi.www.order.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.cafeHi.www.order.dao.orderDAO;
@@ -27,6 +29,12 @@ public class orderServiceImpl implements orderService{
 	@Override
 	public void deleteOrder(orderDTO order) {
 		orderDAO.deleteOrder(order);
+	}
+
+
+	@Override
+	public int sumOrderMoney(int member_code) {
+		return orderDAO.sumOrderMoney(member_code);
 	}
 	
 }

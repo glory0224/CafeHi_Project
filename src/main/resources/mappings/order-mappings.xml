@@ -10,8 +10,7 @@
 		VALUES((select nvl(max(order_code), 0)+1 from cafehi_order), #{member_code}, #{menu_code}, #{order_price}, #{order_count}, #{orderState}, #{orderDate})
 	</insert>
 	
-	
-	
+
 	
 	
 	
