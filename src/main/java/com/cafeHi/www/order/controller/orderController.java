@@ -73,8 +73,9 @@ public class orderController {
 				
 		orderService.insertOrder(memberOrder);
 		
-		orderService.getOrder(order);
+		orderDTO getOrder = orderService.getOrder(member); // NPE 발생, 왜냐? insertOrder하면 ordercode는 생기지만 지금 여기서 받은 order에서는 order_code 자체가 없기 때문에 주문 자체도 찾을 수 없다. 
 		
+		log.info("getOrder, order_code = {}", getOrder.getOrder_code());
 		
 		
 		
@@ -95,11 +96,11 @@ public class orderController {
 			Map<String, Object> memberOrderMenu = new ConcurrentHashMap<String, Object>();
 			
 			memberOrderMenu.put("orderMenu", orderMenu);
-//			memberOrderMenu.put("order_code", );
-			memberOrderMenu.put("orderMenu", orderMenu);
+			memberOrderMenu.put("order_code", getOrder.getOrder_code());
+			memberOrderMenu.put("menu_code", getMenu.getMenu_code());
 			
 			
-			orderService.insertOrderMenu(orderMenu);
+			orderService.insertOrderMenu(memberOrderMenu);
 			
 			return "redirect:/CafehiOrderList.do";
 			
@@ -109,7 +110,13 @@ public class orderController {
 		
 		orderMenu.setTotal_order_price(NotDeliveryTotal);
 		
-		orderService.insertOrderMenu(orderMenu);
+		Map<String, Object> memberOrderMenu = new ConcurrentHashMap<String, Object>();
+		
+		memberOrderMenu.put("orderMenu", orderMenu);
+		memberOrderMenu.put("order_code", getOrder.getOrder_code());
+		memberOrderMenu.put("orderMenu", getMenu.getMenu_code());
+		
+		orderService.insertOrderMenu(memberOrderMenu);
 		
 		
 		return "redirect:/CafehiOrderList.do";

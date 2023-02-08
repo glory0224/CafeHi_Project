@@ -5,6 +5,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.cafeHi.www.member.dto.MemberDTO;
 import com.cafeHi.www.order.dto.orderDTO;
 import com.cafeHi.www.order.dto.orderMenuDTO;
 
@@ -16,8 +17,8 @@ public class orderDAO {
 	
 	private final SqlSessionTemplate sqlSessionTemplate;
 
-	public void insertOrderMenu(orderMenuDTO order) {
-		sqlSessionTemplate.insert("OrderDAO.insertOrderMenu", order);
+	public void insertOrderMenu(Map<String, Object> memberOrderMenu) {
+		sqlSessionTemplate.insert("OrderDAO.insertOrderMenu", memberOrderMenu);
 		
 	}
 
@@ -40,8 +41,8 @@ public class orderDAO {
 		sqlSessionTemplate.insert("OrderDAO.insertOrder", memberOrder);
 	}
 
-	public orderDTO getOrder(orderDTO order) {
-		return sqlSessionTemplate.selectOne("OrderDAO.getOrder", order);		
+	public orderDTO getOrder(MemberDTO member) {
+		return sqlSessionTemplate.selectOne("OrderDAO.getOrder", member);		
 	}
 	
 	

@@ -2,12 +2,12 @@ package com.cafeHi.www.order.service;
 
 import java.util.Map;
 
+import com.cafeHi.www.member.dto.MemberDTO;
 import com.cafeHi.www.order.dto.orderDTO;
-import com.cafeHi.www.order.dto.orderMenuDTO;
 
 public interface orderService {
 	
-	public void insertOrderMenu(orderMenuDTO orderMenu);
+	public void insertOrderMenu(Map<String, Object> memberOrderMenu);
 	
 	public void updateOrder(orderDTO orderMenu);
 	
@@ -19,6 +19,6 @@ public interface orderService {
 
 	public void insertOrder(Map<String, Object> memberOrder);
 
-	public orderDTO getOrder(orderDTO order);
+	public orderDTO getOrder(MemberDTO member);
 	
 }
