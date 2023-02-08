@@ -1,5 +1,7 @@
 package com.cafeHi.www.order.dto;
 
+import com.cafeHi.www.menu.dto.MenuDTO;
+
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -7,26 +9,27 @@ import lombok.Setter;
 @Getter @Setter
 @RequiredArgsConstructor
 public class orderMenuDTO {
-	// 메뉴 주문
 	
-	private int order_menu_code;
-	private int order_code;
-	private int menu_code;
-	private int member_code;
-	private int order_menu_price;
-	private int order_menu_count;
+	// 객체 지향적인 DTO 
+	
+	private int order_menu_code;	// 기본키 
+	private MenuDTO menu;	// 메뉴 정보 
+	private orderDTO order;	// 주문 정보 
+	private int total_order_price; // 총 가격
+	private int total_order_count;	// 주문 총 수량
 	
 	
-	public orderMenuDTO(int order_menu_code, int order_code, int menu_code, int member_code, int order_menu_price,
-			int order_menu_count) {
+	public orderMenuDTO(MenuDTO menu, orderDTO order, int total_order_price,
+			int total_order_count) {
 		super();
-		this.order_menu_code = order_menu_code;
-		this.order_code = order_code;
-		this.menu_code = menu_code;
-		this.member_code = member_code;
-		this.order_menu_price = order_menu_price;
-		this.order_menu_count = order_menu_count;
+		this.menu = menu;
+		this.order = order;
+		this.total_order_price = total_order_price;
+		this.total_order_count = total_order_count;
 	}
+	
+	
+	
 	
 	
 	

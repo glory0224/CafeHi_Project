@@ -56,7 +56,7 @@
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='latteCount0' class="m-1">
-                  	${latteList0.menu_count }
+                  	0
 					</div>
 				<input class="btn btn-sm btn-outline-success" type='button' onclick='countlatteList0("plus")' value='+' /> &nbsp;
                   <input class="btn btn-sm btn-outline-success" type='button' onclick='countlatteList0("minus")' value='-' />
@@ -92,7 +92,7 @@
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='latteCount1' class="m-1">
-                  	${latteList1.menu_count }
+                  	0
 					</div>
 				<input class="btn btn-sm btn-outline-success" type='button' onclick='countlatteList1("plus")' value='+' /> &nbsp;
                   <input class="btn btn-sm btn-outline-success" type='button' onclick='countlatteList1("minus")' value='-' />
@@ -128,7 +128,7 @@
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='latteCount2' class="m-1">
-                  	${latteList2.menu_count }
+                  	0
 					</div>
 				<input class="btn btn-sm btn-outline-success" type='button' onclick='countlatteList2("plus")' value='+' /> &nbsp;
                   <input class="btn btn-sm btn-outline-success" type='button' onclick='countlatteList2("minus")' value='-' />
@@ -164,7 +164,7 @@
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='latteCount3' class="m-1">
-                  	${latteList3.menu_count }
+                  	0
 					</div>
 				<input class="btn btn-sm btn-outline-success" type='button' onclick='countlatteList3("plus")' value='+' /> &nbsp;
                   <input class="btn btn-sm btn-outline-success" type='button' onclick='countlatteList3("minus")' value='-' />
@@ -200,7 +200,7 @@
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='latteCount4' class="m-1">
-                  	${latteList4.menu_count }
+                  	0
 					</div>
 				<input class="btn btn-sm btn-outline-success" type='button' onclick='countlatteList4("plus")' value='+' /> &nbsp;
                   <input class="btn btn-sm btn-outline-success" type='button' onclick='countlatteList4("minus")' value='-' />
@@ -236,7 +236,7 @@
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='latteCount5' class="m-1">
-                  	${latteList5.menu_count }
+                  	0
 					</div>
 				<input class="btn btn-sm btn-outline-success" type='button' onclick='countlatteList5("plus")' value='+' /> &nbsp;
                   <input class="btn btn-sm btn-outline-success" type='button' onclick='countlatteList5("minus")' value='-' />
@@ -272,7 +272,7 @@
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='latteCount6' class="m-1">
-                  	${latteList6.menu_count }
+                  	0
 					</div>
 				<input class="btn btn-sm btn-outline-success" type='button' onclick='countlatteList6("plus")' value='+' /> &nbsp;
                   <input class="btn btn-sm btn-outline-success" type='button' onclick='countlatteList6("minus")' value='-' />

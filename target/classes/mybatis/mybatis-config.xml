@@ -19,7 +19,7 @@
  		<typeAlias type="com.cafeHi.www.menu.dto.MenuDTO" alias="Menu"/>
  		<typeAlias type="com.cafeHi.www.cart.dto.CartDTO" alias="Cart"/>
  		<typeAlias type="com.cafeHi.www.order.dto.orderDTO" alias="Order"/>
- 		
+ 		<typeAlias type="com.cafeHi.www.order.dto.orderMenuDTO" alias="OrderMenu"/> 		
  	</typeAliases>
 
 	 

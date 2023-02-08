@@ -62,7 +62,7 @@
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='fruitCount0' class="m-1">
-                  	${fruitJuiceList0.menu_count }
+                  	0
 					</div>
 				<input class="btn btn-sm btn-outline-success" type='button' onclick='countFruitJuiceList0("plus")' value='+' /> &nbsp;
                   <input class="btn btn-sm btn-outline-success" type='button' onclick='countFruitJuiceList0("minus")' value='-' />
@@ -98,7 +98,7 @@
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='fruitCount1' class="m-1">
-                  	${fruitJuiceList1.menu_count }
+                  	0
 					</div>
 				<input class="btn btn-sm btn-outline-success" type='button' onclick='countFruitJuiceList1("plus")' value='+' /> &nbsp;
                   <input class="btn btn-sm btn-outline-success" type='button' onclick='countFruitJuiceList1("minus")' value='-' />
@@ -134,7 +134,7 @@
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='fruitCount2' class="m-1">
-                  	${fruitJuiceList2.menu_count }
+                  	0
 					</div>
 				<input class="btn btn-sm btn-outline-success" type='button' onclick='countFruitJuiceList2("plus")' value='+' /> &nbsp;
                   <input class="btn btn-sm btn-outline-success" type='button' onclick='countFruitJuiceList2("minus")' value='-' />

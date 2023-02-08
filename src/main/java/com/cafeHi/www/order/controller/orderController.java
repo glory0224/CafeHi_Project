@@ -3,6 +3,7 @@ package com.cafeHi.www.order.controller;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,9 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cafeHi.www.member.dto.CustomUser;
+import com.cafeHi.www.member.dto.MemberDTO;
+import com.cafeHi.www.member.service.MemberService;
 import com.cafeHi.www.menu.dto.MenuDTO;
 import com.cafeHi.www.menu.service.menuService;
 import com.cafeHi.www.order.dto.orderDTO;
+import com.cafeHi.www.order.dto.orderMenuDTO;
 import com.cafeHi.www.order.service.orderService;
 
 import lombok.RequiredArgsConstructor;
@@ -27,6 +31,8 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class orderController {
+	
+	private final MemberService memberService;
 	
 	private final menuService menuService;
 	
@@ -50,15 +56,34 @@ public class orderController {
 	}
 	
 	@PostMapping("/CafehiOrder.do")
-	public String CafehiOrder(@RequestParam(required = false) String deliveryFee, orderDTO order) {
-		order.setOrderDate(new Date());
-		order.setOrderState("주문완료");
-		log.info("CafehiOrder!!");
-		log.info("order = {} ", order);
+	public String CafehiOrder(@RequestParam(required = false) String deliveryFee, MenuDTO menu, MemberDTO member, orderDTO order, orderMenuDTO orderMenu) {
 		
-		int fee = Integer.parseInt(deliveryFee);
-		int orderCount = order.getOrder_count();
-		MenuDTO getMenu = menuService.getMenu(order.getMenu_code());
+		log.info("CafehiOrderController");
+		log.info("member_code : {}", member.getMember_code());
+		
+		MemberDTO findMember = memberService.getMember(member);
+		
+		order.setOrderDate(new Date());
+		order.setOrderState("주문완료");	//enum class 으로 바꿔야 한다.
+		order.setMember(findMember);
+		
+		Map<String, Object> memberOrder = new ConcurrentHashMap<String, Object>();
+		memberOrder.put("order", order);
+		memberOrder.put("member_code", member.getMember_code());
+				
+		orderService.insertOrder(memberOrder);
+		
+		orderService.getOrder(order);
+		
+		
+		
+		
+		int fee = Integer.parseInt(deliveryFee); // 배송비
+		
+		int orderCount = orderMenu.getTotal_order_count();
+		
+		MenuDTO getMenu = menuService.getMenu(menu.getMenu_code());
+		
 		int menuPrice = getMenu.getMenu_price();
 		
 		if(deliveryFee != null) {
@@ -66,17 +91,25 @@ public class orderController {
 			
 			int deliveryTotal = (menuPrice * orderCount) + fee;
 			
-			order.setOrder_price(deliveryTotal);
+			orderMenu.setTotal_order_price(deliveryTotal);
+			Map<String, Object> memberOrderMenu = new ConcurrentHashMap<String, Object>();
 			
-			orderService.insertOrder(order);
+			memberOrderMenu.put("orderMenu", orderMenu);
+//			memberOrderMenu.put("order_code", );
+			memberOrderMenu.put("orderMenu", orderMenu);
+			
+			
+			orderService.insertOrderMenu(orderMenu);
+			
+			return "redirect:/CafehiOrderList.do";
 			
 		}
 		
 		int NotDeliveryTotal = menuPrice * orderCount;
 		
-		order.setOrder_price(NotDeliveryTotal);
+		orderMenu.setTotal_order_price(NotDeliveryTotal);
 		
-		orderService.insertOrder(order);
+		orderService.insertOrderMenu(orderMenu);
 		
 		
 		return "redirect:/CafehiOrderList.do";

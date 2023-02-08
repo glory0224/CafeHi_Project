@@ -56,7 +56,7 @@
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='sideCount0' class="m-1">
-                  	${sideList0.menu_count }
+                  	0
 					</div>
 				<input class="btn btn-sm btn-outline-success" type='button' onclick='countSideList0("plus")' value='+' /> &nbsp;
                   <input class="btn btn-sm btn-outline-success" type='button' onclick='countSideList0("minus")' value='-' />
@@ -92,7 +92,7 @@
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='sideCount1' class="m-1">
-                  	${sideList1.menu_count }
+                  	0
 					</div>
 					<input class="btn btn-sm btn-outline-success" type='button' onclick='countSideList1("plus")' value='+' /> &nbsp;
                   	<input class="btn btn-sm btn-outline-success" type='button' onclick='countSideList1("minus")' value='-' />
@@ -128,7 +128,7 @@
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='sideCount2' class="m-1">
-                  	${sideList2.menu_count }
+                  	0
 					</div>
 					<input class="btn btn-sm btn-outline-success" type='button' onclick='countSideList2("plus")' value='+' /> &nbsp;
                   	<input class="btn btn-sm btn-outline-success" type='button' onclick='countSideList2("minus")' value='-' />
@@ -164,7 +164,7 @@
                   <div class="d-flex justify-content-between">
                   <input type="submit" class="btn btn-sm btn-outline-success" value="장바구니 담기">
                    <div id='sideCount3' class="m-1">
-                  	${sideList3.menu_count }
+                  	0
 					</div>
 				<input class="btn btn-sm btn-outline-success" type='button' onclick='countSideList3("plus")' value='+' /> &nbsp;
                   <input class="btn btn-sm btn-outline-success" type='button' onclick='countSideList3("minus")' value='-' />

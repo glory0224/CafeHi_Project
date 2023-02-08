@@ -39,7 +39,7 @@
   <div class="m-5">
     <label for="contact" class="form-label">수량</label>
   	<h3><b>${orderAmount } 개</b></h3>
-  	<input type="hidden" name="order_count" value="${orderAmount }">
+  	<input type="hidden" name=total_order_count value="${orderAmount }">
   </div>
   <br>
   <h2 class="m-5" style="text-align: center"><b>배송지 정보</b></h2>

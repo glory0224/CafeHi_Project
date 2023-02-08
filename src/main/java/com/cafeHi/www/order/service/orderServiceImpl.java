@@ -1,11 +1,14 @@
 package com.cafeHi.www.order.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.cafeHi.www.member.dto.MemberDTO;
 import com.cafeHi.www.order.dao.orderDAO;
 import com.cafeHi.www.order.dto.orderDTO;
+import com.cafeHi.www.order.dto.orderMenuDTO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,8 +20,8 @@ public class orderServiceImpl implements orderService{
 	
 	
 	@Override
-	public void insertOrder(orderDTO order) {
-		orderDAO.insertOrder(order);
+	public void insertOrderMenu(orderMenuDTO order) {
+		orderDAO.insertOrderMenu(order);
 	}
 
 	@Override
@@ -35,6 +38,16 @@ public class orderServiceImpl implements orderService{
 	@Override
 	public int sumOrderMoney(int member_code) {
 		return orderDAO.sumOrderMoney(member_code);
+	}
+
+	@Override
+	public void insertOrder(Map<String, Object> memberOrder) {
+		orderDAO.inserOrder(memberOrder);
+	}
+
+	@Override
+	public orderDTO getOrder(orderDTO order) {
+		return orderDAO.getOrder(order);
 	}
 	
 }

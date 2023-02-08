@@ -5,10 +5,111 @@
  
 <mapper namespace="OrderDAO">
 	
-	<insert id="insertOrder">
-		INSERT INTO cafehi_order(order_code, member_code, menu_code, order_price, order_count, orderState, orderDate)
-		VALUES((select nvl(max(order_code), 0)+1 from cafehi_order), #{member_code}, #{menu_code}, #{order_price}, #{order_count}, #{orderState}, #{orderDate})
+	<resultMap type="OrderMenu" id="OrderMenuResult">
+ 		<id property="order_menu_code" column="ORDER_MENU_CODE"/>
+ 		<result property="order_menu_price" column="ORDER_MENU_PRICE"/>
+ 		<result property="order_menu_count" column="ORDER_MENU_COUNT"/>
+ 		
+ 	<collection property="order" ofType="Order">
+ 		<id property="order_code" column="ORDER_CODE"/>
+ 		<result property="orderState" column="ORDERSTATE"/>
+ 		<result property="orderDate" column="ORDERDATE"/>
+ 			<collection property="member" ofType="Member">
+ 				<id property="member_code" column="MEMBER_CODE"/>
+		 		<result property="member_id" column="MEMBER_ID"/>
+		 		<result property="member_pw" column="MEMBER_PW"/>
+		 		<result property="member_name" column="MEMBER_NAME"/>
+		 		<result property="member_contact" column="MEMBER_CONTACT"/>
+		 		<result property="member_email" column="MEMBER_EMAIL"/>
+		 		<result property="member_road_address" column="MEMBER_ROAD_ADDRESS"/>
+		 		<result property="member_jibun_address" column="MEMBER_JIBUN_ADDRESS"/>
+		 		<result property="member_detail_address" column="MEMBER_DETAIL_ADDRESS"/>
+		 		<result property="enabled" column="ENABLED"/>
+	 		</collection>
+ 	</collection>
+ 	
+ 	<collection property="menu" ofType="Menu">
+ 		<id property="menu_code" column="MENU_CODE"/>
+ 		<result property="menu_price" column="MENU_PRICE"/>
+ 		<result property="menu_type" column="MENU_TYPE"/>
+ 		<result property="menu_name" column="MENU_NAME"/>
+ 		<result property="menu_explain" column="MENU_EXPLAIN"/>
+ 		<result property="menu_img_path" column="MENU_IMG_PATH" />
+ 		<result property="menu_quantity" column="MENU_QUANTITY" />	
+ 	</collection>
+ 		
+ 	</resultMap>
+ 	
+ 	<resultMap type="Order" id="OrderResult">
+ 		<id property="order_code" column="ORDER_CODE"/>
+ 		<result property="orderState" column="ORDERSTATE"/>
+ 		<result property="orderDate" column="ORDERDATE"/>
+ 		<collection property="member" ofType="Member">
+ 			<id property="member_code" column="MEMBER_CODE"/>
+	 		<result property="member_id" column="MEMBER_ID"/>
+	 		<result property="member_pw" column="MEMBER_PW"/>
+	 		<result property="member_name" column="MEMBER_NAME"/>
+	 		<result property="member_contact" column="MEMBER_CONTACT"/>
+	 		<result property="member_email" column="MEMBER_EMAIL"/>
+	 		<result property="member_road_address" column="MEMBER_ROAD_ADDRESS"/>
+	 		<result property="member_jibun_address" column="MEMBER_JIBUN_ADDRESS"/>
+	 		<result property="member_detail_address" column="MEMBER_DETAIL_ADDRESS"/>
+	 		<result property="enabled" column="ENABLED"/>
+	 	</collection>
+	 	
+	 	<collection property="orderMenuList" ofType="OrderMenu" javaType="List">
+	 		<id property="order_menu_code" column="ORDER_MENU_CODE"/>
+ 			<result property="order_menu_price" column="ORDER_MENU_PRICE"/>
+ 			<result property="order_menu_count" column="ORDER_MENU_COUNT"/>
+ 		
+			 	<collection property="order" ofType="Order">
+			 		<id property="order_code" column="ORDER_CODE"/>
+			 		<result property="orderState" column="ORDERSTATE"/>
+			 		<result property="orderDate" column="ORDERDATE"/>
+			 			<collection property="member" ofType="Member">
+			 				<id property="member_code" column="MEMBER_CODE"/>
+					 		<result property="member_id" column="MEMBER_ID"/>
+					 		<result property="member_pw" column="MEMBER_PW"/>
+					 		<result property="member_name" column="MEMBER_NAME"/>
+					 		<result property="member_contact" column="MEMBER_CONTACT"/>
+					 		<result property="member_email" column="MEMBER_EMAIL"/>
+					 		<result property="member_road_address" column="MEMBER_ROAD_ADDRESS"/>
+					 		<result property="member_jibun_address" column="MEMBER_JIBUN_ADDRESS"/>
+					 		<result property="member_detail_address" column="MEMBER_DETAIL_ADDRESS"/>
+					 		<result property="enabled" column="ENABLED"/>
+				 		</collection>
+			 	</collection>
+			 	
+			 	<collection property="menu" ofType="Menu">
+			 		<id property="menu_code" column="MENU_CODE"/>
+			 		<result property="menu_price" column="MENU_PRICE"/>
+			 		<result property="menu_type" column="MENU_TYPE"/>
+			 		<result property="menu_name" column="MENU_NAME"/>
+			 		<result property="menu_explain" column="MENU_EXPLAIN"/>
+			 		<result property="menu_img_path" column="MENU_IMG_PATH" />
+			 		<result property="menu_quantity" column="MENU_QUANTITY" />	
+			 	</collection>
+	 	</collection>
+ 	</resultMap>
+	
+	
+	<insert id="insertOrder" parameterType="Map">
+		INSERT INTO cafehi_order(order_code, member_code, orderState, orderDate)
+		VALUES((select nvl(max(order_code), 0)+1 from cafehi_order), #{member_code}, #{order.orderState}, #{order.orderDate})
 	</insert>
+	
+	<select id="getOrder">
+		SELECT * FROM cafehi_order 
+		WHERE order_code = #{order_code}
+	</select>
+	
+	
+	<insert id="insertOrderMenu" >
+		INSERT INTO cafehi_order_menu(order_menu_code, order_code, menu_code, total_order_price, total_order_count)
+		VALUES((select nvl(max(order_code), 0)+1 from cafehi_order_menu), #{order.order_code}, #{menu.menu_code}, #{order_menu_price}, #{order_menu_count} )
+	</insert>
+	
+	
 	
 
 	
