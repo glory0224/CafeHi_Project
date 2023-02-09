@@ -59,8 +59,8 @@
 	 	
 	 	<collection property="orderMenuList" ofType="OrderMenu" javaType="List">
 	 		<id property="order_menu_code" column="ORDER_MENU_CODE"/>
- 			<result property="order_menu_price" column="ORDER_MENU_PRICE"/>
- 			<result property="order_menu_count" column="ORDER_MENU_COUNT"/>
+ 			<result property="total_order_price" column="TOTAL_ORDER_PRICE"/>
+ 			<result property="total_order_count" column="TOTAL_ORDER_COUNT"/>
  		
 			 	<collection property="order" ofType="Order">
 			 		<id property="order_code" column="ORDER_CODE"/>
@@ -99,14 +99,14 @@
 	</insert>
 	
 	<select id="getOrder" parameterType="Member" resultMap="OrderResult">
-		SELECT * FROM cafehi_order 
+		SELECT * FROM cafehi_order
 		WHERE member_code = #{member_code}
 	</select>
 	
 	
 	<insert id="insertOrderMenu" parameterType="Map">
 		INSERT INTO cafehi_order_menu(order_menu_code, order_code, menu_code, total_order_price, total_order_count)
-		VALUES((select nvl(max(order_code), 0)+1 from cafehi_order_menu), #{order_code}, #{menu_code}, #{orderMenu.total_order_price}, #{orderMenu.total_order_count} )
+		VALUES((select nvl(max(order_menu_code), 0)+1 from cafehi_order_menu), (select nvl(max(order_menu_code), 0)+1 from cafehi_order_menu) , #{menu_code}, #{orderMenu.total_order_price}, #{orderMenu.total_order_count} )
 	</insert>
 	
 	

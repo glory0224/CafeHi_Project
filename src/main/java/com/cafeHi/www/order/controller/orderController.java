@@ -55,17 +55,15 @@ public class orderController {
 		return "member/cafehi_order";
 	}
 	
+
+	
 	@PostMapping("/CafehiOrder.do")
 	public String CafehiOrder(@RequestParam(required = false) String deliveryFee, MenuDTO menu, MemberDTO member, orderDTO order, orderMenuDTO orderMenu) {
 		
-		log.info("CafehiOrderController");
-		log.info("member_code : {}", member.getMember_code());
-		
-		MemberDTO findMember = memberService.getMember(member);
+		int fee = Integer.parseInt(deliveryFee); // 배송비
 		
 		order.setOrderDate(new Date());
 		order.setOrderState("주문완료");	//enum class 으로 바꿔야 한다.
-		order.setMember(findMember);
 		
 		Map<String, Object> memberOrder = new ConcurrentHashMap<String, Object>();
 		memberOrder.put("order", order);
@@ -73,30 +71,17 @@ public class orderController {
 				
 		orderService.insertOrder(memberOrder);
 		
-		orderDTO getOrder = orderService.getOrder(member); // NPE 발생, 왜냐? insertOrder하면 ordercode는 생기지만 지금 여기서 받은 order에서는 order_code 자체가 없기 때문에 주문 자체도 찾을 수 없다. 
-		
-		log.info("getOrder, order_code = {}", getOrder.getOrder_code());
-		
-		
-		
-		int fee = Integer.parseInt(deliveryFee); // 배송비
-		
-		int orderCount = orderMenu.getTotal_order_count();
-		
 		MenuDTO getMenu = menuService.getMenu(menu.getMenu_code());
-		
-		int menuPrice = getMenu.getMenu_price();
-		
+				
 		if(deliveryFee != null) {
 			
 			
-			int deliveryTotal = (menuPrice * orderCount) + fee;
+			int TotalPrice = orderService.CalTotalOrderPrice(fee, getMenu.getMenu_price(), orderMenu.getTotal_order_count()); // 배송비 포함 총 비용 
 			
-			orderMenu.setTotal_order_price(deliveryTotal);
+			orderMenu.setTotal_order_price(TotalPrice);
 			Map<String, Object> memberOrderMenu = new ConcurrentHashMap<String, Object>();
 			
 			memberOrderMenu.put("orderMenu", orderMenu);
-			memberOrderMenu.put("order_code", getOrder.getOrder_code());
 			memberOrderMenu.put("menu_code", getMenu.getMenu_code());
 			
 			
@@ -106,14 +91,13 @@ public class orderController {
 			
 		}
 		
-		int NotDeliveryTotal = menuPrice * orderCount;
+		int NotDeliveryTotalPrice = orderService.CalTotalOrderPrice(getMenu.getMenu_price(), orderMenu.getTotal_order_count());  // 배송비 불포함 총 비용 
 		
-		orderMenu.setTotal_order_price(NotDeliveryTotal);
+		orderMenu.setTotal_order_price(NotDeliveryTotalPrice);
 		
 		Map<String, Object> memberOrderMenu = new ConcurrentHashMap<String, Object>();
 		
 		memberOrderMenu.put("orderMenu", orderMenu);
-		memberOrderMenu.put("order_code", getOrder.getOrder_code());
 		memberOrderMenu.put("orderMenu", getMenu.getMenu_code());
 		
 		orderService.insertOrderMenu(memberOrderMenu);

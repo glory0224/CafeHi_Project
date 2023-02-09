@@ -29,6 +29,15 @@ public class orderDTO {
 		this.orderDate = orderDate;
 		this.orderMenuList = orderMenuList;
 	}
+
+
+	@Override
+	public String toString() {
+		return "orderDTO [order_code=" + order_code + ", member=" + member + ", orderState=" + orderState
+				+ ", orderDate=" + orderDate + ", orderMenuList=" + orderMenuList + "]";
+	}
+	
+	
 	
 	
 	
