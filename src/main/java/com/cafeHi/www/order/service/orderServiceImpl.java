@@ -51,25 +51,6 @@ public class orderServiceImpl implements orderService{
 	}
 	
 	
-	// 배송비 포함 총 비용 
-	
-	@Override
-	public int CalTotalOrderPrice(int fee, int menuPrice, int orderCount) {
-		
-		int TotalPrice = (menuPrice * orderCount) + fee;
-		
-		return TotalPrice;
-	}
-	
-	
-	// 배송비 불포함 총 비용
-	
-	@Override
-	public int CalTotalOrderPrice(int menuPrice, int orderCount) {
-		
-		int TotalPrice = menuPrice * orderCount;
-		
-		return TotalPrice;
-	}
+
 	
 }

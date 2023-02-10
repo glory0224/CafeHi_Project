@@ -28,9 +28,25 @@ public class orderMenuDTO {
 		this.total_order_count = total_order_count;
 	}
 	
+
 	
+	// 배송비 불포함 총 비용 계산
 	
+	public int totalPrice(int menuPrice, int orderCount) {
+		
+		int TotalPrice = (menuPrice * orderCount);
+		
+		return TotalPrice;
+	}
 	
+	// 배송비 포함 총 비용 계산
+	
+	public int totalPrice(int fee, int menuPrice, int orderCount) {
+		
+		int TotalPrice = (menuPrice * orderCount) + fee;
+		
+		return TotalPrice;
+	}
 	
 	
 }

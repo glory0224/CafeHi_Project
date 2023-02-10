@@ -37,8 +37,10 @@ delete cafehi_qna;
 delete cafehi_menu;
 delete cafehi_cart;
 delete cafehi_order;
+delete cafehi_order_menu;
 
 commit;
+
 
 rollback;
 
@@ -229,39 +231,37 @@ drop sequence seq_cart;
 
 
 -- 주문
---create table cafehi_order(
---    order_code number not null primary key,
---    member_code number not null,
---    constraint fk_order_membercode foreign key(member_code) references cafehi_member(member_code),
---    orderState varchar2(30),
---    orderDate Date
---);
-
--- 주문 2
 create table cafehi_order(
     order_code number not null primary key,
     member_code number not null,
     constraint fk_order_membercode foreign key(member_code) references cafehi_member(member_code),
-    menu_code number not null,
-    constraint fk_order_menu_menucode foreign key(menu_code) references cafehi_menu(menu_code),
-    order_price number not null,
-    order_count number not null, 
-    orderState varchar2(30) not null,
-    orderDate Date not null
+    orderState varchar2(30),
+    orderDate Date
 );
 
--- 주문 메뉴 
---create table cafehi_order_menu(
---    order_menu_code number primary key, 
---    order_code number not null,
---    constraint fk_order_menu_ordercode foreign key(order_code) references cafehi_order(order_code),
+-- 주문 2
+--create table cafehi_order(
+--    order_code number not null primary key,
+--    member_code number not null,
+--    constraint fk_order_membercode foreign key(member_code) references cafehi_member(member_code),
 --    menu_code number not null,
 --    constraint fk_order_menu_menucode foreign key(menu_code) references cafehi_menu(menu_code),
---    member_code number not null,
---    constraint fk_order_menu_membercode foreign key(member_code) references cafehi_member(member_code),
---    order_menu_price number not null, 
---    order_menu_count number not null
+--    total_order_price number not null,
+--    total_order_count number not null, 
+--    orderState varchar2(30) not null,
+--    orderDate Date not null
 --);
+
+-- 주문 메뉴 
+create table cafehi_order_menu(
+    order_menu_code number primary key, 
+    order_code number not null,
+    constraint fk_order_menu_ordercode foreign key(order_code) references cafehi_order(order_code),
+    menu_code number not null,
+    constraint fk_order_menu_menucode foreign key(menu_code) references cafehi_menu(menu_code),
+    total_order_price number not null, 
+    total_order_count number not null
+);
 
 -- 쿠폰
 create table cafehi_coupon(

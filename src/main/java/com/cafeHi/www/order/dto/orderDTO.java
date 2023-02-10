@@ -1,9 +1,11 @@
 package com.cafeHi.www.order.dto;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
 import com.cafeHi.www.member.dto.MemberDTO;
+import com.cafeHi.www.order.OrderState;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -17,12 +19,12 @@ public class orderDTO {
 	
 	private int order_code;	// 기본키
 	private MemberDTO member;	// 멤버 정보
-	private String orderState; // 주문 상태
-	private Date orderDate;	// 주문 날짜
+	private OrderState orderState; // 주문 상태
+	private LocalDateTime orderDate;	// 주문 날짜
 	private List<orderMenuDTO> orderMenuList;
 	
 	
-	public orderDTO(MemberDTO member, String orderState, Date orderDate, List<orderMenuDTO> orderMenuList) {
+	public orderDTO(MemberDTO member, OrderState orderState, LocalDateTime orderDate, List<orderMenuDTO> orderMenuList) {
 		super();
 		this.member = member;
 		this.orderState = orderState;
@@ -31,11 +33,23 @@ public class orderDTO {
 	}
 
 
+
 	@Override
 	public String toString() {
 		return "orderDTO [order_code=" + order_code + ", member=" + member + ", orderState=" + orderState
 				+ ", orderDate=" + orderDate + ", orderMenuList=" + orderMenuList + "]";
 	}
+
+
+
+
+
+
+
+
+
+
+
 	
 	
 	

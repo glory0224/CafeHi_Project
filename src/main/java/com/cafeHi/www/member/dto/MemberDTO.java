@@ -1,11 +1,21 @@
 package com.cafeHi.www.member.dto;
 
+import java.io.Serializable;
 import java.util.List;
 
 import lombok.Data;
 
 @Data
-public class MemberDTO {
+public class MemberDTO implements Serializable{
+	
+	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	
 	private int member_code;
 	private String member_id;
 	private String member_pw;

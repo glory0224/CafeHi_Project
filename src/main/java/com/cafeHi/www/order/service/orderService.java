@@ -20,9 +20,5 @@ public interface orderService {
 	public void insertOrder(Map<String, Object> memberOrder);
 
 	public orderDTO getOrder(MemberDTO member);
-
-	int CalTotalOrderPrice(int fee, int menuPrice, int orderCount);
-
-	int CalTotalOrderPrice(int menuPrice, int orderCount);
 	
 }
