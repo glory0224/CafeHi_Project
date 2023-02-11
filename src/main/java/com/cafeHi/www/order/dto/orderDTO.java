@@ -22,32 +22,6 @@ public class orderDTO {
 	private LocalDateTime orderDate;	// 주문 날짜
 	private List<orderMenuDTO> orderMenuList;
 	
-	
-	
-	
-	// 주문 메뉴 리스트 추가
-	
-//	public void addOrderItem(orderMenuDTO orderMenu) {
-//		orderMenuList.add(orderMenu);
-//		orderMenu.setOrder(this);
-//	}
-
-
-
-	// 생성 메서드
-	
-//	public static orderDTO createOrder(MemberDTO member, List<orderMenuDTO> orderMenuList){
-//		
-//		orderDTO order = new orderDTO();
-//		order.setMember(member);
-//		for (orderMenuDTO orderMenu : orderMenuList) {
-//			order.addOrderItem(orderMenu);
-//		}
-//		
-//		order.setOrderState(OrderState.주문완료);
-//		order.setOrderDate(LocalDateTime.now());
-//		return order;
-//	}
 
 
 	
