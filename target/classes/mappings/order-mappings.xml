@@ -115,15 +115,15 @@
 	
 	
 	
-	<select id="sumOrderMoney" resultType="int">
+<!-- 	<select id="sumOrderMoney" resultType="int">
  		SELECT nvl(sum(menu_price*order_count), 0)
- 		<!--금액과 상품갯수를 곱한값과 0을더해서 0이 나오는 것을 검색한다. -->
- 		<!--그러니까 아무것도 담지 않았을 때 대체 값이 0이 나오도록 함 -->
+ 		금액과 상품갯수를 곱한값과 0을더해서 0이 나오는 것을 검색한다.
+ 		그러니까 아무것도 담지 않았을 때 대체 값이 0이 나오도록 함
  		
  		FROM cafehi_order o, cafehi_menu m
  		
  		WHERE o.menu_code = m.menu_code AND member_code=#{member_code}
  		
- 	</select>
+ 	</select> -->
 	
 </mapper>
