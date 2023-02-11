@@ -65,6 +65,8 @@ public class orderController {
 		order.setOrderDate(LocalDateTime.now());
 		order.setOrderState(OrderState.주문완료);	
 		
+		
+		
 		Map<String, Object> memberOrder = new ConcurrentHashMap<String, Object>();
 		memberOrder.put("order", order);
 		memberOrder.put("member_code", member.getMember_code());
