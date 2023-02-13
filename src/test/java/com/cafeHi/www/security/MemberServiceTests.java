@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cafeHi.www.member.dto.MemberDTO;
 import com.cafeHi.www.member.service.MemberService;
@@ -15,6 +16,7 @@ import lombok.extern.log4j.Log4j;
 @RunWith(SpringRunner.class)
 @ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/root-context.xml"})
 @Log4j
+@Transactional
 public class MemberServiceTests {
 	
 	@Setter(onMethod=@__({@Autowired}))
