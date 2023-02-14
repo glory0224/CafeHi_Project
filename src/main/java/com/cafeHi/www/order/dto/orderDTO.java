@@ -14,35 +14,35 @@ import lombok.Setter;
 @RequiredArgsConstructor
 public class orderDTO {
 	
-	// 객체 지향적인 DTO 
+
 	
 	private int order_code;	// 기본키
-	private MemberDTO member;	// 멤버 정보
+	private int member_code;	// 멤버 정보
 	private OrderState orderState; // 주문 상태
 	private LocalDateTime orderDate;	// 주문 날짜
-	private List<orderMenuDTO> orderMenuList;
+	// private List<orderMenuDTO> orderMenuList;
+	private orderMenuDTO orderMenu; // 주문 메뉴
+	private Boolean include_delivery; // 배송비 포함 여부
 	
-
-
-	
-
-	public orderDTO(MemberDTO member, OrderState orderState, LocalDateTime orderDate,
-			List<orderMenuDTO> orderMenuList) {
+	public orderDTO(int order_code, int member_code, OrderState orderState, LocalDateTime orderDate,
+			orderMenuDTO orderMenu) {
 		super();
-		this.member = member;
+		this.order_code = order_code;
+		this.member_code = member_code;
 		this.orderState = orderState;
-		this.orderDate = LocalDateTime.now();
-		this.orderMenuList = orderMenuList;
+		this.orderDate = orderDate;
+		this.orderMenu = orderMenu;
 	}
-
-
 
 
 	@Override
 	public String toString() {
-		return "orderDTO [order_code=" + order_code + ", member=" + member + ", orderState=" + orderState
-				+ ", orderDate=" + orderDate + ", orderMenuList=" + orderMenuList + "]";
+		return "orderDTO [order_code=" + order_code + ", member_code=" + member_code + ", orderState=" + orderState
+				+ ", orderDate=" + orderDate + ", orderMenu=" + orderMenu + "]";
 	}
+	
+	
+	
 
 
 

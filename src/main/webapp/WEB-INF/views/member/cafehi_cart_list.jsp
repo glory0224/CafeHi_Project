@@ -76,7 +76,7 @@
 								</td>
 								<td><fmt:formatNumber value="${row.money}"
 										pattern="#,###,###" /></td>
-								<td><%-- <button><a href="deleteCart.do?cart_code=${row.cart_code}">삭제</a></button> --%>
+								<td>
 								<button class="btn btn-success btn-sm">수정</button>
 								<button type="button" class="btn btn-success btn-sm" onclick = "location.href='deleteCart.do?cart_code=${row.cart_code}'">삭제</button>
 									<!-- 삭제 버튼을 누르면 delete.do로 장바구니 개별 id (삭제하길원하는 장바구니 id)를 보내서 삭제한다. -->

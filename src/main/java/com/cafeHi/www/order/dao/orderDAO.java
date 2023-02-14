@@ -1,5 +1,6 @@
 package com.cafeHi.www.order.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -18,6 +19,7 @@ public class orderDAO {
 	private final SqlSessionTemplate sqlSessionTemplate;
 
 	public void insertOrderMenu(Map<String, Object> memberOrderMenu) {
+		
 		sqlSessionTemplate.insert("OrderDAO.insertOrderMenu", memberOrderMenu);
 		
 	}
@@ -43,6 +45,10 @@ public class orderDAO {
 
 	public orderDTO getOrder(MemberDTO member) {
 		return sqlSessionTemplate.selectOne("OrderDAO.getOrder", member);		
+	}
+
+	public List<orderDTO> listOrder(int member_code) {
+		return sqlSessionTemplate.selectList("OrderDAO.listOrder", member_code);
 	}
 	
 	

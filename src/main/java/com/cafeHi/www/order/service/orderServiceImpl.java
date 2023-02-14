@@ -49,6 +49,11 @@ public class orderServiceImpl implements orderService{
 	public orderDTO getOrder(MemberDTO member) {
 		return orderDAO.getOrder(member);
 	}
+
+	@Override
+	public List<orderDTO> listOrder(int member_code) {
+		return orderDAO.listOrder(member_code);
+	}
 	
 	
 

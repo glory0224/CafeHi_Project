@@ -21,7 +21,7 @@
   	<a class="nav-link" href="myQnAInfo.do">나의 QnA</a>
   <div>주문 Hi!</div>
   <a class="nav-link" href="myCartList.do">장바구니</a> 
-  <a class="nav-link" href="myOrderList.do">주문목록</a>
+  <a class="nav-link" href="CafehiOrderList.do">주문목록</a>
   <!-- <a class="nav-link" href="myCancel.do">취소/반품/교환/환불내역</a>
   <a class="nav-link" href="myPlace.do">배송지 관리</a>  -->
 </nav>

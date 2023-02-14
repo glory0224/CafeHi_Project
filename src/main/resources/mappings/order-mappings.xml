@@ -5,103 +5,30 @@
  
 <mapper namespace="OrderDAO">
 	
-	<resultMap type="OrderMenu" id="OrderMenuResult">
- 		<id property="order_menu_code" column="ORDER_MENU_CODE"/>
- 		<result property="order_menu_price" column="ORDER_MENU_PRICE"/>
- 		<result property="order_menu_count" column="ORDER_MENU_COUNT"/>
- 		
- 	<collection property="order" ofType="Order">
- 		<id property="order_code" column="ORDER_CODE"/>
- 		<result property="orderState" column="ORDERSTATE"/>
- 		<result property="orderDate" column="ORDERDATE"/>
- 			<collection property="member" ofType="Member">
- 				<id property="member_code" column="MEMBER_CODE"/>
-		 		<result property="member_id" column="MEMBER_ID"/>
-		 		<result property="member_pw" column="MEMBER_PW"/>
-		 		<result property="member_name" column="MEMBER_NAME"/>
-		 		<result property="member_contact" column="MEMBER_CONTACT"/>
-		 		<result property="member_email" column="MEMBER_EMAIL"/>
-		 		<result property="member_road_address" column="MEMBER_ROAD_ADDRESS"/>
-		 		<result property="member_jibun_address" column="MEMBER_JIBUN_ADDRESS"/>
-		 		<result property="member_detail_address" column="MEMBER_DETAIL_ADDRESS"/>
-		 		<result property="enabled" column="ENABLED"/>
-	 		</collection>
- 	</collection>
- 	
- 	<collection property="menu" ofType="Menu">
- 		<id property="menu_code" column="MENU_CODE"/>
- 		<result property="menu_price" column="MENU_PRICE"/>
- 		<result property="menu_type" column="MENU_TYPE"/>
- 		<result property="menu_name" column="MENU_NAME"/>
- 		<result property="menu_explain" column="MENU_EXPLAIN"/>
- 		<result property="menu_img_path" column="MENU_IMG_PATH" />
- 		<result property="menu_quantity" column="MENU_QUANTITY" />	
- 	</collection>
- 		
- 	</resultMap>
- 	
  	<resultMap type="Order" id="OrderResult">
  		<id property="order_code" column="ORDER_CODE"/>
+ 		<result property="member_code" column="MEMBER_CODE"/>
  		<result property="orderState" column="ORDERSTATE"/>
  		<result property="orderDate" column="ORDERDATE"/>
- 		<collection property="member" ofType="Member">
- 			<id property="member_code" column="MEMBER_CODE"/>
-	 		<result property="member_id" column="MEMBER_ID"/>
-	 		<result property="member_pw" column="MEMBER_PW"/>
-	 		<result property="member_name" column="MEMBER_NAME"/>
-	 		<result property="member_contact" column="MEMBER_CONTACT"/>
-	 		<result property="member_email" column="MEMBER_EMAIL"/>
-	 		<result property="member_road_address" column="MEMBER_ROAD_ADDRESS"/>
-	 		<result property="member_jibun_address" column="MEMBER_JIBUN_ADDRESS"/>
-	 		<result property="member_detail_address" column="MEMBER_DETAIL_ADDRESS"/>
-	 		<result property="enabled" column="ENABLED"/>
-	 	</collection>
+ 		<result property="include_delivery" column="INCLUDE_DELIVERY"/>
+ 		
 	 	
-	 	<collection property="orderMenuList" ofType="OrderMenu" javaType="List">
+	 	<collection property="orderMenu"  ofType="OrderMenu" > <!-- ofType="OrderMenu" javaType="List"  -->
 	 		<id property="order_menu_code" column="ORDER_MENU_CODE"/>
+	 		<result property="order_code" column="ORDER_CODE"/>
+ 			<result property="menu_code" column="MENU_CODE"/>
  			<result property="total_order_price" column="TOTAL_ORDER_PRICE"/>
  			<result property="total_order_count" column="TOTAL_ORDER_COUNT"/>
- 		
-			 	<collection property="order" ofType="Order">
-			 		<id property="order_code" column="ORDER_CODE"/>
-			 		<result property="orderState" column="ORDERSTATE"/>
-			 		<result property="orderDate" column="ORDERDATE"/>
-			 			<collection property="member" ofType="Member">
-			 				<id property="member_code" column="MEMBER_CODE"/>
-					 		<result property="member_id" column="MEMBER_ID"/>
-					 		<result property="member_pw" column="MEMBER_PW"/>
-					 		<result property="member_name" column="MEMBER_NAME"/>
-					 		<result property="member_contact" column="MEMBER_CONTACT"/>
-					 		<result property="member_email" column="MEMBER_EMAIL"/>
-					 		<result property="member_road_address" column="MEMBER_ROAD_ADDRESS"/>
-					 		<result property="member_jibun_address" column="MEMBER_JIBUN_ADDRESS"/>
-					 		<result property="member_detail_address" column="MEMBER_DETAIL_ADDRESS"/>
-					 		<result property="enabled" column="ENABLED"/>
-				 		</collection>
-			 	</collection>
-			 	
-			 	<collection property="menu" ofType="Menu">
-			 		<id property="menu_code" column="MENU_CODE"/>
-			 		<result property="menu_price" column="MENU_PRICE"/>
-			 		<result property="menu_type" column="MENU_TYPE"/>
-			 		<result property="menu_name" column="MENU_NAME"/>
-			 		<result property="menu_explain" column="MENU_EXPLAIN"/>
-			 		<result property="menu_img_path" column="MENU_IMG_PATH" />
-			 		<result property="menu_quantity" column="MENU_QUANTITY" />	
-			 	</collection>
+ 			
 	 	</collection>
+	 	
  	</resultMap>
 	
 	
 	<insert id="insertOrder" parameterType="Map">
-		INSERT INTO cafehi_order(order_code, member_code, orderState, orderDate)
-		VALUES((select nvl(max(order_code), 0)+1 from cafehi_order), #{member_code}, #{order.orderState}, #{order.orderDate})
+		INSERT INTO cafehi_order(order_code, member_code, include_delivery, orderState, orderDate)
+		VALUES((select nvl(max(order_code), 0)+1 from cafehi_order), #{member_code}, #{order.include_delivery}, #{order.orderState}, #{order.orderDate})
 	</insert>
-	
-	<select id="getOrder" parameterType="Member" resultMap="OrderResult">
-		SELECT * FROM cafehi_order
-		WHERE member_code = #{member_code}
-	</select>
 	
 	
 	<insert id="insertOrderMenu" parameterType="Map">
@@ -109,7 +36,11 @@
 		VALUES((select nvl(max(order_menu_code), 0)+1 from cafehi_order_menu), (select nvl(max(order_menu_code), 0)+1 from cafehi_order_menu) , #{menu_code}, #{orderMenu.total_order_price}, #{orderMenu.total_order_count} )
 	</insert>
 	
-	
+	<select id="listOrder" parameterType="int" resultMap="OrderResult">
+	  	SELECT om.order_menu_code, om.order_code, om.menu_code, om.total_order_price, om.total_order_count, o.member_code, o.orderState, o.orderDate, o.include_delivery
+		FROM cafehi_order o LEFT OUTER JOIN cafehi_order_menu om
+		ON o.order_code = om.order_code AND o.member_code = #{member_code}
+	</select>	
 	
 
 	

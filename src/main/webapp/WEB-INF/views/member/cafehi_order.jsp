@@ -69,9 +69,11 @@
   	<c:if test="${(Menu.menu_price * orderAmount) lt 30000 }">
   	<h3><b>2500 원</b></h3>
   	<input type="hidden" name="deliveryFee" value="2500">
+  	<input type="hidden" name="include_delivery" value="1"> 	
  	 </c:if>
  	 <c:if test="${(Menu.menu_price * orderAmount) ge 30000 }">
  	 	<h3><b>무료</b></h3>
+ 	 	<input type="hidden" name="include_delivery" value="0">
  	 </c:if>
   </div> 		
   	
