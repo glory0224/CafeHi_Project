@@ -87,7 +87,7 @@ public class CartController {
 	}
 	
 	// 장바구니 삭제
-	@GetMapping("/deleteCart.do")
+	@PostMapping("/deleteCart.do")
 	public String CartDelete(CartDTO cart) {
 				
 		cartService.deleteCart(cart.getCart_code());

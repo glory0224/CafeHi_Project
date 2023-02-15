@@ -78,7 +78,9 @@
 										pattern="#,###,###" /></td>
 								<td>
 								<button class="btn btn-success btn-sm">수정</button>
-								<button type="button" class="btn btn-success btn-sm" onclick = "location.href='deleteCart.do?cart_code=${row.cart_code}'">삭제</button>
+								<%-- <button type="button" class="btn btn-success btn-sm" onclick = "location.href='deleteCart.do?cart_code=${row.cart_code}'">삭제</button> --%>
+								
+								<a href="javascript:cartDelete(${row.cart_code})"><button type="button" class="btn btn-success btn-sm">삭제</button></a>
 									<!-- 삭제 버튼을 누르면 delete.do로 장바구니 개별 id (삭제하길원하는 장바구니 id)를 보내서 삭제한다. -->
 								</td>
 							</tr>
@@ -113,5 +115,33 @@
 	<!--카페 하이 FOOTER -->
 	<jsp:include page="/cafeHi_module/footer.jsp" />
 </body>
-
+<script>
+    function cartDelete(cart_code) {
+    	// create element (form)
+        var form = document.createElement("form");
+    	 // create element (input)
+        var cartInput = document.createElement('input');
+    	var csrfInput =  document.createElement('input');
+    	 // set attribute (form) 
+        form.setAttribute("method", "post");
+        form.setAttribute("action", "deleteCart.do");
+     	// set attribute (input)
+        cartInput.setAttribute("type", "hidden");
+        cartInput.setAttribute("name", "cart_code");
+        cartInput.setAttribute("value", cart_code);
+     	// set attribute (input) - spring security 속성 추가
+     	csrfInput.setAttribute("type", "hidden");
+     	csrfInput.setAttribute("name", "${_csrf.parameterName }");
+     	csrfInput.setAttribute("value", "${_csrf.token }");
+     	
+        
+     	// append input (to form)
+        form.appendChild(cartInput);
+     	form.appendChild(csrfInput);
+     	// append form (to body)
+        document.body.appendChild(form);
+     	// submit form
+        form.submit();
+    }
+</script>
 </html>
