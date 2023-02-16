@@ -24,21 +24,6 @@ public class orderServiceImpl implements orderService{
 		orderDAO.insertOrderMenu(memberOrderMenu);
 	}
 
-	@Override
-	public void updateOrder(orderDTO order) {
-		orderDAO.updateOrder(order);
-	}
-
-	@Override
-	public void deleteOrder(orderDTO order) {
-		orderDAO.deleteOrder(order);
-	}
-
-
-	@Override
-	public int sumOrderMoney(int member_code) {
-		return orderDAO.sumOrderMoney(member_code);
-	}
 
 	@Override
 	public void insertOrder(Map<String, Object> memberOrder) {
@@ -53,6 +38,12 @@ public class orderServiceImpl implements orderService{
 	@Override
 	public List<orderDTO> listOrder(int member_code) {
 		return orderDAO.listOrder(member_code);
+	}
+
+
+	@Override
+	public int CancelOrder(Map<String, Object> orderCancelInfo) {
+		return orderDAO.cancelOrder(orderCancelInfo);
 	}
 	
 	

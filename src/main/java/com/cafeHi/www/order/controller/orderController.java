@@ -131,7 +131,6 @@ public class orderController {
 		    
 		if(member_code != 0) {
 			
-			log.info("ListController!!!!");
 			List<orderDTO> orderList = orderService.listOrder(member_code); // 林巩 格废			
 			List<MenuDTO> OrderMenuList = new ArrayList<MenuDTO>();
 			
@@ -157,6 +156,24 @@ public class orderController {
 		}
 		
 		return "member/cafehi_orderList";
+	}
+	
+	@PostMapping("/CafehiOrderCancel.do")
+	public String CafehiOrderCancel(orderDTO order, Model model) {
+		
+		
+		
+		Map<String, Object> OrderCancelInfo = new HashMap<>();
+		
+		OrderCancelInfo.put("order_code", order.getOrder_code());
+		OrderCancelInfo.put("orderState", OrderState.林巩秒家);
+		OrderCancelInfo.put("orderUpateDate", LocalDateTime.now());
+		
+		orderService.CancelOrder(OrderCancelInfo);
+		
+		
+		
+		return "redirect:/CafehiOrderList.do";
 	}
 	
 	

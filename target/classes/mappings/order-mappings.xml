@@ -10,6 +10,7 @@
  		<result property="member_code" column="MEMBER_CODE"/>
  		<result property="orderState" column="ORDERSTATE"/>
  		<result property="orderDate" column="ORDERDATE"/>
+ 		<result property="orderUpdateDate" column="ORDERUPDATEDATE"/> 		
  		<result property="include_delivery" column="INCLUDE_DELIVERY"/>
  		
 	 	
@@ -26,8 +27,8 @@
 	
 	
 	<insert id="insertOrder" parameterType="Map">
-		INSERT INTO cafehi_order(order_code, member_code, include_delivery, orderState, orderDate)
-		VALUES((select nvl(max(order_code), 0)+1 from cafehi_order), #{member_code}, #{order.include_delivery}, #{order.orderState}, #{order.orderDate})
+		INSERT INTO cafehi_order(order_code, member_code, include_delivery, orderState, orderDate, orderUpdateDate)
+		VALUES((select nvl(max(order_code), 0)+1 from cafehi_order), #{member_code}, #{order.include_delivery}, #{order.orderState}, #{order.orderDate}, #{order.orderDate})
 	</insert>
 	
 	
@@ -36,25 +37,19 @@
 		VALUES((select nvl(max(order_menu_code), 0)+1 from cafehi_order_menu), (select nvl(max(order_menu_code), 0)+1 from cafehi_order_menu) , #{menu_code}, #{orderMenu.total_order_price}, #{orderMenu.total_order_count} )
 	</insert>
 	
+ 	<update id="cancelOrder" parameterType="hashMap">
+		UPDATE cafehi_order
+		SET orderState = #{orderState}, orderUpdateDate = #{orderUpateDate}
+		WHERE order_code = #{order_code}
+	</update>
+	
+	
 	<select id="listOrder" parameterType="int" resultMap="OrderResult">
-	  	SELECT om.order_menu_code, om.order_code, om.menu_code, om.total_order_price, om.total_order_count, o.member_code, o.orderState, o.orderDate, o.include_delivery
+	  	SELECT om.order_menu_code, om.order_code, om.menu_code, om.total_order_price, om.total_order_count, o.member_code, o.orderState, o.orderDate, o.orderUpdateDate, o.include_delivery
 		FROM cafehi_order o LEFT OUTER JOIN cafehi_order_menu om
 		ON o.order_code = om.order_code AND o.member_code = #{member_code}
 	</select>	
 	
 
-	
-	
-	
-<!-- 	<select id="sumOrderMoney" resultType="int">
- 		SELECT nvl(sum(menu_price*order_count), 0)
- 		금액과 상품갯수를 곱한값과 0을더해서 0이 나오는 것을 검색한다.
- 		그러니까 아무것도 담지 않았을 때 대체 값이 0이 나오도록 함
- 		
- 		FROM cafehi_order o, cafehi_menu m
- 		
- 		WHERE o.menu_code = m.menu_code AND member_code=#{member_code}
- 		
- 	</select> -->
 	
 </mapper>

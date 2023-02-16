@@ -9,20 +9,16 @@ import com.cafeHi.www.order.dto.orderMenuDTO;
 
 public interface orderService {
 	
-	public void insertOrderMenu(Map<String, Object> memberOrderMenu);
-	
-	public void updateOrder(orderDTO orderMenu);
-	
-	public void deleteOrder(orderDTO orderMenu);
-
-	
-	public int sumOrderMoney(int member_code);
-	
+	public void insertOrderMenu(Map<String, Object> memberOrderMenu);	
 
 	public void insertOrder(Map<String, Object> memberOrder);
+	
+	public int CancelOrder(Map<String, Object> orderCancelInfo);
 
 	public orderDTO getOrder(MemberDTO member);
 
 	public List<orderDTO> listOrder(int member_code);
+
+	
 	
 }

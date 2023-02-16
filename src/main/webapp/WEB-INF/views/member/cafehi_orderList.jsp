@@ -52,7 +52,7 @@
 							<th class="table-success">총 금액</th>
 							<th class="table-success">주문 상태</th>							
 							<th class="table-success">주문 날짜</th>							
-							<th class="table-success">&nbsp;</th>
+							<th class="table-success">취소 날짜</th>
 						</tr>
 						
 						
@@ -73,12 +73,27 @@
 									
 									</c:choose>
 									<td><fmt:formatNumber value="${orderList.orderMenu.total_order_price }" pattern="#,###,###"> </fmt:formatNumber></td>									
-									<td>${orderList.orderState }</td>	
+									<c:if test="${orderList.orderState eq '주문취소' }">
+									<td><b style="color: green;">${orderList.orderState }</b></td>
+									</c:if>
+									<c:if test="${orderList.orderState eq '주문완료' }">
+									<td>${orderList.orderState }</td>
+									</c:if>	
 									<!-- java 8 LocalDateTime을 지원하지 않는다. 따라서 jstl 사용시 특정 패턴의 변수로 바꿔준 뒤 사용한다. -->
 									<fmt:parseDate value="${orderList.orderDate }" pattern="yyyy-MM-dd'T'HH:mm" var="parseDateTime" type="both"/>								
 									<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${parseDateTime }"/></td>									
 									<c:if test="${orderList.orderState eq '주문완료' }">
-									<td><button  type="button" class="btn btn-success btn-sm" >취소</button></td>
+									<td>
+									<form action="CafehiOrderCancel.do" method="post">
+									<input type="hidden" name="order_code" value="${orderList.order_code}">
+									<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">									
+									<input type="submit" class="btn btn-success btn-sm" value="주문 취소">
+									</form>
+									</td>
+									</c:if>
+									<c:if test="${orderList.orderState eq '주문취소' }">
+										<fmt:parseDate value="${orderList.orderUpdateDate }" pattern="yyyy-MM-dd'T'HH:mm" var="parseCancelDateTime" type="both"/>
+										<td><b style="color: green;"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${parseCancelDateTime }"/></b></td>
 									</c:if>	
 									</tr>	
 									</c:forEach>
@@ -103,5 +118,4 @@
 	<!--카페 하이 FOOTER -->
 	<jsp:include page="/cafeHi_module/footer.jsp" />
 </body>
-
 </html>

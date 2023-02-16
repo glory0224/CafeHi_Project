@@ -24,20 +24,6 @@ public class orderDAO {
 		
 	}
 
-	public void updateOrder(orderDTO order) {
-		sqlSessionTemplate.update("OrderDAO.updateOrder", order);
-	}
-
-	public void deleteOrder(orderDTO order) {
-		sqlSessionTemplate.delete("OrderDAO.deleteOrder", order);
-	}
-
-
-	
-	// ¡÷πÆ √— ∞°∞›
-	public int sumOrderMoney(int member_code) {
-		return sqlSessionTemplate.selectOne("OrderDAO.sumOrderMoney", member_code);
-	}
 
 	public void inserOrder(Map<String, Object> memberOrder) {
 		sqlSessionTemplate.insert("OrderDAO.insertOrder", memberOrder);
@@ -49,6 +35,15 @@ public class orderDAO {
 
 	public List<orderDTO> listOrder(int member_code) {
 		return sqlSessionTemplate.selectList("OrderDAO.listOrder", member_code);
+	}
+
+
+	public int cancelOrder(Map<String, Object> orderCancelInfo) {
+				
+		int result = sqlSessionTemplate.update("OrderDAO.cancelOrder", orderCancelInfo);
+		
+		return result;
+	
 	}
 	
 	

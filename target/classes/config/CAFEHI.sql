@@ -58,15 +58,6 @@ drop table cafehi_qna;
 drop table cafehi_member_auth;
 drop table cafehi_member;
 
-SELECT order_code, m.menu_code, cm.member_id, member_name, menu_name, order_count, order_price, (menu_price * order_count) money
-		
-FROM cafehi_member cm, cafehi_order o, cafehi_menu m
-	
-WHERE cm.member_code = o.member_code and o.menu_code = m.menu_code and o.member_code = '12' 
-ORDER BY order_code;  		
- 
-
-
 
 -- 사용자 정보 테이블
 create table cafehi_member(
@@ -149,7 +140,7 @@ create table cafehi_menu(
 );
 
 
-
+-- 메뉴 데이터 
 insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(01, 3000,'coffee','아메리카노', '카페하이 아메리카노', '/cafeHi/img/menu/coffee/IceAmericano.jpg');
 insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(02, 3000,'coffee','에스프레소', '카페하이 에스프레소', '/cafeHi/img/cafehi_logo.jpeg');
 insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(03, 4500,'coffee','유자메리카노', '카페하이 유자메리카노', '/cafeHi/img/cafehi_logo.jpeg');
@@ -236,7 +227,9 @@ create table cafehi_order(
     member_code number not null,
     constraint fk_order_membercode foreign key(member_code) references cafehi_member(member_code),
     orderState varchar2(30),
-    orderDate Date
+    orderDate timestamp, -- 주문일자
+    orderUpdateDate timestamp, -- 수정일자 
+    include_delivery char(1) -- boolean
 );
 
 -- 주문 2
@@ -262,6 +255,13 @@ create table cafehi_order_menu(
     total_order_price number not null, 
     total_order_count number not null
 );
+
+SELECT om.order_menu_code, om.order_code, om.menu_code, om.total_order_price, om.total_order_count, o.orderState, o.orderDate
+FROM cafehi_order o LEFT OUTER JOIN cafehi_order_menu om
+ON o.order_code = om.order_code AND o.member_code = 12;
+
+
+
 
 -- 쿠폰
 create table cafehi_coupon(
