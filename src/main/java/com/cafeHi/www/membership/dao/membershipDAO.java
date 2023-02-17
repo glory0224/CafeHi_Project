@@ -23,9 +23,13 @@ public class membershipDAO {
 		
 		myMembershipDTO result = sqlSessionTemplate.selectOne("MembershipDAO.getMembership", member_code);
 		
-		System.out.println(result);
+		
 		return sqlSessionTemplate.selectOne("MembershipDAO.getMembership", member_code);
 		
+	}
+
+	public void plusMembershipPoint(Long point) {
+		sqlSessionTemplate.insert("MembershipDAO.plusMembershipPoint", point);
 	}
 	
 }
