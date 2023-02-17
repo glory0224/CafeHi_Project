@@ -34,8 +34,8 @@ public class MembershipImpl implements MembershipService{
 
 	@Override
 	public void plusMembershipPoint(Long point) {
-		// TODO Auto-generated method stub
 		
+		membershipDAO.plusMembershipPoint(point);
 	}
 
 	
