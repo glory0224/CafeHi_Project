@@ -3,6 +3,7 @@ package com.cafeHi.www.board.qna.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -160,7 +161,9 @@ public class QnAController {
 	public String InsertQnAV2(@RequestParam(value = "uploadfile", required = false) MultipartFile uploadfile,  QnADTO qna, MemberDTO mem) throws IOException {
 		
 		
-		qna.setQna_writetime(new Date());
+		qna.setQna_writetime(LocalDateTime.now());
+		
+		qna.setQna_updatetime(LocalDateTime.now());
 		
 		UploadFileDTO attachFile = fileStore.storeFile(uploadfile);
 		
@@ -192,7 +195,9 @@ public class QnAController {
 	@PostMapping("/InsertAdminQnA.do")
 	public String InsertAdminQnA(@RequestParam(value = "uploadfile", required = false) MultipartFile uploadfile,  QnADTO qna, MemberDTO mem) throws IOException {
 				
-		qna.setQna_writetime(new Date());
+		qna.setQna_writetime(LocalDateTime.now());
+		
+		qna.setQna_updatetime(LocalDateTime.now());
 		
 		UploadFileDTO attachFile = fileStore.storeFile(uploadfile);
 		

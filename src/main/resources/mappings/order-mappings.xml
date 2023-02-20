@@ -27,14 +27,14 @@
 	
 	
 	<insert id="insertOrder" parameterType="Map">
-		INSERT INTO cafehi_order(order_code, member_code, include_delivery, orderState, orderDate, orderUpdateDate)
-		VALUES((select nvl(max(order_code), 0)+1 from cafehi_order), #{member_code}, #{order.include_delivery}, #{order.orderState}, #{order.orderDate}, #{order.orderDate})
+		INSERT INTO cafehi_order(order_code, member_code, include_delivery, order_status, order_writetime, order_updatetime)
+		VALUES((select nvl(max(order_code), 0)+1 from cafehi_order), #{member_code}, #{order.include_delivery}, #{order.order_status}, #{order.order_writetime}, #{order.order_updatetime})
 	</insert>
 	
 	
 	<insert id="insertOrderMenu" parameterType="Map">
-		INSERT INTO cafehi_order_menu(order_menu_code, order_code, menu_code, total_order_price, total_order_count)
-		VALUES((select nvl(max(order_menu_code), 0)+1 from cafehi_order_menu), (select nvl(max(order_menu_code), 0)+1 from cafehi_order_menu) , #{menu_code}, #{orderMenu.total_order_price}, #{orderMenu.total_order_count} )
+		INSERT INTO cafehi_order_menu(order_menu_code, order_code, menu_code, total_order_price, total_order_count, order_menu_writetime, order_menu_updatetime)
+		VALUES((select nvl(max(order_menu_code), 0)+1 from cafehi_order_menu), (select nvl(max(order_menu_code), 0)+1 from cafehi_order_menu) , #{menu_code}, #{orderMenu.total_order_price}, #{orderMenu.total_order_count}, #{order_menu_writetime}, #{order_menu_updatetime})
 	</insert>
 	
  	<update id="cancelOrder" parameterType="hashMap">

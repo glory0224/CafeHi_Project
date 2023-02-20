@@ -1,5 +1,6 @@
 package com.cafeHi.www.cart.controller;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,6 +71,8 @@ public class CartController {
 		CustomUser userInfo = (CustomUser) principal;
 		int member_code = userInfo.getMember().getMember_code();
 		cart.setMember_code(member_code);
+		cart.setCart_writetime(LocalDateTime.now());
+		cart.setCart_updatetime(LocalDateTime.now());
 		cartService.insertCart(cart);
 		return "redirect:/myCartList.do";
 		

@@ -1,6 +1,8 @@
 package com.cafeHi.www.order.dto;
 
 
+import java.time.LocalDateTime;
+
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -16,6 +18,8 @@ public class orderMenuDTO {
 	private int order_code;	// 주문 정보 
 	private int total_order_price; // 총 가격
 	private int total_order_count;	// 주문 총 수량
+	private LocalDateTime order_menu_writetime; // 주문 메뉴 등록일
+	private LocalDateTime order_menu_updatetime; // 주문 메뉴 수정일
 	
 
 

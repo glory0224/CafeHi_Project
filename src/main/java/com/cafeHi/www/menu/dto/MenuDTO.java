@@ -2,6 +2,8 @@ package com.cafeHi.www.menu.dto;
 
 
 
+import java.time.LocalDateTime;
+
 import com.cafeHi.www.common.exception.NotEnoughMenuQuantityException;
 
 import lombok.Data;
@@ -9,29 +11,30 @@ import lombok.Data;
 @Data
 public class MenuDTO {
 	
-	private int menu_code;
-	private int menu_price;
-	private String menu_type;
-	private String menu_name;	
-	private String menu_explain;
-	private String menu_img_path;
-	private int menu_quantity; 
-	
+	private int menu_code; // 메뉴 코드 
+	private int menu_price; // 메뉴 가격
+	private String menu_type; // 메뉴 종류 
+	private String menu_name;	// 메뉴 이름
+	private String menu_explain; // 메뉴 설명
+	private String menu_img_path; // 메뉴 이미지 경로 
+	private int menu_stock_quantity; // 메뉴 재고 수량 
+	private LocalDateTime menu_writetime; // 메뉴 등록일
+	private LocalDateTime menu_updatetime; // 메뉴 수정일
 	
 	// 메뉴 수량 증가 메소드
 	public void addMenuQuantity(int quantity) {
-		this.menu_quantity += quantity;
+		menu_stock_quantity += quantity;
 	}
 	
 	// 메뉴 수량 감소 메소드
 	public void removeMenuQuantity(int quantity) {
-		int restMenuQuantity = this.menu_quantity - quantity;
+		int restMenuQuantity = this.menu_stock_quantity - quantity;
 		
 		if (restMenuQuantity < 0) {
 			throw new NotEnoughMenuQuantityException("재고 부족");
 		}
 		
-		this.menu_quantity = restMenuQuantity;
+		menu_stock_quantity = restMenuQuantity;
 	}
 	
 }

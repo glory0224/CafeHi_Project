@@ -1,6 +1,7 @@
 package com.cafeHi.www.member.controller;
 
 
+import java.time.LocalDateTime;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
@@ -54,9 +55,15 @@ public class SignUpController {
 				member.setMember_contact(join_nums);
 			}
 			
+			// 회원 가입 정보 등록일 저장 
+			member.setMember_writetime(LocalDateTime.now()); 
+			member.setMember_updatetime(LocalDateTime.now()); 
+			
 			memberService.insertMember(member);
 			MemberDTO getMember = memberService.getMember(member);
-		
+			
+			memberauth.setMember_auth_writetime(LocalDateTime.now());
+			memberauth.setMember_auth_updatetime(LocalDateTime.now());
 			memberauth.setMember_code(getMember.getMember_code());
 			memberauth.setMember_auth("ROLE_USER");
 			memberService.insertMemberAuth(memberauth);
@@ -76,6 +83,10 @@ public class SignUpController {
 				String join_nums = String.join("", nums);
 				member.setMember_contact(join_nums);
 			}
+			
+			// 회원 가입 날짜 저장
+			member.setMember_writetime(LocalDateTime.now()); 
+			member.setMember_updatetime(LocalDateTime.now()); 
 			
 			memberService.insertMember(member);
 			MemberDTO getMember = memberService.getMember(member);

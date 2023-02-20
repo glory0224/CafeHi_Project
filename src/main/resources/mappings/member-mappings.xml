@@ -30,12 +30,12 @@
  	<!-- 회원 CRUD -->
  	
  	<insert id="insertMember" parameterType="Member">
- 		INSERT INTO cafehi_member(member_code, member_id, member_pw, member_name, member_contact, member_email, member_road_address, member_jibun_address, member_detail_address) 
- 		VALUES((select nvl(max(member_code), 0)+1 from cafehi_member), #{member_id}, #{member_pw},#{member_name},#{member_contact}, #{member_email}, #{member_road_address},#{member_jibun_address},#{member_detail_address})
+ 		INSERT INTO cafehi_member(member_code, member_id, member_pw, member_name, member_contact, member_email, member_road_address, member_jibun_address, member_detail_address, member_writetime, member_updatetime) 
+ 		VALUES((select nvl(max(member_code), 0)+1 from cafehi_member), #{member_id}, #{member_pw},#{member_name},#{member_contact}, #{member_email}, #{member_road_address},#{member_jibun_address},#{member_detail_address}, #{member_writetime}, #{member_updatetime})
  	</insert>
  	
  	<insert id="insertMemberAuth" parameterType="MemberAuth">
- 		INSERT INTO cafehi_member_auth VALUES((select nvl(max(member_auth_code), 0)+1 from cafehi_member_auth), #{member_code}, #{member_auth})
+ 		INSERT INTO cafehi_member_auth VALUES((select nvl(max(member_auth_code), 0)+1 from cafehi_member_auth), #{member_code}, #{member_auth}, #{member_auth_writetime}, #{member_auth_updatetime})
  	</insert>
  	
 

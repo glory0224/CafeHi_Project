@@ -11,7 +11,7 @@
  		<result property="qna_writetime" column="QNA_WRITETIME"/>
  		<result property="qna_hit" column="QNA_HIT" />
  		<result property="upload_path" column="UPLOAD_PATH" />
- 		<result property="classification" column="CLASSIFICATION" javaType="String"/>
+ 		<result property="qna_title_classification" column="qna_title_classification" javaType="String"/>
  	<!-- has one -->
  	<!-- <association property="memberList" javaType="Member" resultMap="MemberResult">
  		
@@ -93,9 +93,9 @@
   <select id="getQnAList" resultType="QnA">
  		
 
- 	SELECT qna_num, qna_title,classification, qna_content, qna_writetime, qna_hit, member_id FROM(
+ 	SELECT qna_num, qna_title,qna_title_classification, qna_content, qna_writetime, qna_hit, member_id FROM(
 	
-	SELECT rownum rn, cq.qna_num, cq.qna_title, cq.classification, cq.qna_content, cq.qna_writetime, cq.qna_hit, cm.member_id FROM
+	SELECT rownum rn, cq.qna_num, cq.qna_title, cq.qna_title_classification, cq.qna_content, cq.qna_writetime, cq.qna_hit, cm.member_id FROM
 	
 	(SELECT * FROM cafehi_qna ORDER BY qna_num DESC) cq, cafehi_member cm
 	
@@ -123,7 +123,7 @@
 	<!-- QnA 조회 -->
 	<select id="getQnA" resultType="QnA">
 		SELECT  * FROM(
-		SELECT q.qna_num, q.qna_title, q.classification, q.qna_content, q.qna_writetime, q.qna_hit, m.member_id, q.upload_path, q.store_file_name, q.upload_file_name FROM cafehi_qna q, cafehi_member m WHERE m.member_code = q.member_code
+		SELECT q.qna_num, q.qna_title, q.qna_title_classification, q.qna_content, q.qna_writetime, q.qna_hit, m.member_id, q.upload_path, q.store_file_name, q.upload_file_name FROM cafehi_qna q, cafehi_member m WHERE m.member_code = q.member_code
 		)
 		  WHERE qna_num=#{qna_num}
 	</select>
@@ -133,7 +133,7 @@
 		
 		SELECT *
 		FROM(
-		SELECT rownum rn, qna_num, qna_title, qna_content, qna_writetime, qna_hit, upload_path, store_file_name, res.member_id, classification FROM 
+		SELECT rownum rn, qna_num, qna_title, qna_content, qna_writetime, qna_hit, upload_path, store_file_name, res.member_id, qna_title_classification FROM 
 		(SELECT ma.member_auth_code, ma.member_code, ma.member_auth, mem.member_id FROM cafehi_member mem, cafehi_member_auth ma
 		WHERE mem.member_code = ma.member_code and ma.member_code = #{member_code}) res, (SELECT * FROM cafehi_qna ORDER BY qna_num DESC) qna
 		WHERE res.member_code = qna.member_code)
@@ -147,8 +147,8 @@
 	<select id="MemberAllQnA" parameterType="hashMap" resultMap="QnAResult">
 		SELECT * FROM (
 		
-		SELECT rownum rn, qna_num, qna_title, qna_content, qna_writetime, qna_hit, upload_path, store_file_name, member_id, classification FROM(
-		SELECT cq.qna_num, cq.qna_title, cq.qna_content, cq.qna_writetime, cq.qna_hit, cq.upload_path, cq.store_file_name, cm.member_id, cq.classification 
+		SELECT rownum rn, qna_num, qna_title, qna_content, qna_writetime, qna_hit, upload_path, store_file_name, member_id, qna_title_classification FROM(
+		SELECT cq.qna_num, cq.qna_title, cq.qna_content, cq.qna_writetime, cq.qna_hit, cq.upload_path, cq.store_file_name, cm.member_id, cq.qna_title_classification 
 		FROM cafehi_qna cq, cafehi_member cm, cafehi_member_auth cma 
 		WHERE cm.member_code = cma.member_code AND cm.member_code = cq.member_code AND cma.member_auth = #{role_user} 
         ORDER BY qna_num DESC )
@@ -162,14 +162,14 @@
 	</select>
 	
 	<insert id="insertQnA" parameterType="QnA">
-		INSERT INTO cafehi_qna (qna_num, qna_title, classification, qna_writetime, qna_hit, member_code , qna_content, upload_path, store_file_name, upload_file_name)
-		VALUES((select nvl(max(qna_num), 0)+1 from cafehi_qna), #{qna_title}, #{classification}, #{qna_writetime}, #{qna_hit}, #{member_code}, #{qna_content}, #{upload_path}, #{store_file_name}, #{upload_file_name})
+		INSERT INTO cafehi_qna (qna_num, qna_title, qna_title_classification, qna_writetime, qna_hit, member_code , qna_content, upload_path, store_file_name, upload_file_name)
+		VALUES((select nvl(max(qna_num), 0)+1 from cafehi_qna), #{qna_title}, #{qna_title_classification}, #{qna_writetime}, #{qna_hit}, #{member_code}, #{qna_content}, #{upload_path}, #{store_file_name}, #{upload_file_name})
 	</insert>
 	
 	<!-- QnA 수정 -->
 	<update id="updateQnA" parameterType="QnA">
 		UPDATE cafehi_qna 
-		SET qna_title=#{qna_title}, classification=#{classification}, qna_content=#{qna_content}, upload_path=#{upload_path}, store_file_name=#{store_file_name}, upload_file_name=#{upload_file_name} WHERE qna_num=#{qna_num}
+		SET qna_title=#{qna_title}, qna_title_classification=#{qna_title_classification}, qna_content=#{qna_content}, upload_path=#{upload_path}, store_file_name=#{store_file_name}, upload_file_name=#{upload_file_name} WHERE qna_num=#{qna_num}
 	</update>
 	
 	<!-- QnA 삭제 -->

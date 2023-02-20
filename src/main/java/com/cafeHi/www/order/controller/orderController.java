@@ -65,8 +65,9 @@ public class orderController {
 		log.info("order include delivery = {}", order.getInclude_delivery());
 		
 		
-		order.setOrderDate(LocalDateTime.now());
-		order.setOrderState(OrderState.주문완료);	
+		order.setOrder_writetime(LocalDateTime.now());
+		order.setOrder_updatetime(LocalDateTime.now());
+		order.setOrder_status(OrderState.주문완료);	
 		
 		Map<String, Object> memberOrder = new ConcurrentHashMap<String, Object>();
 		
@@ -87,6 +88,8 @@ public class orderController {
 		int TotalPrice = orderMenu.totalPrice(fee, getMenu.getMenu_price(), orderMenu.getTotal_order_count()); // 배송비 포함 총 비용 
 			
 		orderMenu.setTotal_order_price(TotalPrice);
+		orderMenu.setOrder_menu_writetime(LocalDateTime.now());
+		orderMenu.setOrder_menu_updatetime(LocalDateTime.now());
 			
 			
 		memberOrderMenu.put("orderMenu", orderMenu);

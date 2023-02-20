@@ -41,7 +41,7 @@
 							<tr>
 								<th>분류</th>
 								<td>
-								<select name="classification">
+								<select name="qna_title_classification">
 								<option value="[공지사항]">[공지사항]</option>
 								<option value="[긴급공지]">[긴급공지]</option>
 								<option value="[업데이트]">[업데이트]</option>
