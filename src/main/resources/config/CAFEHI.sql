@@ -40,8 +40,6 @@ delete cafehi_order;
 delete cafehi_order_menu;
 
 commit;
-
-
 rollback;
 
 
@@ -61,41 +59,46 @@ drop table cafehi_member;
 
 -- 사용자 정보 테이블
 create table cafehi_member(
-    member_code number primary key,
-    member_id varchar2(50) not null,   
-    member_pw varchar2(100) not null,
-    member_name varchar2(50) not null,
-    member_contact varchar2(15) not null,
-    member_email varchar2(50) not null, -- 사용자 계정 인증용
-    member_road_address varchar2(100),
-    member_jibun_address varchar2(100),
-    member_detail_address varchar2(100),
-    enabled char(1) default '1'
+    member_code number primary key, -- 사용자 코드 
+    member_id varchar2(50) not null, -- 사용자 아이디   
+    member_pw varchar2(100) not null, -- 사용자 비밀번호
+    member_name varchar2(50) not null, -- 사용자 이름 
+    member_contact varchar2(15) not null, -- 사용자 연락처
+    member_email varchar2(50) not null, -- 사용자 계정 인증용 이메일
+    member_road_address varchar2(100), -- 사용자 도로명 주소
+    member_jibun_address varchar2(100), -- 사용자 지번 주소
+    member_detail_address varchar2(100), -- 사용자 상세 주소 
+    enabled char(1) default '1', -- 스프링 시큐리티 권한 사용 여부
+    member_writetime timestamp not null, -- 사용자 등록일
+    member_updatetime timestamp not null -- 사용자 수정일
 );
 
-commit;
+
 
 -- 사용자 정보 권한 테이블
 create table cafehi_member_auth(
-    member_auth_code number primary key,
-    member_code number not null,
-    member_auth varchar2(50) not null,
+    member_auth_code number primary key, -- 사용자 정보 권한 코드
+    member_code number not null, -- 사용자 코드
+    member_auth varchar2(50) not null, -- 스프링 시큐리티 사용자 권한 : ROLE_USER, ROLE_ADMIN ...
+    member_auth_writetime timestamp not null, -- 사용자 권한 등록일
+    member_auth_updatetime timestamp not null, -- 사용자 권한 수정일
     constraint fk_member_auth foreign key(member_code) references cafehi_member(member_code) on delete cascade
 );
 
 
 --  QnA 게시판 
 create table cafehi_qna(
-    qna_num number primary key,
-    qna_title varchar2(200) not null,
-    classification varchar2(50),
-    qna_content varchar2(500) not null,
-    qna_writetime Date not null,
-    qna_hit number not null,
-    upload_path varchar2(500),
-    store_file_name varchar2(300),
-    upload_file_name varchar2(100),
-    member_code number not null,
+    qna_num number primary key, -- QnA 게시글 번호
+    qna_title varchar2(200) not null, -- QnA 게시글 제목
+    classification varchar2(50), -- 관리자 QnA 게시글 분류
+    qna_content varchar2(500) not null, -- QnA 게시글 내용
+    qna_writetime timestamp not null, -- QnA 게시글 작성일
+    qna_updatetime timestamp not null, -- QnA 게시글 수정일
+    qna_hit number not null, -- QnA 게시글 조회수
+    upload_path varchar2(500), -- QnA 게시글 업로드 경로 
+    store_file_name varchar2(300), -- QnA 게시글 서버 저장 파일명
+    upload_file_name varchar2(100), -- QnA 게시글 클라이언트 저장 파일명
+    member_code number not null, -- 사용자 코드
     constraint fk_qna_member_code foreign key(member_code) references cafehi_member (member_code) on delete cascade 
 );
 
@@ -124,23 +127,19 @@ create table my_membership(
 );
 
 
-
-
 -- 메뉴
 create table cafehi_menu(
-    menu_code number primary key,
---    category_code number not null,
---    constraint fk_menu_category_code foreign key(category_code) references cafehi_menu_category(category_code),
-    menu_price number not null,
-    menu_type varchar2(50) not null,
-    menu_name varchar2(50) not null,
-    menu_explain varchar2(100) not null, 
-    menu_img_path varchar2(200) not null,
-    menu_quantity number default 1000 not null
+    menu_code number primary key, -- 메뉴 코드
+    menu_price number not null, -- 메뉴 가격
+    menu_type varchar2(50) not null, -- 메뉴 종류
+    menu_name varchar2(50) not null, -- 메뉴 이름
+    menu_explain varchar2(100) not null, -- 메뉴 설명
+    menu_img_path varchar2(200) not null, -- 메뉴 이미지 경로
+    menu_stock_quantity number default 1000 not null, -- 메뉴 재고 수량 
+    menu_writetime timestamp not null, -- 메뉴 등록일 
+    menu_updatetime timestamp not null -- 메뉴 수정일
 );
 
-
--- 메뉴 데이터 
 insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(01, 3000,'coffee','아메리카노', '카페하이 아메리카노', '/cafeHi/img/menu/coffee/IceAmericano.jpg');
 insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(02, 3000,'coffee','에스프레소', '카페하이 에스프레소', '/cafeHi/img/cafehi_logo.jpeg');
 insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(03, 4500,'coffee','유자메리카노', '카페하이 유자메리카노', '/cafeHi/img/cafehi_logo.jpeg');
@@ -204,11 +203,13 @@ where subCategory.category_sub_code = Menu.category_sub_code and subCategory.cat
 -- 장바구니 테이블
 
 create table cafehi_cart(
-    cart_code number not null primary key,
-    member_code number not null,
+    cart_code number not null primary key, -- 장바구니 코드
+    member_code number not null, -- 사용자 코드 
     constraint fk_cart_member_code foreign key(member_code) references cafehi_member(member_code),
-    menu_code number not null,
-    cart_amount number default 0
+    menu_code number not null, -- 메뉴 코드 
+    cart_amount number default 0, -- 장바구니 양
+    cart_writetime timestamp, -- 장바구니 등록일
+    cart_updatetime timestamp -- 장바구니 수정일
 );
 
 
@@ -223,37 +224,25 @@ drop sequence seq_cart;
 
 -- 주문
 create table cafehi_order(
-    order_code number not null primary key,
-    member_code number not null,
+    order_code number not null primary key, -- 주문코드 
+    member_code number not null, -- 사용자코드
     constraint fk_order_membercode foreign key(member_code) references cafehi_member(member_code),
-    orderState varchar2(30),
-    orderDate timestamp, -- 주문일자
-    orderUpdateDate timestamp, -- 수정일자 
-    include_delivery char(1) -- boolean
+    order_status varchar2(30), -- 주문 상태
+    order_writetime timestamp, -- 주문일자
+    order_writetime timestamp, -- 수정일자 
+    include_delivery char(1) -- 배송비 포함 여부
 );
 
--- 주문 2
---create table cafehi_order(
---    order_code number not null primary key,
---    member_code number not null,
---    constraint fk_order_membercode foreign key(member_code) references cafehi_member(member_code),
---    menu_code number not null,
---    constraint fk_order_menu_menucode foreign key(menu_code) references cafehi_menu(menu_code),
---    total_order_price number not null,
---    total_order_count number not null, 
---    orderState varchar2(30) not null,
---    orderDate Date not null
---);
 
 -- 주문 메뉴 
 create table cafehi_order_menu(
-    order_menu_code number primary key, 
-    order_code number not null,
+    order_menu_code number primary key, -- 주문메뉴 코드 
+    order_code number not null, -- 주문 코드 
     constraint fk_order_menu_ordercode foreign key(order_code) references cafehi_order(order_code),
-    menu_code number not null,
+    menu_code number not null, -- 메뉴 코드 
     constraint fk_order_menu_menucode foreign key(menu_code) references cafehi_menu(menu_code),
-    total_order_price number not null, 
-    total_order_count number not null
+    total_order_price number not null, -- 주문 가격
+    total_order_count number not null -- 주문 메뉴 개수
 );
 
 SELECT om.order_menu_code, om.order_code, om.menu_code, om.total_order_price, om.total_order_count, o.orderState, o.orderDate
