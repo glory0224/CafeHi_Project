@@ -73,16 +73,16 @@
 									
 									</c:choose>
 									<td><fmt:formatNumber value="${orderList.orderMenu.total_order_price }" pattern="#,###,###"> </fmt:formatNumber></td>									
-									<c:if test="${orderList.orderState eq '주문취소' }">
-									<td><b style="color: green;">${orderList.orderState }</b></td>
+									<c:if test="${orderList.order_status eq '주문취소' }">
+									<td><b style="color: green;">${orderList.order_status }</b></td>
 									</c:if>
-									<c:if test="${orderList.orderState eq '주문완료' }">
-									<td>${orderList.orderState }</td>
+									<c:if test="${orderList.order_status eq '주문완료' }">
+									<td>${orderList.order_status }</td>
 									</c:if>	
 									<!-- java 8 LocalDateTime을 지원하지 않는다. 따라서 jstl 사용시 특정 패턴의 변수로 바꿔준 뒤 사용한다. -->
-									<fmt:parseDate value="${orderList.orderDate }" pattern="yyyy-MM-dd'T'HH:mm" var="parseDateTime" type="both"/>								
-									<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${parseDateTime }"/></td>									
-									<c:if test="${orderList.orderState eq '주문완료' }">
+									<fmt:parseDate value="${orderList.order_writetime }" pattern="yyyy-MM-dd'T'HH:mm" var="parseDateTime" type="both"/>								
+									<td><fmt:formatDate pattern="yyyy.MM.dd HH:mm" value="${parseDateTime }"/></td>									
+									<c:if test="${orderList.order_status eq '주문완료' }">
 									<td>
 									<form action="CafehiOrderCancel.do" method="post">
 									<input type="hidden" name="order_code" value="${orderList.order_code}">
@@ -91,9 +91,9 @@
 									</form>
 									</td>
 									</c:if>
-									<c:if test="${orderList.orderState eq '주문취소' }">
-										<fmt:parseDate value="${orderList.orderUpdateDate }" pattern="yyyy-MM-dd'T'HH:mm" var="parseCancelDateTime" type="both"/>
-										<td><b style="color: green;"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${parseCancelDateTime }"/></b></td>
+									<c:if test="${orderList.order_status eq '주문취소' }">
+										<fmt:parseDate value="${orderList.order_writetime }" pattern="yyyy-MM-dd'T'HH:mm" var="parseCancelDateTime" type="both"/>
+										<td><b style="color: green;"><fmt:formatDate pattern="yyyy.MM.dd HH:mm" value="${parseCancelDateTime }"/></b></td>
 									</c:if>	
 									</tr>	
 									</c:forEach>

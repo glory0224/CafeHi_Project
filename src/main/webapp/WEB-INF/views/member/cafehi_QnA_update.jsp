@@ -47,8 +47,9 @@
 							</tr>
 							
 							<tr>
-								<th>작성일</th><td><fmt:formatDate value="${QnA.qna_writetime }" pattern="yyyy-MM-dd"/></td>
-								
+								<th>작성일</th>
+								<fmt:parseDate value="${QnA.qna_writetime }" pattern="yyyy-MM-dd'T'HH:mm" var="parseDateTime" type="both"></fmt:parseDate>
+								<td><fmt:formatDate value="${parseDateTime }" pattern="yyyy.MM.dd HH:mm" /></td>
 								<th>첨부파일</th>
 								<td><input type="file" name="uploadfile"></td>
 								

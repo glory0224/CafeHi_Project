@@ -2,6 +2,8 @@
 
 select * from tab;
 select * from cafehi_member;
+select member_writetime, member_updatetime from cafehi_member;
+select member_auth_writetime, member_auth_updatetime from cafehi_member_auth;
 select * from cafehi_member_auth;
 select * from cafehi_qna;
 select * from cafehi_membership;
@@ -90,7 +92,7 @@ create table cafehi_member_auth(
 create table cafehi_qna(
     qna_num number primary key, -- QnA 게시글 번호
     qna_title varchar2(200) not null, -- QnA 게시글 제목
-    classification varchar2(50), -- 관리자 QnA 게시글 분류
+    qna_title_classification varchar2(50), -- 사용자 권한별 QnA 제목 분류 
     qna_content varchar2(500) not null, -- QnA 게시글 내용
     qna_writetime timestamp not null, -- QnA 게시글 작성일
     qna_updatetime timestamp not null, -- QnA 게시글 수정일
@@ -140,60 +142,60 @@ create table cafehi_menu(
     menu_updatetime timestamp not null -- 메뉴 수정일
 );
 
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(01, 3000,'coffee','아메리카노', '카페하이 아메리카노', '/cafeHi/img/menu/coffee/IceAmericano.jpg');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(02, 3000,'coffee','에스프레소', '카페하이 에스프레소', '/cafeHi/img/cafehi_logo.jpeg');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(03, 4500,'coffee','유자메리카노', '카페하이 유자메리카노', '/cafeHi/img/cafehi_logo.jpeg');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(04, 500,'coffee','샷추가', '카페하이 샷추가', '/cafeHi/img/cafehi_logo.jpeg');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(05, 1000,'coffee','리필', '카페하이 리필', '/cafeHi/img/cafehi_logo.jpeg');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(06, 4500,'coldbrew','콜드브루', '카페하이 콜드브루', '/cafeHi/img/menu/coffee/ColdBrew.JPG');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(07, 5000,'coldbrew','스페셜티(싱글원두)', '카페하이 스페셜티(싱글원두)', '/cafeHi/img/cafehi_logo.jpeg');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(08, 5000,'coldbrew','콜드브루 라떼', '카페하이 콜드브루 라떼', '/cafeHi/img/cafehi_logo.jpeg');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(09, 5500,'coldbrew','아인슈페너', '카페하이 아인슈페너', '/cafeHi/img/cafehi_logo.jpeg');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(10, 15000,'coldbrew','콜드브루(병)', '카페하이 콜드 브루(병)', '/cafeHi/img/cafehi_logo.jpeg');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(11, 5000,'latte','바닐라 라떼', '카페하이 바닐라 라떼', '/cafeHi/img/menu/latte/IceVinilaLatte.JPG');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(12, 6000,'latte','아이스크림 라떼', '카페하이 아이스크림 라떼', '/cafeHi/img/menu/latte/IceCreamLatte.JPG');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(13, 4700,'latte','카페모카' ,'카페하이 카페모카', '/cafeHi/img/menu/latte/IceCaffeMoca.JPG');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(14, 4500,'latte','헤이즐넛 라떼', '카페하이 헤이즐넛 라떼', '/cafeHi/img/menu/latte/HazelnutLatte.JPG');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(15, 4700,'latte','돌체 라떼', '카페하이 돌체 라떼', '/cafeHi/img/menu/latte/DolceLatte.JPG');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(16, 5000,'latte','유자비앙코', '카페하이 유자비앙코', '/cafeHi/img/menu/latte/CitronBianco.JPG');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(17, 4700,'latte','카라멜 마끼아또', '카페하이 카라멜 마끼아또', '/cafeHi/img/menu/latte/CaramelMacchiato.JPG');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(18, 4800,'smoothie','모카 프라푸치노', '카페하이 모카 프라푸치노', '/cafeHi/img/menu/smoothie/MocaFrappuccino.JPG');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(19, 4800,'smoothie','카라멜 프라푸치노', '카페하이 카라멜 프라푸치노', '/cafeHi/img/menu/smoothie/CaramelFrappuccino.JPG');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(20, 4500,'smoothie','그린티 프라푸치노', '카페하이 그린티 프라푸치노', '/cafeHi/img/menu/smoothie/greenteaFrappuccino.JPG');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(21, 4500,'smoothie','요거트 스무디', '카페하이 요거트 스무디', '/cafeHi/img/menu/smoothie/yogurtSmoothie.JPG');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(22, 5000,'smoothie','구름 요거트 스무디', '카페하이 구름 요거트 스무디', '/cafeHi/img/menu/smoothie/cloudSmoothie.JPG');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(23, 5500,'smoothie','딸기 요거트 스무디', '카페하이 딸기 요거트 스무디', '/cafeHi/img/menu/smoothie/MocaFrappuccino.JPG');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(24, 3000,'side','크로와상', '카페하이 크로와상', '/cafeHi/img/cafehi_logo.jpeg');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(25, 5000,'side','생크림 크로플', '카페하이 생크림 크로플', '/cafeHi/img/menu/side/WhippedCreamCrople.jpg');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(26, 6000,'side','브라운 치즈 크로플', '카페하이 브라운 치즈 크로플', '/cafeHi/img/menu/side/BrownCheeseCrople.JPG');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(27, 7000,'side','아이스크림 크로플', '카페하이 아이스크림 크로플', '/cafeHi/img/cafehi_logo.jpeg');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(28, 4500,'beverage','그린티 라떼', '카페하이 그린티 라떼', '/cafeHi/img/menu/beverage/GreenTeaLatte.JPG');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(29, 4500,'beverage','초코 라떼', '카페하이 초코 라떼', '/cafeHi/img/menu/beverage/ChocolateLatte.JPG');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(30, 5000,'beverage','딸기 라떼', '카페하이 딸기 라떼', '/cafeHi/img/menu/beverage/StrawberryLatte.JPG');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(31, 5000,'beverage','베리베리 라떼', '카페하이 베리베리 라떼', '/cafeHi/img/menu/beverage/BerryBerryLatte.JPG');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(32, 4700,'beverage','패션 후르츠 에이드', '카페하이 패션 후르츠 에이드', '/cafeHi/img/menu/beverage/PassionFruitAde.JPG');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(33, 5000,'beverage','레몬에이드', '카페하이 레몬에이드', '/cafeHi/img/menu/beverage/Lemonade.JPG');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(34, 5000,'beverage','청귤에이드', '카페하이 청귤에이드', '/cafeHi/img/menu/beverage/GreenTangerineAde.JPG');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(35, 5500,'beverage','자몽에이드', '카페하이 자몽에이드', '/cafeHi/img/menu/beverage/GrapefruitAde.JPG');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(36, 5500,'beverage','블루레몬에이드', '카페하이 블루레몬에이드', '/cafeHi/img/menu/beverage/BlueLemonAde.JPG');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(37, 5000,'fruitJuice','수박 쥬스', '카페하이 수박 쥬스', '/cafeHi/img/cafehi_logo.jpeg');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(38, 5000,'fruitJuice','토마토 쥬스', '카페하이 토마토 쥬스', '/cafeHi/img/cafehi_logo.jpeg');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(39, 5000,'fruitJuice','바나나 쥬스', '카페하이 바나나 쥬스', '/cafeHi/img/cafehi_logo.jpeg');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(40, 3500,'tea','카모마일 차', '카페하이 카모마일 차', '/cafeHi/img/menu/tea/chamomileTea.JPG');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(41, 3500,'tea','페퍼민트 차', '카페하이 페퍼민트 차', '/cafeHi/img/cafehi_logo.jpeg');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(42, 3500,'tea','로즈마리 차', '카페하이 로즈마리 차', '/cafeHi/img/menu/tea/RosemaryTea.JPG');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(43, 3500,'tea','로즈플라워 차', '카페하이 로즈플라워 차', '/cafeHi/img/menu/tea/RoseFlowerTea.JPG');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(44, 3500,'tea','우롱 차', '카페하이 우롱 차', '/cafeHi/img/cafehi_logo.jpeg');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(45, 3500,'tea','허니자몽블랙티', '카페하이 허니자몽블랙티', '/cafeHi/img/menu/tea/HoneyGrapefruitBlackTea.jpg');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(46, 4500,'tea','이슬차(수국)', '카페하이 이슬차(수국)', '/cafeHi/img/menu/tea/DewTea.jpg');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(47, 3500,'tea','아이스티', '카페하이 아이스티', '/cafeHi/img/menu/tea/IceTea.jpg');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(48, 4500,'tea','유자차', '카페하이 유자차', '/cafeHi/img/cafehi_logo.jpeg');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(49, 4500,'tea','오렌지자몽차', '카페하이 오렌지자몽차', '/cafeHi/img/cafehi_logo.jpeg');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(50, 4500,'tea','생강차', '카페하이 생강차', '/cafeHi/img/cafehi_logo.jpeg');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(51, 4500,'tea','레몬차', '카페하이 레몬차', '/cafeHi/img/cafehi_logo.jpeg');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(52, 4500,'tea','베리차', '카페하이 베리차', '/cafeHi/img/cafehi_logo.jpeg');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(53, 4500,'tea','청귤차', '카페하이 청귤차', '/cafeHi/img/cafehi_logo.jpeg');
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path) values(54, 4500,'tea','자몽차', '카페하이 자몽차', '/cafeHi/img/cafehi_logo.jpeg');
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(01, 3000,'coffee','아메리카노', '카페하이 아메리카노', '/cafeHi/img/menu/coffee/IceAmericano.jpg', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(02, 3000,'coffee','에스프레소', '카페하이 에스프레소', '/cafeHi/img/cafehi_logo.jpeg', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(03, 4500,'coffee','유자메리카노', '카페하이 유자메리카노', '/cafeHi/img/cafehi_logo.jpeg', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(04, 500,'coffee','샷추가', '카페하이 샷추가', '/cafeHi/img/cafehi_logo.jpeg', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(05, 1000,'coffee','리필', '카페하이 리필', '/cafeHi/img/cafehi_logo.jpeg', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(06, 4500,'coldbrew','콜드브루', '카페하이 콜드브루', '/cafeHi/img/menu/coffee/ColdBrew.JPG', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(07, 5000,'coldbrew','스페셜티(싱글원두)', '카페하이 스페셜티(싱글원두)', '/cafeHi/img/cafehi_logo.jpeg', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(08, 5000,'coldbrew','콜드브루 라떼', '카페하이 콜드브루 라떼', '/cafeHi/img/cafehi_logo.jpeg', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(09, 5500,'coldbrew','아인슈페너', '카페하이 아인슈페너', '/cafeHi/img/cafehi_logo.jpeg', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(10, 15000,'coldbrew','콜드브루(병)', '카페하이 콜드 브루(병)', '/cafeHi/img/cafehi_logo.jpeg', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(11, 5000,'latte','바닐라 라떼', '카페하이 바닐라 라떼', '/cafeHi/img/menu/latte/IceVinilaLatte.JPG', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(12, 6000,'latte','아이스크림 라떼', '카페하이 아이스크림 라떼', '/cafeHi/img/menu/latte/IceCreamLatte.JPG', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(13, 4700,'latte','카페모카' ,'카페하이 카페모카', '/cafeHi/img/menu/latte/IceCaffeMoca.JPG', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(14, 4500,'latte','헤이즐넛 라떼', '카페하이 헤이즐넛 라떼', '/cafeHi/img/menu/latte/HazelnutLatte.JPG', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(15, 4700,'latte','돌체 라떼', '카페하이 돌체 라떼', '/cafeHi/img/menu/latte/DolceLatte.JPG', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(16, 5000,'latte','유자비앙코', '카페하이 유자비앙코', '/cafeHi/img/menu/latte/CitronBianco.JPG', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(17, 4700,'latte','카라멜 마끼아또', '카페하이 카라멜 마끼아또', '/cafeHi/img/menu/latte/CaramelMacchiato.JPG', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(18, 4800,'smoothie','모카 프라푸치노', '카페하이 모카 프라푸치노', '/cafeHi/img/menu/smoothie/MocaFrappuccino.JPG', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(19, 4800,'smoothie','카라멜 프라푸치노', '카페하이 카라멜 프라푸치노', '/cafeHi/img/menu/smoothie/CaramelFrappuccino.JPG', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(20, 4500,'smoothie','그린티 프라푸치노', '카페하이 그린티 프라푸치노', '/cafeHi/img/menu/smoothie/greenteaFrappuccino.JPG', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(21, 4500,'smoothie','요거트 스무디', '카페하이 요거트 스무디', '/cafeHi/img/menu/smoothie/yogurtSmoothie.JPG', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(22, 5000,'smoothie','구름 요거트 스무디', '카페하이 구름 요거트 스무디', '/cafeHi/img/menu/smoothie/cloudSmoothie.JPG', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(23, 5500,'smoothie','딸기 요거트 스무디', '카페하이 딸기 요거트 스무디', '/cafeHi/img/menu/smoothie/MocaFrappuccino.JPG', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(24, 3000,'side','크로와상', '카페하이 크로와상', '/cafeHi/img/cafehi_logo.jpeg', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(25, 5000,'side','생크림 크로플', '카페하이 생크림 크로플', '/cafeHi/img/menu/side/WhippedCreamCrople.jpg', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(26, 6000,'side','브라운 치즈 크로플', '카페하이 브라운 치즈 크로플', '/cafeHi/img/menu/side/BrownCheeseCrople.JPG', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(27, 7000,'side','아이스크림 크로플', '카페하이 아이스크림 크로플', '/cafeHi/img/cafehi_logo.jpeg', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(28, 4500,'beverage','그린티 라떼', '카페하이 그린티 라떼', '/cafeHi/img/menu/beverage/GreenTeaLatte.JPG', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(29, 4500,'beverage','초코 라떼', '카페하이 초코 라떼', '/cafeHi/img/menu/beverage/ChocolateLatte.JPG', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(30, 5000,'beverage','딸기 라떼', '카페하이 딸기 라떼', '/cafeHi/img/menu/beverage/StrawberryLatte.JPG', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(31, 5000,'beverage','베리베리 라떼', '카페하이 베리베리 라떼', '/cafeHi/img/menu/beverage/BerryBerryLatte.JPG', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(32, 4700,'beverage','패션 후르츠 에이드', '카페하이 패션 후르츠 에이드', '/cafeHi/img/menu/beverage/PassionFruitAde.JPG', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(33, 5000,'beverage','레몬에이드', '카페하이 레몬에이드', '/cafeHi/img/menu/beverage/Lemonade.JPG', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(34, 5000,'beverage','청귤에이드', '카페하이 청귤에이드', '/cafeHi/img/menu/beverage/GreenTangerineAde.JPG', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(35, 5500,'beverage','자몽에이드', '카페하이 자몽에이드', '/cafeHi/img/menu/beverage/GrapefruitAde.JPG', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(36, 5500,'beverage','블루레몬에이드', '카페하이 블루레몬에이드', '/cafeHi/img/menu/beverage/BlueLemonAde.JPG', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(37, 5000,'fruitJuice','수박 쥬스', '카페하이 수박 쥬스', '/cafeHi/img/cafehi_logo.jpeg', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(38, 5000,'fruitJuice','토마토 쥬스', '카페하이 토마토 쥬스', '/cafeHi/img/cafehi_logo.jpeg', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(39, 5000,'fruitJuice','바나나 쥬스', '카페하이 바나나 쥬스', '/cafeHi/img/cafehi_logo.jpeg', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(40, 3500,'tea','카모마일 차', '카페하이 카모마일 차', '/cafeHi/img/menu/tea/chamomileTea.JPG', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(41, 3500,'tea','페퍼민트 차', '카페하이 페퍼민트 차', '/cafeHi/img/cafehi_logo.jpeg', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(42, 3500,'tea','로즈마리 차', '카페하이 로즈마리 차', '/cafeHi/img/menu/tea/RosemaryTea.JPG', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(43, 3500,'tea','로즈플라워 차', '카페하이 로즈플라워 차', '/cafeHi/img/menu/tea/RoseFlowerTea.JPG', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(44, 3500,'tea','우롱 차', '카페하이 우롱 차', '/cafeHi/img/cafehi_logo.jpeg', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(45, 3500,'tea','허니자몽블랙티', '카페하이 허니자몽블랙티', '/cafeHi/img/menu/tea/HoneyGrapefruitBlackTea.jpg', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(46, 4500,'tea','이슬차(수국)', '카페하이 이슬차(수국)', '/cafeHi/img/menu/tea/DewTea.jpg', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(47, 3500,'tea','아이스티', '카페하이 아이스티', '/cafeHi/img/menu/tea/IceTea.jpg', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(48, 4500,'tea','유자차', '카페하이 유자차', '/cafeHi/img/cafehi_logo.jpeg', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(49, 4500,'tea','오렌지자몽차', '카페하이 오렌지자몽차', '/cafeHi/img/cafehi_logo.jpeg', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(50, 4500,'tea','생강차', '카페하이 생강차', '/cafeHi/img/cafehi_logo.jpeg', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(51, 4500,'tea','레몬차', '카페하이 레몬차', '/cafeHi/img/cafehi_logo.jpeg', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(52, 4500,'tea','베리차', '카페하이 베리차', '/cafeHi/img/cafehi_logo.jpeg', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(53, 4500,'tea','청귤차', '카페하이 청귤차', '/cafeHi/img/cafehi_logo.jpeg', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(54, 4500,'tea','자몽차', '카페하이 자몽차', '/cafeHi/img/cafehi_logo.jpeg', systimestamp, systimestamp);
 
 commit;
 
@@ -226,10 +228,10 @@ drop sequence seq_cart;
 create table cafehi_order(
     order_code number not null primary key, -- 주문코드 
     member_code number not null, -- 사용자코드
-    constraint fk_order_membercode foreign key(member_code) references cafehi_member(member_code),
+    constraint fk_order_membercode foreign key(member_code) references cafehi_member(member_code) on delete cascade,
     order_status varchar2(30), -- 주문 상태
     order_writetime timestamp, -- 주문일자
-    order_writetime timestamp, -- 수정일자 
+    order_updatetime timestamp, -- 수정일자 
     include_delivery char(1) -- 배송비 포함 여부
 );
 
@@ -237,12 +239,14 @@ create table cafehi_order(
 -- 주문 메뉴 
 create table cafehi_order_menu(
     order_menu_code number primary key, -- 주문메뉴 코드 
-    order_code number not null, -- 주문 코드 
-    constraint fk_order_menu_ordercode foreign key(order_code) references cafehi_order(order_code),
+    order_code number not null, -- 주문 코드  
+    constraint fk_order_menu_ordercode foreign key(order_code) references cafehi_order(order_code) on delete cascade,
     menu_code number not null, -- 메뉴 코드 
     constraint fk_order_menu_menucode foreign key(menu_code) references cafehi_menu(menu_code),
     total_order_price number not null, -- 주문 가격
-    total_order_count number not null -- 주문 메뉴 개수
+    total_order_count number not null, -- 주문 메뉴 개수
+    order_menu_writetime timestamp, -- 주문 메뉴 등록일 
+    order_menu_updatetime timestamp -- 주문 메뉴 수정일
 );
 
 SELECT om.order_menu_code, om.order_code, om.menu_code, om.total_order_price, om.total_order_count, o.orderState, o.orderDate

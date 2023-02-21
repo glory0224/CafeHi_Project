@@ -100,7 +100,8 @@
 					<div class="float-end">
 					
 					
-					<button type="button" class="btn btn-success" onclick = "location.href='deleteCartAll.do'">장바구니 비우기</button>
+					<!-- <button type="button" class="btn btn-success" onclick = "location.href='deleteCartAll.do'">장바구니 비우기</button> -->
+					<a href="javascript:cartDeleteAll()"><button type="button" class="btn btn-success">장바구니 비우기</button></a>
 					<button type="button" class="btn btn-success" onclick = "location.href='Menu.do'">카페하이 메뉴 보기</button>
 					<!-- btnUpdate와 btnDelete id는 위쪽에 있는 자바스크립트가 처리한다. -->
 					</div>
@@ -143,5 +144,29 @@
      	// submit form
         form.submit();
     }
+    
+    function cartDeleteAll() {
+    	// create element (form)
+        var form = document.createElement("form");
+    	 // create element (input)
+    	var csrfInput =  document.createElement('input');
+    	 // set attribute (form) 
+        form.setAttribute("method", "post");
+        form.setAttribute("action", "deleteCartAll.do");
+
+     	// set attribute (input) - spring security 속성 추가
+     	csrfInput.setAttribute("type", "hidden");
+     	csrfInput.setAttribute("name", "${_csrf.parameterName }");
+     	csrfInput.setAttribute("value", "${_csrf.token }");
+     	
+        
+     	// append input (to form)
+     	form.appendChild(csrfInput);
+     	// append form (to body)
+        document.body.appendChild(form);
+     	// submit form
+        form.submit();
+    }
+    
 </script>
 </html>

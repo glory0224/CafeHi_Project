@@ -44,7 +44,9 @@
 							</tr>
 							
 							<tr>
-								<th>작성일</th><td><fmt:formatDate value="${QnA.qna_writetime }" pattern="yyyy-MM-dd"/></td>
+								<th>작성일</th>
+								<fmt:parseDate value="${QnA.qna_writetime }" pattern="yyyy-MM-dd'T'HH:mm" var="parseDateTime" type="both"></fmt:parseDate>
+								<td><fmt:formatDate value="${parseDateTime }" pattern="yyyy.MM.dd HH:mm" /></td>
 								<c:choose>
 									<c:when test="${QnA.store_file_name eq null }">
 										<th>첨부파일</th><td>없음</td>
@@ -70,7 +72,7 @@
 								</c:when>
 								<c:otherwise>
 									<th>제목</th>
-									<td colspan="3"><c:if test="${QnA.classification ne null }"><b>${QnA.classification }</b> &nbsp; </c:if>${QnA.qna_title }</td>
+									<td colspan="3"><c:if test="${QnA.qna_title_classification ne null }"><b>${QnA.qna_title_classification }</b> &nbsp; </c:if>${QnA.qna_title }</td>
 								</c:otherwise>
 								
 							</c:choose>

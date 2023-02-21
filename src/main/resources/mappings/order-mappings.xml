@@ -8,9 +8,9 @@
  	<resultMap type="Order" id="OrderResult">
  		<id property="order_code" column="ORDER_CODE"/>
  		<result property="member_code" column="MEMBER_CODE"/>
- 		<result property="orderState" column="ORDERSTATE"/>
- 		<result property="orderDate" column="ORDERDATE"/>
- 		<result property="orderUpdateDate" column="ORDERUPDATEDATE"/> 		
+ 		<result property="order_status" column="ORDER_STATUS"/>
+ 		<result property="order_writetime" column="ORDER_WRITETIME"/>
+ 		<result property="order_updatetime" column="ORDER_UPDATETIME"/> 		
  		<result property="include_delivery" column="INCLUDE_DELIVERY"/>
  		
 	 	
@@ -39,13 +39,13 @@
 	
  	<update id="cancelOrder" parameterType="hashMap">
 		UPDATE cafehi_order
-		SET orderState = #{orderState}, orderUpdateDate = #{orderUpateDate}
+		SET order_status = #{order_status}, order_updatetime = #{order_updatetime}
 		WHERE order_code = #{order_code}
 	</update>
 	
 	
 	<select id="listOrder" parameterType="int" resultMap="OrderResult">
-	  	SELECT om.order_menu_code, om.order_code, om.menu_code, om.total_order_price, om.total_order_count, o.member_code, o.orderState, o.orderDate, o.orderUpdateDate, o.include_delivery
+	  	SELECT om.order_menu_code, om.order_code, om.menu_code, om.total_order_price, om.total_order_count, o.member_code, o.order_status, o.order_writetime , o.order_updatetime, o.include_delivery
 		FROM cafehi_order o LEFT OUTER JOIN cafehi_order_menu om
 		ON o.order_code = om.order_code AND o.member_code = #{member_code}
 	</select>	

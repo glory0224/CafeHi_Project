@@ -156,7 +156,10 @@ public class orderController {
 			
 			model.addAttribute("orderMap", OrderMap);
 			model.addAttribute("orderMenuList", OrderMenuList);
+			
 		}
+		
+		
 		
 		return "member/cafehi_orderList";
 	}
@@ -169,8 +172,8 @@ public class orderController {
 		Map<String, Object> OrderCancelInfo = new HashMap<>();
 		
 		OrderCancelInfo.put("order_code", order.getOrder_code());
-		OrderCancelInfo.put("orderState", OrderState.林巩秒家);
-		OrderCancelInfo.put("orderUpateDate", LocalDateTime.now());
+		OrderCancelInfo.put("order_status", OrderState.林巩秒家);
+		OrderCancelInfo.put("order_updatetime", LocalDateTime.now());
 		
 		orderService.CancelOrder(OrderCancelInfo);
 		
