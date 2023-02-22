@@ -69,10 +69,15 @@
  		WHERE member_code = #{member_code}
  	</update>
  	
+ 	<delete id="deleteMemberAuth" parameterType="int">
+ 		DELETE FROM cafehi_member_auth WHERE member_code = #{member_code}
+ 	</delete>
  	
  	<delete id="deleteMember" parameterType="int">
  		DELETE FROM cafehi_member WHERE member_code = #{member_code}
  	</delete>
+ 	
+ 	
  
 	
  	<select id="getMember" parameterType="Member" resultType="Member">

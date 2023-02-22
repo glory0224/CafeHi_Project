@@ -15,12 +15,15 @@ public interface MemberService {
 	public MemberDTO readMember(String member_code);
 	public void insertMember(MemberDTO member);
 	public void insertMemberAuth(MemberAuthDTO memberauth);
+	
 	public void updateMemberName(MemberDTO member);
 	public void updateMemberContact(MemberDTO member);
 	public void updateMemberAddress(MemberDTO member);
 	public void updateMemberDetailAddress(MemberDTO member);
 	public void updateMemberEmail(MemberDTO member);
+	
 	public void deleteMember(int member_code);
+	public void deleteMemberAuth(int member_code);
 	
 
 	// 중복 확인
@@ -35,6 +38,7 @@ public interface MemberService {
 	
 	// 회원 리스트 페이징
 	public int getMemberNum(String mem_auth);
+	
 	
 	
 	

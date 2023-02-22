@@ -42,6 +42,10 @@ public class MemberDAO {
 	public void deleteMember(int member_code) {
 		sqlSessionTemplate.delete("MemberDAO.deleteMember", member_code);
 	}
+	
+	public void deleteMemberAuth(int member_code) {
+		sqlSessionTemplate.delete("MemberDAO.deleteMemberAuth", member_code);
+	}
 
 	public void updateMemberName(MemberDTO member) {
 		sqlSessionTemplate.update("MemberDAO.updateMemberName", member);		
@@ -93,5 +97,7 @@ public class MemberDAO {
 	public int getMemberNum(String mem_auth) {
 		return sqlSessionTemplate.selectOne("MemberDAO.getMemberNum", mem_auth);
 	}
+
+	
 	
 }

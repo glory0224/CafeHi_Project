@@ -4,8 +4,7 @@ package com.cafeHi.www.membership.dao;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.cafeHi.www.member.dto.MemberDTO;
-import com.cafeHi.www.membership.dto.myMembershipDTO;
+import com.cafeHi.www.membership.dto.MembershipDTO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -15,14 +14,11 @@ public class membershipDAO {
 	
 	private final SqlSessionTemplate sqlSessionTemplate;
 	
-	public void insertMembership(MemberDTO member) {
-		sqlSessionTemplate.insert("MembershipDAO.insertMembership", member);
+	public void insertMembership(MembershipDTO membership) {
+		sqlSessionTemplate.insert("MembershipDAO.insertMembership", membership);
 	}
 	
-	public myMembershipDTO getMembership(int member_code) {
-		
-		myMembershipDTO result = sqlSessionTemplate.selectOne("MembershipDAO.getMembership", member_code);
-		
+	public MembershipDTO getMembership(int member_code) {
 		
 		return sqlSessionTemplate.selectOne("MembershipDAO.getMembership", member_code);
 		

@@ -4,7 +4,6 @@ package com.cafeHi.www.member.controller;
 
 
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -12,14 +11,12 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.cafeHi.www.common.dto.CriteriaDTO;
 import com.cafeHi.www.common.dto.PageDTO;
@@ -129,10 +126,13 @@ public class MemberController {
 		String securityPw = userInfo.getMember().getMember_pw();
 		
 		// 입력받은 계정 정보와 세션 정보 비교 
-		if(MemberId.equals(securityId) && pwdEncoder.matches(MemberPw, securityPw)) {
+		if(MemberId.equals(securityId) && pwdEncoder.matches(MemberPw, securityPw)) {	
 		
 		int member_code = userInfo.getMember().getMember_code();
-		memberService.deleteMember(member_code);
+		
+		memberService.deleteMemberAuth(member_code);
+		
+		// memberService.deleteMember(member_code);
 		
 		session.invalidate();
 		SecurityContextHolder.getContext().setAuthentication(null);

@@ -7,7 +7,6 @@ select member_auth_writetime, member_auth_updatetime from cafehi_member_auth;
 select * from cafehi_member_auth;
 select * from cafehi_qna;
 select * from cafehi_membership;
-select * from my_membership;
 select * from cafehi_menu;
 select * from cafehi_cart;
 select * from cafehi_order;
@@ -33,7 +32,7 @@ desc cafehi_mem_coupon;
 
 delete cafehi_member;
 delete cafehi_member_auth;
-delete my_membership;
+delete cafehi_membership;
 delete cafehi_admin;
 delete cafehi_qna;
 delete cafehi_menu;
@@ -52,7 +51,6 @@ drop table cafehi_order_menu;
 drop table cafehi_order;
 drop table cafehi_cart;
 drop table cafehi_menu;
-drop table my_membership;
 drop table cafehi_membership;
 drop table cafehi_qna;
 drop table cafehi_member_auth;
@@ -75,8 +73,6 @@ create table cafehi_member(
     member_updatetime timestamp not null -- 사용자 수정일
 );
 
-
-
 -- 사용자 정보 권한 테이블
 create table cafehi_member_auth(
     member_auth_code number primary key, -- 사용자 정보 권한 코드
@@ -86,6 +82,37 @@ create table cafehi_member_auth(
     member_auth_updatetime timestamp not null, -- 사용자 권한 수정일
     constraint fk_member_auth foreign key(member_code) references cafehi_member(member_code) on delete cascade
 );
+
+
+---- 사용자 정보 권한 테이블
+--create table cafehi_member_auth(
+--    member_auth_code number primary key, -- 사용자 정보 권한 코드
+--    member_auth varchar2(50) not null, -- 스프링 시큐리티 사용자 권한 : ROLE_USER, ROLE_ADMIN ...
+--    member_auth_writetime timestamp not null, -- 사용자 권한 등록일
+--    member_auth_updatetime timestamp not null -- 사용자 권한 수정일
+--);
+--
+--
+--
+---- 사용자 정보 테이블
+--create table cafehi_member(
+--    member_code number primary key, -- 사용자 코드 
+--    member_id varchar2(50) not null, -- 사용자 아이디   
+--    member_pw varchar2(100) not null, -- 사용자 비밀번호
+--    member_name varchar2(50) not null, -- 사용자 이름 
+--    member_contact varchar2(15) not null, -- 사용자 연락처
+--    member_email varchar2(50) not null, -- 사용자 계정 인증용 이메일
+--    member_road_address varchar2(100), -- 사용자 도로명 주소
+--    member_jibun_address varchar2(100), -- 사용자 지번 주소
+--    member_detail_address varchar2(100), -- 사용자 상세 주소 
+--    enabled char(1) default '1', -- 스프링 시큐리티 권한 사용 여부
+--    member_writetime timestamp not null, -- 사용자 등록일
+--    member_updatetime timestamp not null, -- 사용자 수정일
+--    member_auth_code number not null,
+--    constraint fk_member_auth foreign key(member_auth_code) references cafehi_member_auth(member_auth_code) on delete cascade
+--);
+
+
 
 
 --  QnA 게시판 
@@ -104,28 +131,17 @@ create table cafehi_qna(
     constraint fk_qna_member_code foreign key(member_code) references cafehi_member (member_code) on delete cascade 
 );
 
--- 멤버쉽 분류
-create table cafehi_membership(
-    membership_code number primary key,
-    membership_grade varchar2(15) not null
-);
-
-
-insert into cafehi_membership values(01, 'standard');
-insert into cafehi_membership values(02, 'silver'); 
-insert into cafehi_membership values(03, 'gold'); 
-insert into cafehi_membership values(04, 'vip'); 
-
 commit;
 
--- 나의 멤버쉽 
-create table my_membership(
-    my_membership_code number not null primary key, 
-    membership_code number not null,
-    constraint fk_my_membership_code foreign key(membership_code) references cafehi_membership (membership_code),
-    member_code  number not null, 
+-- 카페하이 멤버쉽 
+create table cafehi_membership(
+    membership_code number primary key, -- 멤버쉽 코드
+    member_code  number not null, -- 멤버 코드 
     constraint fk_my_membership_member_code foreign key(member_code) references cafehi_member (member_code) on delete cascade,
-    membership_point number default 0 not null
+    membership_grade varchar2(30) not null, -- 멤버쉽 등급
+    membership_point number default 0 not null, -- 멤버쉽 포인트
+    membership_writetime timestamp not null, -- 멤버쉽 등록일
+    membership_updatetime timestamp not null -- 멤버쉽 수정일
 );
 
 

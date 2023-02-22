@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.cafeHi.www.member.dto.CustomUser;
 import com.cafeHi.www.member.dto.MemberDTO;
-import com.cafeHi.www.membership.dto.myMembershipDTO;
+import com.cafeHi.www.membership.dto.MembershipDTO;
 import com.cafeHi.www.membership.service.MembershipService;
 
 import lombok.RequiredArgsConstructor;
@@ -31,10 +31,11 @@ public class MembershipController {
 		
 		int member_code = mem.getMember_code();
 		
-		myMembershipDTO myMembership = membershipService.getMembership(member_code);
+		MembershipDTO myMembership = membershipService.getMembership(member_code);
 		
-		model.addAttribute("membershipGrade",myMembership.getMembership().getMembership_grade());
-		model.addAttribute("membershipPoint", myMembership.getMembership_point());
+		model.addAttribute("membershipGrade",myMembership.getMembership_grade());
+		model.addAttribute("membershipPoint",myMembership.getMembership_point());
+		
 		
 		return "member/cafehi_myMembership";
 		

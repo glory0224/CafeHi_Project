@@ -1,13 +1,12 @@
 package com.cafeHi.www.membership.service;
 
 
-import com.cafeHi.www.member.dto.MemberDTO;
-import com.cafeHi.www.membership.dto.myMembershipDTO;
+import com.cafeHi.www.membership.dto.MembershipDTO;
 
 public interface MembershipService {
 
-	public void insertMembership(MemberDTO member);
-	public myMembershipDTO getMembership(int member_code);
+	public void insertMembership(MembershipDTO membership);
+	public MembershipDTO getMembership(int member_code);
 	
 	public void plusMembershipPoint(Long point);
 	

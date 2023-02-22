@@ -3,10 +3,8 @@ package com.cafeHi.www.membership.service;
 
 import org.springframework.stereotype.Service;
 
-import com.cafeHi.www.member.dao.MemberDAO;
-import com.cafeHi.www.member.dto.MemberDTO;
 import com.cafeHi.www.membership.dao.membershipDAO;
-import com.cafeHi.www.membership.dto.myMembershipDTO;
+import com.cafeHi.www.membership.dto.MembershipDTO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,14 +16,14 @@ public class MembershipImpl implements MembershipService{
 	
 	
 	@Override
-	public void insertMembership(MemberDTO member) {
+	public void insertMembership(MembershipDTO member) {
 		
 		membershipDAO.insertMembership(member);
 		
 	}
 
 	@Override
-	public myMembershipDTO getMembership(int member_code) {
+	public MembershipDTO getMembership(int member_code) {
 		
 		
 		

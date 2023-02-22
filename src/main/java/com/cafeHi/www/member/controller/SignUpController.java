@@ -12,13 +12,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cafeHi.www.member.dto.MemberAuthDTO;
 import com.cafeHi.www.member.dto.MemberDTO;
 import com.cafeHi.www.member.service.MemberService;
+import com.cafeHi.www.membership.MembershipGrade;
+import com.cafeHi.www.membership.dto.MembershipDTO;
 import com.cafeHi.www.membership.service.MembershipService;
 
 import lombok.RequiredArgsConstructor;
@@ -67,7 +67,8 @@ public class SignUpController {
 			memberauth.setMember_code(getMember.getMember_code());
 			memberauth.setMember_auth("ROLE_USER");
 			memberService.insertMemberAuth(memberauth);
-			membershipService.insertMembership(getMember);
+			
+			membershipService.insertMembership(new MembershipDTO(getMember.getMember_code() , MembershipGrade.STANDARD.getGrade(), 0, LocalDateTime.now(), LocalDateTime.now()));
 			
 			return "cafehi_login";
 		}

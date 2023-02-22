@@ -4,23 +4,20 @@
  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
  <mapper namespace="MembershipDAO">
- 	<resultMap type="myMembership" id="myMembershipResult">
+ 	<resultMap type="Membership" id="MembershipResult">
  		
- 		<result property="my_membership_code" column="MY_MEMBERSHIP_CODE"/>
- 		
+ 		<result property="membership_code" column="MEMBERSHIP_CODE"/>
+ 		<result property="membership_grade" column="MEMBERSHIP_GRADE"/>
  		<result property="membership_point" column="MEMBERSHIP_POINT"/>
- 		
- 		<association property="membership" javaType="Membership" resultMap="MembershipResult"/>
- 		
+ 		<result property="membership_writetime" column="MEMBERSHIP_WRITETIME"/>
+ 		<result property="membership_updatetime" column="MEMBERSHIP_UPDATETIME"/>
+ 			 		
  		<association property="member" javaType="Member" resultMap="MemberResult">
  		</association>
  		
  	</resultMap>
  	
- 	<resultMap type="Membership" id="MembershipResult">
- 		<id property="membership_code" column="MEMBERSHIP_CODE"/>
- 		<result property="membership_grade" column="MEMBERSHIP_GRADE"/>
- 	</resultMap>
+ 
  	
  	<resultMap type="Member" id="MemberResult">
  		<id property="member_code" column="MEMBER_CODE"/>
@@ -48,11 +45,12 @@
  	
  	
  	<insert id="insertMembership" parameterType="Member">
- 		INSERT INTO my_membership(my_membership_code, membership_code, member_code, membership_point) VALUES((select nvl(max(my_membership_code), 0)+1 from my_membership) , 1, #{member_code}, 0)
+ 		INSERT INTO cafehi_membership(membership_code, member_code, membership_grade, membership_point, membership_writetime, membership_updatetime) 
+ 		VALUES((select nvl(max(membership_code), 0)+1 from cafehi_membership), #{member_code}, #{membership_grade} , 0, #{membership_writetime}, #{membership_updatetime})
  	</insert>
  	
- 	<select id="getMembership" parameterType="int" resultMap="myMembershipResult">
- 		select membership.membership_grade, myMembership.membership_point from my_membership myMembership, cafehi_membership membership 
-		where myMembership.membership_code = membership.membership_code and myMembership.member_code = #{member_code} 
+ 	<select id="getMembership" parameterType="int" resultType="Membership">
+ 		SELECT * FROM cafehi_membership
+ 		WHERE member_code = #{member_code}
  	</select>
  </mapper>

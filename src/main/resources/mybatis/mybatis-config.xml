@@ -12,7 +12,6 @@
 	</settings>
  	<typeAliases>
  		<typeAlias type="com.cafeHi.www.member.dto.MemberDTO" alias="Member"/>
- 		<typeAlias type="com.cafeHi.www.membership.dto.myMembershipDTO" alias="myMembership"/>
  		<typeAlias type="com.cafeHi.www.membership.dto.MembershipDTO" alias="Membership"/> 		
  		<typeAlias type="com.cafeHi.www.board.qna.dto.QnADTO" alias="QnA"/>
  		<typeAlias type="com.cafeHi.www.member.dto.MemberAuthDTO" alias="MemberAuth"/>
@@ -21,10 +20,8 @@
  		<typeAlias type="com.cafeHi.www.order.dto.orderDTO" alias="Order"/>
  		<typeAlias type="com.cafeHi.www.order.dto.orderMenuDTO" alias="OrderMenu"/> 		
  	</typeAliases>
+	
 
-	 
-	
-	
  	<mappers>
  		<mapper resource="mappings/member-mappings.xml"/>
  		<mapper resource="mappings/membership-mappings.xml"/>

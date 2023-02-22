@@ -55,6 +55,12 @@ public class MemberServiceImpl implements MemberService{
 		memberDAO.deleteMember(member_code);
 	}
 
+	@Override
+	public void deleteMemberAuth(int member_code) {
+		memberDAO.deleteMemberAuth(member_code);
+	}
+
+	
 
 	@Override
 	public void updateMemberName(MemberDTO member) {
@@ -118,6 +124,8 @@ public class MemberServiceImpl implements MemberService{
 	public int getMemberNum(String mem_auth) {
 		return memberDAO.getMemberNum(mem_auth);
 	}
+
+
 
 	
 
