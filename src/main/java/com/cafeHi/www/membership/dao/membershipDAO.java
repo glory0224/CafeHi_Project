@@ -22,7 +22,6 @@ public class membershipDAO {
 	
 	public void updateMembershipPoint(MembershipDTO membership) {
 		
-		
 		sqlSessionTemplate.update("MembershipDAO.updateMembershipPoint", membership);
 	}
 	

@@ -104,7 +104,7 @@
   		 <label for="total_price" class="form-label">예상 적립 포인트</label>
   		 <fmt:parseNumber var= "GradeDiscount" integerOnly=" true" value= "${ totalPrice * 0.15 }" pattern="#,###"/>
   		 <h3><b><c:out value="${GradeDiscount }"></c:out> Point</b></h3> <br>
-  		 <input type="hidden" name="membership_update_point" value="${GradeDiscount }">
+  		 <input type="hidden" name="membership_new_point" value="${GradeDiscount }">
   		<label for="membership_point" class="form-label">내 포인트</label>
   		<h3><b>${Membership.membership_point} Point</b></h3>
   		<input type="hidden" name="membership_point" value="${Membership.membership_point}">
@@ -115,7 +115,7 @@
   		<label for="total_price" class="form-label">예상 적립 포인트</label> 
   		 <fmt:parseNumber var= "GradeDiscount" integerOnly=" true" value= "${ totalPrice * 0.1 }" pattern="#,###"/>
   		 <h3><b><c:out value="${GradeDiscount }"></c:out> Point</b></h3> <br>
-  		  <input type="hidden" name="membership_update_point" value="${GradeDiscount }">
+  		  <input type="hidden" name="membership_new_point" value="${GradeDiscount }">
   		<label for="membership_point" class="form-label">내 포인트</label>
   		<h3><b>${Membership.membership_point} Point</b></h3>
   		<input type="hidden" name="membership_point" value="${Membership.membership_point}">
@@ -126,7 +126,7 @@
   		<label for="total_price" class="form-label">예상 적립 포인트</label>
   		 <fmt:parseNumber var= "GradeDiscount" integerOnly=" true" value= "${ totalPrice * 0.05 }" pattern="#,###"/>
   		 <h3><b><c:out value="${GradeDiscount }"></c:out> Point</b></h3>  <br>
-  		 <input type="hidden" name="membership_update_point" value="${GradeDiscount }">
+  		 <input type="hidden" name="membership_new_point" value="${GradeDiscount }">
   		<label for="membership_point" class="form-label">내 포인트</label>
   		<h3><b>${Membership.membership_point} Point</b></h3>
   		<input type="hidden" name="membership_point" value="${Membership.membership_point}">
@@ -137,7 +137,7 @@
   		<label for="total_price" class="form-label">예상 적립 포인트</label>
   		 <fmt:parseNumber var= "GradeDiscount" integerOnly=" true" value= "${ totalPrice * 0.03 }" pattern="#,###"/>
   		 <h3><b><c:out value="${GradeDiscount }"></c:out> Point</b></h3>  <br>
-  		 <input type="hidden" name="membership_update_point" value="${GradeDiscount }">
+  		 <input type="hidden" name="membership_new_point" value="${GradeDiscount }">
   		<label for="membership_point" class="form-label">내 포인트</label>
   		<h3><b>${Membership.membership_point} Point</b></h3>
   		<input type="hidden" name="membership_point" value="${Membership.membership_point}">

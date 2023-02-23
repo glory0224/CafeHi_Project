@@ -37,30 +37,34 @@ public class MembershipImpl implements MembershipService{
 	@Override
 	public void updateMembershipPoint(MembershipDTO membership) {
 		
+		// 새로운 포인트 + 기존 포인트
+		int totalPoint =  membership.getMembership_new_point() + membership.getMembership_point();
 		
-		
-		int updatePoint = membership.getMembership_update_point();
-		int myPoint = membership.getMembership_point();
-		
-		log.info("updatePoint = {}" , updatePoint);
-		log.info("myPoint = {}" , myPoint);
+		log.info("totalPoint = {}", totalPoint);
 		
 		// 회원 Grade 변경 로직 
+
 		
-		if (myPoint + updatePoint >= MembershipGrade.VIP.getBasePoint()) {
-			membership.setMembership_grade(MembershipGrade.VIP.getGrade());
+		if (MembershipGrade.STANDARD.getBasePoint() <= totalPoint && totalPoint < MembershipGrade.SILVER.getBasePoint()) {
+			membership.setMembership_grade(MembershipGrade.STANDARD.getGrade());
 		}
-		else if (myPoint + updatePoint >= MembershipGrade.GOLD.getBasePoint()) {
-			membership.setMembership_grade(MembershipGrade.GOLD.getGrade());
-		}
-		else if (myPoint + updatePoint >= MembershipGrade.SILVER.getBasePoint()) {
+		
+		if (MembershipGrade.SILVER.getBasePoint() <= totalPoint && totalPoint < MembershipGrade.GOLD.getBasePoint()) {
 			membership.setMembership_grade(MembershipGrade.SILVER.getGrade());
 		}
 		
-		int totalPoint = updatePoint + myPoint;
-		log.info("totalPoint = {}" , totalPoint);
+		if (MembershipGrade.GOLD.getBasePoint() <= totalPoint && totalPoint < MembershipGrade.VIP.getBasePoint()) {
+			membership.setMembership_grade(MembershipGrade.GOLD.getGrade());
+		}
 		
-		membership.setMembership_point(updatePoint + myPoint);
+		if (MembershipGrade.VIP.getBasePoint() <= totalPoint) {
+			membership.setMembership_grade(MembershipGrade.VIP.getGrade());
+		}
+
+		
+		log.info("MembershipGrade = {}", membership.getMembership_grade());
+		
+		membership.setMembership_point(totalPoint);
 		
 		log.info("total membership point = {}", membership.getMembership_point());
 		

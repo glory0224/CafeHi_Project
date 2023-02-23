@@ -56,7 +56,7 @@
  	
  	<update id="updateMembershipPoint" parameterType="Membership">
  		UPDATE cafehi_membership 
- 		SET membership_point = #{membership_point}, membership_updatetime = #{membership_updatetime}
+ 		SET membership_grade = #{membership_grade}, membership_point = #{membership_point}, membership_updatetime = #{membership_updatetime}
  		WHERE member_code = #{member_code} 
  	</update>
  	
