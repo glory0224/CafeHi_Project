@@ -1,15 +1,20 @@
 package com.cafeHi.www.membership.service;
 
 
+import java.time.LocalDateTime;
+
 import org.springframework.stereotype.Service;
 
+import com.cafeHi.www.membership.MembershipGrade;
 import com.cafeHi.www.membership.dao.membershipDAO;
 import com.cafeHi.www.membership.dto.MembershipDTO;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class MembershipImpl implements MembershipService{
 
 	private final membershipDAO membershipDAO;
@@ -23,47 +28,48 @@ public class MembershipImpl implements MembershipService{
 	}
 
 	@Override
-	public MembershipDTO getMembership(int member_code) {
-		
-		
+	public MembershipDTO getMembership(int member_code) {	
 		
 		return membershipDAO.getMembership(member_code);
 	}
 
+	
 	@Override
-	public void plusMembershipPoint(Long point) {
+	public void updateMembershipPoint(MembershipDTO membership) {
 		
-		membershipDAO.plusMembershipPoint(point);
+		
+		
+		int updatePoint = membership.getMembership_update_point();
+		int myPoint = membership.getMembership_point();
+		
+		log.info("updatePoint = {}" , updatePoint);
+		log.info("myPoint = {}" , myPoint);
+		
+		// 회원 Grade 변경 로직 
+		
+		if (myPoint + updatePoint >= MembershipGrade.VIP.getBasePoint()) {
+			membership.setMembership_grade(MembershipGrade.VIP.getGrade());
+		}
+		else if (myPoint + updatePoint >= MembershipGrade.GOLD.getBasePoint()) {
+			membership.setMembership_grade(MembershipGrade.GOLD.getGrade());
+		}
+		else if (myPoint + updatePoint >= MembershipGrade.SILVER.getBasePoint()) {
+			membership.setMembership_grade(MembershipGrade.SILVER.getGrade());
+		}
+		
+		int totalPoint = updatePoint + myPoint;
+		log.info("totalPoint = {}" , totalPoint);
+		
+		membership.setMembership_point(updatePoint + myPoint);
+		
+		log.info("total membership point = {}", membership.getMembership_point());
+		
+		// 포인트 수정 날짜 저장
+		membership.setMembership_updatetime(LocalDateTime.now());
+		
+		membershipDAO.updateMembershipPoint(membership);
 	}
-	
-	
-	//멤버쉽 계산 메소드
-	
-	public long CalMembershipPoint() {
-		
-		// 비지니스 로직
-		
-		// 멤버쉽 등급 
-		
-		// VIP = 주문한 메뉴 가격의 20%를 point 적립
-		
-		// Gold = 주문한 메뉴 가격의 15%를 point 적립
-		
-		// Silver = 주문한 메뉴 가격의 10%를 point 적립
-		
-		// Standard = 주문한 메뉴 가격의 5%를 point 적립
-		
-		
-		// 필요한 매개변수
-		
-		// member_code -> order 정보 -> orderMenu 정보 -> 메뉴 총 금액 * (등급별 % 적용) ? 
-		
-		
-		long num = 100L;
-		
-		return num;
-		
-	}
+
 
 	
 

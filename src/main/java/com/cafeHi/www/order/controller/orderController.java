@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cafeHi.www.member.dto.CustomUser;
 import com.cafeHi.www.member.dto.MemberDTO;
+import com.cafeHi.www.membership.dto.MembershipDTO;
+import com.cafeHi.www.membership.service.MembershipService;
 import com.cafeHi.www.menu.dto.MenuDTO;
 import com.cafeHi.www.menu.service.menuService;
 import com.cafeHi.www.order.OrderState;
@@ -40,6 +42,8 @@ public class orderController {
 	
 	private final orderService orderService;
 	
+	private final MembershipService membershipService;
+	
 	@GetMapping("/CafehiOrder.do")
 	public String CafehiOrderView(@RequestParam(required = false) int toOrderAmount, MenuDTO menu, Model model, HttpServletRequest request) {
 		
@@ -50,9 +54,15 @@ public class orderController {
 			return "alert";
 		}
 		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	    CustomUser userInfo = (CustomUser)principal;
+	    int member_code = userInfo.getMember().getMember_code();
+		
 		
 		model.addAttribute("Menu", menuService.getMenu(menu.getMenu_code()));
 		model.addAttribute("orderAmount", toOrderAmount);
+		model.addAttribute("Membership", membershipService.getMembership(member_code));
+		
 		
 		return "member/cafehi_order";
 	}
@@ -60,9 +70,18 @@ public class orderController {
 
 	
 	@PostMapping("/CafehiOrder.do")
-	public String CafehiOrder(@RequestParam(required = false) String deliveryFee, MenuDTO menu, MemberDTO member, orderDTO order, orderMenuDTO orderMenu) {
+	public String CafehiOrder(@RequestParam(required = false) String deliveryFee, MenuDTO menu, MemberDTO member, orderDTO order, orderMenuDTO orderMenu, MembershipDTO membership) {
 		
 		log.info("order include delivery = {}", order.getInclude_delivery());
+		
+		log.info("membership = {}", membership);
+		
+		
+		log.info(" =============== membership start =============== ");		
+		
+		membershipService.updateMembershipPoint(membership);
+		
+		log.info("=============== membership end =============== ");
 		
 		
 		order.setOrder_writetime(LocalDateTime.now());
@@ -116,6 +135,7 @@ public class orderController {
 		memberOrderMenu.put("menu_code", getMenu.getMenu_code());
 		
 		orderService.insertOrderMenu(memberOrderMenu);
+		
 		
 		
 		return "redirect:/CafehiOrderList.do";

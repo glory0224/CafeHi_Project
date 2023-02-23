@@ -13,6 +13,7 @@ public class MembershipDTO {
 	private int member_code;
 	private String membership_grade;
 	private int membership_point;
+	private int membership_update_point;
 	private LocalDateTime membership_writetime;
 	private LocalDateTime membership_updatetime;
 	

@@ -50,7 +50,14 @@
  	</insert>
  	
  	<select id="getMembership" parameterType="int" resultType="Membership">
- 		SELECT * FROM cafehi_membership
+ 		SELECT membership_grade, membership_point FROM cafehi_membership
  		WHERE member_code = #{member_code}
  	</select>
+ 	
+ 	<update id="updateMembershipPoint" parameterType="Membership">
+ 		UPDATE cafehi_membership 
+ 		SET membership_point = #{membership_point}, membership_updatetime = #{membership_updatetime}
+ 		WHERE member_code = #{member_code} 
+ 	</update>
+ 	
  </mapper>

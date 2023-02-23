@@ -5,6 +5,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.cafeHi.www.member.dto.CustomUser;
 import com.cafeHi.www.member.dto.MemberDTO;
@@ -12,6 +13,7 @@ import com.cafeHi.www.membership.dto.MembershipDTO;
 import com.cafeHi.www.membership.service.MembershipService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequiredArgsConstructor
@@ -40,5 +42,7 @@ public class MembershipController {
 		return "member/cafehi_myMembership";
 		
 	}
+	
+	
 	
 }

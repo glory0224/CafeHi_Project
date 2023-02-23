@@ -8,6 +8,6 @@ public interface MembershipService {
 	public void insertMembership(MembershipDTO membership);
 	public MembershipDTO getMembership(int member_code);
 	
-	public void plusMembershipPoint(Long point);
+	public void updateMembershipPoint(MembershipDTO membership);
 	
 }

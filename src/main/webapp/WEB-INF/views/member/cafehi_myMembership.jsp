@@ -29,7 +29,7 @@
   </div>
     <div class="m-5">
     <label for="membershipPoint" class="form-label">내 포인트</label><br>
-  	<h3><b>${membershipPoint }</b></h3>
+  	<h3><b>${membershipPoint } Point</b></h3>
   </div>
 	</div>
 </div>

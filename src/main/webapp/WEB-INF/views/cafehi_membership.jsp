@@ -90,9 +90,9 @@
             <h4 class="my-0 fw-normal">Standard</h4>
           </div>
           <div class="card-body">
-            <h1 class="card-title pricing-card-title">Welcome</h1>
+            <h1 class="card-title pricing-card-title">3%</h1>
             <ul class="list-unstyled mt-3 mb-4">
-              <li>첫 가입 <br> 고객 대상</li>
+              <li>카페 하이 처음 가입한 <br> 고객 대상</li>
               <li>웰컴 드링크 쿠폰 제공</li>
             </ul>
           </div>

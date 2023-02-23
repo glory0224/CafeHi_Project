@@ -129,10 +129,8 @@ public class MemberController {
 		if(MemberId.equals(securityId) && pwdEncoder.matches(MemberPw, securityPw)) {	
 		
 		int member_code = userInfo.getMember().getMember_code();
-		
-		memberService.deleteMemberAuth(member_code);
-		
-		// memberService.deleteMember(member_code);
+				
+		memberService.deleteMember(member_code);
 		
 		session.invalidate();
 		SecurityContextHolder.getContext().setAuthentication(null);
