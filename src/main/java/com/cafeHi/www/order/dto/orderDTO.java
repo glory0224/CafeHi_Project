@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Getter @Setter
-@RequiredArgsConstructor
 public class orderDTO {
 	
 
@@ -24,27 +23,33 @@ public class orderDTO {
 	private orderMenuDTO orderMenu; // 주문 메뉴
 	private Boolean include_delivery; // 배송비 포함 여부
 	
-	
-	public orderDTO(int order_code, int member_code, OrderState order_status, LocalDateTime order_writetime,
-			LocalDateTime order_updatetime, orderMenuDTO orderMenu, Boolean include_delivery) {
-		super();
-		this.order_code = order_code;
-		this.member_code = member_code;
-		this.order_status = order_status;
-		this.order_writetime = order_writetime;
-		this.order_updatetime = order_updatetime;
-		this.orderMenu = orderMenu;
-		this.include_delivery = include_delivery;
+	public orderDTO() {
 	}
+		
 
+	// 주문 상태 , 주문 날짜 , 수정 날짜 등록 메서드 
+		public void setTimeAndStatus() {
+			this.order_status = OrderState.주문완료;
+			this.order_writetime = LocalDateTime.now();
+			this.order_updatetime = LocalDateTime.now();	
+		}
+		
+		// 주문 상태, 수정 날짜 취소 메서드
+		public void cancelTimeAndStatus() {
+			this.order_status = OrderState.주문취소;
+			this.order_updatetime = LocalDateTime.now();
+		}
+		
+		// 
+		public void setIncludeDelivery(Boolean IncludeDelivery) {
+			this.include_delivery = IncludeDelivery;
+		}
+
+
+		public void setMemberCode(int member_code) {
+			this.member_code = member_code;
+		}
 	
-
-	@Override
-	public String toString() {
-		return "orderDTO [order_code=" + order_code + ", member_code=" + member_code + ", order_status=" + order_status
-				+ ", order_writetime=" + order_writetime + ", order_updatetime=" + order_updatetime + ", orderMenu="
-				+ orderMenu + ", include_delivery=" + include_delivery + "]";
-	}
 	
 	
 
