@@ -9,9 +9,9 @@ import com.cafeHi.www.order.dto.orderMenuDTO;
 
 public interface orderService {
 	
-	public void insertOrderMenu(Map<String, Object> memberOrderMenu);	
+	public void insertOrderMenu(orderMenuDTO orderMenu);	
 
-	public void insertOrder(Map<String, Object> memberOrder);
+	public int insertOrder(orderDTO order);
 	
 	public int CancelOrder(Map<String, Object> orderCancelInfo);
 

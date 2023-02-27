@@ -7,8 +7,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-@Getter @Setter
-@RequiredArgsConstructor
+@Getter
 public class orderMenuDTO {
 	
 
@@ -22,7 +21,10 @@ public class orderMenuDTO {
 	private LocalDateTime order_menu_updatetime; // 주문 메뉴 수정일
 	
 
-
+	public orderMenuDTO() {
+		
+	}
+	
 	
 	// 배송비 불포함 총 비용 계산
 	
@@ -43,25 +45,27 @@ public class orderMenuDTO {
 	}
 	
 
-	public orderMenuDTO(int order_menu_code, int menu_code, int order_code, int total_order_price,
-			int total_order_count) {
-		super();
-		this.order_menu_code = order_menu_code;
-		this.menu_code = menu_code;
+	public void setTime() {
+		
+		this.order_menu_writetime = LocalDateTime.now();
+		this.order_menu_updatetime = LocalDateTime.now();
+	}
+	
+	public void setOrderCode(int order_code) {
 		this.order_code = order_code;
+	}
+
+	public void setMenuCode(int menu_code) {
+		this.menu_code = menu_code;
+	}
+	
+	
+	public void setTotalPriceAndCount(int total_order_price , int total_order_count) {
+		
 		this.total_order_price = total_order_price;
 		this.total_order_count = total_order_count;
+		
 	}
-
-	@Override
-	public String toString() {
-		return "orderMenuDTO [order_menu_code=" + order_menu_code + ", menu_code=" + menu_code + ", order_code="
-				+ order_code + ", total_order_price=" + total_order_price + ", total_order_count=" + total_order_count
-				+ "]";
-	}
-
-
-
 	
 	
 }

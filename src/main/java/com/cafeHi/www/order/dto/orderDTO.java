@@ -4,13 +4,14 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.cafeHi.www.member.dto.MemberDTO;
+import com.cafeHi.www.menu.dto.MenuDTO;
 import com.cafeHi.www.order.OrderState;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter 
 public class orderDTO {
 	
 
@@ -49,7 +50,6 @@ public class orderDTO {
 		public void setMemberCode(int member_code) {
 			this.member_code = member_code;
 		}
-	
 	
 	
 

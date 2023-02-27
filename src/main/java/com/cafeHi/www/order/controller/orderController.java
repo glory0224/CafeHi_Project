@@ -70,12 +70,25 @@ public class orderController {
 
 	
 	@PostMapping("/CafehiOrder.do")
-	public String CafehiOrder(@RequestParam(required = false) String deliveryFee, MenuDTO menu, MemberDTO member, orderDTO order, orderMenuDTO orderMenu, MembershipDTO membership) {
+	public String CafehiOrder(@RequestParam(value="deliveryFee", required = false) int deliveryFee, 
+			@RequestParam("menu_code") int menu_code,
+			@RequestParam("include_delivery") Boolean include_delivery,
+			@RequestParam("member_code") int member_code,
+			@RequestParam("total_order_count") int total_order_count, 
+			MembershipDTO membership
+			) {
 		
-		log.info("order include delivery = {}", order.getInclude_delivery());
+		
+		orderDTO newOrder = new orderDTO();
+		orderMenuDTO newOrderMenu = new orderMenuDTO();
+		
+		log.info("Include_delivery= {}", include_delivery);
+		
+		newOrder.setMemberCode(member_code);
+		newOrder.setIncludeDelivery(include_delivery);
+		newOrder.setTimeAndStatus();
 		
 		log.info("membership = {}", membership);
-		
 		
 		log.info(" =============== membership start =============== ");		
 		
@@ -84,58 +97,56 @@ public class orderController {
 		log.info("=============== membership end =============== ");
 		
 		
-		order.setOrder_writetime(LocalDateTime.now());
-		order.setOrder_updatetime(LocalDateTime.now());
-		order.setOrder_status(OrderState.주문완료);	
+		log.info("menu_code = {}", menu_code);
 		
-		Map<String, Object> memberOrder = new ConcurrentHashMap<String, Object>();
 		
-		Map<String, Object> memberOrderMenu = new ConcurrentHashMap<String, Object>();
+		MenuDTO getMenu = menuService.getMenu(menu_code);
 		
-		MenuDTO getMenu = menuService.getMenu(menu.getMenu_code());
-		
-		if(deliveryFee != null & order.getInclude_delivery()) {
+		if(deliveryFee != 0 & newOrder.getInclude_delivery()) {
 			
-		int fee = Integer.parseInt(deliveryFee); // 배송비	
-		
-		memberOrder.put("order", order);
-		memberOrder.put("member_code", member.getMember_code());
-				
-		orderService.insertOrder(memberOrder);
+			int orderCode = orderService.insertOrder(newOrder);
+			
+			log.info("orderKey 생성 확인 = {}", orderCode);
+			
+			log.info("getMenu_price = {}", getMenu.getMenu_price());
+			
+			log.info("total_order_count = {}" , total_order_count);
 		
 			
-		int TotalPrice = orderMenu.totalPrice(fee, getMenu.getMenu_price(), orderMenu.getTotal_order_count()); // 배송비 포함 총 비용 
+		int TotalPrice = newOrderMenu.totalPrice(deliveryFee, getMenu.getMenu_price(), total_order_count); // 배송비 포함 총 비용 
+		
+		log.info("TotalPrice = {}", TotalPrice);
+		
+		newOrderMenu.setOrderCode(orderCode);
+		
+		newOrderMenu.setMenuCode(menu_code);
+		
+		newOrderMenu.setTime();
+		
+		newOrderMenu.setTotalPriceAndCount(TotalPrice , total_order_count);
 			
-		orderMenu.setTotal_order_price(TotalPrice);
-		orderMenu.setOrder_menu_writetime(LocalDateTime.now());
-		orderMenu.setOrder_menu_updatetime(LocalDateTime.now());
+		orderService.insertOrderMenu(newOrderMenu);
 			
 			
-		memberOrderMenu.put("orderMenu", orderMenu);
-		memberOrderMenu.put("menu_code", getMenu.getMenu_code());
-			
-			
-		orderService.insertOrderMenu(memberOrderMenu);
-			
-		return "redirect:/CafehiOrderList.do";
+			return "redirect:/CafehiOrderList.do";
 			
 		} else {
 			
-		memberOrder.put("order", order);
-		memberOrder.put("member_code", member.getMember_code());
+			int orderCode = orderService.insertOrder(newOrder);
 			
-		orderService.insertOrder(memberOrder);
+			log.info("orderKey 생성 확인 = {}", orderCode);
+			
+		int NotDeliveryTotalPrice = newOrderMenu.totalPrice(getMenu.getMenu_price(), total_order_count);  // 배송비 불포함 총 비용 
 		
-		int NotDeliveryTotalPrice = orderMenu.totalPrice(getMenu.getMenu_price(), orderMenu.getTotal_order_count());  // 배송비 불포함 총 비용 
+			log.info("NotDeliveryTotalPrice = {}", NotDeliveryTotalPrice);
 		
-		orderMenu.setTotal_order_price(NotDeliveryTotalPrice);
-		
-		
-		memberOrderMenu.put("orderMenu", orderMenu);
-		memberOrderMenu.put("menu_code", getMenu.getMenu_code());
-		
-		orderService.insertOrderMenu(memberOrderMenu);
-		
+			newOrderMenu.setOrderCode(orderCode);
+			
+			newOrderMenu.setTime();
+			
+			newOrderMenu.setTotalPriceAndCount(NotDeliveryTotalPrice , total_order_count);
+				
+			orderService.insertOrderMenu(newOrderMenu);
 		
 		
 		return "redirect:/CafehiOrderList.do";
@@ -155,27 +166,34 @@ public class orderController {
 		if(member_code != 0) {
 			
 			List<orderDTO> orderList = orderService.listOrder(member_code); // 주문 목록			
-			List<MenuDTO> OrderMenuList = new ArrayList<MenuDTO>();
+			/* List<MenuDTO> OrderMenuList = new ArrayList<MenuDTO>(); */
 			
-
-			log.info("orderList = {} ", orderList);
+			/*
+			 * for(orderDTO order : orderList) { log.info("CafehiOrderList-menu_code = {}",
+			 * order.getOrderMenu().getOrder_menu_code()); MenuDTO getMenu =
+			 * menuService.getMenu(order.getOrderMenu().getOrder_menu_code()); order. }
+			 */
 			
-			for(orderDTO order : orderList) {
-				
-				MenuDTO getMenu = menuService.getMenu(order.getOrderMenu().getMenu_code());
-				
-				
-				
-				OrderMenuList.add(getMenu);
-				
-				log.info("orderMenuList = {}", OrderMenuList);
-			}
 			
-			OrderMap.put("orderList", orderList);
-			OrderMap.put("orderListCount", orderList.size()); 
-			
-			model.addAttribute("orderMap", OrderMap);
-			model.addAttribute("orderMenuList", OrderMenuList);
+			/*
+			 * log.info("orderList = {} ", orderList);
+			 * 
+			 * for(orderDTO order : orderList) {
+			 * 
+			 * MenuDTO getMenu = menuService.getMenu(order.getOrderMenu().getMenu_code());
+			 * 
+			 * 
+			 * 
+			 * OrderMenuList.add(getMenu);
+			 * 
+			 * log.info("orderMenuList = {}", OrderMenuList); }
+			 * 
+			 * OrderMap.put("orderList", orderList); OrderMap.put("orderListCount",
+			 * orderList.size());
+			 * 
+			 * model.addAttribute("orderMap", OrderMap); model.addAttribute("orderMenuList",
+			 * OrderMenuList);
+			 */
 			
 		}
 		

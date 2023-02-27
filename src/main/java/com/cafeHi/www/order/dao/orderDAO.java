@@ -18,15 +18,15 @@ public class orderDAO {
 	
 	private final SqlSessionTemplate sqlSessionTemplate;
 
-	public void insertOrderMenu(Map<String, Object> memberOrderMenu) {
+	public void insertOrderMenu(orderMenuDTO orderMenu) {
 		
-		sqlSessionTemplate.insert("OrderDAO.insertOrderMenu", memberOrderMenu);
+		sqlSessionTemplate.insert("OrderDAO.insertOrderMenu", orderMenu);
 		
 	}
 
 
-	public void inserOrder(Map<String, Object> memberOrder) {
-		sqlSessionTemplate.insert("OrderDAO.insertOrder", memberOrder);
+	public int inserOrder(orderDTO order) {
+		return sqlSessionTemplate.insert("OrderDAO.insertOrder", order);
 	}
 
 	public orderDTO getOrder(MemberDTO member) {

@@ -20,14 +20,15 @@ public class orderServiceImpl implements orderService{
 	
 	
 	@Override
-	public void insertOrderMenu(Map<String, Object> memberOrderMenu) {
-		orderDAO.insertOrderMenu(memberOrderMenu);
+	public void insertOrderMenu(orderMenuDTO orderMenu) {
+		orderDAO.insertOrderMenu(orderMenu);
 	}
 
 
 	@Override
-	public void insertOrder(Map<String, Object> memberOrder) {
-		orderDAO.inserOrder(memberOrder);
+	public int insertOrder(orderDTO order) {
+		
+		return orderDAO.inserOrder(order);
 	}
 
 	@Override
