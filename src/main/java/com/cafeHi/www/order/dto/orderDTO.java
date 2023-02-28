@@ -21,7 +21,6 @@ public class orderDTO {
 	private OrderState order_status; // 주문 상태
 	private LocalDateTime order_writetime;	// 주문 날짜
 	private LocalDateTime order_updatetime; // 수정 날짜 
-	private orderMenuDTO orderMenu; // 주문 메뉴
 	private Boolean include_delivery; // 배송비 포함 여부
 	
 	public orderDTO() {
@@ -50,8 +49,8 @@ public class orderDTO {
 		public void setMemberCode(int member_code) {
 			this.member_code = member_code;
 		}
-	
-	
 
+
+		
 	
 }

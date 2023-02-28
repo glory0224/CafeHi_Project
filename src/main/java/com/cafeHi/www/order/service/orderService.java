@@ -15,9 +15,11 @@ public interface orderService {
 	
 	public int CancelOrder(Map<String, Object> orderCancelInfo);
 
-	public orderDTO getOrder(MemberDTO member);
+	public orderDTO getOrder(int order_code);
 
-	public List<orderDTO> listOrder(int member_code);
+	public List<orderMenuDTO> listOrder(int member_code);
+
+	public orderMenuDTO getOrderMenu(int order_menu_code);
 
 	
 	

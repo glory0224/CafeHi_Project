@@ -14,7 +14,7 @@ public class orderMenuDTO {
 	
 	private int order_menu_code;	// 기본키 
 	private int menu_code;	// 메뉴 정보 
-	private int order_code;	// 주문 정보 
+	private orderDTO order; 
 	private int total_order_price; // 총 가격
 	private int total_order_count;	// 주문 총 수량
 	private LocalDateTime order_menu_writetime; // 주문 메뉴 등록일
@@ -51,8 +51,12 @@ public class orderMenuDTO {
 		this.order_menu_updatetime = LocalDateTime.now();
 	}
 	
-	public void setOrderCode(int order_code) {
-		this.order_code = order_code;
+//	public void setOrderCode(int order_code) {
+//		this.order_code = order_code;
+//	}
+	
+	public void setOrder(orderDTO order) {
+		this.order = order;
 	}
 
 	public void setMenuCode(int menu_code) {
@@ -66,6 +70,17 @@ public class orderMenuDTO {
 		this.total_order_count = total_order_count;
 		
 	}
+
+
+	@Override
+	public String toString() {
+		return "orderMenuDTO [order_menu_code=" + order_menu_code + ", menu_code=" + menu_code + ", order=" + order
+				+ ", total_order_price=" + total_order_price + ", total_order_count=" + total_order_count
+				+ ", order_menu_writetime=" + order_menu_writetime + ", order_menu_updatetime=" + order_menu_updatetime
+				+ "]";
+	}
+
+	
 	
 	
 }

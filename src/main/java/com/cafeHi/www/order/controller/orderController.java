@@ -117,7 +117,11 @@ public class orderController {
 		
 		log.info("TotalPrice = {}", TotalPrice);
 		
-		newOrderMenu.setOrderCode(orderCode);
+		orderDTO getOrder = orderService.getOrder(orderCode);
+		
+		newOrderMenu.setOrder(getOrder);
+				
+//		newOrderMenu.setOrderCode(orderCode);
 		
 		newOrderMenu.setMenuCode(menu_code);
 		
@@ -140,7 +144,11 @@ public class orderController {
 		
 			log.info("NotDeliveryTotalPrice = {}", NotDeliveryTotalPrice);
 		
-			newOrderMenu.setOrderCode(orderCode);
+			orderDTO getOrder = orderService.getOrder(orderCode);
+			
+			newOrderMenu.setOrder(getOrder);
+					
+//			newOrderMenu.setOrderCode(orderCode);
 			
 			newOrderMenu.setTime();
 			
@@ -157,44 +165,34 @@ public class orderController {
 	@GetMapping("/CafehiOrderList.do")
 	public String CafehiOrderListView(Model model) {
 		
-		Map<String, Object> OrderMap = new HashMap<>();
-		
-		 Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		    CustomUser userInfo = (CustomUser)principal;
-		    int member_code = userInfo.getMember().getMember_code();
+		  Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		  CustomUser userInfo = (CustomUser)principal;
+		  int member_code = userInfo.getMember().getMember_code();
 		    
 		if(member_code != 0) {
 			
-			List<orderDTO> orderList = orderService.listOrder(member_code); // 주문 목록			
-			/* List<MenuDTO> OrderMenuList = new ArrayList<MenuDTO>(); */
+			  List<orderMenuDTO> orderList = orderService.listOrder(member_code);
+			  
+			  Map<String, Object> orderMenuInfoMap = new ConcurrentHashMap<String, Object>();
+			  
+			  log.info("orderListSize = {}", orderList.size());
+			  
+			  for (orderMenuDTO order : orderList) {
+				  
+				  log.info("order = {}", order);
+				 
+				  MenuDTO getMenu = menuService.getMenu(order.getMenu_code());
+				
+				  orderMenuInfoMap.put("Menu", getMenu);
+				  
+			  }
 			
-			/*
-			 * for(orderDTO order : orderList) { log.info("CafehiOrderList-menu_code = {}",
-			 * order.getOrderMenu().getOrder_menu_code()); MenuDTO getMenu =
-			 * menuService.getMenu(order.getOrderMenu().getOrder_menu_code()); order. }
-			 */
-			
-			
-			/*
-			 * log.info("orderList = {} ", orderList);
-			 * 
-			 * for(orderDTO order : orderList) {
-			 * 
-			 * MenuDTO getMenu = menuService.getMenu(order.getOrderMenu().getMenu_code());
-			 * 
-			 * 
-			 * 
-			 * OrderMenuList.add(getMenu);
-			 * 
-			 * log.info("orderMenuList = {}", OrderMenuList); }
-			 * 
-			 * OrderMap.put("orderList", orderList); OrderMap.put("orderListCount",
-			 * orderList.size());
-			 * 
-			 * model.addAttribute("orderMap", OrderMap); model.addAttribute("orderMenuList",
-			 * OrderMenuList);
-			 */
-			
+			  model.addAttribute("orderList", orderList);
+			  
+			  model.addAttribute("orderMenuInfoMap", orderMenuInfoMap);
+			  			  
+			  model.addAttribute("orderListCount", orderList.size());
+			  
 		}
 		
 		

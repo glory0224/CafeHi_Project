@@ -32,12 +32,19 @@ public class orderServiceImpl implements orderService{
 	}
 
 	@Override
-	public orderDTO getOrder(MemberDTO member) {
-		return orderDAO.getOrder(member);
+	public orderDTO getOrder(int order_code) {
+		return orderDAO.getOrder(order_code);
 	}
+	
+	
+	@Override
+	public orderMenuDTO getOrderMenu(int order_menu_code) {
+		return orderDAO.getOrderMenu(order_menu_code);
+	}
+	
 
 	@Override
-	public List<orderDTO> listOrder(int member_code) {
+	public List<orderMenuDTO> listOrder(int member_code) {
 		return orderDAO.listOrder(member_code);
 	}
 
@@ -46,6 +53,8 @@ public class orderServiceImpl implements orderService{
 	public int CancelOrder(Map<String, Object> orderCancelInfo) {
 		return orderDAO.cancelOrder(orderCancelInfo);
 	}
+
+
 	
 	
 
