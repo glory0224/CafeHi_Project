@@ -116,14 +116,8 @@ public class orderController {
 		int TotalPrice = newOrderMenu.totalPrice(deliveryFee, getMenu.getMenu_price(), total_order_count); // 배송비 포함 총 비용 
 		
 		log.info("TotalPrice = {}", TotalPrice);
-		
-		orderDTO getOrder = orderService.getOrder(orderCode);
-		
-		newOrderMenu.setOrder(getOrder);
-				
-//		newOrderMenu.setOrderCode(orderCode);
-		
-		newOrderMenu.setMenuCode(menu_code);
+						
+		newOrderMenu.setMenu(getMenu);
 		
 		newOrderMenu.setTime();
 		
@@ -143,12 +137,8 @@ public class orderController {
 		int NotDeliveryTotalPrice = newOrderMenu.totalPrice(getMenu.getMenu_price(), total_order_count);  // 배송비 불포함 총 비용 
 		
 			log.info("NotDeliveryTotalPrice = {}", NotDeliveryTotalPrice);
-		
-			orderDTO getOrder = orderService.getOrder(orderCode);
 			
-			newOrderMenu.setOrder(getOrder);
-					
-//			newOrderMenu.setOrderCode(orderCode);
+			newOrderMenu.setMenu(getMenu);
 			
 			newOrderMenu.setTime();
 			
@@ -172,25 +162,11 @@ public class orderController {
 		if(member_code != 0) {
 			
 			  List<orderMenuDTO> orderList = orderService.listOrder(member_code);
-			  
-			  Map<String, Object> orderMenuInfoMap = new ConcurrentHashMap<String, Object>();
-			  
+			  			  
 			  log.info("orderListSize = {}", orderList.size());
-			  
-			  for (orderMenuDTO order : orderList) {
-				  
-				  log.info("order = {}", order);
-				 
-				  MenuDTO getMenu = menuService.getMenu(order.getMenu_code());
-				
-				  orderMenuInfoMap.put("Menu", getMenu);
-				  
-			  }
 			
 			  model.addAttribute("orderList", orderList);
-			  
-			  model.addAttribute("orderMenuInfoMap", orderMenuInfoMap);
-			  			  
+			  			  			  
 			  model.addAttribute("orderListCount", orderList.size());
 			  
 		}

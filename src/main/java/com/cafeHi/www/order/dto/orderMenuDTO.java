@@ -3,27 +3,24 @@ package com.cafeHi.www.order.dto;
 
 import java.time.LocalDateTime;
 
+import com.cafeHi.www.menu.dto.MenuDTO;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class orderMenuDTO {
 	
-
-	
 	private int order_menu_code;	// 기본키 
-	private int menu_code;	// 메뉴 정보 
+	private MenuDTO menu;	// 메뉴 정보
 	private orderDTO order; 
 	private int total_order_price; // 총 가격
 	private int total_order_count;	// 주문 총 수량
 	private LocalDateTime order_menu_writetime; // 주문 메뉴 등록일
 	private LocalDateTime order_menu_updatetime; // 주문 메뉴 수정일
-	
-
-	public orderMenuDTO() {
-		
-	}
 	
 	
 	// 배송비 불포함 총 비용 계산
@@ -51,16 +48,13 @@ public class orderMenuDTO {
 		this.order_menu_updatetime = LocalDateTime.now();
 	}
 	
-//	public void setOrderCode(int order_code) {
-//		this.order_code = order_code;
-//	}
 	
 	public void setOrder(orderDTO order) {
 		this.order = order;
 	}
 
-	public void setMenuCode(int menu_code) {
-		this.menu_code = menu_code;
+	public void setMenu(MenuDTO menu) {
+		this.menu = menu;
 	}
 	
 	
@@ -71,14 +65,15 @@ public class orderMenuDTO {
 		
 	}
 
-
+	
 	@Override
 	public String toString() {
-		return "orderMenuDTO [order_menu_code=" + order_menu_code + ", menu_code=" + menu_code + ", order=" + order
+		return "orderMenuDTO [order_menu_code=" + order_menu_code + ", menu=" + menu + ", order=" + order
 				+ ", total_order_price=" + total_order_price + ", total_order_count=" + total_order_count
 				+ ", order_menu_writetime=" + order_menu_writetime + ", order_menu_updatetime=" + order_menu_updatetime
 				+ "]";
 	}
+
 
 	
 	

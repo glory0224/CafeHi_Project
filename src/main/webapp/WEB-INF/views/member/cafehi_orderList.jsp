@@ -55,88 +55,45 @@
 							<th class="table-success">취소 날짜</th>
 						</tr>
 						
-						
-								<%-- 	<c:forEach var="orderList" items="${orderMap.orderList}" varStatus="status">
+									
+									<c:forEach var="orderMenuList" items="${orderList}" varStatus="status">
 									<tr align="center">
-									<td>${orderMenuList[status.index].menu_name }</td>
-									<td><fmt:formatNumber value="${orderMenuList[status.index].menu_price }" pattern="#,###,###"> </fmt:formatNumber></td>
-									<td>${orderList.orderMenu.total_order_count }</td>
+										<td>${orderMenuList.menu.menu_name } </td>
+										<td> <fmt:formatNumber value="${orderMenuList.menu.menu_price }" pattern="#,###,###"/> 원</td>
+										<td>${orderMenuList.total_order_count } 개</td>
 									<c:choose>
-									
-									<c:when test="${orderList.include_delivery eq true}">
-										<td>2500원</td>
-									</c:when>
-									
-									<c:when test="${orderList.include_delivery eq false}">
-										<td>없음</td>
-									</c:when>
-									
-									</c:choose>
-									<td><fmt:formatNumber value="${orderList.orderMenu.total_order_price }" pattern="#,###,###"> </fmt:formatNumber></td>									
-									<c:if test="${orderList.order_status eq '주문취소' }">
-									<td><b style="color: green;">${orderList.order_status }</b></td>
-									</c:if>
-									<c:if test="${orderList.order_status eq '주문완료' }">
-									<td>${orderList.order_status }</td>
-									</c:if>	
-									<!-- java 8 LocalDateTime을 지원하지 않는다. 따라서 jstl 사용시 특정 패턴의 변수로 바꿔준 뒤 사용한다. -->
-									<fmt:parseDate value="${orderList.order_writetime }" pattern="yyyy-MM-dd'T'HH:mm" var="parseDateTime" type="both"/>								
-									<td><fmt:formatDate pattern="yyyy.MM.dd HH:mm" value="${parseDateTime }"/></td>									
-									<c:if test="${orderList.order_status eq '주문완료' }">
-									<td>
-									<form action="CafehiOrderCancel.do" method="post">
-									<input type="hidden" name="order_code" value="${orderList.order_code}">
-									<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">									
-									<input type="submit" class="btn btn-success btn-sm" value="주문 취소">
-									</form>
-									</td>
-									</c:if>
-									<c:if test="${orderList.order_status eq '주문취소' }">
-										<fmt:parseDate value="${orderList.order_writetime }" pattern="yyyy-MM-dd'T'HH:mm" var="parseCancelDateTime" type="both"/>
-										<td><b style="color: green;"><fmt:formatDate pattern="yyyy.MM.dd HH:mm" value="${parseCancelDateTime }"/></b></td>
-									</c:if>	
-									</tr>	
-									</c:forEach> --%>
-									
-									<c:forEach var="orderList" items="${orderList}" varStatus="status">
-									<tr align="center">
-										<%-- <td>${orderMenuList[status.index].menu_name }</td> --%>
-										<%-- <td><fmt:formatNumber value="${orderMenuList[status.index].menu_price }" pattern="#,###,###"></fmt:formatNumber> </td> --%>
-										<td>${orderMenuInfoMap.Menu.menu_name } </td>
-										<td> <fmt:formatNumber value="${orderMenuInfoMap.Menu.menu_price }" pattern="#,###,###"/> 원</td>
-										<td>${orderList.total_order_count } 개</td>
-									<c:choose>
-										<c:when test="${orderList.include_delivery eq true}">
+										<c:when test="${orderMenuList.order.include_delivery}">
+											
 											<td>2500원</td>
 										</c:when>
-										<c:when test="${orderList.include_delivery eq false}">
+										<c:when test="${orderMenuList.order.include_delivery eq false}">
 											<td>없음</td>
 										</c:when>
 									</c:choose>
 									
-									<td><fmt:formatNumber value="${orderList.total_order_price }" pattern="#,###,###"> </fmt:formatNumber>원</td>									
-									<c:if test="${orderList.order_status eq '주문취소' }">
-									<td><b style="color: green;">${orderList.order_status }</b></td>
+									<td><fmt:formatNumber value="${orderMenuList.total_order_price }" pattern="#,###,###"> </fmt:formatNumber>원</td>									
+									<c:if test="${orderMenuList.order.order_status eq '주문취소' }">
+									<td><b style="color: green;">${orderMenuList.order.order_status }</b></td>
 									</c:if>
-									<c:if test="${orderList.order_status eq '주문완료' }">
-									<td>${orderList.order_status }</td>
+									<c:if test="${orderMenuList.order.order_status eq '주문완료' }">
+									<td>${orderMenuList.order.order_status }</td>
 									</c:if>
 									
 									<!-- java 8 LocalDateTime을 지원하지 않는다. 따라서 jstl 사용시 특정 패턴의 변수로 바꿔준 뒤 사용한다. -->
-									<fmt:parseDate value="${orderList.order_writetime }" pattern="yyyy-MM-dd'T'HH:mm" var="parseDateTime" type="both"/>								
+									<fmt:parseDate value="${orderMenuList.order.order_writetime }" pattern="yyyy-MM-dd'T'HH:mm" var="parseDateTime" type="both"/>								
 									<td><fmt:formatDate pattern="yyyy.MM.dd HH:mm" value="${parseDateTime }"/></td>									
-									<c:if test="${orderList.order_status eq '주문완료' }">
+									<c:if test="${orderMenuList.order.order_status eq '주문완료' }">
 									<td>
 									<form action="CafehiOrderCancel.do" method="post">
-									<input type="hidden" name="order_code" value="${orderList.order_code}">
+									<input type="hidden" name="order_code" value="${orderMenuList.order.order_code}">
 									<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">									
 									<input type="submit" class="btn btn-success btn-sm" value="주문 취소">
 									</form>
 									</td>
 									</c:if>
 									
-									<c:if test="${orderList.order_status eq '주문취소' }">
-										<fmt:parseDate value="${orderList.order_writetime }" pattern="yyyy-MM-dd'T'HH:mm" var="parseCancelDateTime" type="both"/>
+									<c:if test="${orderMenuList.order.order_status eq '주문취소' }">
+										<fmt:parseDate value="${orderMenuList.order.order_updatetime }" pattern="yyyy-MM-dd'T'HH:mm" var="parseCancelDateTime" type="both"/>
 										<td><b style="color: green;"><fmt:formatDate pattern="yyyy.MM.dd HH:mm" value="${parseCancelDateTime }"/></b></td>
 									</c:if>		
 									</tr>
@@ -150,7 +107,6 @@
 					<div class="float-end">
 					
 					<button type="button" class="btn btn-success" onclick = "location.href='Menu.do'">카페하이 메뉴 보기</button>
-					<!-- btnUpdate와 btnDelete id는 위쪽에 있는 자바스크립트가 처리한다. -->
 					</div>
 					</div>
 			</c:otherwise>

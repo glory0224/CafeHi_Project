@@ -4,41 +4,10 @@
  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="OrderDAO">
-	
- 	<!-- <resultMap type="Order" id="OrderResult">
- 		<id property="order_code" column="ORDER_CODE"/>
- 		<result property="member_code" column="MEMBER_CODE"/>
- 		<result property="order_status" column="ORDER_STATUS"/>
- 		<result property="order_writetime" column="ORDER_WRITETIME"/>
- 		<result property="order_updatetime" column="ORDER_UPDATETIME"/> 		
- 		<result property="include_delivery" column="INCLUDE_DELIVERY"/>
- 		<association property="orderMenu" column="ORDER_MENU_CODE" javaType="orderMenu" resultMap="orderMenuResult">
- 			 
- 		</association>
- 	</resultMap>
- 	
- 	<resultMap type="orderMenu" id="orderMenuResult">
- 			<id  property="order_menu_code" column="ORDER_MENU_CODE"/>
-		
-			<result property="order_code" column="ORDER_CODE" />
-		
-			<result property="menu_code" column="MENU_CODE" />
-		
-			<result property="total_order_price" column="TOTAL_ORDER_PRICE" />
-		
-			<result property="total_order_count" column="TOTAL_ORDER_COUNT" />
-			
-			<result property="order_menu_writetime" column="ORDER_MENU_WRITETIME" />
-			
-			<result property="order_menu_updatetime" column="ORDER_MENU_UPDATETIME" />
- 	</resultMap>
- 	 -->
  	 
  	 <resultMap type="orderMenu" id="orderMenuResult">
  	 		<id  property="order_menu_code" column="ORDER_MENU_CODE"/>
-		
-			<result property="menu_code" column="MENU_CODE" />
-		
+			
 			<result property="total_order_price" column="TOTAL_ORDER_PRICE" />
 		
 			<result property="total_order_count" column="TOTAL_ORDER_COUNT" />
@@ -46,7 +15,19 @@
 			<result property="order_menu_writetime" column="ORDER_MENU_WRITETIME" />
 			
 			<result property="order_menu_updatetime" column="ORDER_MENU_UPDATETIME" />
- 	 
+ 	 		
+ 	 		<!-- hasOne  -->
+ 	 		<association property="menu" javaType="Menu">
+ 	 			<result property="menu_code" column="MENU_CODE"/>
+		 		<result property="menu_price" column="MENU_PRICE"/>
+		 		<result property="menu_type" column="MENU_TYPE"/>
+		 		<result property="menu_name" column="MENU_NAME"/>
+		 		<result property="menu_explain" column="MENU_EXPLAIN"/>
+		 		<result property="menu_img_path" column="MENU_IMG_PATH" />
+		 		<result property="menu_quantity" column="MENU_QUANTITY" />
+ 	 		</association>
+ 	 		
+ 	 		<!-- hasOne -->
  	 		<association property="order" javaType="Order">
  	 			<id property="order_code" column="ORDER_CODE"/>
 		 		<result property="member_code" column="MEMBER_CODE"/>
@@ -70,17 +51,21 @@
  	 
  	 </resultMap>
 	
-	<insert id="insertOrder" parameterType="Order" useGeneratedKeys="true" keyProperty="order_code" keyColumn="order_code">
+	<insert id="insertOrder" parameterType="Order">
+		<!-- 입력된 기본키를 리턴 -->
+	<!-- <selectKey resultType="int" keyProperty="order_code" order="BEFORE">
+		SELECT seq_order.nextval FROM dual
+	</selectKey> -->
 	INSERT INTO cafehi_order(order_code, member_code, include_delivery, order_status, order_writetime, order_updatetime)
-	VALUES((select nvl(max(order_code), 0)+1 from cafehi_order), #{member_code}, #{include_delivery}, #{order_status}, #{order_writetime}, #{order_updatetime})	
-
+	VALUES(seq_order.nextval, #{member_code}, #{include_delivery}, #{order_status}, #{order_writetime}, #{order_updatetime})	
+	
 </insert>
 	
 	
 	<insert id="insertOrderMenu" parameterType="orderMenu">
 	INSERT INTO cafehi_order_menu(order_menu_code, order_code, menu_code, total_order_price, total_order_count, order_menu_writetime, order_menu_updatetime)
 	
-	VALUES((select nvl(max(order_menu_code), 0)+1 from cafehi_order_menu), #{order.order_code} , #{menu_code}, #{total_order_price}, #{total_order_count}, #{order_menu_writetime}, #{order_menu_updatetime}) 	
+	VALUES(seq_order_menu.nextval , seq_order.currval , #{menu.menu_code}, #{total_order_price}, #{total_order_count}, #{order_menu_writetime}, #{order_menu_updatetime}) 	
 
 </insert>
 
@@ -95,21 +80,21 @@
 	SELECT * FROM cafehi_order
 	WHERE order_code = #{order_code}
 </select>
-
-
+	
+	<!-- join 사용 -> 테이블 매핑으로 데이터 반환 -> resultMap 사용한다.  -->
+	<select id="listOrder" parameterType="int" resultMap="orderMenuResult">
+	  	SELECT m.menu_name, m.menu_price, om.total_order_price, o.include_delivery, om.total_order_count, om.total_order_price, o.order_status, o.order_writetime, o.order_updatetime
+		FROM cafehi_order o JOIN cafehi_order_menu om
+		ON o.order_code = om.order_code AND o.member_code = #{member_code}
+        JOIN cafehi_menu m
+        ON om.menu_code = m.menu_code
+	</select>	
+	
 	
  	<update id="cancelOrder" parameterType="hashMap">
 		UPDATE cafehi_order
 		SET order_status = #{order_status}, order_updatetime = #{order_updatetime}
 		WHERE order_code = #{order_code}
 	</update>
-	
-	
-	<select id="listOrder" parameterType="int" resultType="orderMenu">
-	  	SELECT *
-		FROM cafehi_order o JOIN cafehi_order_menu om
-		ON o.order_code = om.order_code AND o.member_code = #{member_code}
-	</select>	
-	
 	
 </mapper>

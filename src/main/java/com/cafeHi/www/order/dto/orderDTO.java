@@ -1,17 +1,16 @@
 package com.cafeHi.www.order.dto;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
-import com.cafeHi.www.member.dto.MemberDTO;
-import com.cafeHi.www.menu.dto.MenuDTO;
 import com.cafeHi.www.order.OrderState;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
-@Getter 
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class orderDTO {
 	
 
@@ -23,9 +22,7 @@ public class orderDTO {
 	private LocalDateTime order_updatetime; // 수정 날짜 
 	private Boolean include_delivery; // 배송비 포함 여부
 	
-	public orderDTO() {
-	}
-		
+  
 
 	// 주문 상태 , 주문 날짜 , 수정 날짜 등록 메서드 
 		public void setTimeAndStatus() {
@@ -50,6 +47,16 @@ public class orderDTO {
 			this.member_code = member_code;
 		}
 
+		@Override
+		public String toString() {
+			return "orderDTO [order_code=" + order_code + ", member_code=" + member_code + ", order_status="
+					+ order_status + ", order_writetime=" + order_writetime + ", order_updatetime=" + order_updatetime
+					+ ", include_delivery=" + include_delivery + "]";
+		}
+
+
+
+		
 
 		
 	

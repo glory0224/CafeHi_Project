@@ -44,7 +44,11 @@ public class orderDAO {
 		
 		List<orderMenuDTO> getOrderList = sqlSessionTemplate.selectList("OrderDAO.listOrder", member_code);
 		
-		log.info("getOrderList size = {}", getOrderList.size());
+		for (orderMenuDTO ordermenu : getOrderList) {
+			
+			log.info("orderMenu.include_delivery = {} ", ordermenu.getOrder().getInclude_delivery());
+		
+		}
 		
 		return sqlSessionTemplate.selectList("OrderDAO.listOrder", member_code);
 	}

@@ -6,9 +6,13 @@ import java.time.LocalDateTime;
 
 import com.cafeHi.www.common.exception.NotEnoughMenuQuantityException;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class MenuDTO {
 	
 	private int menu_code; // 메뉴 코드 
