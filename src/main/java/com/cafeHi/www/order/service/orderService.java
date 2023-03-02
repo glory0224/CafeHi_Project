@@ -11,9 +11,9 @@ public interface orderService {
 	
 	public void insertOrderMenu(orderMenuDTO orderMenu);	
 
-	public int insertOrder(orderDTO order);
+	public void insertOrder(orderDTO order);
 	
-	public int CancelOrder(Map<String, Object> orderCancelInfo);
+	public int CancelOrder(orderDTO order);
 
 	public orderDTO getOrder(int order_code);
 

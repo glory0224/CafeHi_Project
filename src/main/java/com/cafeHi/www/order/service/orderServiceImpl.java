@@ -21,14 +21,14 @@ public class orderServiceImpl implements orderService{
 	
 	@Override
 	public void insertOrderMenu(orderMenuDTO orderMenu) {
-		orderDAO.insertOrderMenu(orderMenu);
+		 orderDAO.insertOrderMenu(orderMenu);
 	}
 
 
 	@Override
-	public int insertOrder(orderDTO order) {
+	public void insertOrder(orderDTO order) {
 		
-		return orderDAO.inserOrder(order);
+		 orderDAO.inserOrder(order);
 	}
 
 	@Override
@@ -50,8 +50,8 @@ public class orderServiceImpl implements orderService{
 
 
 	@Override
-	public int CancelOrder(Map<String, Object> orderCancelInfo) {
-		return orderDAO.cancelOrder(orderCancelInfo);
+	public int CancelOrder(orderDTO order) {
+		return orderDAO.cancelOrder(order);
 	}
 
 

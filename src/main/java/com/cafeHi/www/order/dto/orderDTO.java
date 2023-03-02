@@ -53,11 +53,11 @@ public class orderDTO {
 					+ order_status + ", order_writetime=" + order_writetime + ", order_updatetime=" + order_updatetime
 					+ ", include_delivery=" + include_delivery + "]";
 		}
-
-
-
 		
-
+		// 주문 취소용 Order_code setter
+		public void setOrder_code(int order_code) {
+			this.order_code = order_code;
+		}
 		
 	
 }

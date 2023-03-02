@@ -87,7 +87,7 @@
 									<form action="CafehiOrderCancel.do" method="post">
 									<input type="hidden" name="order_code" value="${orderMenuList.order.order_code}">
 									<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">									
-									<input type="submit" class="btn btn-success btn-sm" value="주문 취소">
+									<button class="btn btn-success btn-sm">주문취소</button>
 									</form>
 									</td>
 									</c:if>

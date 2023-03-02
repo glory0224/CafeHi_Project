@@ -40,6 +40,9 @@ delete cafehi_cart;
 delete cafehi_order;
 delete cafehi_order_menu;
 
+update cafehi_membership set membership_point = 0, membership_grade = 'STANDARD' 
+where member_code = 1;
+     
 commit;
 rollback;
 
@@ -82,37 +85,6 @@ create table cafehi_member_auth(
     member_auth_updatetime timestamp not null, -- 사용자 권한 수정일
     constraint fk_member_auth foreign key(member_code) references cafehi_member(member_code) on delete cascade
 );
-
-
----- 사용자 정보 권한 테이블
---create table cafehi_member_auth(
---    member_auth_code number primary key, -- 사용자 정보 권한 코드
---    member_auth varchar2(50) not null, -- 스프링 시큐리티 사용자 권한 : ROLE_USER, ROLE_ADMIN ...
---    member_auth_writetime timestamp not null, -- 사용자 권한 등록일
---    member_auth_updatetime timestamp not null -- 사용자 권한 수정일
---);
---
---
---
----- 사용자 정보 테이블
---create table cafehi_member(
---    member_code number primary key, -- 사용자 코드 
---    member_id varchar2(50) not null, -- 사용자 아이디   
---    member_pw varchar2(100) not null, -- 사용자 비밀번호
---    member_name varchar2(50) not null, -- 사용자 이름 
---    member_contact varchar2(15) not null, -- 사용자 연락처
---    member_email varchar2(50) not null, -- 사용자 계정 인증용 이메일
---    member_road_address varchar2(100), -- 사용자 도로명 주소
---    member_jibun_address varchar2(100), -- 사용자 지번 주소
---    member_detail_address varchar2(100), -- 사용자 상세 주소 
---    enabled char(1) default '1', -- 스프링 시큐리티 권한 사용 여부
---    member_writetime timestamp not null, -- 사용자 등록일
---    member_updatetime timestamp not null, -- 사용자 수정일
---    member_auth_code number not null,
---    constraint fk_member_auth foreign key(member_auth_code) references cafehi_member_auth(member_auth_code) on delete cascade
---);
-
-
 
 
 --  QnA 게시판 
@@ -215,9 +187,6 @@ insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explai
 
 commit;
 
-select Menu.menu_price, Menu.menu_explain from cafehi_sub_category subCategory, cafehi_menu Menu
-where subCategory.category_sub_code = Menu.category_sub_code and subCategory.category_sub_name = 'coldbrew';
-
 -- 장바구니 테이블
 
 create table cafehi_cart(
@@ -251,6 +220,14 @@ create table cafehi_order(
     include_delivery char(1) -- 배송비 포함 여부
 );
 
+-- 주문 시퀀스
+create sequence seq_order
+start with 0
+minvalue 0
+increment by 1;
+
+drop sequence seq_order;
+
 
 -- 주문 메뉴 
 create table cafehi_order_menu(
@@ -264,6 +241,17 @@ create table cafehi_order_menu(
     order_menu_writetime timestamp, -- 주문 메뉴 등록일 
     order_menu_updatetime timestamp -- 주문 메뉴 수정일
 );
+
+
+-- 주문 메뉴 시퀀스
+
+create sequence seq_order_menu
+start with 0
+minvalue 0
+increment by 1;
+
+drop sequence seq_order_menu;
+
 
 SELECT om.order_menu_code, om.order_code, om.menu_code, om.total_order_price, om.total_order_count, o.orderState, o.orderDate
 FROM cafehi_order o LEFT OUTER JOIN cafehi_order_menu om

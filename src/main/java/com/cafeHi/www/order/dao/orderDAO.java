@@ -22,13 +22,13 @@ public class orderDAO {
 
 	public void insertOrderMenu(orderMenuDTO orderMenu) {
 		
-		sqlSessionTemplate.insert("OrderDAO.insertOrderMenu", orderMenu);
+		 sqlSessionTemplate.insert("OrderDAO.insertOrderMenu", orderMenu);
 		
 	}
 
 
-	public int inserOrder(orderDTO order) {
-		return sqlSessionTemplate.insert("OrderDAO.insertOrder", order);
+	public void inserOrder(orderDTO order) {
+		 sqlSessionTemplate.insert("OrderDAO.insertOrder", order);
 	}
 
 	public orderDTO getOrder(int order_code) {
@@ -54,9 +54,9 @@ public class orderDAO {
 	}
 
 
-	public int cancelOrder(Map<String, Object> orderCancelInfo) {
+	public int cancelOrder(orderDTO order) {
 				
-		int result = sqlSessionTemplate.update("OrderDAO.cancelOrder", orderCancelInfo);
+		int result = sqlSessionTemplate.update("OrderDAO.cancelOrder", order);
 		
 		return result;
 	

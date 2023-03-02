@@ -1,12 +1,6 @@
 package com.cafeHi.www.order.controller;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,12 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cafeHi.www.member.dto.CustomUser;
-import com.cafeHi.www.member.dto.MemberDTO;
 import com.cafeHi.www.membership.dto.MembershipDTO;
 import com.cafeHi.www.membership.service.MembershipService;
 import com.cafeHi.www.menu.dto.MenuDTO;
 import com.cafeHi.www.menu.service.menuService;
-import com.cafeHi.www.order.OrderState;
 import com.cafeHi.www.order.dto.orderDTO;
 import com.cafeHi.www.order.dto.orderMenuDTO;
 import com.cafeHi.www.order.service.orderService;
@@ -77,42 +69,28 @@ public class orderController {
 			@RequestParam("total_order_count") int total_order_count, 
 			MembershipDTO membership
 			) {
-		
-		
+	
 		orderDTO newOrder = new orderDTO();
 		orderMenuDTO newOrderMenu = new orderMenuDTO();
-		
-		log.info("Include_delivery= {}", include_delivery);
 		
 		newOrder.setMemberCode(member_code);
 		newOrder.setIncludeDelivery(include_delivery);
 		newOrder.setTimeAndStatus();
 		
-		log.info("membership = {}", membership);
 		
 		log.info(" =============== membership start =============== ");		
 		
 		membershipService.updateMembershipPoint(membership);
 		
 		log.info("=============== membership end =============== ");
-		
-		
-		log.info("menu_code = {}", menu_code);
-		
+			
 		
 		MenuDTO getMenu = menuService.getMenu(menu_code);
 		
 		if(deliveryFee != 0 & newOrder.getInclude_delivery()) {
 			
-			int orderCode = orderService.insertOrder(newOrder);
-			
-			log.info("orderKey 생성 확인 = {}", orderCode);
-			
-			log.info("getMenu_price = {}", getMenu.getMenu_price());
-			
-			log.info("total_order_count = {}" , total_order_count);
-		
-			
+		orderService.insertOrder(newOrder);
+					
 		int TotalPrice = newOrderMenu.totalPrice(deliveryFee, getMenu.getMenu_price(), total_order_count); // 배송비 포함 총 비용 
 		
 		log.info("TotalPrice = {}", TotalPrice);
@@ -130,13 +108,9 @@ public class orderController {
 			
 		} else {
 			
-			int orderCode = orderService.insertOrder(newOrder);
-			
-			log.info("orderKey 생성 확인 = {}", orderCode);
+			orderService.insertOrder(newOrder);
 			
 		int NotDeliveryTotalPrice = newOrderMenu.totalPrice(getMenu.getMenu_price(), total_order_count);  // 배송비 불포함 총 비용 
-		
-			log.info("NotDeliveryTotalPrice = {}", NotDeliveryTotalPrice);
 			
 			newOrderMenu.setMenu(getMenu);
 			
@@ -164,7 +138,7 @@ public class orderController {
 			  List<orderMenuDTO> orderList = orderService.listOrder(member_code);
 			  			  
 			  log.info("orderListSize = {}", orderList.size());
-			
+			  			
 			  model.addAttribute("orderList", orderList);
 			  			  			  
 			  model.addAttribute("orderListCount", orderList.size());
@@ -179,17 +153,11 @@ public class orderController {
 	@PostMapping("/CafehiOrderCancel.do")
 	public String CafehiOrderCancel(orderDTO order, Model model) {
 		
+		log.info("order_code = {}", order.getOrder_code());
 		
+		order.cancelTimeAndStatus();
 		
-		Map<String, Object> OrderCancelInfo = new HashMap<>();
-		
-		OrderCancelInfo.put("order_code", order.getOrder_code());
-		OrderCancelInfo.put("order_status", OrderState.주문취소);
-		OrderCancelInfo.put("order_updatetime", LocalDateTime.now());
-		
-		orderService.CancelOrder(OrderCancelInfo);
-		
-		
+		orderService.CancelOrder(order);
 		
 		return "redirect:/CafehiOrderList.do";
 	}

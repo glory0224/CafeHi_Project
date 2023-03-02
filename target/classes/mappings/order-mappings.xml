@@ -52,10 +52,7 @@
  	 </resultMap>
 	
 	<insert id="insertOrder" parameterType="Order">
-		<!-- 입력된 기본키를 리턴 -->
-	<!-- <selectKey resultType="int" keyProperty="order_code" order="BEFORE">
-		SELECT seq_order.nextval FROM dual
-	</selectKey> -->
+	
 	INSERT INTO cafehi_order(order_code, member_code, include_delivery, order_status, order_writetime, order_updatetime)
 	VALUES(seq_order.nextval, #{member_code}, #{include_delivery}, #{order_status}, #{order_writetime}, #{order_updatetime})	
 	
@@ -63,6 +60,7 @@
 	
 	
 	<insert id="insertOrderMenu" parameterType="orderMenu">
+	
 	INSERT INTO cafehi_order_menu(order_menu_code, order_code, menu_code, total_order_price, total_order_count, order_menu_writetime, order_menu_updatetime)
 	
 	VALUES(seq_order_menu.nextval , seq_order.currval , #{menu.menu_code}, #{total_order_price}, #{total_order_count}, #{order_menu_writetime}, #{order_menu_updatetime}) 	
@@ -83,7 +81,7 @@
 	
 	<!-- join 사용 -> 테이블 매핑으로 데이터 반환 -> resultMap 사용한다.  -->
 	<select id="listOrder" parameterType="int" resultMap="orderMenuResult">
-	  	SELECT m.menu_name, m.menu_price, om.total_order_price, o.include_delivery, om.total_order_count, om.total_order_price, o.order_status, o.order_writetime, o.order_updatetime
+	  	SELECT m.menu_name, m.menu_price, om.total_order_price, o.include_delivery, om.total_order_count, om.total_order_price, o.order_code, o.order_status, o.order_writetime, o.order_updatetime
 		FROM cafehi_order o JOIN cafehi_order_menu om
 		ON o.order_code = om.order_code AND o.member_code = #{member_code}
         JOIN cafehi_menu m
@@ -91,7 +89,7 @@
 	</select>	
 	
 	
- 	<update id="cancelOrder" parameterType="hashMap">
+ 	<update id="cancelOrder" parameterType="Order">
 		UPDATE cafehi_order
 		SET order_status = #{order_status}, order_updatetime = #{order_updatetime}
 		WHERE order_code = #{order_code}
