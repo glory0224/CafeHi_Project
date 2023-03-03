@@ -34,6 +34,11 @@ public class QnAServiceImpl implements QnAService {
 
 	@Override
 	public void insertQnA(QnADTO qna) {
+		
+		System.out.println("qna.getStore_file_name() : " + qna.getStore_file_name());
+		System.out.println("qna.getUpload_file_name() : " + qna.getUpload_file_name());
+		System.out.println("qna.getUpload_path(): " + qna.getUpload_path());
+		
 		qnADAO.insertQnA(qna);
 	}
 	

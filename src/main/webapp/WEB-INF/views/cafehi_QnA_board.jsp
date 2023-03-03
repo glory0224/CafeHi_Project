@@ -48,37 +48,11 @@
 					
 						<!-- 검색 엔진   -->
 					<div class="search_area">
-						<%-- <select class="btn btn-success" name="qna_select">
-							<%if(qna_select == null || qna_select == ""){ %>
-							<c:forEach items="${conditionMap }" var="option">
-								<option value="${option.value }">${option.key }</option>
-							</c:forEach>
-						</select>
-						<input type="hidden" name="pageNum" value="1">
-						<input type="hidden" name="amount" value="10">
-						<!-- 서치할 내용의 값을 value에 담아서 넘긴다. -->
-						<input class="btn btn-success" type="text" name="qna_search">
-						<input class="btn btn-success" type="submit" value="검색"> --%>
 						
-						<%-- <select  class="btn btn-success" name="type">
-							<option value="" <c:out value="${pageDTO.cri.type == null? 'selected' : '' }"/>>--</option>
-							<option value="T" <c:out value="${pageDTO.cri.type eq 'T'? 'selected' : '' }"/>>제목</option>
-							<option value="C" <c:out value="${pageDTO.cri.type eq 'C'? 'selected' : '' }"/>>내용</option>
-							<option value="W" <c:out value="${pageDTO.cri.type eq 'W'? 'selected' : '' }"/>>작성자</option>
-							<option value="TC" <c:out value="${pageDTO.cri.type eq 'TC'? 'selected' : '' }"/>>제목 + 내용</option>
-							<option value="TW" <c:out value="${pageDTO.cri.type eq 'TW'? 'selected' : '' }"/>>제목 + 작성자</option>
-							<option value="TCW" <c:out value="${pageDTO.cri.type eq 'TCW'? 'selected' : '' }"/>>제목 + 내용 + 작성자</option>
-						</select> --%>
-						
-						
-						<%-- <input type="hidden" name="type" value="${pageDTO.cri.type }"> --%>
 						<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
 						<input class="btn btn-success" type="text" name="keyword" value="${pageDTO.cri.keyword }">
 						<button class="btn btn-success">검색</button>
-						<!-- <input class="btn btn-success" type="button" value="검색" > -->
-						
-						
-						
+							
 						<!--------------------검색 엔진--------------------  -->
 						
 						<sec:authorize access="hasAnyRole('ROLE_USER')">
@@ -105,14 +79,23 @@
 									<th>조회수</th>
 								</tr>
 							</thead>
-
+							
+							<c:choose>
+							<c:when test="${qnaListSize == 0 }">
+								<tbody align="center">	
+									<tr>
+        							<td colspan="5"><b>게시글이 없습니다.</b></td>
+        							</tr>
+								</tbody>
+							</c:when>
+							<c:otherwise>
 							<c:forEach var="qna" items="${qnaList}">
 								<tbody>
 									<tr>
 										<td>${qna.qna_num }</td>
 										<td><a href="getQnA.do?qna_num=${qna.qna_num }"
 											style="text-decoration: none; color: black; font-weight: bold;">
-												<c:if test="${qna.qna_title_classification ne null }">${qna.qna_title_classification }&nbsp; </c:if>${qna.qna_title }</a></td>
+												<c:if test="${qna.qna_title_classification ne 'none' }">${qna.qna_title_classification }&nbsp; </c:if>${qna.qna_title }</a></td>
 										<td>${qna.member_id }</td>
 										<!-- LocalDateTime format Parse -->
 										<fmt:parseDate value="${qna.qna_writetime }" pattern="yyyy-MM-dd'T'HH:mm" var="parseDateTime" type="both"></fmt:parseDate>
@@ -148,6 +131,9 @@
 								
 								</td>
 							</tr>
+							</c:otherwise>
+							</c:choose>
+							
 							</tbody>
 						</table>
 					</div>

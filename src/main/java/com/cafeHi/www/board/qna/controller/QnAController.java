@@ -37,10 +37,12 @@ import com.cafeHi.www.member.dto.MemberDTO;
 import com.cafeHi.www.member.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
-// qna 관련 이동 
+ 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class QnAController {
 	
 	private final QnAService qnaService;
@@ -98,8 +100,11 @@ public class QnAController {
 		
 		PageDTO pageDTO = new PageDTO(cri, total);
 		
+		List<QnADTO> qnaList = qnaService.getQnAList(cri);
+		
 		model.addAttribute("pageDTO", pageDTO);
-		model.addAttribute("qnaList", qnaService.getQnAList(cri));
+		model.addAttribute("qnaList", qnaList);
+		model.addAttribute("qnaListSize", qnaList.size());
 		
 		
 			
@@ -156,36 +161,38 @@ public class QnAController {
 //	}
 
 	
-	// 개선해본 코드 
+
 	@PostMapping("/InsertQnA.do")
 	public String InsertQnAV2(@RequestParam(value = "uploadfile", required = false) MultipartFile uploadfile,  QnADTO qna, MemberDTO mem) throws IOException {
 		
 		
-		qna.setQna_writetime(LocalDateTime.now());
+		if (!uploadfile.isEmpty()) {
+			
+			qna.setQna_title_classification("none");
 		
-		qna.setQna_updatetime(LocalDateTime.now());
-		
-		UploadFileDTO attachFile = fileStore.storeFile(uploadfile);
-		
-		System.out.println("StoreFileName : " + attachFile.getStoreFileName());
-		System.out.println("UploadFileName : " + attachFile.getUploadFileName());
-		
-		String storeFile = attachFile.getStoreFileName();
-		
-		qna.setStore_file_name(storeFile);
-		
-		String uploadFile = attachFile.getUploadFileName();
-		
-		qna.setUpload_file_name(uploadFile);
-		
-		String fullPath = fileStore.getFullPath(storeFile);
-		
-		qna.setUpload_path(fullPath);
-				
+			qna.setQnADateTime();
+			
+			UploadFileDTO attachFile = fileStore.storeFile(uploadfile);
+			
+			qna.saveFile(attachFile.getStoreFileName(), attachFile.getUploadFileName(), fileStore.getFullPath(attachFile.getStoreFileName()));
+			
+			
+			
+		} else {
+			
+			// 파일 등록을 안하는 경우
+			
+			qna.setQna_title_classification("none");
+			
+			qna.setQnADateTime();
+			
+			qna.saveFile("none", "없음", "none");
+			
+		}
+			
 		qnaService.insertQnA(qna);
-		
-		
 		return "redirect:QnAList.do";
+		
 		
 	}
 	
@@ -195,30 +202,25 @@ public class QnAController {
 	@PostMapping("/InsertAdminQnA.do")
 	public String InsertAdminQnA(@RequestParam(value = "uploadfile", required = false) MultipartFile uploadfile,  QnADTO qna, MemberDTO mem) throws IOException {
 				
-		qna.setQna_writetime(LocalDateTime.now());
-		
-		qna.setQna_updatetime(LocalDateTime.now());
-		
-		UploadFileDTO attachFile = fileStore.storeFile(uploadfile);
-		
-		System.out.println("StoreFileName : " + attachFile.getStoreFileName());
-		System.out.println("UploadFileName : " + attachFile.getUploadFileName());
-		
-		String storeFile = attachFile.getStoreFileName();
-		
-		qna.setStore_file_name(storeFile);
-		
-		String uploadFile = attachFile.getUploadFileName();
-		
-		qna.setUpload_file_name(uploadFile);
-		
-		String fullPath = fileStore.getFullPath(storeFile);
-		
-		qna.setUpload_path(fullPath);
+		if (!uploadfile.isEmpty()) {
+			
+			
+			qna.setQnADateTime();
+			
+			UploadFileDTO attachFile = fileStore.storeFile(uploadfile);
+			
+			qna.saveFile(attachFile.getStoreFileName(), attachFile.getUploadFileName(), fileStore.getFullPath(attachFile.getStoreFileName()));
+			
+		} else {
+			
+			// 파일 등록을 안하는 경우
+			
+			qna.setQnADateTime();
+			
+			qna.saveFile("none", "없음", "none");
+		}
 				
 		qnaService.insertQnA(qna);
-		
-		
 		return "redirect:QnAList.do";
 		
 	}
@@ -239,25 +241,43 @@ public class QnAController {
 	@PostMapping("/QnAUpdate.do")
 	public String UpdateQnA(@RequestParam(value = "uploadfile", required = false) MultipartFile uploadfile, QnADTO qna, HttpServletRequest request) throws IllegalStateException, IOException {
 			
-			File file = new File(qna.getUpload_path());
-			file.delete();
+			// 수정 - 애초에 uploadfile 이 안넘어오거나, 새로운 파일이 넘어온다.
+			
+			// 이전에 있던 게시글 파일 존재 여부 확인 후
+			QnADTO getQnA = qnaService.getQnA(qna);
 		
-			UploadFileDTO attachFile = fileStore.storeFile(uploadfile);
-		
-			System.out.println("StoreFileName : " + attachFile.getStoreFileName());
-			System.out.println("UploadFileName : " + attachFile.getUploadFileName());
+			// 이전에 게시글에 파일이 존재 했다면 파일을 삭제, 새로운 파일을 넣거나 none	
 			
-			String storeFile = attachFile.getStoreFileName();
+			if (getQnA.getUpload_path() != "none") {
+				
+				File file = new File(getQnA.getUpload_path());
+				file.delete();
+				
+				if (!uploadfile.isEmpty()) {
+					UploadFileDTO attachFile = fileStore.storeFile(uploadfile);
+					
+					qna.saveFile(attachFile.getStoreFileName(), attachFile.getUploadFileName(), fileStore.getFullPath(attachFile.getStoreFileName()));
+				} else {
+					
+					// 파일을 등록 안하는 경우
+					qna.saveFile("none", "없음", "none");
+					
+				}
+				
+			} else {
+				// 이전에 게시글에 파일이 존재하지 않았다면 그냥 새로운 파일을 넣거나 none 
+				
+				if(!uploadfile.isEmpty()) {
+					UploadFileDTO attachFile = fileStore.storeFile(uploadfile);
+					qna.saveFile(attachFile.getStoreFileName(), attachFile.getUploadFileName(), fileStore.getFullPath(attachFile.getStoreFileName()));
+				} else {
+					// 파일을 등록 안하는 경우
+					qna.saveFile("none", "없음", "none");
+				}
+			}
 			
-			qna.setStore_file_name(storeFile);
-			
-			String uploadFile = attachFile.getUploadFileName();
-			
-			qna.setUpload_file_name(uploadFile);
-			
-			String fullPath = fileStore.getFullPath(storeFile);
-			
-			qna.setUpload_path(fullPath);
+			// 날짜 수정
+			qna.updateQnADateTime();
 			
 			qnaService.updateQnA(qna);
 			request.setAttribute("msg", "수정이 완료되었습니다.");
@@ -286,20 +306,7 @@ public class QnAController {
 	
 		UploadFileDTO attachFile = fileStore.storeFile(uploadfile);
 	
-		System.out.println("StoreFileName : " + attachFile.getStoreFileName());
-		System.out.println("UploadFileName : " + attachFile.getUploadFileName());
-		
-		String storeFile = attachFile.getStoreFileName();
-		
-		qna.setStore_file_name(storeFile);
-		
-		String uploadFile = attachFile.getUploadFileName();
-		
-		qna.setUpload_file_name(uploadFile);
-		
-		String fullPath = fileStore.getFullPath(storeFile);
-		
-		qna.setUpload_path(fullPath);
+		qna.saveFile(attachFile.getStoreFileName(), attachFile.getUploadFileName(), fileStore.getFullPath(attachFile.getStoreFileName()));
 		
 		qnaService.updateQnA(qna);
 		request.setAttribute("msg", "수정이 완료되었습니다.");
@@ -311,22 +318,29 @@ public class QnAController {
 	
 	// 사용자 게시글 삭제 
 	
-	@GetMapping("/DeleteQnA.do")
-	public String DeleteQnA(QnADTO qna,  HttpServletRequest request) {
+	@PostMapping("/DeleteQnA.do")
+	public String DeleteQnA(QnADTO qna, HttpServletRequest request) {
 		
-		QnADTO getQnA = qnaService.getQnA(qna);
-		qnaService.deleteQnA(qna);
 		
-		File file = new File(getQnA.getUpload_path());
-		file.delete();
-		request.setAttribute("msg", "삭제가 완료되었습니다.");
-		request.setAttribute("url", "QnAList.do");
-		return "alert";
+		// 뷰단에서 수정과 삭제 버튼 자체를 안보이게 막았으나, 어떻게 url 을 알고 직접 요청을 보내면 삭제될 가능성이 있다. 
+		// Get -> Post 변경
+		
+		
+			QnADTO getQnA = qnaService.getQnA(qna);
+			qnaService.deleteQnA(qna);
+			
+			File file = new File(getQnA.getUpload_path());
+			file.delete();
+			request.setAttribute("msg", "삭제가 완료되었습니다.");
+			request.setAttribute("url", "QnAList.do");
+			
+			return "alert";		
+		
 	}
 	
 	// 관리자 게시글 삭제 
 	
-	@GetMapping("/AdminDeleteQnA.do")
+	@PostMapping("/AdminDeleteQnA.do")
 	public String AdminDeleteQnA(QnADTO qna,  HttpServletRequest request) {
 		QnADTO getQnA = qnaService.getQnA(qna);
 		qnaService.deleteQnA(qna);

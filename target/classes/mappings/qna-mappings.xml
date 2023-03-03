@@ -41,28 +41,7 @@
  		<result property="member_code" column="MEMBER_CODE"/>
  		<result property="member_auth" column="MEMBER_AUTH"/>
  	</resultMap> 
- 	<!-- 검색 조건문 --> 	
-<!-- 	<sql id="criteria">
-		<trim prefix="AND (" suffix=")" prefixOverrides="OR">
-			<foreach collection="typeArr" item="type">
-				<trim prefix="OR">
-					<choose>
-						<when test="type== 'T'.toString()">
-							qna_title like '%'||#{keyword}||'%'
-						</when>
-						<when test="type== 'C'.toString()">
-							qna_content like '%'||#{keyword}||'%' 
-						</when>
-						<when test="type== 'W'.toString()">
-							user_id like '%'||#{keyword)||'%'
-						</when>
-					</choose>
-				</trim>
-			</foreach>
-		</trim>
-	</sql> -->
- 	
- 	
+
  	<!-- 전체 QnA 개수 조회 -->
  	
  	<select id="getQnANum" resultType="int">

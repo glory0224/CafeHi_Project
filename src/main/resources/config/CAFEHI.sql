@@ -202,8 +202,8 @@ create table cafehi_cart(
 
 -- 장바구니 기본키 시퀀스 생성
 create sequence seq_cart
-start with 0
-minvalue 0
+start with 1
+minvalue 1
 increment by 1;
 
 drop sequence seq_cart;
@@ -222,8 +222,8 @@ create table cafehi_order(
 
 -- 주문 시퀀스
 create sequence seq_order
-start with 0
-minvalue 0
+start with 1
+minvalue 1
 increment by 1;
 
 drop sequence seq_order;
@@ -246,8 +246,8 @@ create table cafehi_order_menu(
 -- 주문 메뉴 시퀀스
 
 create sequence seq_order_menu
-start with 0
-minvalue 0
+start with 1
+minvalue 1
 increment by 1;
 
 drop sequence seq_order_menu;
