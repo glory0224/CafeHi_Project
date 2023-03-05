@@ -2,8 +2,6 @@
 
 select * from tab;
 select * from cafehi_member;
-select member_writetime, member_updatetime from cafehi_member;
-select member_auth_writetime, member_auth_updatetime from cafehi_member_auth;
 select * from cafehi_member_auth;
 select * from cafehi_qna;
 select * from cafehi_membership;
@@ -42,9 +40,6 @@ delete cafehi_order_menu;
 
 update cafehi_membership set membership_point = 0, membership_grade = 'STANDARD' 
 where member_code = 1;
-     
-commit;
-rollback;
 
 
 -- 삭제
@@ -58,8 +53,138 @@ drop table cafehi_membership;
 drop table cafehi_qna;
 drop table cafehi_member_auth;
 drop table cafehi_member;
+	
+
+------------------------------------ 테이블 시퀀스 생성 시작 -------------------------------------
+
+-- 시퀀스의 마지막 값과 20씩 차이나는 증가 이상 현상 발견
+-- 검색해보니 시퀀스는 기본적으로 캐싱을 하고 이 옵션이 켜져 있기 때문이라는 결론
+-- https://bae9086.tistory.com/297 블로그 글을 참고하여 시퀀스 옵션 변경
+
+-- 사용자 권한 시퀀스 
+create sequence seq_member_auth
+start with 1
+minvalue 1
+nomaxvalue
+increment by 1
+nocycle
+nocache
+order;
+
+SELECT * FROM USER_SEQUENCES WHERE SEQUENCE_NAME = 'SEQ_MEMBER_AUTH'; -- 시퀀스 정보 조회
+
+SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME = 'SEQ_MEMBER_AUTH'; -- 마지막 시퀀스 조회
+
+drop sequence seq_member_auth;
+
+-- 사용자 시퀀스 
+create sequence seq_member
+start with 1
+minvalue 1
+nomaxvalue
+increment by 1
+nocycle
+nocache
+order;
+
+SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME = 'SEQ_MEMBER';
+
+drop sequence seq_member;
+
+-- 게시판 시퀀스
+create sequence seq_qna
+start with 1
+minvalue 1
+nomaxvalue
+increment by 1
+nocycle
+nocache
+order;
+
+SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME = 'SEQ_QNA';
+
+drop sequence seq_qna;
+
+-- 멤버쉽 시퀀스
+create sequence seq_membership
+start with 1
+minvalue 1
+nomaxvalue
+increment by 1
+nocycle
+nocache
+order;
+
+SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME = 'SEQ_MEMBERSHIP';
+
+drop sequence seq_membership;
+
+-- 메뉴 시퀀스
+create sequence seq_menu
+start with 1
+minvalue 1
+nomaxvalue
+increment by 1
+nocycle
+nocache
+order;
+
+SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME = 'SEQ_MENU';
+
+drop sequence seq_menu;
 
 
+-- 장바구니 시퀀스 생성
+create sequence seq_cart
+start with 1
+minvalue 1
+nomaxvalue
+increment by 1
+nocycle
+nocache
+order;
+
+SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME = 'SEQ_CART';
+
+drop sequence seq_cart;
+
+
+-- 주문 시퀀스
+create sequence seq_order
+start with 1
+minvalue 1
+nomaxvalue
+increment by 1
+nocycle
+nocache
+order;
+
+SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME = 'SEQ_ORDER';
+
+drop sequence seq_order;
+
+-- 주문 메뉴 시퀀스
+
+create sequence seq_order_menu
+start with 1
+minvalue 1
+nomaxvalue
+increment by 1
+nocycle
+nocache
+order;
+
+SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME = 'SEQ_ORDER_MENU';
+
+drop sequence seq_order_menu;
+
+
+
+------------------------- 시퀀스 생성 끝 --------------------------------------
+
+
+
+--------------------------- 테이블 생성 시작 ------------------------------------ 
 
 -- 사용자 정보 권한 테이블
 create table cafehi_member_auth(
@@ -69,14 +194,6 @@ create table cafehi_member_auth(
     member_auth_updatetime timestamp not null -- 사용자 권한 수정일
 );
 
-
--- 사용자 권한 시퀀스 
-create sequence seq_member_auth
-start with 1
-minvalue 1
-increment by 1;
-
-drop sequence seq_member_auth;
 
 -- 사용자 정보 테이블
 create table cafehi_member(
@@ -96,16 +213,6 @@ create table cafehi_member(
     constraint fk_member_auth foreign key(member_auth_code) references cafehi_member_auth(member_auth_code) on delete cascade
 );
 
--- 사용자 시퀀스 
-create sequence seq_member
-start with 1
-minvalue 1
-increment by 1;
-
-drop sequence seq_member;
-
-commit;
-
 
 --  QnA 게시판 
 create table cafehi_qna(
@@ -122,7 +229,6 @@ create table cafehi_qna(
     member_code number not null, -- 사용자 코드
     constraint fk_qna_member_code foreign key(member_code) references cafehi_member (member_code) on delete cascade 
 );
-
 
 
 -- 카페하이 멤버쉽 
@@ -220,15 +326,6 @@ create table cafehi_cart(
 );
 
 
--- 장바구니 기본키 시퀀스 생성
-create sequence seq_cart
-start with 1
-minvalue 1
-increment by 1;
-
-drop sequence seq_cart;
-
-
 -- 주문
 create table cafehi_order(
     order_code number not null primary key, -- 주문코드 
@@ -239,15 +336,6 @@ create table cafehi_order(
     order_updatetime timestamp, -- 수정일자 
     include_delivery char(1) -- 배송비 포함 여부
 );
-
--- 주문 시퀀스
-create sequence seq_order
-start with 1
-minvalue 1
-increment by 1;
-
-drop sequence seq_order;
-
 
 -- 주문 메뉴 
 create table cafehi_order_menu(
@@ -263,14 +351,6 @@ create table cafehi_order_menu(
 );
 
 
--- 주문 메뉴 시퀀스
-
-create sequence seq_order_menu
-start with 1
-minvalue 1
-increment by 1;
-
-drop sequence seq_order_menu;
 
 
 SELECT om.order_menu_code, om.order_code, om.menu_code, om.total_order_price, om.total_order_count, o.orderState, o.orderDate
@@ -300,6 +380,9 @@ create table cafehi_mem_coupon(
     coupon_code number not null, 
     constraint fk_mem_coupon_couponcode foreign key(coupon_code) references cafehi_coupon (coupon_code)
 );
+
+
+
 
 
 
