@@ -11,9 +11,11 @@ import com.cafeHi.www.member.dto.MemberAuthDTO;
 import com.cafeHi.www.member.dto.MemberDTO;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service("memberService")
 @RequiredArgsConstructor
+@Slf4j
 public class MemberServiceImpl implements MemberService{
 
 	private final MemberDAO memberDAO;
@@ -64,7 +66,10 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public void updateMemberName(MemberDTO member) {
-		memberDAO.updateMemberName(member);
+		
+		int result = memberDAO.updateMemberName(member);
+		
+		log.info("updateNameResult = {}", result);
 	}
 
 	@Override

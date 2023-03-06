@@ -11,6 +11,7 @@ import com.cafeHi.www.member.dto.MemberAuthDTO;
 import com.cafeHi.www.member.dto.MemberDTO;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Repository
 @RequiredArgsConstructor
@@ -47,8 +48,9 @@ public class MemberDAO {
 		sqlSessionTemplate.delete("MemberDAO.deleteMemberAuth", member_code);
 	}
 
-	public void updateMemberName(MemberDTO member) {
-		sqlSessionTemplate.update("MemberDAO.updateMemberName", member);		
+	public int updateMemberName(MemberDTO member) {
+		
+		return sqlSessionTemplate.update("MemberDAO.updateMemberName", member);		
 	}
 
 	public void updateMemberContact(MemberDTO member) {
