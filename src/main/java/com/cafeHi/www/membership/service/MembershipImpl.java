@@ -1,7 +1,6 @@
 package com.cafeHi.www.membership.service;
 
 
-import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Service;
 
@@ -46,32 +45,26 @@ public class MembershipImpl implements MembershipService{
 
 		
 		if (MembershipGrade.STANDARD.getBasePoint() <= totalPoint && totalPoint < MembershipGrade.SILVER.getBasePoint()) {
-			membership.setMembership_grade(MembershipGrade.STANDARD.getGrade());
+			membership.updateMembershipInfo(MembershipGrade.STANDARD.getGrade(), totalPoint);
 		}
 		
 		if (MembershipGrade.SILVER.getBasePoint() <= totalPoint && totalPoint < MembershipGrade.GOLD.getBasePoint()) {
-			membership.setMembership_grade(MembershipGrade.SILVER.getGrade());
+			membership.updateMembershipInfo(MembershipGrade.SILVER.getGrade(), totalPoint);
 		}
 		
 		if (MembershipGrade.GOLD.getBasePoint() <= totalPoint && totalPoint < MembershipGrade.VIP.getBasePoint()) {
-			membership.setMembership_grade(MembershipGrade.GOLD.getGrade());
+			membership.updateMembershipInfo(MembershipGrade.GOLD.getGrade(), totalPoint);
 		}
 		
 		if (MembershipGrade.VIP.getBasePoint() <= totalPoint) {
-			membership.setMembership_grade(MembershipGrade.VIP.getGrade());
+			membership.updateMembershipInfo(MembershipGrade.VIP.getGrade(), totalPoint);
 		}
-
-		
-		log.info("MembershipGrade = {}", membership.getMembership_grade());
-		
-		membership.setMembership_point(totalPoint);
 		
 		log.info("total membership point = {}", membership.getMembership_point());
 		
-		// 포인트 수정 날짜 저장
-		membership.setMembership_updatetime(LocalDateTime.now());
-		
-		membershipDAO.updateMembershipPoint(membership);
+		int result = membershipDAO.updateMembershipPoint(membership);		
+	
+		log.info("updateResult = {}", result);
 	}
 
 

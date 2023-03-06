@@ -10,7 +10,6 @@ import lombok.Data;
 public class MemberDTO implements Serializable{
 	
 	
-	
 	/**
 	 * 
 	 */
@@ -18,6 +17,7 @@ public class MemberDTO implements Serializable{
 	
 	
 	private int member_code;  // 사용자 코드(기본키)
+	private int member_auth_code; // 사용자 권한 코드 
 	private String member_id; // 사용자 아이디
 	private String member_pw; // 사용자 비밀번호
 	private String member_name; // 사용자 이름 
@@ -30,4 +30,10 @@ public class MemberDTO implements Serializable{
 	private LocalDateTime member_writetime; // 사용자 등록일
 	private LocalDateTime member_updatetime; // 사용자 수정일
 	private List<MemberAuthDTO> authList; // 권한 리스트 
+	
+	public void setMemberDateTime() {
+		this.member_writetime = LocalDateTime.now(); 
+		this.member_updatetime = LocalDateTime.now();
+	}
+	
 }

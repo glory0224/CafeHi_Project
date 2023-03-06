@@ -20,9 +20,9 @@ public class membershipDAO {
 		sqlSessionTemplate.insert("MembershipDAO.insertMembership", membership);
 	}
 	
-	public void updateMembershipPoint(MembershipDTO membership) {
+	public int updateMembershipPoint(MembershipDTO membership) {
 		
-		sqlSessionTemplate.update("MembershipDAO.updateMembershipPoint", membership);
+		return sqlSessionTemplate.update("MembershipDAO.updateMembershipPoint", membership);
 	}
 	
 	public MembershipDTO getMembership(int member_code) {

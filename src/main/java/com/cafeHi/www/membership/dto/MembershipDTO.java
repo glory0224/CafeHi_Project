@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 
 import com.cafeHi.www.membership.MembershipGrade;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class MembershipDTO {
 	
 	private int membership_code;
@@ -35,12 +35,23 @@ public class MembershipDTO {
 	}
 
 
+	// 회원 멤버쉽 정보 설정 메서드
+		public void setMembershipInfo(int member_code) {
+			this.member_code = member_code;
+			this.membership_grade = MembershipGrade.STANDARD.toString();
+			this.membership_point = 0;
+			this.membership_writetime = LocalDateTime.now();
+			this.membership_updatetime = LocalDateTime.now();
+		}
 
+		
+		// 회원 멤버쉽 정보 수정 메서드 
+		public void updateMembershipInfo(String membershipGradeName, int totalPoint) {
+			this.membership_grade = membershipGradeName;
+			this.membership_point = totalPoint;
+			this.membership_updatetime = LocalDateTime.now();
+		}
 
-	
-	
-	
-	
 	
 	
 }

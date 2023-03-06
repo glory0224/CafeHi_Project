@@ -1,7 +1,6 @@
 package com.cafeHi.www.member.controller;
 
 
-import java.time.LocalDateTime;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.cafeHi.www.member.dto.MemberAuthDTO;
 import com.cafeHi.www.member.dto.MemberDTO;
 import com.cafeHi.www.member.service.MemberService;
-import com.cafeHi.www.membership.MembershipGrade;
 import com.cafeHi.www.membership.dto.MembershipDTO;
 import com.cafeHi.www.membership.service.MembershipService;
 
@@ -44,7 +42,7 @@ public class SignUpController {
 	
 	// 회원 등록
 		@PostMapping("/insertMember.do")
-		public String insertUser(MemberDTO member, MemberAuthDTO memberauth) {
+		public String insertUser(MemberDTO member, MemberAuthDTO memberauth, MembershipDTO membership) {
 			
 			String encodepw = pwdEncoder.encode(member.getMember_pw());
 			member.setMember_pw(encodepw);
@@ -55,49 +53,60 @@ public class SignUpController {
 				member.setMember_contact(join_nums);
 			}
 			
-			// 회원 가입 정보 등록일 저장 
-			member.setMember_writetime(LocalDateTime.now()); 
-			member.setMember_updatetime(LocalDateTime.now()); 
+			// 등록 및 수정 날짜 초기화 메서드
+			member.setMemberDateTime();
 			
-			memberService.insertMember(member);
-			MemberDTO getMember = memberService.getMember(member);
+			// 멤버 권한 생성
+			memberauth.setMemberAuthInfo();
 			
-			memberauth.setMember_auth_writetime(LocalDateTime.now());
-			memberauth.setMember_auth_updatetime(LocalDateTime.now());
-			memberauth.setMember_code(getMember.getMember_code());
-			memberauth.setMember_auth("ROLE_USER");
+			// 멤버 권한 등록
 			memberService.insertMemberAuth(memberauth);
 			
-			membershipService.insertMembership(new MembershipDTO(getMember.getMember_code() , MembershipGrade.STANDARD.getGrade(), 0, LocalDateTime.now(), LocalDateTime.now()));
+			int member_auth_code = memberauth.getMember_auth_code();
+			
+			// 멤버 정보 등록
+			
+			member.setMember_auth_code(member_auth_code);
+			
+			
+			memberService.insertMember(member);
+			
+			int member_code = member.getMember_code();
+			
+			// 멤버쉽 생성
+			
+			membership.setMembershipInfo(member_code);
+			
+			membershipService.insertMembership(membership);
 			
 			return "cafehi_login";
 		}
 		
 	// 관리자 등록
-		@PostMapping("/insertAdmin.do")
-		public String insertAdmin(MemberDTO member, MemberAuthDTO memberauth) {
-			String encodepw = pwdEncoder.encode(member.getMember_pw());
-			member.setMember_pw(encodepw);
-			// '-'을 입력한 정보일 경우 
-			if(member.getMember_contact().contains("-")) {
-				String[] nums = member.getMember_contact().split("-");
-				String join_nums = String.join("", nums);
-				member.setMember_contact(join_nums);
-			}
-			
-			// 회원 가입 날짜 저장
-			member.setMember_writetime(LocalDateTime.now()); 
-			member.setMember_updatetime(LocalDateTime.now()); 
-			
-			memberService.insertMember(member);
-			MemberDTO getMember = memberService.getMember(member);
-		
-			memberauth.setMember_code(getMember.getMember_code());
-			memberauth.setMember_auth("ROLE_ADMIN");
-			memberService.insertMemberAuth(memberauth);
-			
-			return "cafehi_login";
-		}
+//		@PostMapping("/insertAdmin.do")
+//		public String insertAdmin(MemberDTO member, MemberAuthDTO memberauth) {
+//			String encodepw = pwdEncoder.encode(member.getMember_pw());
+//			member.setMember_pw(encodepw);
+//			// '-'을 입력한 정보일 경우 
+//			if(member.getMember_contact().contains("-")) {
+//				String[] nums = member.getMember_contact().split("-");
+//				String join_nums = String.join("", nums);
+//				member.setMember_contact(join_nums);
+//			}
+//			
+//			// 회원 가입 날짜 저장
+//			member.setMember_writetime(LocalDateTime.now()); 
+//			member.setMember_updatetime(LocalDateTime.now()); 
+//			
+//			memberService.insertMember(member);
+//			MemberDTO getMember = memberService.getMember(member);
+//		
+//			memberauth.setMember_code(getMember.getMember_code());
+//			memberauth.setMember_auth("ROLE_ADMIN");
+//			memberService.insertMemberAuth(memberauth);
+//			
+//			return "cafehi_login";
+//		}
 	
 	
 	// 아이디 중복체크
