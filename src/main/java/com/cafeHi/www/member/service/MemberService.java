@@ -10,11 +10,10 @@ import com.cafeHi.www.member.dto.MemberDTO;
 public interface MemberService {
 	
 	// 회원 CRUD
-	public MemberDTO getMember(MemberDTO member);
+	public MemberDTO findMemberById(String member_id);
 	public List<MemberDTO> getMemberList(Map<String, Object> auth);
-	public MemberDTO readMember(String member_code);
-	public void insertMember(MemberDTO member);
-	public void insertMemberAuth(MemberAuthDTO memberauth);
+	public int insertMember(MemberDTO member);
+	public int insertMemberAuth(MemberAuthDTO memberauth);
 	
 	public void updateMemberName(MemberDTO member);
 	public void updateMemberContact(MemberDTO member);
@@ -22,9 +21,7 @@ public interface MemberService {
 	public void updateMemberDetailAddress(MemberDTO member);
 	public void updateMemberEmail(MemberDTO member);
 	
-	public void deleteMember(int member_code);
-	public void deleteMemberAuth(int member_code);
-	
+	public void deleteMember(int member_auth_code);	
 
 	// 중복 확인
 	public int checkEmail(String email);

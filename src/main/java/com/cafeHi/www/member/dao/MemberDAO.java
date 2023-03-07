@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Repository
 @RequiredArgsConstructor
+@Slf4j
 public class MemberDAO {
 	
 	//MyBatis
@@ -22,32 +23,28 @@ public class MemberDAO {
 	
 	
 	// È¸¿ø CRUD
-	public MemberDTO getMember(MemberDTO member) {
-		return sqlSessionTemplate.selectOne("MemberDAO.getMember", member);
-	}
-	
-	public MemberDTO readMember(String member_code) {
-		return sqlSessionTemplate.selectOne("MemberDAO.readMember", member_code);
+	public MemberDTO findMemberById(String member_id) {
 		
-	}
-	
-	public void insertMember(MemberDTO member) {
+		MemberDTO getMember = sqlSessionTemplate.selectOne("MemberDAO.findMemberById", member_id);
 		
-		sqlSessionTemplate.insert("MemberDAO.insertMember", member);
+		log.info("DAOgetMember = {} ", getMember);
+		return sqlSessionTemplate.selectOne("MemberDAO.findMemberById", member_id);
 	}
 	
-	public void insertMemberAuth(MemberAuthDTO memberauth) {
-		sqlSessionTemplate.insert("MemberDAO.insertMemberAuth", memberauth);
+	
+	public int insertMember(MemberDTO member) {
+		
+		return sqlSessionTemplate.insert("MemberDAO.insertMember", member);
 	}
 	
-	public void deleteMember(int member_code) {
-		sqlSessionTemplate.delete("MemberDAO.deleteMember", member_code);
+	public int insertMemberAuth(MemberAuthDTO memberauth) {
+		return sqlSessionTemplate.insert("MemberDAO.insertMemberAuth", memberauth);
 	}
 	
-	public void deleteMemberAuth(int member_code) {
-		sqlSessionTemplate.delete("MemberDAO.deleteMemberAuth", member_code);
+	public void deleteMember(int member_auth_code) {
+		sqlSessionTemplate.delete("MemberDAO.deleteMember", member_auth_code);
 	}
-
+	
 	public int updateMemberName(MemberDTO member) {
 		
 		return sqlSessionTemplate.update("MemberDAO.updateMemberName", member);		

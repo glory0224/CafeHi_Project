@@ -20,10 +20,12 @@ import com.cafeHi.www.membership.dto.MembershipDTO;
 import com.cafeHi.www.membership.service.MembershipService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class SignUpController {
 		
 	private final MemberService memberService;
@@ -54,24 +56,19 @@ public class SignUpController {
 			}
 			
 			// 등록 및 수정 날짜 초기화 메서드
-			member.setMemberDateTime();
-			
-			// 멤버 권한 생성
-			memberauth.setMemberAuthInfo();
-			
-			// 멤버 권한 등록
-			memberService.insertMemberAuth(memberauth);
-			
-			int member_auth_code = memberauth.getMember_auth_code();
+			// member.setMemberDateTime();
 			
 			// 멤버 정보 등록
 			
-			member.setMember_auth_code(member_auth_code);
+			int member_code = memberService.insertMember(member);
 			
+			// 멤버 권한 생성
 			
-			memberService.insertMember(member);
+			memberauth.setMemberAuthInfo(member_code);
 			
-			int member_code = member.getMember_code();
+			// 멤버 권한 등록
+			
+			memberService.insertMemberAuth(memberauth);
 			
 			// 멤버쉽 생성
 			

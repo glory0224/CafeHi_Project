@@ -22,11 +22,11 @@ public class MemberServiceTests {
 	@Setter(onMethod=@__({@Autowired}))
 	private MemberService memberService;
 	
-	@Test
-	public void testRead() {
-		MemberDTO mem = memberService.readMember("admin90");
-		log.info(mem);
-		
-		mem.getAuthList().forEach(authDTO -> log.info(authDTO));
-	}
+//	@Test
+//	public void testRead() {
+//		MemberDTO mem = memberService.readMember("admin90");
+//		log.info(mem);
+//		
+//		mem.getAuthList().forEach(authDTO -> log.info(authDTO));
+//	}
 }

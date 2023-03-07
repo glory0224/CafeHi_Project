@@ -6,9 +6,11 @@ import com.cafeHi.www.member.MemberAuthName;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Getter
 @NoArgsConstructor
+@ToString
 public class MemberAuthDTO {
 	private int member_auth_code; // 사용자 정보 권한 코드 
 	private int member_code; // 사용자 코드 
@@ -18,7 +20,8 @@ public class MemberAuthDTO {
 
 	
 	// 멤버 권한 설정 메서드
-		public void setMemberAuthInfo() {
+		public void setMemberAuthInfo(int member_code) {
+			this.member_code = member_code;
 			this.member_auth = MemberAuthName.ROLE_USER.toString();
 			this.member_auth_writetime = LocalDateTime.now();
 			this.member_auth_updatetime = LocalDateTime.now();
@@ -29,5 +32,8 @@ public class MemberAuthDTO {
 			this.member_auth = memberAuthName;
 			this.member_auth_updatetime = LocalDateTime.now();
 		}
-	
+		
+	public void setMemberAuthCode(int member_auth_code) {
+		this.member_auth_code = member_auth_code;
+	}
 }

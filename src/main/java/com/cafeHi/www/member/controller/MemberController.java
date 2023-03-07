@@ -17,18 +17,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cafeHi.www.common.dto.CriteriaDTO;
 import com.cafeHi.www.common.dto.PageDTO;
 import com.cafeHi.www.member.dto.CustomUser;
+import com.cafeHi.www.member.dto.MemberAuthDTO;
 import com.cafeHi.www.member.dto.MemberDTO;
 import com.cafeHi.www.member.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class MemberController {
 	
 	private final MemberService memberService;
@@ -40,6 +44,7 @@ public class MemberController {
 	
 	@PostMapping("/updateMemberName.do")
 	public String updateUserName(MemberDTO member) {
+		
 		// db 정보 변경
 		memberService.updateMemberName(member);
 		
@@ -93,8 +98,6 @@ public class MemberController {
 		CustomUser userInfo = (CustomUser) principal;
 		userInfo.getMember().setMember_road_address(member.getMember_road_address());
 		userInfo.getMember().setMember_jibun_address(member.getMember_jibun_address());
-
-		
 		
 		return "member/cafehi_memberInfo";
 	}
@@ -128,9 +131,15 @@ public class MemberController {
 		// 입력받은 계정 정보와 세션 정보 비교 
 		if(MemberId.equals(securityId) && pwdEncoder.matches(MemberPw, securityPw)) {	
 		
-		int member_code = userInfo.getMember().getMember_code();
-				
-		memberService.deleteMember(member_code);
+			int member_auth_code = 0;
+			
+			for (MemberAuthDTO memberAuth : userInfo.getMember().getAuthList()) {
+				log.info("member_auth_code = {}", memberAuth.getMember_auth_code());
+				member_auth_code = memberAuth.getMember_auth_code();
+			}
+			
+			
+		memberService.deleteMember(member_auth_code);
 		
 		session.invalidate();
 		SecurityContextHolder.getContext().setAuthentication(null);

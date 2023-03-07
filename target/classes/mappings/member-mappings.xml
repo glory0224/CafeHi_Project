@@ -15,8 +15,10 @@
  		<result property="member_jibun_address" column="MEMBER_JIBUN_ADDRESS"/>
  		<result property="member_detail_address" column="MEMBER_DETAIL_ADDRESS"/>
  		<result property="enabled" column="ENABLED"/>
+ 		<result property="member_writetime" column="MEMBER_WRITETIME"/> <!-- 와 여기 MEMBER_WRITETIME 뒤에 공백이 있어서 mapping 시 null이 나왔다.. 소름.. -->
+ 		<result property="member_updatetime" column="MEMBER_UPDATETIME"/>
+ 		<!-- Many to one 단방향 참조 -->
  		<collection property="authList" resultMap="AuthResult">
- 			
  		</collection>
  	</resultMap>
  	
@@ -34,8 +36,8 @@
  	<!-- 회원 CRUD -->
  	
  	<insert id="insertMember" useGeneratedKeys="false">
-		 	INSERT INTO cafehi_member(member_code, member_auth_code, member_id, member_pw, member_name, member_contact, member_email, member_road_address, member_jibun_address, member_detail_address, member_writetime, member_updatetime)
-		 	VALUES(seq_member.nextval, #{member_auth_code}, #{member_id}, #{member_pw}, #{member_name}, #{member_contact}, #{member_email}, #{member_road_address},#{member_jibun_address},#{member_detail_address}, #{member_writetime}, #{member_updatetime})
+		 	INSERT INTO cafehi_member(member_code, member_id, member_pw, member_name, member_contact, member_email, member_road_address, member_jibun_address, member_detail_address, member_writetime, member_updatetime)
+		 	VALUES(seq_member.nextval, #{member_id}, #{member_pw}, #{member_name}, #{member_contact}, #{member_email}, #{member_road_address},#{member_jibun_address},#{member_detail_address}, #{member_writetime}, #{member_updatetime})
  			
  			<selectKey keyProperty="member_code" resultType="int" order="AFTER">
 			SELECT seq_member.currval FROM DUAL
@@ -43,12 +45,8 @@
  	</insert>
  	
  	<insert id="insertMemberAuth" useGeneratedKeys="false">
-		 INSERT INTO cafehi_member_auth(member_auth_code, member_auth, member_auth_writetime, member_auth_updatetime) 
-		 VALUES(seq_member_auth.nextval , #{member_auth}, #{member_auth_writetime}, #{member_auth_updatetime})
-		
-		<selectKey keyProperty="member_auth_code" resultType="int" order="AFTER">
-			SELECT seq_member_auth.currval FROM DUAL
-		</selectKey>
+		 INSERT INTO cafehi_member_auth(member_auth_code, member_code, member_auth, member_auth_writetime, member_auth_updatetime) 
+		 VALUES(seq_member_auth.nextval , #{member_code}, #{member_auth}, #{member_auth_writetime}, #{member_auth_updatetime})
 	</insert>
 
 
@@ -82,21 +80,17 @@
  		WHERE member_code = #{member_code}
  	</update>
  	
- 	<delete id="deleteMemberAuth" parameterType="int">
- 		DELETE FROM cafehi_member_auth WHERE member_code = #{member_code}
- 	</delete>
- 	
  	<delete id="deleteMember" parameterType="int">
- 		DELETE FROM cafehi_member WHERE member_code = #{member_code}
+ 		DELETE FROM cafehi_member_auth WHERE member_auth_code = #{member_auth_code}
  	</delete>
- 	
- 	
  
-	
- 	<select id="getMember" parameterType="Member" resultType="Member">
- 		SELECT * FROM cafehi_member
+ 	
+ 	<select id="findMemberById" parameterType="String" resultMap="MemberResult">
+ 		SELECT * 
+ 		FROM cafehi_member m LEFT OUTER JOIN cafehi_member_auth cma ON m.member_code = cma.member_code  
  		WHERE member_id = #{member_id}
  	</select>
+ 	
  	
  	<!-- cri 객체와 member_auth를 동시에 파라미터로 넘겨주기 위해 hashMap을 사용했다. -->
  	<select id="getMemberList" parameterType="hashMap" resultMap="MemberResult">
@@ -116,16 +110,6 @@
  		 <![CDATA[
 	 			WHERE rn > (#{cri.pageNum} -1) * #{cri.amount} AND rn <= #{cri.pageNum} * #{cri.amount}
 	 		]]>
- 	</select>
- 	
- 
- 	
- 	<select id="readMember" resultMap="MemberResult" parameterType="String">
- 	
- 	SELECT mem.member_auth_code, mem.member_id, member_pw, member_name, member_contact, member_email, member_road_address, member_jibun_address, member_detail_address, enabled, member_auth
- 	FROM cafehi_member mem LEFT OUTER JOIN cafehi_member_auth auth ON mem.member_auth_code =auth.member_auth_code 
- 	WHERE mem.member_id = #{member_id} 
- 	
  	</select>
  	
  	<!-- 전체 멤버 수 조회 -->

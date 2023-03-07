@@ -24,8 +24,8 @@ public class MemberServiceImpl implements MemberService{
 	// È¸¿ø CURD 
 	
 	@Override
-	public MemberDTO getMember(MemberDTO member) {
-		return memberDAO.getMember(member);
+	public MemberDTO findMemberById(String member_id) {
+		return memberDAO.findMemberById(member_id);
 	}
 
 
@@ -36,33 +36,23 @@ public class MemberServiceImpl implements MemberService{
 
 	
 	@Override
-	public MemberDTO readMember(String member_code) {
-		return memberDAO.readMember(member_code);
-	}
-
-	@Override
-	public void insertMember(MemberDTO member) {
-		memberDAO.insertMember(member);
+	public int insertMember(MemberDTO member) {
+		
+		return memberDAO.insertMember(member);
 	}
 	
 
 	@Override
-	public void insertMemberAuth(MemberAuthDTO memberauth) {
-		memberDAO.insertMemberAuth(memberauth);
+	public int insertMemberAuth(MemberAuthDTO memberauth) {
+		return memberDAO.insertMemberAuth(memberauth);
 	}
 
 	
 	@Override
-	public void deleteMember(int member_code) {
-		memberDAO.deleteMember(member_code);
+	public void deleteMember(int member_auth_code) {
+		memberDAO.deleteMember(member_auth_code);
 	}
 
-	@Override
-	public void deleteMemberAuth(int member_code) {
-		memberDAO.deleteMemberAuth(member_code);
-	}
-
-	
 
 	@Override
 	public void updateMemberName(MemberDTO member) {

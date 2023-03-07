@@ -24,14 +24,13 @@ public class CustomUserDetailsService implements UserDetailsService{
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-		log.warn("Load User By UserName : " + username);
+		MemberDTO getMem = memberService.findMemberById(username);
 		
-		MemberDTO mem = memberService.readMember(username);
-		MemberDTO getMem = memberService.getMember(mem);
-		mem.setMember_code(getMem.getMember_code());
-		log.warn("queried by member : " + mem);
+		log.info("getMem.getMember_writetime = " + getMem.getMember_writetime());
+		log.info("getMem.getMember_updatetime = " + getMem.getMember_updatetime());
 		
-		return mem ==  null ? null : new CustomUser(mem);
+		
+		return getMem ==  null ? null : new CustomUser(getMem);
 	
 	}
 	
