@@ -38,8 +38,8 @@ delete cafehi_cart;
 delete cafehi_order;
 delete cafehi_order_menu;
 
-update cafehi_membership set membership_point = 0, membership_grade = 'STANDARD' 
-where member_code = 1;
+commit;
+rollback;
 
 
 -- 삭제
@@ -186,14 +186,6 @@ drop sequence seq_order_menu;
 
 --------------------------- 테이블 생성 시작 ------------------------------------ 
 
--- 사용자 정보 권한 테이블
-create table cafehi_member_auth(
-    member_auth_code number primary key, -- 사용자 정보 권한 코드
-    member_auth varchar2(50) not null, -- 스프링 시큐리티 사용자 권한 : ROLE_USER, ROLE_ADMIN ...
-    member_auth_writetime timestamp not null, -- 사용자 권한 등록일
-    member_auth_updatetime timestamp not null -- 사용자 권한 수정일
-);
-
 
 -- 사용자 정보 테이블
 create table cafehi_member(
@@ -208,10 +200,20 @@ create table cafehi_member(
     member_detail_address varchar2(100), -- 사용자 상세 주소 
     enabled char(1) default '1', -- 스프링 시큐리티 권한 사용 여부
     member_writetime timestamp not null, -- 사용자 등록일
-    member_updatetime timestamp not null, -- 사용자 수정일
-    member_auth_code number, -- 사용자 권한 관련 키 (권한 관련 기본키가 멤버 테이블의 외래키로 참조)
-    constraint fk_member_auth foreign key(member_auth_code) references cafehi_member_auth(member_auth_code) on delete cascade
+    member_updatetime timestamp not null -- 사용자 수정일
 );
+
+-- 사용자 정보 권한 테이블
+create table cafehi_member_auth(
+    member_auth_code number primary key, -- 사용자 정보 권한 코드
+    member_code number not null, -- 사용자 정보 코드 
+    member_auth varchar2(50) not null, -- 스프링 시큐리티 사용자 권한 : ROLE_USER, ROLE_ADMIN ...
+    member_auth_writetime timestamp not null, -- 사용자 권한 등록일
+    member_auth_updatetime timestamp not null, -- 사용자 권한 수정일
+    constraint fk_member_auth foreign key(member_code) references cafehi_member(member_code)
+);
+
+
 
 
 --  QnA 게시판 
