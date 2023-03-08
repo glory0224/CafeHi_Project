@@ -11,8 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Repository
 @RequiredArgsConstructor
-@Slf4j
-public class membershipDAO {
+public class MembershipDAO {
 	
 	private final SqlSessionTemplate sqlSessionTemplate;
 	

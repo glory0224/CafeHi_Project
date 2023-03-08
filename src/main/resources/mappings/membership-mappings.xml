@@ -47,11 +47,6 @@
  	<insert id="insertMembership">
 		INSERT INTO cafehi_membership(membership_code, member_code, membership_grade, membership_point, membership_writetime, membership_updatetime)
 		VALUES(seq_membership.nextval, #{member_code}, #{membership_grade} , 0, #{membership_writetime}, #{membership_updatetime})
-	
-	<selectKey keyProperty="member_code" resultType="int" order="AFTER">
-			SELECT seq_membership.currval FROM DUAL
-	</selectKey>
-	
 	</insert>
  	
  	<select id="getMembership" parameterType="int" resultType="Membership">

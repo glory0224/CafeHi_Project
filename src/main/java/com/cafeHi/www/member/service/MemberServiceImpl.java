@@ -49,8 +49,8 @@ public class MemberServiceImpl implements MemberService{
 
 	
 	@Override
-	public void deleteMember(int member_auth_code) {
-		memberDAO.deleteMember(member_auth_code);
+	public void deleteMember(int member_code) {
+		memberDAO.deleteMember(member_code);
 	}
 
 

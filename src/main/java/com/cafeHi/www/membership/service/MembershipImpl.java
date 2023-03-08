@@ -5,7 +5,7 @@ package com.cafeHi.www.membership.service;
 import org.springframework.stereotype.Service;
 
 import com.cafeHi.www.membership.MembershipGrade;
-import com.cafeHi.www.membership.dao.membershipDAO;
+import com.cafeHi.www.membership.dao.MembershipDAO;
 import com.cafeHi.www.membership.dto.MembershipDTO;
 
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MembershipImpl implements MembershipService{
 
-	private final membershipDAO membershipDAO;
+	private final MembershipDAO membershipDAO;
 	
 	
 	@Override

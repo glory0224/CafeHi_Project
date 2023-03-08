@@ -17,7 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cafeHi.www.common.dto.CriteriaDTO;
 import com.cafeHi.www.common.dto.PageDTO;
@@ -131,15 +130,15 @@ public class MemberController {
 		// 입력받은 계정 정보와 세션 정보 비교 
 		if(MemberId.equals(securityId) && pwdEncoder.matches(MemberPw, securityPw)) {	
 		
-			int member_auth_code = 0;
+//			int member_auth_code = 0;
+//			
+//			for (MemberAuthDTO memberAuth : userInfo.getMember().getAuthList()) {
+//				log.info("member_auth_code = {}", memberAuth.getMember_auth_code());
+//				member_auth_code = memberAuth.getMember_auth_code();
+//			}
+//			
 			
-			for (MemberAuthDTO memberAuth : userInfo.getMember().getAuthList()) {
-				log.info("member_auth_code = {}", memberAuth.getMember_auth_code());
-				member_auth_code = memberAuth.getMember_auth_code();
-			}
-			
-			
-		memberService.deleteMember(member_auth_code);
+			memberService.deleteMember(userInfo.getMember().getMember_code());
 		
 		session.invalidate();
 		SecurityContextHolder.getContext().setAuthentication(null);

@@ -36,6 +36,10 @@ public class MemberDTO implements Serializable{
 	private LocalDateTime member_updatetime; // 사용자 수정일
 	private List<MemberAuthDTO> authList; // 권한 리스트 
 	
+	
+	
+	
+	
 	public void setMemberDateTime() {
 		this.member_writetime = LocalDateTime.now(); 
 		this.member_updatetime = LocalDateTime.now();
@@ -84,6 +88,23 @@ public class MemberDTO implements Serializable{
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public MemberDTO(String member_id, String member_pw, String member_name, String member_contact, String member_email,
+			String member_road_address, String member_jibun_address, String member_detail_address, boolean enabled,
+			LocalDateTime member_writetime, LocalDateTime member_updatetime) {
+		super();
+		this.member_id = member_id;
+		this.member_pw = member_pw;
+		this.member_name = member_name;
+		this.member_contact = member_contact;
+		this.member_email = member_email;
+		this.member_road_address = member_road_address;
+		this.member_jibun_address = member_jibun_address;
+		this.member_detail_address = member_detail_address;
+		this.enabled = enabled;
+		this.member_writetime = member_writetime;
+		this.member_updatetime = member_updatetime;
 	}
 
 

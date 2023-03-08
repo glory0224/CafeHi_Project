@@ -81,7 +81,7 @@
  	</update>
  	
  	<delete id="deleteMember" parameterType="int">
- 		DELETE FROM cafehi_member_auth WHERE member_auth_code = #{member_auth_code}
+ 		DELETE FROM cafehi_member WHERE member_code = #{member_code}
  	</delete>
  
  	

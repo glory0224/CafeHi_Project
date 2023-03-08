@@ -21,7 +21,7 @@ public interface MemberService {
 	public void updateMemberDetailAddress(MemberDTO member);
 	public void updateMemberEmail(MemberDTO member);
 	
-	public void deleteMember(int member_auth_code);	
+	public void deleteMember(int member_code);	
 
 	// 중복 확인
 	public int checkEmail(String email);

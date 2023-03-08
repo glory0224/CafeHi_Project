@@ -41,8 +41,8 @@ public class MemberDAO {
 		return sqlSessionTemplate.insert("MemberDAO.insertMemberAuth", memberauth);
 	}
 	
-	public void deleteMember(int member_auth_code) {
-		sqlSessionTemplate.delete("MemberDAO.deleteMember", member_auth_code);
+	public void deleteMember(int member_code) {
+		sqlSessionTemplate.delete("MemberDAO.deleteMember", member_code);
 	}
 	
 	public int updateMemberName(MemberDTO member) {

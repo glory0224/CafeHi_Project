@@ -56,7 +56,7 @@ public class SignUpController {
 			}
 			
 			// 등록 및 수정 날짜 초기화 메서드
-			// member.setMemberDateTime();
+			member.setMemberDateTime();
 			
 			// 멤버 정보 등록
 			
