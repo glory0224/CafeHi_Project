@@ -14,6 +14,8 @@
  		<typeAlias type="com.cafeHi.www.member.dto.MemberDTO" alias="Member"/>
  		<typeAlias type="com.cafeHi.www.membership.dto.MembershipDTO" alias="Membership"/> 		
  		<typeAlias type="com.cafeHi.www.board.qna.dto.QnADTO" alias="QnA"/>
+ 		<typeAlias type="com.cafeHi.www.common.dto.CriteriaDTO" alias="Criteria"/>
+ 		<typeAlias type="com.cafeHi.www.common.dto.SearchCriteria" alias="SearchCriteria"/>
  		<typeAlias type="com.cafeHi.www.member.dto.MemberAuthDTO" alias="MemberAuth"/>
  		<typeAlias type="com.cafeHi.www.menu.dto.MenuDTO" alias="Menu"/>
  		<typeAlias type="com.cafeHi.www.cart.dto.CartDTO" alias="Cart"/>

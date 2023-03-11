@@ -5,7 +5,6 @@ import java.io.UnsupportedEncodingException;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.lang3.RandomStringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,8 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.cafeHi.www.member.dto.MemberDTO;
 import com.cafeHi.www.member.service.MemberService;
@@ -99,7 +96,7 @@ public class AccountController {
 	// 비밀번호 이메일 인증 페이지
 	@PostMapping("/pwSearch.do")
 	public String pwEmailView(MemberDTO member, Model model) {
-		member = memberService.getMember(member);
+//		member = memberService.getMember(member); // 로직 수정 필요
 		if(member != null) {
 			return "redirect:/pwSearchAuth.do";
 		}

@@ -25,7 +25,7 @@ public class QnATest {
 	
 	@Test
 	public void insertQnA() {
-		for (int i = 1; i < 51; i++) {
+		for (int i = 1; i < 201; i++) {
 			QnADTO qna = new QnADTO("test User title" + i, "none", "test User content" + i, LocalDateTime.now(), LocalDateTime.now(), 0, "none", "none", "¾øÀ½", i);
 			qnADAO.insertQnA(qna);
 		}

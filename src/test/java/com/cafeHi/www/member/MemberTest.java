@@ -38,12 +38,9 @@ public class MemberTest {
 	@Test
 	public void insertMemeberTest() {
 		
-//		List<MemberDTO> memberList = new ArrayList<>();
-//		List<MemberAuthDTO> memberAuthList = new ArrayList<>();
-//		List<MembershipDTO> membershipList = new ArrayList<>();
-		
+	
 		// 멤버 50명 테스트 
-		for (int i = 1; i < 51; i++) {
+		for (int i = 1; i < 201; i++) {
 			
 			
 			MemberDTO member = new MemberDTO("user" + i, "user" + i, "user" + i, "0101111-" + i, "testMail" + i + "@Com", "대한민국 도로명주소" + i, "대한민국 지번주소" + i, "대한민국 어딘가 " + i, true, LocalDateTime.now(), LocalDateTime.now());

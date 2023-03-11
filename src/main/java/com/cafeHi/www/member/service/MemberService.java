@@ -3,7 +3,6 @@ package com.cafeHi.www.member.service;
 import java.util.List;
 import java.util.Map;
 
-import com.cafeHi.www.common.dto.CriteriaDTO;
 import com.cafeHi.www.member.dto.MemberAuthDTO;
 import com.cafeHi.www.member.dto.MemberDTO;
 

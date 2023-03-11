@@ -1,6 +1,5 @@
 package com.cafeHi.www.board.qna.dao;
 
-
 import java.util.List;
 import java.util.Map;
 
@@ -8,10 +7,10 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.cafeHi.www.board.qna.dto.QnADTO;
-import com.cafeHi.www.common.dto.CriteriaDTO;
+import com.cafeHi.www.common.dto.Criteria;
+import com.cafeHi.www.common.dto.SearchCriteria;
 
 import lombok.RequiredArgsConstructor;
-
 
 @Repository
 @RequiredArgsConstructor
@@ -19,13 +18,17 @@ public class QnADAO {
 	
 	private final SqlSessionTemplate sqlSessionTemplate;
 	
-
-	public List<QnADTO> getQnAList(CriteriaDTO cri) {
-		
+	
+	public List<QnADTO> getQnAList(Criteria cri) {
 		return sqlSessionTemplate.selectList("QnADAO.getQnAList", cri);
-		
-		
 	}
+
+	
+	public List<QnADTO> getQnAListSearch(SearchCriteria searchCriteria) {
+		return sqlSessionTemplate.selectList("QnADAO.getQnAListSearch", searchCriteria);
+	}
+	
+	
 	
 	public QnADTO getQnA(QnADTO qna) {
 		
@@ -45,9 +48,13 @@ public class QnADAO {
 	
 	// QnA 게시글 개수 관련
 	
-	public int getQnANum(CriteriaDTO cri) {
+	public int getQnANum() {
 		
 		return sqlSessionTemplate.selectOne("QnADAO.getQnANum");
+	}
+	
+	public int getQnASearchNum(SearchCriteria scri) {
+		return sqlSessionTemplate.selectOne("QnADAO.getQnASearchNum", scri);
 	}
 	
 	public int getMyQnANum(int member_code) {
@@ -58,10 +65,6 @@ public class QnADAO {
 		return sqlSessionTemplate.selectOne("QnADAO.getMemberQnANum", role_user);
 	}
 	
-
-	public List<QnADTO> getQnAListPaging(CriteriaDTO cri) {
-		return sqlSessionTemplate.selectList("QnADAO.getQnAListPaging", cri);
-	}
 	
 	// QnA 게시글 CRUD
 	
@@ -81,6 +84,11 @@ public class QnADAO {
 	public void updateHit(QnADTO qna) {
 		sqlSessionTemplate.update("QnADAO.updateHit", qna);
 	}
+
+
+	
+
+
 
 
 	

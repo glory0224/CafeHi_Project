@@ -4,9 +4,6 @@ package com.cafeHi.www.member.controller;
 
 
 
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -18,10 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.cafeHi.www.common.dto.CriteriaDTO;
-import com.cafeHi.www.common.dto.PageDTO;
+import com.cafeHi.www.common.dto.SearchCriteria;
 import com.cafeHi.www.member.dto.CustomUser;
-import com.cafeHi.www.member.dto.MemberAuthDTO;
 import com.cafeHi.www.member.dto.MemberDTO;
 import com.cafeHi.www.member.service.MemberService;
 
@@ -159,27 +154,11 @@ public class MemberController {
 	
 	// 관리자 회원 정보 리스트
 	@GetMapping("getMemeberList.do")
-	public String getMemberList(CriteriaDTO cri, Model model) {
+	public String getMemberList(SearchCriteria scri, Model model) {
 		
 		
 		String mem_auth = "ROLE_USER";
-		
-		Map<String, Object> auth = new ConcurrentHashMap<String, Object>(); // 순서가 중요하지 않아서 
-		
-		auth.put("member_auth", mem_auth);
-		auth.put("cri", cri);
-		
-		
-		int total = memberService.getMemberNum(mem_auth);
-		
-		
-		PageDTO pageDTO = new PageDTO(cri, total);
-		
-		List<MemberDTO> memberList = memberService.getMemberList(auth);
-		
-		model.addAttribute("pageDTO", pageDTO);
-		model.addAttribute("memberList", memberList);
-		
+	
 		
 		return "admin/cafehi_adminMemberList";
 		

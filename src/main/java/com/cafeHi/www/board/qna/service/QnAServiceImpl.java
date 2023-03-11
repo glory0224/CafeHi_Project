@@ -6,7 +6,8 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 import com.cafeHi.www.board.qna.dao.QnADAO;
 import com.cafeHi.www.board.qna.dto.QnADTO;
-import com.cafeHi.www.common.dto.CriteriaDTO;
+import com.cafeHi.www.common.dto.Criteria;
+import com.cafeHi.www.common.dto.SearchCriteria;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,16 +20,21 @@ public class QnAServiceImpl implements QnAService {
 
 
 	@Override
-	public List<QnADTO> getQnAList(CriteriaDTO cri) {
-		
-		return qnADAO.getQnAList(cri);
-	}
-
-
-	@Override
 	public QnADTO getQnA(QnADTO qna) {
 		
 		return qnADAO.getQnA(qna);
+	}
+	
+
+	@Override
+	public List<QnADTO> getQnAList(Criteria cri) {
+		return qnADAO.getQnAList(cri);
+	}
+
+	
+	@Override
+	public List<QnADTO> getQnAListSearch(SearchCriteria searchCriteria) {
+		return qnADAO.getQnAListSearch(searchCriteria);
 	}
 
 
@@ -59,10 +65,17 @@ public class QnAServiceImpl implements QnAService {
 
 
 	@Override
-	public int getQnANum(CriteriaDTO cri) {
-		return qnADAO.getQnANum(cri);
+	public int getQnANum() {
+		return qnADAO.getQnANum();
 	}
 
+
+	@Override
+	public int getQnASearchNum(SearchCriteria scri) {
+		return qnADAO.getQnASearchNum(scri);
+	}
+
+	
 
 	@Override
 	public void updateHit(QnADTO qna) {
@@ -92,6 +105,12 @@ public class QnAServiceImpl implements QnAService {
 	public int getMemberQnANum(String role_user) {
 		return qnADAO.getMemberQnANum(role_user);
 	}
+
+
+
+	
+
+
 
 
 

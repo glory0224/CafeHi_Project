@@ -12,85 +12,59 @@
  		<result property="qna_hit" column="QNA_HIT" />
  		<result property="upload_path" column="UPLOAD_PATH" />
  		<result property="qna_title_classification" column="qna_title_classification" javaType="String"/>
- 	<!-- has one -->
- 	<!-- <association property="memberList" javaType="Member" resultMap="MemberResult">
- 		
- 	</association> -->
- 	
  	</resultMap>
  	
- 	<resultMap type="Member" id="MemberResult">
- 		<id property="member_code" column="MEMBER_CODE" javaType="int"/>
- 		<result property="member_code" column="MEMBER_CODE" javaType="int"/>
- 		<result property="member_id" column="MEMBER_ID" javaType="String"/>
- 		<result property="member_pw" column="MEMBER_PW" javaType="String"/>
- 		<result property="member_name" column="MEMBER_NAME" javaType="String"/>
- 		<result property="member_contact" column="MEMBER_CONTACT" javaType="String"/>
- 		<result property="member_email" column="MEMBER_EMAIL" javaType="String"/>
- 		<result property="member_road_address" column="MEMBER_ROAD_ADDRESS" javaType="String"/>
- 		<result property="member_jibun_address" column="MEMBER_JIBUN_ADDRESS" javaType="String"/>
- 		<result property="member_detail_address" column="MEMBER_DETAIL_ADDRESS" javaType="String"/>
- 		<result property="enabled" column="ENABLED" javaType="String"/>
- 		<collection property="authList" javaType="MemberAuth" resultMap="AuthResult">
- 			
- 		</collection>
- 	</resultMap>
-	<resultMap type="MemberAuth" id="AuthResult">
-		<id property="member_auth_code" column = "MEMBER_AUTH_CODE" />
- 		<result property="member_auth_code" column = "MEMBER_AUTH_CODE" />
- 		<result property="member_code" column="MEMBER_CODE"/>
- 		<result property="member_auth" column="MEMBER_AUTH"/>
- 	</resultMap> 
-
  	<!-- 전체 QnA 개수 조회 -->
  	
  	<select id="getQnANum" resultType="int">
- 			SELECT COUNT(*) FROM cafehi_qna
- 			
- 			<if test="keyword != null">
- 				WHERE qna_title LIKE '%'||#{keyword}||'%'
- 			</if>
- 			
+ 		SELECT COUNT(qna_num) FROM cafehi_qna
+ 		WHERE qna_num > 0	
  	</select>
  	
- 	<!-- 나의 QnA 개수 조회 -->
- 	<select id="getMyQnANum" resultType="int">
- 		SELECT COUNT(*) FROM cafehi_qna
- 		WHERE member_code = #{member_code}
+ 	<select id="getQnASearchNum" resultType="int">
+ 		SELECT COUNT(qna_num) FROM cafehi_qna
+ 		WHERE	
+ 		 <![CDATA[
+ 		 qna_num > 0
+ 		]]>
+ 		<include refid="search"></include>
  	</select>
  	
- 	<!-- 회원 전체 QnA 개수 조회 -->
- 	<select id="getMemberQnANum" resultType="int">
- 		SELECT COUNT(*) FROM cafehi_qna cq, cafehi_member_auth cma
- 		WHERE cq.member_code = cma.member_code 
- 		AND cma.member_auth = #{role_user}
- 	</select>
- 	
-  	
- 	
- 	<!-- 페이징 QnA 리스트 조회 -->
-  <select id="getQnAList" resultType="QnA">
- 		
-
- 	SELECT qna_num, qna_title,qna_title_classification, qna_content, qna_writetime, qna_hit, member_id FROM(
 	
-	SELECT rownum rn, cq.qna_num, cq.qna_title, cq.qna_title_classification, cq.qna_content, cq.qna_writetime, cq.qna_hit, cm.member_id FROM
 	
-	(SELECT * FROM cafehi_qna ORDER BY qna_num DESC) cq, cafehi_member cm
+	<!-- 검색 + 페이징 리스트 -->
+	<select id="getQnAListSearch" resultType="QnA"
+			parameterType="SearchCriteria">
+	SELECT qna_num, qna_title,qna_title_classification, qna_content, qna_writetime, qna_hit, member_id 
+ 	
+ 	FROM(
+	
+	SELECT rownum rn, cq.qna_num, cq.qna_title, cq.qna_title_classification, cq.qna_content, cq.qna_writetime, cq.qna_hit, cm.member_id 
+	
+	FROM (SELECT * FROM cafehi_qna ORDER BY qna_num DESC) cq, cafehi_member cm
 	
 	WHERE cm.member_code = cq.member_code
 	
 	)
+	
 	 <![CDATA[
-	 	WHERE rn > (#{pageNum} -1) * #{amount} AND rn <= #{pageNum} * #{amount}
+	 	WHERE rn > #{rowStart} AND rn <= #{rowEnd} 
+	  ]]>
+		
+		<include refid="search"></include>
+		
+		</select>
 
-	 ]]>
-	 <if test="keyword != null">
-          AND qna_title like '%'||#{keyword}||'%' 
-    </if>
+		
+	<sql id="search">
+	 <if test="searchType != null">
+	  <if test="searchType == 't'.toString()">AND qna_title like '%' || #{keyword} || '%'</if>
+	  <if test="searchType == 'c'.toString()">AND qna_content like '%' || #{keyword} || '%'</if>
+	  <if test="searchType == 'w'.toString()">AND member_id like '%' || #{keyword} || '%'</if>
+	  <if test="searchType == 'tc'.toString()">AND (qna_title like '%' || #{keyword} || '%') OR (qna_content like '%' || #{keyword} || '%')</if>
+	 </if>
+	</sql>
 
- 	
- 	</select>
 
 	<!-- 조회수 갱신 -->
 	<update id="updateHit" parameterType="QnA">
@@ -140,9 +114,25 @@
 		
 	</select>
 	
+	
+	 	<!-- 나의 QnA 개수 조회 -->
+ 	<select id="getMyQnANum" resultType="int">
+ 		SELECT COUNT(*) FROM cafehi_qna
+ 		WHERE member_code = #{member_code}
+ 	</select>
+ 	
+ 	<!-- 회원 전체 QnA 개수 조회 -->
+ 	<select id="getMemberQnANum" resultType="int">
+ 		SELECT COUNT(*) FROM cafehi_qna cq, cafehi_member_auth cma
+ 		WHERE cq.member_code = cma.member_code 
+ 		AND cma.member_auth = #{role_user}
+ 	</select>
+ 	
+  	
+	
 	<insert id="insertQnA" parameterType="QnA">
 		INSERT INTO cafehi_qna (qna_num, qna_title, qna_title_classification, qna_writetime, qna_updatetime, qna_hit, member_code , qna_content, upload_path, store_file_name, upload_file_name)
-		VALUES((select nvl(max(qna_num), 0)+1 from cafehi_qna), #{qna_title}, #{qna_title_classification}, #{qna_writetime}, #{qna_updatetime}, #{qna_hit}, #{member_code}, #{qna_content}, #{upload_path}, #{store_file_name}, #{upload_file_name})
+		VALUES(seq_qna.nextval, #{qna_title}, #{qna_title_classification}, #{qna_writetime}, #{qna_updatetime}, #{qna_hit}, #{member_code}, #{qna_content}, #{upload_path}, #{store_file_name}, #{upload_file_name})
 	</insert>
 	
 	<!-- QnA 수정 -->
@@ -155,5 +145,6 @@
 	<delete id="deleteQnA" parameterType="QnA">
 		DELETE FROM cafehi_qna WHERE qna_num=#{qna_num}
 	</delete>	
+ 	
  	
  </mapper>

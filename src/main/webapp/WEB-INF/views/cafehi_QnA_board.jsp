@@ -8,6 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
@@ -19,7 +20,6 @@
 	crossorigin="anonymous">
 	
 <!-- <script type="text/javascript" src="./js/QnASearch.js"></script> -->
-
 <title>CAFEHI 질문게시판</title>
 </head>
 <body>
@@ -37,7 +37,7 @@
 	</div>
 
 
-	<form action="QnAList.do" method="post">
+	
 		<main class=" w-50 m-auto">
 			<div class="container-fluid px-4">
 				<h1 class="mb-4">게시판</h1>
@@ -47,14 +47,21 @@
 					<div class="card-header">
 					
 						<!-- 검색 엔진   -->
+					
 					<div class="search_area">
-						
+					<form action="QnAList.do" method="post">
+						<select name="searchType">
+							 <option value="n"<c:out value="${scri.searchType == null ? 'selected' : ''}"/>>-----</option>
+							  <option value="t"<c:out value="${scri.searchType eq 't' ? 'selected' : ''}"/>>제목</option>
+							  <option value="c"<c:out value="${scri.searchType eq 'c' ? 'selected' : ''}"/>>내용</option>
+							  <option value="w"<c:out value="${scri.searchType eq 'w' ? 'selected' : ''}"/>>작성자</option>
+							  <option value="tc"<c:out value="${scri.searchType eq 'tc' ? 'selected' : ''}"/>>제목+내용</option>
+						</select> 
 						<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-						<input class="btn btn-success" type="text" name="keyword" value="${pageDTO.cri.keyword }">
-						<button class="btn btn-success">검색</button>
-							
+						<input class="btn btn-success" type="text" name="keyword" value="${scri.keyword}">
+						<button class="btn btn-success" id="searchBtn">검색</button>
 						<!--------------------검색 엔진--------------------  -->
-						
+					</form>
 						<sec:authorize access="hasAnyRole('ROLE_USER')">
 						<a class="btn btn-success float-end" href="QnAWritePage.do"> <i
 							class="fas fa-edit"></i> 글 작성
@@ -104,26 +111,28 @@
 										<td>${qna.qna_hit }</td>
 									</tr>
 							</c:forEach>
-							
+
 							<!-- 페이징 view  -->
 							<tr align="center">
 								<td colspan=5 style="border: none; margin-top: 30px;">
 								
 									<div class="container mt-3">
 									<ul class="pagination justify-content-center" >
-										<c:if test="${pageDTO.prev }">
-										<li class="page-item"><a class="page-link" href="QnAList.do?pageNum=${pageDTO.startPage - 1 }&amount=${pageDTO.amount }" style='text-decoration: none; color: black;'>
+										<c:if test="${pageMaker.prev }">
+										<li class="page-item"><a class="page-link" href="QnAList.do${pageMaker.makeQuery(pageMaker.startPage - 1)}" style='text-decoration: none; color: black;'>
 												<span aria-hidden="true">&laquo;</span> </a></li>
 										</c:if>
-									<c:forEach var="num" begin="${pageDTO.startPage }" end="${pageDTO.endPage }">
+										
+									<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
 									<li class="page-item ">
-									<a class="page-link ${pageDTO.pageNum eq num? 'bg-success' : 'text-dark' }" href="QnAList.do?pageNum=${num }&amount=${pageDTO.amount }" style='text-decoration: none; color: white; '>
+									<%-- <a class="page-link ${pageMaker.pageNum eq num? 'bg-success' : 'text-dark' }" href="QnAList.do?pageNum=${num }" style='text-decoration: none; color: white; '>
 												<c:out value="${num }"/>
-												</a>
+												</a> --%>
+												<a href="QnAList.do${pageMaker.makeQuery(num)}">${num }</a>
 									</li>
 									</c:forEach>
-									<c:if test="${pageDTO.next }">
-									<li class="page-item"><a class="page-link" href="QnAList.do?pageNum=${pageDTO.endPage + 1 }&amount=${pageDTO.amount }" style='text-decoration: none; color: black;'>
+									<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+									<li class="page-item"><a class="page-link" href="QnAList.do${pageMaker.makeQuery(pageMaker.endPage + 1)}" style='text-decoration: none; color: black;'>
 												<span aria-hidden="true">&raquo;</span></a></li> 
 									</c:if>
 									</ul>
@@ -140,24 +149,22 @@
 				</div>
 			</div>
 		</main>
-	</form>
-	<form id="QnAForm" method="get">
-		<input type="hidden" name="pageNum" value="${pageDTO.cri.pageNum }">
-		<input type="hidden" name="amount" value="${pageDTO.cri.amount }">
-		<input type="hidden" name="keyword" value="${pageDTO.cri.keyword }">
-	</form>
+
 	
 	<jsp:include page="/cafeHi_module/footer.jsp"/>
 
-	
-	<script type="text/javascript">
-	$(".search_area button").on("click", function(e){
-        e.preventDefault();
-        let val = $("input[name='keyword']").val();
-        QnAForm.find("input[name='keyword']").val(val);
-        QnAForm.find("input[name='pageNum']").val(1);
-        QnAForm.submit();
-    });
-	</script>
 </body>
+
+<script>
+ $(function(){
+  $('#searchBtn').click(function() {
+   self.location = "listSearch"
+     + '${pageMaker.makeQuery(1)}'
+     + "&searchType="
+     + $("select option:selected").val()
+     + "&keyword="
+     + encodeURIComponent($('#keywordInput').val());
+    });
+ });   
+ </script>
 </html>

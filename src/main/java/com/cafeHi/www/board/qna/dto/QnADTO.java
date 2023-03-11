@@ -3,14 +3,14 @@ package com.cafeHi.www.board.qna.dto;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.springframework.web.multipart.MultipartFile;
 
 import com.cafeHi.www.member.dto.MemberAuthDTO;
 
-import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class QnADTO {
 	
 	private int qna_num;	// QnA 게시글 번호 
@@ -85,6 +85,23 @@ public class QnADTO {
 		this.authList = authList;
 	}
 	
-		
+	// 테스트용 생성자
+	public QnADTO(String qna_title, String qna_title_classification, String qna_content, LocalDateTime qna_writetime,
+			LocalDateTime qna_updatetime, int qna_hit, String upload_path, String store_file_name,
+			String upload_file_name, int member_code) {
+		super();
+		this.qna_title = qna_title;
+		this.qna_title_classification = qna_title_classification;
+		this.qna_content = qna_content;
+		this.qna_writetime = qna_writetime;
+		this.qna_updatetime = qna_updatetime;
+		this.qna_hit = qna_hit;
+		this.upload_path = upload_path;
+		this.store_file_name = store_file_name;
+		this.upload_file_name = upload_file_name;
+		this.member_code = member_code;
+	}
+	
+	
 	
 }

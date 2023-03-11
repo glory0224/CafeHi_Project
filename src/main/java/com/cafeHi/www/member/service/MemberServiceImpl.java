@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import com.cafeHi.www.common.dto.CriteriaDTO;
 import com.cafeHi.www.member.dao.MemberDAO;
 import com.cafeHi.www.member.dto.MemberAuthDTO;
 import com.cafeHi.www.member.dto.MemberDTO;

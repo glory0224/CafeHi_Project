@@ -41,7 +41,7 @@
             <a class="nav-link" href="Place.do">STORE</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="QnAList.do?">QnA</a>
+            <a class="nav-link" href="QnAList.do">QnA</a>
           </li>
         </ul>
       </div>
