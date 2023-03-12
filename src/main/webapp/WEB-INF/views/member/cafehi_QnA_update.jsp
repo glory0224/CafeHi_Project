@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>CAFEHi 게시글 수정</title>
+<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
@@ -28,8 +29,13 @@
 		<p class="fs-5 text-muted">문의 사항을 게시글에 남겨주세요!</p>
 	</div>
 	
-	<form action="QnAUpdate.do" method="post" enctype="multipart/form-data">
+	<form action="QnAUpdate.do" method="post" enctype="multipart/form-data" id="updateQnAForm">
 		<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+		<input type="hidden" id="page"  name="page" value="${scri.page }" readonly="readonly">
+		<input type="hidden" id="perPageNum"  name="perPageNum" value="${scri.perPageNum }" readonly="readonly">
+		<input type="hidden" id="searchType" name="searchType" value="${scri.searchType }" readonly="readonly">
+		<input type="hidden" id="keyword" name="keyword" value="${scri.keyword }" readonly="readonly">
+		
 		<main class="mt-5 pt-5 w-50 m-auto">
 		<div class="container-fluid px-4">
 			<h1 class="mb-4">게시글 수정</h1>
@@ -84,17 +90,20 @@
 						</div>
  						<div class="d-flex flex-row-reverse bd-highlight">
 							<div class="justify-content-between">
-							<button class="btn btn-success">수정</button>
-							<button type="button" class="btn btn-success" onclick = "location.href='QnAList.do'">목록</button>
+							<button class="btn btn-success" onclick="document.getElementById('updateQnAForm').submit();">수정</button>
+							<input class="btn btn-success" type="button" value="목록" id="updateToList_btn">
 							
 							</div>
 
 						</div>
 						</div>
 						</div>
+						
 	</main>
 
 </form>
+
+
 	<jsp:include page="/cafeHi_module/footer.jsp"/>
 </body>
 <script type="text/javascript">
@@ -114,5 +123,14 @@
 	   },
 	   dataType: 'json'
 	})
+	
+	
+	
+	// 목록 버튼 클릭
+	$("#updateToList_btn").click(function(){
+		self.location = "/cafeHi/QnAList.do?"
+				+ "page=${scri.page}&perPageNum=${scri.perPageNum}"
+				+ "&searchType=${scri.searchType}&keyword=${scri.keyword}";
+	});
 </script>
 </html>

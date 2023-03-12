@@ -14,6 +14,7 @@
  		<result property="qna_title_classification" column="qna_title_classification" javaType="String"/>
  	</resultMap>
  	
+
  	<!-- 전체 QnA 개수 조회 -->
  	
  	<select id="getQnANum" resultType="int">
@@ -22,11 +23,12 @@
  	</select>
  	
  	<select id="getQnASearchNum" resultType="int">
- 		SELECT COUNT(qna_num) FROM cafehi_qna
+ 		SELECT COUNT(qna_num) FROM cafehi_qna cq, cafehi_member cm
  		WHERE	
  		 <![CDATA[
  		 qna_num > 0
  		]]>
+ 		AND cq.member_code = cm.member_code
  		<include refid="search"></include>
  	</select>
  	
@@ -43,7 +45,7 @@
 	
 	FROM (SELECT * FROM cafehi_qna ORDER BY qna_num DESC) cq, cafehi_member cm
 	
-	WHERE cm.member_code = cq.member_code
+	WHERE cm.member_code = cq.member_code <include refid="search"></include>
 	
 	)
 	
@@ -51,7 +53,7 @@
 	 	WHERE rn > #{rowStart} AND rn <= #{rowEnd} 
 	  ]]>
 		
-		<include refid="search"></include>
+	
 		
 		</select>
 

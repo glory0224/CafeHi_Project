@@ -8,9 +8,11 @@ import com.cafeHi.www.member.dto.MemberAuthDTO;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Getter
 @NoArgsConstructor
+@ToString
 public class QnADTO {
 	
 	private int qna_num;	// QnA 게시글 번호 

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cafeHi.www.board.qna.dto.QnADTO;
 import com.cafeHi.www.board.qna.service.QnAService;
@@ -49,7 +50,7 @@ public class QnAController {
 	
 	// 게시글 조회
 	@GetMapping("/getQnA.do")
-	public String getQnA(HttpServletRequest request, HttpServletResponse response, QnADTO qna, Model model) {
+	public String getQnA(HttpServletRequest request, HttpServletResponse response, QnADTO qna,@ModelAttribute("scri") SearchCriteria scri,  Model model) {
 		
 		
 		// 쿠키 생성으로 방문 했던 게시글은 새로고침을 했을 때 계속해서 조회수가 증가하는 현상 방지 
@@ -84,6 +85,7 @@ public class QnAController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("securityId", authentication.getName());
 		model.addAttribute("QnA", qnaService.getQnA(qna));
+		model.addAttribute("scri", scri);
 		
 		return "cafehi_QnA_content";
 	}
@@ -97,11 +99,19 @@ public class QnAController {
 		
 		 List<QnADTO> qnaList = null; 
 		 qnaList = qnaService.getQnAListSearch(scri);
+		 
+//		 for(QnADTO qna : qnaList) {
+//			 log.info("qna = {}", qna);
+//		 }
+//		 
+		
+		 
 		 model.addAttribute("qnaList", qnaList);
 		 model.addAttribute("qnaListSize", qnaList.size());
 		 
 		 PageMaker pageMaker = new PageMaker();
 		 pageMaker.setCri(scri);
+//		 log.info("QnANum = {}", qnaService.getQnASearchNum(scri));
 		 pageMaker.setTotalCount(qnaService.getQnASearchNum(scri));
 		 model.addAttribute("pageMaker", pageMaker);
 		 
@@ -230,16 +240,18 @@ public class QnAController {
 	// 사용자 게시글 수정 
 	
 	@GetMapping("/QnAUpdate.do")
-	public String QnAUpdatePage(QnADTO qna, Model model) {
+	public String QnAUpdatePage(QnADTO qna,@ModelAttribute("scri") SearchCriteria scri,  Model model) {
 		
 		model.addAttribute("QnA", qnaService.getQnA(qna));
-		
+		model.addAttribute("scri", scri);
 		return "member/cafehi_QnA_update";
 	}
 	
 	
 	@PostMapping("/QnAUpdate.do")
-	public String UpdateQnA(@RequestParam(value = "uploadfile", required = false) MultipartFile uploadfile, QnADTO qna, HttpServletRequest request) throws IllegalStateException, IOException {
+	public String UpdateQnA(@RequestParam(value = "uploadfile", required = false) MultipartFile uploadfile, QnADTO qna, 
+			HttpServletRequest request, RedirectAttributes rttr, 
+			@ModelAttribute("scri") SearchCriteria scri) throws IllegalStateException, IOException {
 			
 			// 수정 - 애초에 uploadfile 이 안넘어오거나, 새로운 파일이 넘어온다.
 			
@@ -280,9 +292,19 @@ public class QnAController {
 			qna.updateQnADateTime();
 			
 			qnaService.updateQnA(qna);
-			request.setAttribute("msg", "수정이 완료되었습니다.");
-			request.setAttribute("url", "getQnA.do?qna_num=" + qna.getQna_num());
-			return "alert";
+			
+			log.info("page = {}", scri.getPage());
+			log.info("perPageNum = {}", scri.getPerPageNum());
+			log.info("searchType = {}", scri.getSearchType());
+			log.info("keyword = {}", scri.getKeyword());
+			
+			
+			rttr.addAttribute("page", scri.getPage());
+			rttr.addAttribute("perPageNum", scri.getPerPageNum());
+			rttr.addAttribute("searchType", scri.getSearchType());
+			rttr.addAttribute("keyword", scri.getKeyword());
+			
+			return "redirect:/QnAList.do";
 		
 		
 	}
@@ -319,7 +341,7 @@ public class QnAController {
 	// 사용자 게시글 삭제 
 	
 	@PostMapping("/DeleteQnA.do")
-	public String DeleteQnA(QnADTO qna, HttpServletRequest request) {
+	public String DeleteQnA(QnADTO qna, HttpServletRequest request, RedirectAttributes rttr, @ModelAttribute("scri") SearchCriteria scri) {
 		
 		
 		// 뷰단에서 수정과 삭제 버튼 자체를 안보이게 막았으나, 어떻게 url 을 알고 직접 요청을 보내면 삭제될 가능성이 있다. 
@@ -331,10 +353,15 @@ public class QnAController {
 			
 			File file = new File(getQnA.getUpload_path());
 			file.delete();
-			request.setAttribute("msg", "삭제가 완료되었습니다.");
-			request.setAttribute("url", "QnAList.do");
+//			request.setAttribute("msg", "삭제가 완료되었습니다.");
+//			request.setAttribute("url", "QnAList.do");
 			
-			return "alert";		
+			rttr.addAttribute("page", scri.getPage());
+			rttr.addAttribute("perPageNum", scri.getPerPageNum());
+			rttr.addAttribute("searchType", scri.getSearchType());
+			rttr.addAttribute("keyword", scri.getKeyword());
+			
+			return "redirect:/QnAList.do";		
 		
 	}
 	

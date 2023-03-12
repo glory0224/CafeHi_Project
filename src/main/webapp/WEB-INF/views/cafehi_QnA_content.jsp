@@ -10,6 +10,7 @@
 <head>
 <meta charset="UTF-8">
 <title>CAFEHi 게시글</title>
+<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
@@ -33,7 +34,13 @@
 		<p class="fs-5 text-muted">문의 사항을 게시글에 남겨주세요!</p>
 	</div>
 	<main class="mt-5 pt-5 w-50 m-auto">
-	
+		
+		<form method="post" autocomplete="off">
+			<input type="hidden" id="page" name="page" value="${scri.page }" readonly="readonly">
+			<input type="hidden" id="perPageNum" name="perPageNum" value="${scri.perPageNum }" readonly="readonly">
+			<input type="hidden" id="searchType" name="searchType" value="${scri.searchType }" readonly="readonly">
+			<input type="hidden" id="keyword" name="keyword" value="${scri.keyword }" readonly="readonly">
+		</form>
 		
 		<div class="container-fluid px-4">
 			<h1 class="mb-4">게시글</h1>
@@ -101,8 +108,10 @@
 				</div>
 				<div class="d-flex flex-row-reverse bd-highlight">
 							<div class="justify-content-between">	
+							<!-- <input class="btn btn-success" type="button" value="목록"
+									onclick="location.href='QnAList.do'" id="list_btn"> -->
 							<input class="btn btn-success" type="button" value="목록"
-									onclick="location.href='QnAList.do'">
+									 id="contentToList_btn">
 							</div>
 							 &nbsp;
 
@@ -121,8 +130,10 @@
 							</div>
 							 &nbsp;
 							<div class="justify-content-between">
+								<%-- <input class="btn btn-success" type="button" value="수정"
+									onclick="location.href='QnAUpdate.do?qna_num=${QnA.qna_num}'"> --%>
 								<input class="btn btn-success" type="button" value="수정"
-									onclick="location.href='QnAUpdate.do?qna_num=${QnA.qna_num}'">
+									id="update_btn">
 							</div>
 							 &nbsp;
 							</c:if>
@@ -213,5 +224,22 @@
 		form.submit();
 
 	}
+	
+	
+	// 목록 페이지 이동
+	$("#contentToList_btn").click(function(){
+		self.location = "/cafeHi/QnAList.do?"
+				+ "page=${scri.page}&perPageNum=${scri.perPageNum}"
+				+ "&searchType=${scri.searchType}&keyword=${scri.keyword}";
+	});
+	
+	// 수정 페이지 이동
+	$("#update_btn").click(function(){
+		self.location = "/cafeHi/QnAUpdate.do?"
+				+ "qna_num=${QnA.qna_num}&"
+				+ "page=${scri.page}&perPageNum=${scri.perPageNum}"
+				+ "&searchType=${scri.searchType}&keyword=${scri.keyword}";
+	});
+	
 </script>
 </html>

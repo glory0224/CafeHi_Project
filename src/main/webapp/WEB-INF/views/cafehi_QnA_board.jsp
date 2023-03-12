@@ -100,7 +100,11 @@
 								<tbody>
 									<tr>
 										<td>${qna.qna_num }</td>
-										<td><a href="getQnA.do?qna_num=${qna.qna_num }"
+										<td><a href="getQnA.do?qna_num=${qna.qna_num }&
+																page=${scri.page}&
+																perPageNum=${scri.perPageNum}&
+																searchType=${scri.searchType}&
+																keyword=${scri.keyword}"
 											style="text-decoration: none; color: black; font-weight: bold;">
 												<c:if test="${qna.qna_title_classification ne 'none' }">${qna.qna_title_classification }&nbsp; </c:if>${qna.qna_title }</a></td>
 										<td>${qna.member_id }</td>
@@ -128,7 +132,7 @@
 									<%-- <a class="page-link ${pageMaker.pageNum eq num? 'bg-success' : 'text-dark' }" href="QnAList.do?pageNum=${num }" style='text-decoration: none; color: white; '>
 												<c:out value="${num }"/>
 												</a> --%>
-												<a href="QnAList.do${pageMaker.makeQuery(num)}">${num }</a>
+												<a class="page-link ${scri.page eq num? 'bg-success' : 'text-dark' }" href="QnAList.do${pageMaker.makeQuery(num)}" style='text-decoration: none; color: white; '>${num }</a>
 									</li>
 									</c:forEach>
 									<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
