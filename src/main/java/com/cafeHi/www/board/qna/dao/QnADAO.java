@@ -8,12 +8,15 @@ import org.springframework.stereotype.Repository;
 
 import com.cafeHi.www.board.qna.dto.QnADTO;
 import com.cafeHi.www.common.dto.Criteria;
+import com.cafeHi.www.common.dto.MemberSearchCriteria;
 import com.cafeHi.www.common.dto.SearchCriteria;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Repository
 @RequiredArgsConstructor
+@Slf4j
 public class QnADAO {
 	
 	private final SqlSessionTemplate sqlSessionTemplate;
@@ -25,7 +28,15 @@ public class QnADAO {
 
 	
 	public List<QnADTO> getQnAListSearch(SearchCriteria searchCriteria) {
+		
+		log.info("startPage= {}", searchCriteria.getRowStart());
+		log.info("endPage= {}", searchCriteria.getRowEnd());
+		
 		return sqlSessionTemplate.selectList("QnADAO.getQnAListSearch", searchCriteria);
+	}
+	
+	public List<QnADTO> getMyQnAListSearch(MemberSearchCriteria msc) {
+		return sqlSessionTemplate.selectList("QnADAO.getMyQnAListSearch", msc);
 	}
 	
 	

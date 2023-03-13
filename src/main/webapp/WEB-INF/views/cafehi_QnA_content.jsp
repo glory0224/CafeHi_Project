@@ -51,7 +51,7 @@
 						<table class="table table-striped">
 							<tr>
 								<th>작성자</th>
-								<td>${QnA.member_id }</td>
+								<td>${QnA.member.member_id }</td>
 								<th>조회수</th>
 								<td>${QnA.qna_hit }</td>
 							</tr>

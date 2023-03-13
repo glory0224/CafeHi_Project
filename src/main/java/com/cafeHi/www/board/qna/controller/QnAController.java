@@ -26,6 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.cafeHi.www.board.qna.dto.QnADTO;
 import com.cafeHi.www.board.qna.service.QnAService;
 import com.cafeHi.www.common.dto.Criteria;
+import com.cafeHi.www.common.dto.MemberSearchCriteria;
 import com.cafeHi.www.common.dto.PageMaker;
 import com.cafeHi.www.common.dto.SearchCriteria;
 import com.cafeHi.www.common.dto.UploadFileDTO;
@@ -97,13 +98,14 @@ public class QnAController {
 	public String getListPage(@ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception {
 		
 		
-		 List<QnADTO> qnaList = null; 
+		 List<QnADTO> qnaList = null;
 		 qnaList = qnaService.getQnAListSearch(scri);
 		 
-//		 for(QnADTO qna : qnaList) {
-//			 log.info("qna = {}", qna);
-//		 }
-//		 
+		 for(QnADTO qna : qnaList) {
+			 log.info("qna = {}", qna);
+			 log.info("qna.member_id = {}", qna.getMember().getMember_id());
+		 }
+		 
 		
 		 
 		 model.addAttribute("qnaList", qnaList);
@@ -111,7 +113,9 @@ public class QnAController {
 		 
 		 PageMaker pageMaker = new PageMaker();
 		 pageMaker.setCri(scri);
-//		 log.info("QnANum = {}", qnaService.getQnASearchNum(scri));
+		 
+		 log.info("QnASearchNum = {}", qnaService.getQnASearchNum(scri));
+		 
 		 pageMaker.setTotalCount(qnaService.getQnASearchNum(scri));
 		 model.addAttribute("pageMaker", pageMaker);
 		 
@@ -133,43 +137,6 @@ public class QnAController {
 	public String QnAAdminWritePage() {
 		return "admin/cafehi_QnA_adminWrite";
 	}
-	
-	
-
-	
-	
-	// QnA CRUD
-	
-	// 사용자 게시글 등록
-	
-	
-	// 컨트롤러가 파일 저장 로직까지 수행하고 있어서 너무 많은 일을 하고 SRP 단일 책임 원칙을 위배한다. 
-	
-	//@PostMapping("/InsertQnA.do")
-//	public String InsertQnA(@RequestParam(value = "uploadfile", required = false) MultipartFile uploadfile,  QnADTO qna, MemberDTO mem, RedirectAttributes ra) throws IOException {
-//		
-//			
-//		qna.setQna_writetime(new Date());
-//		
-//		qna.setUploadFile(uploadfile);
-//		MultipartFile File = qna.getUploadFile();
-//		
-//		// null check
-//		if(!File.isEmpty()) {
-//			String fileName = File.getOriginalFilename();
-//			//qna.setFileName(fileName);
-//			File path = new File("D:/Spring/member_upload/" + UUID.randomUUID().toString() + fileName);
-//			qna.setUpload_path(path.getPath());
-//			File.transferTo(path);
-//		}
-//		
-//		
-//		
-//		qnaService.insertQnA(qna);
-//		return "redirect:QnAList.do";
-//		
-//	}
-
 	
 
 	@PostMapping("/InsertQnA.do")
@@ -199,7 +166,11 @@ public class QnAController {
 			qna.saveFile("none", "없음", "none");
 			
 		}
-			
+		
+		qna.setMember(mem);
+		
+		log.info("qna_member_id = {}", qna.getMember().getMember_code());
+		
 		qnaService.insertQnA(qna);
 		return "redirect:QnAList.do";
 		
@@ -292,12 +263,7 @@ public class QnAController {
 			qna.updateQnADateTime();
 			
 			qnaService.updateQnA(qna);
-			
-			log.info("page = {}", scri.getPage());
-			log.info("perPageNum = {}", scri.getPerPageNum());
-			log.info("searchType = {}", scri.getSearchType());
-			log.info("keyword = {}", scri.getKeyword());
-			
+				
 			
 			rttr.addAttribute("page", scri.getPage());
 			rttr.addAttribute("perPageNum", scri.getPerPageNum());
@@ -356,11 +322,7 @@ public class QnAController {
 //			request.setAttribute("msg", "삭제가 완료되었습니다.");
 //			request.setAttribute("url", "QnAList.do");
 			
-			
-			log.info("page = {}", scri.getPage());
-			log.info("perPageNum = {}", scri.getPerPageNum());
-			log.info("searchType = {}", scri.getSearchType());
-			log.info("keyword = {}", scri.getKeyword());
+
 			
 			rttr.addAttribute("page", scri.getPage());
 			rttr.addAttribute("perPageNum", scri.getPerPageNum());
@@ -388,8 +350,10 @@ public class QnAController {
 	
 	// 사용자 QnA 활동 내역 페이지
 	
-		@GetMapping("myQnAInfo.do")
-		public String MemberQnAInfoView(SearchCriteria cri, Model model) {
+		@RequestMapping("myQnAInfo.do")
+		public String MyQnAInfo(MemberSearchCriteria mscri, Model model) {
+			
+			log.info("myQnAInfoController");
 			
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			CustomUser userInfo = (CustomUser) principal;
@@ -397,10 +361,32 @@ public class QnAController {
 		    
 		    int member_code = getMember.getMember_code();
 		    
-		  
-			
+		    mscri.addMemberCode(member_code);
+		    
+		    log.info("member_code = {}", member_code);
+		    log.info("SearchType = {}", mscri.getSearchType());
+		    log.info("getKeyword = {}", mscri.getKeyword());
+		    log.info("member_code = {}", mscri.getMember_code());
+		    
+		    
+		    
+		    
+		    List<QnADTO> qnaList = null; 
+			 qnaList = qnaService.getMyQnAListSearch(mscri);
+
+		    
+			 model.addAttribute("qnaList", qnaList);
+			 model.addAttribute("qnaListSize", qnaList.size());
+			 
+			 PageMaker pageMaker = new PageMaker();
+			 pageMaker.setCri(mscri);
+			 pageMaker.setTotalCount(qnaService.getMyQnANum(member_code));
+			 model.addAttribute("pageMaker", pageMaker);
+			 model.addAttribute("scri", mscri);
+			 
 			return "member/cafehi_memberQnA";
 		}
+		
 	
 	// 관리자 QnA 활동 내역 페이지
 		

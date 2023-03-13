@@ -5,21 +5,24 @@ import java.util.Map;
 
 import com.cafeHi.www.board.qna.dto.QnADTO;
 import com.cafeHi.www.common.dto.Criteria;
+import com.cafeHi.www.common.dto.MemberSearchCriteria;
 import com.cafeHi.www.common.dto.SearchCriteria;
 
 public interface QnAService {
 	
 	// QnA 글 목록
-//	public List<QnADTO> getQnAList(CriteriaDTO cri);
-	public List<QnADTO> getQnAList(Criteria cri);
+//	public List<QnADTO> getQnAList(Criteria cri);
 	public List<QnADTO> getQnAListSearch(SearchCriteria searchCriteria);
-	
+	public List<QnADTO> getMyQnAListSearch(MemberSearchCriteria msc);
 
 
 	// QnA 글 개수
-//	public int getQnANum(CriteriaDTO cri);
 	public int getQnANum();	
 	public int getQnASearchNum(SearchCriteria scri);
+	// 내 QnA 글 개수 
+	public int getMyQnANum(int member_code);
+	
+	
 	public QnADTO getQnA(QnADTO qna);
 	
 	// QnA 글 조회수
@@ -37,8 +40,7 @@ public interface QnAService {
 	// 회원 전체 QnA 글 조회 
 	public List<QnADTO> getAllMemberQnA(Map<String, Object> auth);
 	
-	// 내 QnA 글 개수 
-	public int getMyQnANum(int member_code);
+
 	
 	// 회원 전체 QnA 글 개수
 	public int getMemberQnANum(String role_user);

@@ -12,6 +12,10 @@
  		<result property="qna_hit" column="QNA_HIT" />
  		<result property="upload_path" column="UPLOAD_PATH" />
  		<result property="qna_title_classification" column="qna_title_classification" javaType="String"/>
+ 		<association property="member" javaType="Member">
+ 			<id property="member_code" column="MEMBER_CODE"/>
+ 			<result property="member_id" column="MEMBER_ID"/>
+ 		</association>
  	</resultMap>
  	
 
@@ -32,16 +36,37 @@
  		<include refid="search"></include>
  	</select>
  	
-	
+ 	<!-- 나의 QnA 개수 조회 -->
+ 	<select id="getMyQnANum" resultType="int">
+ 		SELECT COUNT(qna_num) FROM cafehi_qna
+ 		WHERE member_code = #{member_code}
+ 	</select>
 	
 	<!-- 검색 + 페이징 리스트 -->
-	<select id="getQnAListSearch" resultType="QnA"
+	<select id="getQnAListSearch" resultMap="QnAResult"
 			parameterType="SearchCriteria">
-	SELECT qna_num, qna_title,qna_title_classification, qna_content, qna_writetime, qna_hit, member_id 
+	SELECT qna_num, qna_title,qna_title_classification, qna_content, qna_writetime, qna_hit, member_id
+	FROM 
+	
+	(
+    SELECT qna_num, qna_title,qna_title_classification, qna_content, qna_writetime, qna_hit, cm.member_id,
+        row_number() OVER(ORDER BY qna_num DESC) as rNum
+    FROM cafehi_qna cq, cafehi_member cm
+    WHERE cq.member_code = cm.member_code <include refid="search"></include> 
+    ) cq
+    
+	WHERE rNum BETWEEN #{rowStart} AND #{rowEnd}
+	ORDER BY qna_num DESC
+		
+	</select>
+		
+	<select id="getMyQnAListSearch" resultType="QnA"
+			parameterType="MemberSearchCriteria">
+	SELECT qna_num, qna_title,qna_title_classification, qna_content, qna_writetime, qna_hit, member_code 
  	
  	FROM(
 	
-	SELECT rownum rn, cq.qna_num, cq.qna_title, cq.qna_title_classification, cq.qna_content, cq.qna_writetime, cq.qna_hit, cm.member_id 
+	SELECT rownum rn, cq.qna_num, cq.qna_title, cq.qna_title_classification, cq.qna_content, cq.qna_writetime, cq.qna_hit, cm.member_code
 	
 	FROM (SELECT * FROM cafehi_qna ORDER BY qna_num DESC) cq, cafehi_member cm
 	
@@ -50,7 +75,7 @@
 	)
 	
 	 <![CDATA[
-	 	WHERE rn > #{rowStart} AND rn <= #{rowEnd} 
+	 	WHERE rn > #{rowStart} AND rn <= #{rowEnd} AND member_code = #{member_code}
 	  ]]>
 		
 	
@@ -66,6 +91,8 @@
 	  <if test="searchType == 'tc'.toString()">AND (qna_title like '%' || #{keyword} || '%') OR (qna_content like '%' || #{keyword} || '%')</if>
 	 </if>
 	</sql>
+	
+
 
 
 	<!-- 조회수 갱신 -->
@@ -76,7 +103,7 @@
 	</update>
 
 	<!-- QnA 조회 -->
-	<select id="getQnA" resultType="QnA">
+	<select id="getQnA" resultMap="QnAResult">
 		SELECT  * FROM(
 		SELECT q.qna_num, q.qna_title, q.qna_title_classification, q.qna_content, q.qna_writetime, q.qna_hit, m.member_id, q.upload_path, q.store_file_name, q.upload_file_name FROM cafehi_qna q, cafehi_member m WHERE m.member_code = q.member_code
 		)
@@ -84,7 +111,7 @@
 	</select>
 	
 	<!-- 내가 작성한 QnA 조회 -->
-	<select id="getMyQnA" parameterType="hashMap" resultMap="QnAResult">
+	<select id="getMyQnA" parameterType="hashMap" resultType="QnA">
 		
 		SELECT *
 		FROM(
@@ -117,11 +144,7 @@
 	</select>
 	
 	
-	 	<!-- 나의 QnA 개수 조회 -->
- 	<select id="getMyQnANum" resultType="int">
- 		SELECT COUNT(*) FROM cafehi_qna
- 		WHERE member_code = #{member_code}
- 	</select>
+
  	
  	<!-- 회원 전체 QnA 개수 조회 -->
  	<select id="getMemberQnANum" resultType="int">
@@ -134,7 +157,7 @@
 	
 	<insert id="insertQnA" parameterType="QnA">
 		INSERT INTO cafehi_qna (qna_num, qna_title, qna_title_classification, qna_writetime, qna_updatetime, qna_hit, member_code , qna_content, upload_path, store_file_name, upload_file_name)
-		VALUES(seq_qna.nextval, #{qna_title}, #{qna_title_classification}, #{qna_writetime}, #{qna_updatetime}, #{qna_hit}, #{member_code}, #{qna_content}, #{upload_path}, #{store_file_name}, #{upload_file_name})
+		VALUES(seq_qna.nextval, #{qna_title}, #{qna_title_classification}, #{qna_writetime}, #{qna_updatetime}, #{qna_hit}, #{member.member_code}, #{qna_content}, #{upload_path}, #{store_file_name}, #{upload_file_name})
 	</insert>
 	
 	<!-- QnA 수정 -->

@@ -30,6 +30,21 @@
   	
   </div>
     <div class="m-5">
+    	<div class="search_area">
+					<form action="myQnAInfo.do" method="post">
+						<select name="searchType">
+							 <option value="n"<c:out value="${scri.searchType == null ? 'selected' : ''}"/>>-----</option>
+							  <option value="t"<c:out value="${scri.searchType eq 't' ? 'selected' : ''}"/>>제목</option>
+							  <option value="c"<c:out value="${scri.searchType eq 'c' ? 'selected' : ''}"/>>내용</option>
+							  <option value="w"<c:out value="${scri.searchType eq 'w' ? 'selected' : ''}"/>>작성자</option>
+							  <option value="tc"<c:out value="${scri.searchType eq 'tc' ? 'selected' : ''}"/>>제목+내용</option>
+						</select> 
+						<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+						<input class="btn btn-success" type="text" name="keyword" value="${scri.keyword}">
+						<button class="btn btn-success" id="searchMyBtn">검색</button>
+						<!--------------------검색 엔진--------------------  -->
+					</form>
+		</div>
     	<table class="table  table-striped">
 							<thead>
 								<tr>
@@ -40,40 +55,55 @@
 									<th>조회수</th>
 								</tr>
 							</thead>
-
-							<c:forEach var="myQnA" items="${myQnAList}">
+							
+							<c:choose>
+							<c:when test="${qnaListSize == 0 }">
+								<tbody align="center">	
+									<tr>
+        							<td colspan="5"><b>게시글이 없습니다.</b></td>
+        							</tr>
+								</tbody>
+							</c:when>
+							<c:otherwise>
+							<c:forEach var="qna" items="${qnaList}">
 								<tbody>
 									<tr>
-										<td>${myQnA.qna_num }</td>
-										<td><a href="getQnA.do?qna_num=${myQnA.qna_num }"
+										<td>${qna.qna_num }</td>
+										<td><a href="getQnA.do?qna_num=${qna.qna_num }&
+																page=${scri.page}&
+																perPageNum=${scri.perPageNum}&
+																searchType=${scri.searchType}&
+																keyword=${scri.keyword}"
 											style="text-decoration: none; color: black; font-weight: bold;">
-												<c:if test="${myQnA.classification ne null }">${myQnA.classification }&nbsp; </c:if>${myQnA.qna_title }</a></td>
-										<td>${myQnA.member_id }</td>
-										<td><fmt:formatDate value="${myQnA.qna_writetime }"
-												pattern="yyyy-MM-dd" /></td>
-										<td>${myQnA.qna_hit }</td>
+												<c:if test="${qna.qna_title_classification ne 'none' }">${qna.qna_title_classification }&nbsp; </c:if>${qna.qna_title }</a></td>
+										<td>${qna.member_id }</td>
+										<!-- LocalDateTime format Parse -->
+										<fmt:parseDate value="${qna.qna_writetime }" pattern="yyyy-MM-dd'T'HH:mm" var="parseDateTime" type="both"></fmt:parseDate>
+										<td><fmt:formatDate value="${parseDateTime }"
+												pattern="yyyy.MM.dd HH:mm" /></td>
+										<td>${qna.qna_hit }</td>
 									</tr>
 							</c:forEach>
-							
+
 							<!-- 페이징 view  -->
 							<tr align="center">
 								<td colspan=5 style="border: none; margin-top: 30px;">
 								
 									<div class="container mt-3">
 									<ul class="pagination justify-content-center" >
-										<c:if test="${pageDTO.prev }">
-										<li class="page-item"><a class="page-link" href="myQnAInfo.do?pageNum=${pageDTO.startPage - 1 }&amount=${pageDTO.amount }" style='text-decoration: none; color: black;'>
+										<c:if test="${pageMaker.prev }">
+										<li class="page-item"><a class="page-link" href="QnAList.do${pageMaker.makeQuery(pageMaker.startPage - 1)}" style='text-decoration: none; color: black;'>
 												<span aria-hidden="true">&laquo;</span> </a></li>
 										</c:if>
-									<c:forEach var="num" begin="${pageDTO.startPage }" end="${pageDTO.endPage }">
+										
+									<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
 									<li class="page-item ">
-									<a class="page-link ${pageDTO.pageNum eq num? 'bg-success' : 'text-dark' }" href="myQnAInfo.do?pageNum=${num }&amount=${pageDTO.amount }" style='text-decoration: none; color: white; '>
-												<c:out value="${num }"/>
-												</a>
+					
+												<a class="page-link ${scri.page eq num? 'bg-success' : 'text-dark' }" href="QnAList.do${pageMaker.makeQuery(num)}" style='text-decoration: none; color: white; '>${num }</a>
 									</li>
 									</c:forEach>
-									<c:if test="${pageDTO.next }">
-									<li class="page-item"><a class="page-link" href="myQnAInfo.do?pageNum=${pageDTO.endPage + 1 }&amount=${pageDTO.amount }" style='text-decoration: none; color: black;'>
+									<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+									<li class="page-item"><a class="page-link" href="QnAList.do${pageMaker.makeQuery(pageMaker.endPage + 1)}" style='text-decoration: none; color: black;'>
 												<span aria-hidden="true">&raquo;</span></a></li> 
 									</c:if>
 									</ul>
@@ -81,6 +111,8 @@
 								
 								</td>
 							</tr>
+							</c:otherwise>
+							</c:choose>
 							
 							</tbody>
 						</table>
@@ -88,23 +120,19 @@
 	</div>
 </div>
 
-<form id="MemberQnA" method="get">
-		<input type="hidden" name="pageNum" value="${pageDTO.cri.pageNum }">
-		<input type="hidden" name="amount" value="${pageDTO.cri.amount }">
-		<input type="hidden" name="keyword" value="${pageDTO.cri.keyword }">
-</form>
-
  <jsp:include page="/cafeHi_module/footer.jsp"/>
  
-  <script type="text/javascript">
-	$(".search_area button").on("click", function(e){
-        e.preventDefault();
-        let val = $("input[name='keyword']").val();
-        MemberQnA.find("input[name='keyword']").val(val);
-        MemberQnA.find("input[name='pageNum']").val(1);
-        MemberQnA.submit();
-    });
-	</script>
-
+<script type="text/javascript">
+  $(function(){
+	  $('#searchMyBtn').click(function() {
+	   self.location = "listSearch"
+	     + '${pageMaker.makeQuery(1)}'
+	     + "&searchType="
+	     + $("select option:selected").val()
+	     + "&keyword="
+	     + encodeURIComponent($('#keywordInput').val());
+	    });
+	 }); 
+  </script>
 </body>
 </html>

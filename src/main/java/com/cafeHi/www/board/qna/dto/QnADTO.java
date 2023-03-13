@@ -5,6 +5,7 @@ import java.util.List;
 
 
 import com.cafeHi.www.member.dto.MemberAuthDTO;
+import com.cafeHi.www.member.dto.MemberDTO;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,9 +27,11 @@ public class QnADTO {
 	private String store_file_name; // QnA 게시글 서버 저장 파일명
 	private String upload_file_name; // QnA 게시글 클라이언트 저장 파일명
 	
+	private MemberDTO member;
+	
 	// 멤버 정보를 가져오기 위한 필드
-	private int member_code;  
-	private String member_id;
+//	private int member_code;  
+//	private String member_id;
 	
 	// 권한 리스트
 	private List<MemberAuthDTO> authList;
@@ -75,22 +78,18 @@ public class QnADTO {
 		this.qna_hit = qna_hit;
 	}
 
-	public void setMember_code(int member_code) {
-		this.member_code = member_code;
-	}
-
-	public void setMember_id(String member_id) {
-		this.member_id = member_id;
+	public void setMember(MemberDTO member) {
+		this.member = member;
 	}
 
 	public void setAuthList(List<MemberAuthDTO> authList) {
 		this.authList = authList;
 	}
+
 	
-	// 테스트용 생성자
 	public QnADTO(String qna_title, String qna_title_classification, String qna_content, LocalDateTime qna_writetime,
 			LocalDateTime qna_updatetime, int qna_hit, String upload_path, String store_file_name,
-			String upload_file_name, int member_code) {
+			String upload_file_name, MemberDTO member) {
 		super();
 		this.qna_title = qna_title;
 		this.qna_title_classification = qna_title_classification;
@@ -101,9 +100,11 @@ public class QnADTO {
 		this.upload_path = upload_path;
 		this.store_file_name = store_file_name;
 		this.upload_file_name = upload_file_name;
-		this.member_code = member_code;
+		this.member = member;
 	}
-	
+
+
+
 	
 	
 }
