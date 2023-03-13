@@ -356,6 +356,12 @@ public class QnAController {
 //			request.setAttribute("msg", "삭제가 완료되었습니다.");
 //			request.setAttribute("url", "QnAList.do");
 			
+			
+			log.info("page = {}", scri.getPage());
+			log.info("perPageNum = {}", scri.getPerPageNum());
+			log.info("searchType = {}", scri.getSearchType());
+			log.info("keyword = {}", scri.getKeyword());
+			
 			rttr.addAttribute("page", scri.getPage());
 			rttr.addAttribute("perPageNum", scri.getPerPageNum());
 			rttr.addAttribute("searchType", scri.getSearchType());

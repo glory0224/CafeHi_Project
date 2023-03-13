@@ -129,9 +129,7 @@
 										
 									<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
 									<li class="page-item ">
-									<%-- <a class="page-link ${pageMaker.pageNum eq num? 'bg-success' : 'text-dark' }" href="QnAList.do?pageNum=${num }" style='text-decoration: none; color: white; '>
-												<c:out value="${num }"/>
-												</a> --%>
+					
 												<a class="page-link ${scri.page eq num? 'bg-success' : 'text-dark' }" href="QnAList.do${pageMaker.makeQuery(num)}" style='text-decoration: none; color: white; '>${num }</a>
 									</li>
 									</c:forEach>

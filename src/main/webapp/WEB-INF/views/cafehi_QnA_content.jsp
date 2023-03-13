@@ -108,8 +108,6 @@
 				</div>
 				<div class="d-flex flex-row-reverse bd-highlight">
 							<div class="justify-content-between">	
-							<!-- <input class="btn btn-success" type="button" value="목록"
-									onclick="location.href='QnAList.do'" id="list_btn"> -->
 							<input class="btn btn-success" type="button" value="목록"
 									 id="contentToList_btn">
 							</div>
@@ -125,13 +123,15 @@
 									<input class="btn btn-success" type="submit" value="삭제"
 										onclick="alert('정말로 삭제하시겠습니까?');">
 									<input type="hidden" name="qna_num" value="${QnA.qna_num }">
+									<input type="hidden" id="page" name="page" value="${scri.page }" readonly="readonly">
+									<input type="hidden" id="perPageNum" name="perPageNum" value="${scri.perPageNum }" readonly="readonly">
+									<input type="hidden" id="searchType" name="searchType" value="${scri.searchType }" readonly="readonly">
+									<input type="hidden" id="keyword" name="keyword" value="${scri.keyword }" readonly="readonly">
 									<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />								
 								</form>
 							</div>
 							 &nbsp;
 							<div class="justify-content-between">
-								<%-- <input class="btn btn-success" type="button" value="수정"
-									onclick="location.href='QnAUpdate.do?qna_num=${QnA.qna_num}'"> --%>
 								<input class="btn btn-success" type="button" value="수정"
 									id="update_btn">
 							</div>
@@ -226,20 +226,21 @@
 	}
 	
 	
-	// 목록 페이지 이동
+	// 목록 버튼 클릭
 	$("#contentToList_btn").click(function(){
 		self.location = "/cafeHi/QnAList.do?"
 				+ "page=${scri.page}&perPageNum=${scri.perPageNum}"
 				+ "&searchType=${scri.searchType}&keyword=${scri.keyword}";
 	});
 	
-	// 수정 페이지 이동
+	// 수정 버튼 클릭
 	$("#update_btn").click(function(){
 		self.location = "/cafeHi/QnAUpdate.do?"
 				+ "qna_num=${QnA.qna_num}&"
 				+ "page=${scri.page}&perPageNum=${scri.perPageNum}"
 				+ "&searchType=${scri.searchType}&keyword=${scri.keyword}";
 	});
+	
 	
 </script>
 </html>
