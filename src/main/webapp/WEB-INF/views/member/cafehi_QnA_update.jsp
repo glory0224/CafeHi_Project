@@ -48,7 +48,7 @@
 					
 					<table class="table table-striped">
 							<tr>
-								<th>작성자</th><td>${QnA.member_id }</td>
+								<th>작성자</th><td>${QnA.member.member_id }</td>
 								<th>조회수</th><td>${QnA.qna_hit }</td>
 							</tr>
 							
@@ -91,7 +91,7 @@
  						<div class="d-flex flex-row-reverse bd-highlight">
 							<div class="justify-content-between">
 							<button class="btn btn-success" onclick="document.getElementById('updateQnAForm').submit();">수정</button>
-							<input class="btn btn-success" type="button" value="목록" id="updateToList_btn">
+							<input class="btn btn-success" type="button" value="이전" onclick="javascript:history.back()">
 							
 							</div>
 
@@ -124,13 +124,5 @@
 	   dataType: 'json'
 	})
 	
-	
-	
-	// 목록 버튼 클릭
-	$("#updateToList_btn").click(function(){
-		self.location = "/cafeHi/QnAList.do?"
-				+ "page=${scri.page}&perPageNum=${scri.perPageNum}"
-				+ "&searchType=${scri.searchType}&keyword=${scri.keyword}";
-	});
 </script>
 </html>

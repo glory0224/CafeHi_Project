@@ -27,15 +27,7 @@ public class QnADTO {
 	private String store_file_name; // QnA 게시글 서버 저장 파일명
 	private String upload_file_name; // QnA 게시글 클라이언트 저장 파일명
 	
-	private MemberDTO member;
-	
-	// 멤버 정보를 가져오기 위한 필드
-//	private int member_code;  
-//	private String member_id;
-	
-	// 권한 리스트
-	private List<MemberAuthDTO> authList;
-	
+	private MemberDTO member; // 멤버 정보 
 	
 	// QnA 등록
 	public void setQnADateTime() {
@@ -81,11 +73,6 @@ public class QnADTO {
 	public void setMember(MemberDTO member) {
 		this.member = member;
 	}
-
-	public void setAuthList(List<MemberAuthDTO> authList) {
-		this.authList = authList;
-	}
-
 	
 	public QnADTO(String qna_title, String qna_title_classification, String qna_content, LocalDateTime qna_writetime,
 			LocalDateTime qna_updatetime, int qna_hit, String upload_path, String store_file_name,

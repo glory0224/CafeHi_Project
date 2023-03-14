@@ -116,7 +116,7 @@
 				<!-- 로그인 중인 사용자 분류 -->
 
 						<sec:authorize access="hasAnyRole('ROLE_USER')">
-							<c:if test="${QnA.member_id eq  securityId }">
+							<c:if test="${QnA.member.member_id eq  securityId }">
 							  
 							<div class="justify-content-between">
 								<form action="DeleteQnA.do" method="post">
@@ -141,7 +141,7 @@
 						
 						
 						<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
-							<c:if test="${QnA.member_id eq  securityId }">
+							<c:if test="${QnA.member.member_id eq  securityId }">
 							<div class="justify-content-between">
 								<input class="btn btn-success" type="button" value="수정"
 									onclick="location.href='AdminQnAUpdate.do?qna_num=${QnA.qna_num}'">

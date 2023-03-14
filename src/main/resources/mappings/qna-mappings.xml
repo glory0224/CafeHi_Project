@@ -7,11 +7,14 @@
  	<resultMap type="QnA" id="QnAResult">
  		<id property="qna_num" column="QNA_NUM"/>
  		<result property="qna_title" column="QNA_TITLE"/>
+ 		<result property="qna_title_classification" column="QNA_TITLE_CLASSIFICATION" javaType="String"/>
  		<result property="qna_content" column="QNA_CONTENT"/>
  		<result property="qna_writetime" column="QNA_WRITETIME"/>
+ 		<result property="qna_updatetime" column="QNA_UPDATETIME"/> 		
  		<result property="qna_hit" column="QNA_HIT" />
  		<result property="upload_path" column="UPLOAD_PATH" />
- 		<result property="qna_title_classification" column="qna_title_classification" javaType="String"/>
+ 		<result property="store_file_name" column="STORE_FILE_NAME" />
+ 		<result property="upload_file_name" column="UPLOAD_FILE_NAME" />	
  		<association property="member" javaType="Member">
  			<id property="member_code" column="MEMBER_CODE"/>
  			<result property="member_id" column="MEMBER_ID"/>

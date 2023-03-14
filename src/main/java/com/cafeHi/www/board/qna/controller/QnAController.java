@@ -85,6 +85,9 @@ public class QnAController {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("securityId", authentication.getName());
+		QnADTO getQna = qnaService.getQnA(qna);
+		
+		log.info("upload_file_name = {}", getQna.getUpload_file_name());
 		model.addAttribute("QnA", qnaService.getQnA(qna));
 		model.addAttribute("scri", scri);
 		
