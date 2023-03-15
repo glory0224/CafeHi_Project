@@ -48,7 +48,7 @@
 					
 						<!-- 검색 엔진   -->
 					
-					<div class="search_area">
+					<div class="search_area d-flex justify-content-between">
 					<form action="QnAList.do" method="post">
 						<select name="searchType">
 							 <option value="n"<c:out value="${scri.searchType == null ? 'selected' : ''}"/>>-----</option>
@@ -62,6 +62,7 @@
 						<button class="btn btn-success" id="searchBtn">검색</button>
 						<!--------------------검색 엔진--------------------  -->
 					</form>
+					
 						<sec:authorize access="hasAnyRole('ROLE_USER')">
 						<a class="btn btn-success float-end" href="QnAWritePage.do"> <i
 							class="fas fa-edit"></i> 글 작성

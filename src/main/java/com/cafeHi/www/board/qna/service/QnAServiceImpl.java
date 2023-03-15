@@ -34,8 +34,8 @@ public class QnAServiceImpl implements QnAService {
 	
 
 	@Override
-	public List<QnADTO> getMyQnAListSearch(MemberSearchCriteria msc) {
-		return qnADAO.getMyQnAListSearch(msc);
+	public List<QnADTO> getMyQnAListSearch(Map<String, Object> memberQnAMap) {
+		return qnADAO.getMyQnAListSearch(memberQnAMap);
 	}
 
 
@@ -78,8 +78,8 @@ public class QnAServiceImpl implements QnAService {
 	}
 
 	@Override
-	public int getMyQnANum(int member_code) {
-		return qnADAO.getMyQnANum(member_code);
+	public int getMyQnASearchNum(Map<String, Object> memberQnAMap) {
+		return qnADAO.getMyQnASearchNum(memberQnAMap);
 	}
 
 	

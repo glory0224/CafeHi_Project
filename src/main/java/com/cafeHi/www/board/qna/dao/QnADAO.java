@@ -35,8 +35,8 @@ public class QnADAO {
 		return sqlSessionTemplate.selectList("QnADAO.getQnAListSearch", searchCriteria);
 	}
 	
-	public List<QnADTO> getMyQnAListSearch(MemberSearchCriteria msc) {
-		return sqlSessionTemplate.selectList("QnADAO.getMyQnAListSearch", msc);
+	public List<QnADTO> getMyQnAListSearch(Map<String, Object> memberQnAMap) {
+		return sqlSessionTemplate.selectList("QnADAO.getMyQnAListSearch", memberQnAMap);
 	}
 	
 	
@@ -68,8 +68,8 @@ public class QnADAO {
 		return sqlSessionTemplate.selectOne("QnADAO.getQnASearchNum", scri);
 	}
 	
-	public int getMyQnANum(int member_code) {
-		return sqlSessionTemplate.selectOne("QnADAO.getMyQnANum", member_code);
+	public int getMyQnASearchNum(Map<String, Object> memberQnAMap) {
+		return sqlSessionTemplate.selectOne("QnADAO.getMyQnASearchNum", memberQnAMap);
 	}
 	
 	public int getMemberQnANum(String role_user) {

@@ -13,14 +13,14 @@ public interface QnAService {
 	// QnA 글 목록
 //	public List<QnADTO> getQnAList(Criteria cri);
 	public List<QnADTO> getQnAListSearch(SearchCriteria searchCriteria);
-	public List<QnADTO> getMyQnAListSearch(MemberSearchCriteria msc);
+	public List<QnADTO> getMyQnAListSearch(Map<String, Object> memberQnAMap);
 
 
 	// QnA 글 개수
 	public int getQnANum();	
 	public int getQnASearchNum(SearchCriteria scri);
 	// 내 QnA 글 개수 
-	public int getMyQnANum(int member_code);
+	public int getMyQnASearchNum(Map<String, Object> memberQnAMap);
 	
 	
 	public QnADTO getQnA(QnADTO qna);

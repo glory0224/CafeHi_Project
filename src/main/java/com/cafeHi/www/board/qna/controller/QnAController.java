@@ -3,6 +3,7 @@ package com.cafeHi.www.board.qna.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -354,38 +355,43 @@ public class QnAController {
 	// 사용자 QnA 활동 내역 페이지
 	
 		@RequestMapping("myQnAInfo.do")
-		public String MyQnAInfo(MemberSearchCriteria mscri, Model model) {
+		public String MyQnAInfo(SearchCriteria scri, Model model) {
 			
 			log.info("myQnAInfoController");
+			
+			log.info("scri.getSearchType={}", scri.getSearchType());
+			log.info("scri.getKeyword={}", scri.getKeyword());
+			
 			
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			CustomUser userInfo = (CustomUser) principal;
 		    MemberDTO getMember = userInfo.getMember();
 		    
 		    int member_code = getMember.getMember_code();
-		    
-		    mscri.addMemberCode(member_code);
-		    
+		   
 		    log.info("member_code = {}", member_code);
-		    log.info("SearchType = {}", mscri.getSearchType());
-		    log.info("getKeyword = {}", mscri.getKeyword());
-		    log.info("member_code = {}", mscri.getMember_code());
+		    
+		    Map<String, Object> MemberQnAMap = new HashMap<String, Object>();
+		    
+		    MemberQnAMap.put("member_code", member_code);
+		    MemberQnAMap.put("scri", scri);
 		    
 		    
+		    List<QnADTO> myQnaList = null; 
+			myQnaList = qnaService.getMyQnAListSearch(MemberQnAMap);
+			
+			log.info("myQnaList = {}", myQnaList);
 		    
-		    
-		    List<QnADTO> qnaList = null; 
-			 qnaList = qnaService.getMyQnAListSearch(mscri);
-
-		    
-			 model.addAttribute("qnaList", qnaList);
-			 model.addAttribute("qnaListSize", qnaList.size());
+			 model.addAttribute("myQnaList", myQnaList);
+			 model.addAttribute("myQnaListSize", myQnaList.size());
 			 
 			 PageMaker pageMaker = new PageMaker();
-			 pageMaker.setCri(mscri);
-			 pageMaker.setTotalCount(qnaService.getMyQnANum(member_code));
+			 pageMaker.setCri(scri);
+			 
+			 log.info("getMyQnASearchNum = {}", qnaService.getMyQnASearchNum(MemberQnAMap));
+			 pageMaker.setTotalCount(qnaService.getMyQnASearchNum(MemberQnAMap));
 			 model.addAttribute("pageMaker", pageMaker);
-			 model.addAttribute("scri", mscri);
+			 model.addAttribute("scri", scri);
 			 
 			return "member/cafehi_memberQnA";
 		}

@@ -21,14 +21,33 @@
  		</association>
  	</resultMap>
  	
+ 	
+ 	<sql id="QnAsearch">
+	 <if test="searchType != null">
+	  <if test="searchType == 't'.toString()">AND qna_title like '%' || #{keyword} || '%'</if>
+	  <if test="searchType == 'c'.toString()">AND qna_content like '%' || #{keyword} || '%'</if>
+	  <if test="searchType == 'w'.toString()">AND member_id like '%' || #{keyword} || '%'</if>
+	  <if test="searchType == 'tc'.toString()">AND (qna_title like '%' || #{keyword} || '%') OR (qna_content like '%' || #{keyword} || '%')</if>
+	 </if>
+	</sql>
+	
+	<sql id="MyQnAsearch">
+	 <if test="searchType != null">
+	  <if test="searchType == 't'.toString()">AND cq.qna_title like '%' || #{scri.keyword} || '%'</if>
+	  <if test="searchType == 'c'.toString()">AND cq.qna_content like '%' || #{scri.keyword} || '%'</if>
+	 </if>
+	</sql>
+	
+	
+ 	
 
  	<!-- 전체 QnA 개수 조회 -->
- 	
  	<select id="getQnANum" resultType="int">
  		SELECT COUNT(qna_num) FROM cafehi_qna
  		WHERE qna_num > 0	
  	</select>
  	
+ 	<!-- 검색 조건 QnA 개수 조회 -->
  	<select id="getQnASearchNum" resultType="int">
  		SELECT COUNT(qna_num) FROM cafehi_qna cq, cafehi_member cm
  		WHERE	
@@ -36,13 +55,19 @@
  		 qna_num > 0
  		]]>
  		AND cq.member_code = cm.member_code
- 		<include refid="search"></include>
+ 		<include refid="QnAsearch"></include>
  	</select>
  	
+ 	
  	<!-- 나의 QnA 개수 조회 -->
- 	<select id="getMyQnANum" resultType="int">
- 		SELECT COUNT(qna_num) FROM cafehi_qna
- 		WHERE member_code = #{member_code}
+ 	<select id="getMyQnASearchNum" parameterType="hashmap" resultType="int">
+ 		SELECT COUNT(qna_num) FROM cafehi_qna cq, cafehi_member cm
+ 		WHERE	
+ 		 <![CDATA[
+ 		 qna_num > 0
+ 		]]>
+ 		AND cq.member_code = cm.member_code AND cm.member_code = #{member_code}
+ 		<include refid="MyQnAsearch"></include>
  	</select>
 	
 	<!-- 검색 + 페이징 리스트 -->
@@ -55,45 +80,33 @@
     SELECT qna_num, qna_title,qna_title_classification, qna_content, qna_writetime, qna_hit, cm.member_id,
         row_number() OVER(ORDER BY qna_num DESC) as rNum
     FROM cafehi_qna cq, cafehi_member cm
-    WHERE cq.member_code = cm.member_code <include refid="search"></include> 
-    ) cq
+    WHERE cq.member_code = cm.member_code <include refid="QnAsearch"></include> 
+    ) cqm
     
 	WHERE rNum BETWEEN #{rowStart} AND #{rowEnd}
 	ORDER BY qna_num DESC
 		
 	</select>
 		
-	<select id="getMyQnAListSearch" resultType="QnA"
-			parameterType="MemberSearchCriteria">
-	SELECT qna_num, qna_title,qna_title_classification, qna_content, qna_writetime, qna_hit, member_code 
- 	
- 	FROM(
+	<select id="getMyQnAListSearch" resultMap="QnAResult"
+			parameterType="hashmap">
+	SELECT qna_num, qna_title,qna_title_classification, qna_content, qna_writetime, qna_hit, member_id
+	FROM 
 	
-	SELECT rownum rn, cq.qna_num, cq.qna_title, cq.qna_title_classification, cq.qna_content, cq.qna_writetime, cq.qna_hit, cm.member_code
+	(
+    SELECT qna_num, qna_title,qna_title_classification, qna_content, qna_writetime, qna_hit, cm.member_code, cm.member_id,
+        row_number() OVER(ORDER BY qna_num DESC) as rNum
+    FROM cafehi_qna cq, cafehi_member cm
+    WHERE cq.member_code = cm.member_code AND cm.member_code = #{member_code} <include refid="MyQnAsearch"></include> 
+    ) cqm
+    
+	WHERE rNum BETWEEN #{scri.rowStart} AND #{scri.rowEnd}
+	ORDER BY qna_num DESC
 	
-	FROM (SELECT * FROM cafehi_qna ORDER BY qna_num DESC) cq, cafehi_member cm
-	
-	WHERE cm.member_code = cq.member_code <include refid="search"></include>
-	
-	)
-	
-	 <![CDATA[
-	 	WHERE rn > #{rowStart} AND rn <= #{rowEnd} AND member_code = #{member_code}
-	  ]]>
-		
-	
-		
-		</select>
+	</select>
 
 		
-	<sql id="search">
-	 <if test="searchType != null">
-	  <if test="searchType == 't'.toString()">AND qna_title like '%' || #{keyword} || '%'</if>
-	  <if test="searchType == 'c'.toString()">AND qna_content like '%' || #{keyword} || '%'</if>
-	  <if test="searchType == 'w'.toString()">AND member_id like '%' || #{keyword} || '%'</if>
-	  <if test="searchType == 'tc'.toString()">AND (qna_title like '%' || #{keyword} || '%') OR (qna_content like '%' || #{keyword} || '%')</if>
-	 </if>
-	</sql>
+	
 	
 
 

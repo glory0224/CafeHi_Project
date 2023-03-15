@@ -36,8 +36,6 @@
 							 <option value="n"<c:out value="${scri.searchType == null ? 'selected' : ''}"/>>-----</option>
 							  <option value="t"<c:out value="${scri.searchType eq 't' ? 'selected' : ''}"/>>제목</option>
 							  <option value="c"<c:out value="${scri.searchType eq 'c' ? 'selected' : ''}"/>>내용</option>
-							  <option value="w"<c:out value="${scri.searchType eq 'w' ? 'selected' : ''}"/>>작성자</option>
-							  <option value="tc"<c:out value="${scri.searchType eq 'tc' ? 'selected' : ''}"/>>제목+내용</option>
 						</select> 
 						<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
 						<input class="btn btn-success" type="text" name="keyword" value="${scri.keyword}">
@@ -57,7 +55,7 @@
 							</thead>
 							
 							<c:choose>
-							<c:when test="${qnaListSize == 0 }">
+							<c:when test="${myQnaListSize == 0 }">
 								<tbody align="center">	
 									<tr>
         							<td colspan="5"><b>게시글이 없습니다.</b></td>
@@ -65,7 +63,7 @@
 								</tbody>
 							</c:when>
 							<c:otherwise>
-							<c:forEach var="qna" items="${qnaList}">
+							<c:forEach var="qna" items="${myQnaList}">
 								<tbody>
 									<tr>
 										<td>${qna.qna_num }</td>
@@ -76,7 +74,7 @@
 																keyword=${scri.keyword}"
 											style="text-decoration: none; color: black; font-weight: bold;">
 												<c:if test="${qna.qna_title_classification ne 'none' }">${qna.qna_title_classification }&nbsp; </c:if>${qna.qna_title }</a></td>
-										<td>${qna.member_id }</td>
+										<td>${qna.member.member_id }</td>
 										<!-- LocalDateTime format Parse -->
 										<fmt:parseDate value="${qna.qna_writetime }" pattern="yyyy-MM-dd'T'HH:mm" var="parseDateTime" type="both"></fmt:parseDate>
 										<td><fmt:formatDate value="${parseDateTime }"
@@ -92,18 +90,18 @@
 									<div class="container mt-3">
 									<ul class="pagination justify-content-center" >
 										<c:if test="${pageMaker.prev }">
-										<li class="page-item"><a class="page-link" href="QnAList.do${pageMaker.makeQuery(pageMaker.startPage - 1)}" style='text-decoration: none; color: black;'>
+										<li class="page-item"><a class="page-link" href="myQnAInfo.do${pageMaker.makeQuery(pageMaker.startPage - 1)}" style='text-decoration: none; color: black;'>
 												<span aria-hidden="true">&laquo;</span> </a></li>
 										</c:if>
 										
 									<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
 									<li class="page-item ">
 					
-												<a class="page-link ${scri.page eq num? 'bg-success' : 'text-dark' }" href="QnAList.do${pageMaker.makeQuery(num)}" style='text-decoration: none; color: white; '>${num }</a>
+												<a class="page-link ${scri.page eq num? 'bg-success' : 'text-dark' }" href="myQnAInfo.do${pageMaker.makeQuery(num)}" style='text-decoration: none; color: white; '>${num }</a>
 									</li>
 									</c:forEach>
 									<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-									<li class="page-item"><a class="page-link" href="QnAList.do${pageMaker.makeQuery(pageMaker.endPage + 1)}" style='text-decoration: none; color: black;'>
+									<li class="page-item"><a class="page-link" href="myQnAInfo.do${pageMaker.makeQuery(pageMaker.endPage + 1)}" style='text-decoration: none; color: black;'>
 												<span aria-hidden="true">&raquo;</span></a></li> 
 									</c:if>
 									</ul>
