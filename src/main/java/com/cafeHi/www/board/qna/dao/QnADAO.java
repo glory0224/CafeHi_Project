@@ -36,6 +36,12 @@ public class QnADAO {
 	}
 	
 	public List<QnADTO> getMyQnAListSearch(Map<String, Object> memberQnAMap) {
+		
+		log.info("memberQnAMap.scri = {}", memberQnAMap.get("scri"));
+		
+		List<QnADTO> getMyQnAListSearchResult = sqlSessionTemplate.selectList("QnADAO.getMyQnAListSearch", memberQnAMap);
+		
+		log.info("getMyQnAListSearchResult = {}", getMyQnAListSearchResult);
 		return sqlSessionTemplate.selectList("QnADAO.getMyQnAListSearch", memberQnAMap);
 	}
 	
@@ -69,6 +75,13 @@ public class QnADAO {
 	}
 	
 	public int getMyQnASearchNum(Map<String, Object> memberQnAMap) {
+		
+		log.info("memberQnAMap.scri = {}", memberQnAMap.get("scri"));
+		
+		int result = sqlSessionTemplate.selectOne("QnADAO.getMyQnASearchNum", memberQnAMap);
+		
+		log.info("getMyQnASearchNumResult = {}", result);
+		
 		return sqlSessionTemplate.selectOne("QnADAO.getMyQnASearchNum", memberQnAMap);
 	}
 	

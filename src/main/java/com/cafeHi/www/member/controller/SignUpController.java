@@ -60,7 +60,11 @@ public class SignUpController {
 			
 			// 멤버 정보 등록
 			
-			int member_code = memberService.insertMember(member);
+			memberService.insertMember(member);
+			
+			int member_code = member.getMember_code();
+			
+			log.info("member_code = {}", member_code);
 			
 			// 멤버 권한 생성
 			
@@ -117,6 +121,8 @@ public class SignUpController {
 	@PostMapping("/EmailCheck.do")
 	public @ResponseBody int EmailCheck(String member_email) {
 		int result = memberService.checkEmail(member_email);
+		log.info("EmailCheck.do");
+		log.info("result = {}", result);
 		return result;
 	}
 	

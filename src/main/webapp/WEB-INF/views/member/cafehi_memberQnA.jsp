@@ -123,7 +123,7 @@
 <script type="text/javascript">
   $(function(){
 	  $('#searchMyBtn').click(function() {
-	   self.location = "listSearch"
+	   self.location = "cafhi_memberQnA"
 	     + '${pageMaker.makeQuery(1)}'
 	     + "&searchType="
 	     + $("select option:selected").val()

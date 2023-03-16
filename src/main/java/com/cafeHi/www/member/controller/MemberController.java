@@ -125,13 +125,7 @@ public class MemberController {
 		// 입력받은 계정 정보와 세션 정보 비교 
 		if(MemberId.equals(securityId) && pwdEncoder.matches(MemberPw, securityPw)) {	
 		
-//			int member_auth_code = 0;
-//			
-//			for (MemberAuthDTO memberAuth : userInfo.getMember().getAuthList()) {
-//				log.info("member_auth_code = {}", memberAuth.getMember_auth_code());
-//				member_auth_code = memberAuth.getMember_auth_code();
-//			}
-//			
+
 			
 			memberService.deleteMember(userInfo.getMember().getMember_code());
 		

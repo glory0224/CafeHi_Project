@@ -380,7 +380,6 @@ public class QnAController {
 		    List<QnADTO> myQnaList = null; 
 			myQnaList = qnaService.getMyQnAListSearch(MemberQnAMap);
 			
-			log.info("myQnaList = {}", myQnaList);
 		    
 			 model.addAttribute("myQnaList", myQnaList);
 			 model.addAttribute("myQnaListSize", myQnaList.size());
@@ -388,7 +387,6 @@ public class QnAController {
 			 PageMaker pageMaker = new PageMaker();
 			 pageMaker.setCri(scri);
 			 
-			 log.info("getMyQnASearchNum = {}", qnaService.getMyQnASearchNum(MemberQnAMap));
 			 pageMaker.setTotalCount(qnaService.getMyQnASearchNum(MemberQnAMap));
 			 model.addAttribute("pageMaker", pageMaker);
 			 model.addAttribute("scri", scri);

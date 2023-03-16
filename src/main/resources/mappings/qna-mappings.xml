@@ -33,8 +33,8 @@
 	
 	<sql id="MyQnAsearch">
 	 <if test="searchType != null">
-	  <if test="searchType == 't'.toString()">AND cq.qna_title like '%' || #{scri.keyword} || '%'</if>
-	  <if test="searchType == 'c'.toString()">AND cq.qna_content like '%' || #{scri.keyword} || '%'</if>
+	  <if test="searchType == 't'.toString()">AND qna_title like '%' || #{scri.keyword} || '%'</if>
+	  <if test="searchType == 'c'.toString()">AND qna_content like '%' || #{scri.keyword} || '%'</if>
 	 </if>
 	</sql>
 	
@@ -60,14 +60,17 @@
  	
  	
  	<!-- 나의 QnA 개수 조회 -->
- 	<select id="getMyQnASearchNum" parameterType="hashmap" resultType="int">
+ 	<select id="getMyQnASearchNum" parameterType="map" resultType="int">
  		SELECT COUNT(qna_num) FROM cafehi_qna cq, cafehi_member cm
  		WHERE	
  		 <![CDATA[
  		 qna_num > 0
  		]]>
  		AND cq.member_code = cm.member_code AND cm.member_code = #{member_code}
- 		<include refid="MyQnAsearch"></include>
+ 		 <if test="scri.searchType != null">
+	  		<if test="scri.searchType == 't'.toString()">AND qna_title like '%' || #{scri.keyword} || '%'</if>
+	  		<if test="scri.searchType == 'c'.toString()">AND qna_content like '%' || #{scri.keyword} || '%'</if>
+	 	 </if>
  	</select>
 	
 	<!-- 검색 + 페이징 리스트 -->
@@ -88,8 +91,8 @@
 		
 	</select>
 		
-	<select id="getMyQnAListSearch" resultMap="QnAResult"
-			parameterType="hashmap">
+	<select id="getMyQnAListSearch" resultType="QnA"
+			parameterType="map" >
 	SELECT qna_num, qna_title,qna_title_classification, qna_content, qna_writetime, qna_hit, member_id
 	FROM 
 	
@@ -97,7 +100,13 @@
     SELECT qna_num, qna_title,qna_title_classification, qna_content, qna_writetime, qna_hit, cm.member_code, cm.member_id,
         row_number() OVER(ORDER BY qna_num DESC) as rNum
     FROM cafehi_qna cq, cafehi_member cm
-    WHERE cq.member_code = cm.member_code AND cm.member_code = #{member_code} <include refid="MyQnAsearch"></include> 
+    WHERE cq.member_code = cm.member_code AND cm.member_code = #{member_code} 
+     
+     <if test="scri.searchType != null">
+	  		<if test="scri.searchType == 't'.toString()">AND qna_title like '%' || #{scri.keyword} || '%'</if>
+	  		<if test="scri.searchType == 'c'.toString()">AND qna_content like '%' || #{scri.keyword} || '%'</if>
+	 </if>
+     
     ) cqm
     
 	WHERE rNum BETWEEN #{scri.rowStart} AND #{scri.rowEnd}
