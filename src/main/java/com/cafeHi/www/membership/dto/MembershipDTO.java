@@ -5,8 +5,10 @@ import java.time.LocalDateTime;
 import com.cafeHi.www.membership.MembershipGrade;
 
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
+@ToString
 public class MembershipDTO {
 	
 	private int membership_code;
@@ -52,6 +54,20 @@ public class MembershipDTO {
 			this.membership_updatetime = LocalDateTime.now();
 		}
 
-	
+		// 자동 주입 받을 대상에 대한 setter
+		
+		public void setMembership_point(int membership_point) {
+			this.membership_point = membership_point;
+		}
+
+		public void setMembership_new_point(int membership_new_point) {
+			this.membership_new_point = membership_new_point;
+		}
+
+		public void setMember_code(int member_code) {
+			this.member_code = member_code;
+		}
+		
+		
 	
 }

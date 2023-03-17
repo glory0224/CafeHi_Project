@@ -77,6 +77,7 @@ public class orderController {
 		newOrder.setIncludeDelivery(include_delivery);
 		newOrder.setTimeAndStatus();
 		
+		log.info("membership = {}", membership);
 		
 		log.info(" =============== membership start =============== ");		
 		
