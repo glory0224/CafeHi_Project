@@ -98,9 +98,10 @@ public class orderController {
 						
 		newOrderMenu.setMenu(getMenu);
 		
-		newOrderMenu.setTime();
+		newOrderMenu.setTimeAndStatus();
 		
-		newOrderMenu.setTotalPriceAndCount(TotalPrice , total_order_count);
+		newOrderMenu.setCountAndTotalPriceAndTotalPoint(total_order_count, TotalPrice, membership.getMembership_new_point());
+		
 			
 		orderService.insertOrderMenu(newOrderMenu);
 			
@@ -115,9 +116,9 @@ public class orderController {
 			
 			newOrderMenu.setMenu(getMenu);
 			
-			newOrderMenu.setTime();
+			newOrderMenu.setTimeAndStatus();
 			
-			newOrderMenu.setTotalPriceAndCount(NotDeliveryTotalPrice , total_order_count);
+			newOrderMenu.setCountAndTotalPriceAndTotalPoint(total_order_count, NotDeliveryTotalPrice, membership.getMembership_new_point());
 				
 			orderService.insertOrderMenu(newOrderMenu);
 		
@@ -152,13 +153,35 @@ public class orderController {
 	}
 	
 	@PostMapping("/CafehiOrderCancel.do")
-	public String CafehiOrderCancel(orderDTO order, Model model) {
+	public String CafehiOrderCancel(orderDTO order, orderMenuDTO orderMenu, Model model) {
 		
 		log.info("order_code = {}", order.getOrder_code());
 		
 		order.cancelTimeAndStatus();
 		
 		orderService.CancelOrder(order);
+		
+		// 취소 했을 때 멤버쉽 포인트 감소
+		
+		log.info("order_menu_code = {}", orderMenu.getOrder_menu_code());
+		
+		orderMenu.cancelTimeAndStatus();
+		
+		orderService.CancelOrderMenu(orderMenu);
+		
+		orderMenuDTO getOrderMenu = orderService.getOrderMenu(orderMenu.getOrder_menu_code());
+		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		CustomUser userInfo = (CustomUser)principal;
+		int member_code = userInfo.getMember().getMember_code();
+		
+		log.info("session member_code = {}", member_code);
+		
+		MembershipDTO getMembership = membershipService.getMembership(member_code);
+		
+		log.info("getMemebership member_code = {}", getMembership.getMember_code());
+		
+		membershipService.minusMembershipPoint(getMembership, getOrderMenu);
 		
 		return "redirect:/CafehiOrderList.do";
 	}

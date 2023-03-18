@@ -30,6 +30,10 @@ public class MembershipDAO {
 		
 	}
 
+	public int recoveryPoint(MembershipDTO getMembership) {
+		return sqlSessionTemplate.update("MembershipDAO.recoveryMembershipPoint", getMembership);
+	}
+
 	
 	
 }

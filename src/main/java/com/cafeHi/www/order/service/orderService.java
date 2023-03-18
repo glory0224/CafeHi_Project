@@ -21,6 +21,8 @@ public interface orderService {
 
 	public orderMenuDTO getOrderMenu(int order_menu_code);
 
+	public int CancelOrderMenu(orderMenuDTO orderMenu);
+
 	
 	
 }

@@ -55,6 +55,12 @@ public class orderServiceImpl implements orderService{
 	}
 
 
+	@Override
+	public int CancelOrderMenu(orderMenuDTO orderMenu) {
+		return orderDAO.cancelOrderMenu(orderMenu);
+	}
+
+
 	
 	
 

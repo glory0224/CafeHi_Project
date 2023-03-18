@@ -15,7 +15,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Repository
 @RequiredArgsConstructor
-@Slf4j
 public class orderDAO {
 	
 	private final SqlSessionTemplate sqlSessionTemplate;
@@ -42,14 +41,6 @@ public class orderDAO {
 
 	public List<orderMenuDTO> listOrder(int member_code) {
 		
-		List<orderMenuDTO> getOrderList = sqlSessionTemplate.selectList("OrderDAO.listOrder", member_code);
-		
-		for (orderMenuDTO ordermenu : getOrderList) {
-			
-			log.info("orderMenu.include_delivery = {} ", ordermenu.getOrder().getInclude_delivery());
-		
-		}
-		
 		return sqlSessionTemplate.selectList("OrderDAO.listOrder", member_code);
 	}
 
@@ -60,6 +51,14 @@ public class orderDAO {
 		
 		return result;
 	
+	}
+
+
+	public int cancelOrderMenu(orderMenuDTO orderMenu) {
+		
+		int result = sqlSessionTemplate.update("OrderDAO.cancelOrderMenu", orderMenu);
+		
+		return result;
 	}
 
 

@@ -61,6 +61,7 @@
 										<td>${orderMenuList.menu.menu_name } </td>
 										<td> <fmt:formatNumber value="${orderMenuList.menu.menu_price }" pattern="#,###,###"/> 원</td>
 										<td>${orderMenuList.total_order_count } 개</td>
+									<%-- <td>${orderMenuList.total_order_price } 개</td> --%>
 									<c:choose>
 										<c:when test="${orderMenuList.order.include_delivery}">
 											
@@ -72,6 +73,7 @@
 									</c:choose>
 									
 									<td><fmt:formatNumber value="${orderMenuList.total_order_price }" pattern="#,###,###"> </fmt:formatNumber>원</td>									
+									<%-- <td><fmt:formatNumber value="${orderMenuList.total_order_count }" pattern="#,###,###"> </fmt:formatNumber>원</td> --%>									
 									<c:if test="${orderMenuList.order.order_status eq '주문취소' }">
 									<td><b style="color: green;">${orderMenuList.order.order_status }</b></td>
 									</c:if>
@@ -86,6 +88,7 @@
 									<td>
 									<form action="CafehiOrderCancel.do" method="post">
 									<input type="hidden" name="order_code" value="${orderMenuList.order.order_code}">
+									<input type="hidden" name="order_menu_code" value="${orderMenuList.order_menu_code}">									
 									<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">									
 									<button class="btn btn-success btn-sm">주문취소</button>
 									</form>
