@@ -77,14 +77,7 @@ public class orderController {
 		newOrder.setIncludeDelivery(include_delivery);
 		newOrder.setTimeAndStatus();
 		
-		log.info("membership = {}", membership);
-		
-		log.info(" =============== membership start =============== ");		
-		
 		membershipService.updateMembershipPoint(membership);
-		
-		log.info("=============== membership end =============== ");
-			
 		
 		MenuDTO getMenu = menuService.getMenu(menu_code);
 		
@@ -93,8 +86,6 @@ public class orderController {
 		orderService.insertOrder(newOrder);
 					
 		int TotalPrice = newOrderMenu.totalPrice(deliveryFee, getMenu.getMenu_price(), total_order_count); // 배송비 포함 총 비용 
-		
-		log.info("TotalPrice = {}", TotalPrice);
 						
 		newOrderMenu.setMenu(getMenu);
 		
@@ -152,18 +143,15 @@ public class orderController {
 		return "member/cafehi_orderList";
 	}
 	
+	
+	// 주문 취소
+	
 	@PostMapping("/CafehiOrderCancel.do")
 	public String CafehiOrderCancel(orderDTO order, orderMenuDTO orderMenu, Model model) {
-		
-		log.info("order_code = {}", order.getOrder_code());
 		
 		order.cancelTimeAndStatus();
 		
 		orderService.CancelOrder(order);
-		
-		// 취소 했을 때 멤버쉽 포인트 감소
-		
-		log.info("order_menu_code = {}", orderMenu.getOrder_menu_code());
 		
 		orderMenu.cancelTimeAndStatus();
 		
@@ -171,16 +159,13 @@ public class orderController {
 		
 		orderMenuDTO getOrderMenu = orderService.getOrderMenu(orderMenu.getOrder_menu_code());
 		
+		// 세션 값 
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		CustomUser userInfo = (CustomUser)principal;
 		int member_code = userInfo.getMember().getMember_code();
 		
-		log.info("session member_code = {}", member_code);
-		
 		MembershipDTO getMembership = membershipService.getMembership(member_code);
-		
-		log.info("getMemebership member_code = {}", getMembership.getMember_code());
-		
+				
 		membershipService.minusMembershipPoint(getMembership, getOrderMenu);
 		
 		return "redirect:/CafehiOrderList.do";

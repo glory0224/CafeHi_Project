@@ -53,7 +53,7 @@ drop table cafehi_membership;
 drop table cafehi_qna;
 drop table cafehi_member_auth;
 drop table cafehi_member;
-	
+
 
 ------------------------------------ 테이블 시퀀스 생성 시작 -------------------------------------
 
@@ -91,6 +91,21 @@ SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME = 'SEQ_MEMBER';
 
 drop sequence seq_member;
 
+-- 멤버쉽 시퀀스
+create sequence seq_membership
+start with 1
+minvalue 1
+nomaxvalue
+increment by 1
+nocycle
+nocache
+order;
+
+SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME = 'SEQ_MEMBERSHIP';
+
+drop sequence seq_membership;
+
+
 -- 게시판 시퀀스
 create sequence seq_qna
 start with 1
@@ -105,19 +120,6 @@ SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME = 'SEQ_QNA';
 
 drop sequence seq_qna;
 
--- 멤버쉽 시퀀스
-create sequence seq_membership
-start with 1
-minvalue 1
-nomaxvalue
-increment by 1
-nocycle
-nocache
-order;
-
-SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME = 'SEQ_MEMBERSHIP';
-
-drop sequence seq_membership;
 
 -- 메뉴 시퀀스
 create sequence seq_menu
@@ -210,7 +212,7 @@ create table cafehi_member_auth(
     member_auth varchar2(50) not null, -- 스프링 시큐리티 사용자 권한 : ROLE_USER, ROLE_ADMIN ...
     member_auth_writetime timestamp not null, -- 사용자 권한 등록일
     member_auth_updatetime timestamp not null, -- 사용자 권한 수정일
-    constraint fk_member_auth foreign key(member_code) references cafehi_member(member_code)
+    constraint fk_member_auth foreign key(member_code) references cafehi_member(member_code) on delete cascade
 );
 
 
@@ -280,7 +282,7 @@ insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explai
 insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(20, 4500,'smoothie','그린티 프라푸치노', '카페하이 그린티 프라푸치노', '/cafeHi/img/menu/smoothie/greenteaFrappuccino.JPG', systimestamp, systimestamp);
 insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(21, 4500,'smoothie','요거트 스무디', '카페하이 요거트 스무디', '/cafeHi/img/menu/smoothie/yogurtSmoothie.JPG', systimestamp, systimestamp);
 insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(22, 5000,'smoothie','구름 요거트 스무디', '카페하이 구름 요거트 스무디', '/cafeHi/img/menu/smoothie/cloudSmoothie.JPG', systimestamp, systimestamp);
-insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(23, 5500,'smoothie','딸기 요거트 스무디', '카페하이 딸기 요거트 스무디', '/cafeHi/img/menu/smoothie/MocaFrappuccino.JPG', systimestamp, systimestamp);
+insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(23, 5500,'smoothie','딸기 요거트 스무디', '카페하이 딸기 요거트 스무디', '/cafeHi/img/menu/smoothie/strawberryYogurtSmoothie.JPG', systimestamp, systimestamp);
 insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(24, 3000,'side','크로와상', '카페하이 크로와상', '/cafeHi/img/cafehi_logo.jpeg', systimestamp, systimestamp);
 insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(25, 5000,'side','생크림 크로플', '카페하이 생크림 크로플', '/cafeHi/img/menu/side/WhippedCreamCrople.jpg', systimestamp, systimestamp);
 insert into cafehi_menu(menu_code, menu_price, menu_type, menu_name, menu_explain, menu_img_path, menu_writetime, menu_updatetime) values(26, 6000,'side','브라운 치즈 크로플', '카페하이 브라운 치즈 크로플', '/cafeHi/img/menu/side/BrownCheeseCrople.JPG', systimestamp, systimestamp);
@@ -346,78 +348,11 @@ create table cafehi_order_menu(
     constraint fk_order_menu_ordercode foreign key(order_code) references cafehi_order(order_code) on delete cascade,
     menu_code number not null, -- 메뉴 코드 
     constraint fk_order_menu_menucode foreign key(menu_code) references cafehi_menu(menu_code),
-    total_order_price number not null, -- 주문 가격
     total_order_count number not null, -- 주문 메뉴 개수
+    total_order_price number not null, -- 주문 가격
+    total_order_price_point number not null, -- 주문 가격에 따른 포인트
+    order_menu_status char(1) not null, -- 주문 메뉴 상태 (주문, 취소)
     order_menu_writetime timestamp, -- 주문 메뉴 등록일 
     order_menu_updatetime timestamp -- 주문 메뉴 수정일
 );
-
-
-
-
-SELECT om.order_menu_code, om.order_code, om.menu_code, om.total_order_price, om.total_order_count, o.orderState, o.orderDate
-FROM cafehi_order o LEFT OUTER JOIN cafehi_order_menu om
-ON o.order_code = om.order_code AND o.member_code = 12;
-
-
-
-
--- 쿠폰
-create table cafehi_coupon(
-    coupon_code number not null primary key,
-    coupon_name varchar2(50) not null,
-    coupon_content varchar2(300) not null,
-    coupon_price number not null,
-    coupon_start Date,
-    coupon_end Date
-);
-
--- 멤버쉽 쿠폰
-create table cafehi_mem_coupon(
-    mem_coupon_code number primary key,
-    member_code number not null,
-    constraint fk_mem_coupon_membercode foreign key(member_code) references cafehi_member(member_code),
-    membership_code number not null,
-     constraint fk_mem_coupon_membershipcode foreign key(membership_code) references cafehi_membership (membership_code),
-    coupon_code number not null, 
-    constraint fk_mem_coupon_couponcode foreign key(coupon_code) references cafehi_coupon (coupon_code)
-);
-
-
-
-
-
-
--- QnA 게시판 페이징 쿼리
-
- select rownum as rn, qna_num, qna_title, qna_content, qna_writetime, qna_hit, user_id
-    from cafehi_qna where rownum <= 20;
-
-
-select rn, qna_num, qna_title, qna_content, qna_writetime, qna_hit, user_id from(
-    select rownum as rn, qna_num, qna_title, qna_content, qna_writetime, qna_hit, user_id
-    from cafehi_qna where rownum <= 10)
-where rn > 20
-
-order by qna_num desc
-;
-
-
-
-SELECT qna_num, qna_title, qna_writetime, user_id, qna_content, qna_hit FROM(
-				SELECT rownum as rn, qna_num, qna_title, qna_writetime, user_id, qna_content, qna_hit 
-				FROM cafehi_qna WHERE rownum <= 10)
-			
-			WHERE rn >= 1;
-            
-
-SELECT * FROM (
- 		SELECT qna_num, qna_title, qna_writetime, user_id, qna_content, qna_hit FROM(
- 		SELECT rownum as rn, qna_num, qna_title, qna_writetime, user_id, qna_content, qna_hit
- 		FROM cafehi_qna WHERE rownum <= 10)
- 		WHERE rn > 0)
- 		WHERE 1=1
-        AND qna_title LIKE '%' || '제목' || '%' 
- 		ORDER BY qna_num DESC;
-
 
