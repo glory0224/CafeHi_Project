@@ -2,7 +2,9 @@
 
 ### 사용된 기술 스택
 
-<li>프로그래밍 언어 : Java 11 , JSP </li>
+<li>프로그래밍 언어 : Java 11 </li>
+
+<li>템플릿 엔진 : JSP </li>
 
 <li>라이브러리 : Tomcat 9 </li>
 
